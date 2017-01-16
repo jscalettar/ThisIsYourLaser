@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour {
     private const float TILE_SIZE = 1.0f;
     private const float TILE_OFFSET = 0.5f;
-    private const int TILE_DIM = 12;
+    private const int TILE_DIM = 8;
 
     private int selectionX = -1;
     private int selectionY = -1;
