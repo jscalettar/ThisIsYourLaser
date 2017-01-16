@@ -1,6 +1,110 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum Building { Empty, Base, Blocking, Reflecting, Refracting, Redirecting, Portal, Resource, Laser };
+public enum Player { World, PlayerOne, PlayerTwo };
+
+public struct GridItem
+{
+	public bool isEmpty;
+	public Building building;
+	public byte level;
+	public Player owner;
+
+	public GridItem(bool emptyCell, Building buildingID, byte upgradeLevel, Player ownedBy)
+	{
+		isEmpty = emptyCell;
+		building = buildingID;
+		level = upgradeLevel;
+		owner = ownedBy;
+	}
+
+	public string toString()
+	{
+		return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level;
+	}
+}
+
+public struct Grid
+{
+	private GridItem[,] grid;
+	private int dimX;
+	private int dimY;
+	private float scale;
+
+	public Grid(int x, int y, float scaleF)
+	{
+		grid = new GridItem[y, x];
+		for (int row = 0; row < y; row++) {
+			for (int col = 0; col < x; col++) {
+				grid[row, col] = new GridItem(true, Building.Empty, 0, Player.World);
+			}
+		}
+		dimX = x;
+		dimY = y;
+		scale = scaleF;
+	}
+
+	public GridItem getCellInfo(int x, int y)
+	{
+		return grid[y, x];
+	}
+
+	public int getDimX() { return dimX; }
+	public int getDimY() { return dimY; }
+	public float getScale() { return scale; }
+
+	public bool placeBuilding(int x, int y, Building newBuilding, Player playerID)
+	{
+		if (grid[y, x].isEmpty) {
+			grid[y, x].isEmpty = false;
+			grid[y, x].building = newBuilding;
+			grid[y, x].owner = playerID;
+		} else return false;
+		return true;
+	}
+
+	public bool destroyBuilding(int x, int y, Player playerID)
+	{
+		if (!grid[y, x].isEmpty && playerID == grid[y, x].owner) {
+			grid[y, x].isEmpty = true;
+			grid[y, x].building = Building.Empty;
+			grid[y, x].owner = Player.World;
+		} else return false;
+		return true;
+	}
+
+	public bool moveBuilding(int x, int y, int xNew, int yNew, Player playerID)
+	{
+		if (!grid[y, x].isEmpty && grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner) {
+			grid[yNew, xNew].isEmpty = false;
+			grid[yNew, xNew].building = grid[y, x].building;
+			grid[yNew, xNew].owner = playerID;
+			grid[y, x].isEmpty = true;
+			grid[y, x].building = Building.Empty;
+			grid[y, x].owner = Player.World;
+
+		} else return false;
+		return true;
+	}
+
+	public bool canBeUpgraded(GridItem item)
+	{
+		// Add upgrade conditions here
+		return true;
+	}
+
+	public bool upgradeBuilding(int x, int y, Player playerID)
+	{
+		if (!grid[y, x].isEmpty && playerID == grid[y, x].owner && canBeUpgraded(grid[y, x])) {
+			grid[y, x].level++;
+		} else return false;
+		return true;
+	}
+}
+
 
 public class BoardManager : MonoBehaviour {
     private const float TILE_SIZE = 1.0f;
@@ -12,6 +116,13 @@ public class BoardManager : MonoBehaviour {
 
     public List<GameObject> chessmanPrefabs;
     private List<GameObject> activeChessman;
+
+	private Grid theGrid;
+
+	void Start () {
+		theGrid = new Grid(14, 10, 1f);
+		// ex: theGrid.placeBuilding(5, 3, Building.Blocking, Player.PlayerOne);
+	}
 
     private void Update() {
 
@@ -27,7 +138,7 @@ public class BoardManager : MonoBehaviour {
         //Raycast returns bool of: 
         //(origin [camera array], info put into the out parameter to use later (if there is a collision), max distance, layer mask (only hit chess board not chess piece))
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("ChessPlane"))) {
-            //Debug.Log(hit.point);
+            Debug.Log(hit.point);
             selectionX = (int)hit.point.x;
             selectionY = (int)hit.point.z;
         }
