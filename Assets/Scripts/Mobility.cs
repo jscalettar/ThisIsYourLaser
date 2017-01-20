@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum MoveDir { Up, Down, Left, Right }
 
 public class Mobility : MonoBehaviour
 {
-
+    // Public Vars
+    public GameObject laserPrefab;
+    
+     //Should be changed to be a list of all possible buildings
+    
+    // Private Vars
     private bool moving = false;
     private bool posMove = true;
     private int speed = 10;
@@ -21,7 +27,9 @@ public class Mobility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Instantiate(laserPrefab, pos, Quaternion.identity);
+        }
         buttonPress--;
         if (posMove)
         {
