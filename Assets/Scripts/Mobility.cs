@@ -9,7 +9,7 @@ public class Mobility : MonoBehaviour
     // Public Vars
     public GameObject laserPrefab;
     
-     //Should be changed to be a list of all possible buildings
+     //Should be chang      ed to be a list of all possible buildings
     
     // Private Vars
     private bool moving = false;
@@ -29,6 +29,8 @@ public class Mobility : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)) {
             Instantiate(laserPrefab, pos, Quaternion.identity);
+            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.y + 3.5), Building.Laser, Player.PlayerOne);
+            print(gridManager.theGrid.getCellInfo((int)(pos.x + 6.5), (int)(pos.y + 3.5)).toString());
         }
         buttonPress--;
         if (posMove)
