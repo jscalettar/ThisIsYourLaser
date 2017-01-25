@@ -30,6 +30,7 @@ public class cursor2 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(laserPrefab, pos, Quaternion.identity);
+            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.y + 3.5), Building.Laser, Player.PlayerTwo);
         }
         buttonPress--;
         if (posMove)
