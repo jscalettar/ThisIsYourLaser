@@ -20,6 +20,8 @@ public class cursor1 : MonoBehaviour
     private int dimZ;
     private MoveDir dir = MoveDir.Up;
     private Vector3 pos;
+    private int currentBuilding = (int)Building.Laser;
+    private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
     // Use this for initialization
     void Start()
     {
@@ -30,11 +32,7 @@ public class cursor1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Instantiate(laserPrefab, pos, Quaternion.identity);
-            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.y + 3.5), Building.Laser, Player.PlayerOne);
-            print(gridManager.theGrid.getCellInfo((int)(pos.x + 6.5), (int)(pos.y + 3.5)).toString());
-        }
+        buildingControls();
         buttonPress--;
         if (posMove)
         {
@@ -132,5 +130,19 @@ public class cursor1 : MonoBehaviour
                 }
             }
         }
+    }
+    private void buildingControls() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.y + 3.5), (Building)currentBuilding, Player.PlayerOne);
+            print(currentBuilding);
+        }
+        else if (Input.GetKeyDown("e")) {
+            currentBuilding += 1;
+            if (currentBuilding == numberOfTypes) currentBuilding = 0;
+        }else if (Input.GetKeyDown("q")) {
+            currentBuilding -= 1;
+            if (currentBuilding == -1) currentBuilding = currentBuilding-1;
+        }
+        
     }
 }

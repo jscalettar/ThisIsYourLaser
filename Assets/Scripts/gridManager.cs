@@ -41,6 +41,7 @@ public struct GridItem
     public Player owner;        // Who owns the block
     public Direction direction; // Used for laser block direction, and possibly other blocks in the future?
     public byte level;          // Upgrade level
+    
 
     public GridItem(bool emptyCell, Building buildingID, Player ownedBy, Direction facingDirection, byte upgradeLevel)
     {
