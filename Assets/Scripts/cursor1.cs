@@ -34,11 +34,7 @@ public class cursor1 : MonoBehaviour
     {
         buildingControls();
         buttonPress--;
-        if (posMove)
-        {
-            pos = transform.position;
-            moveTower();
-        }
+        
         // Check if cursor is moving and doesn't move outside the board
         if (moving && pos.x >= -dimX && pos.x <= dimX
                    && pos.z >= -dimZ && pos.z <= dimZ)
@@ -68,6 +64,11 @@ public class cursor1 : MonoBehaviour
         {
             pos += Vector3.left;
         }
+		if (posMove)
+		{
+			pos = transform.position;
+			moveTower();
+		}
     }
     private void moveTower()
     {
@@ -133,7 +134,7 @@ public class cursor1 : MonoBehaviour
     }
     private void buildingControls() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.y + 3.5), (Building)currentBuilding, Player.PlayerOne);
+            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerOne);
             print(currentBuilding);
         }
         else if (Input.GetKeyDown("e")) {
