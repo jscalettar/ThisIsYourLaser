@@ -1,13 +1,18 @@
-<<<<<<< HEAD
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 //This file will be replaced by Scott's actual keyboard control files once that is done
 public class setupManager : MonoBehaviour {
 
+
     public List<GameObject> goList;
+    public Material p1Mat;
+    public Material p2Mat;
+    private List<GameObject> instances = new List<GameObject>();
+    private GridItem selected;
+    private Vector2 selectedLoc;
+    private bool haveSelected;
     // location of the mouse on grid
     private Vector3 p1Pos;
     private Vector3 p2Pos;
@@ -20,8 +25,9 @@ public class setupManager : MonoBehaviour {
     //so players cant place both at same time and after laser phase its over
     private bool basePhase;
     private bool laserPhase;
-
     private Building selection;
+    private int i = 0;
+    public GameObject useThis;
 
     // Use this for initialization
     void Start () {
@@ -32,6 +38,7 @@ public class setupManager : MonoBehaviour {
         pTwoCanLaser = false;
         basePhase = true;
         laserPhase = false;
+        haveSelected = false;
         selection = Building.Empty;
 	}
 
@@ -57,12 +64,10 @@ public class setupManager : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Space) && pOneCanBase)//P1 base place
             {
                 PlaceBuild(Player.PlayerOne, Building.Base, goList[0], p1Pos);
-                pOneCanBase = !pOneCanBase;
             }
             else if (Input.GetKeyDown(KeyCode.P) && pTwoCanBase)//P2 base place
             {
                 PlaceBuild(Player.PlayerTwo, Building.Base, goList[0], p2Pos);
-                pTwoCanBase = !pTwoCanBase;
             }
         }
         else if (laserPhase)
@@ -70,17 +75,15 @@ public class setupManager : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Space) && pOneCanLaser)//P1 laser place
             {
                 PlaceBuild(Player.PlayerOne, Building.Laser, goList[1], p1Pos);
-                pOneCanLaser = !pOneCanLaser;
             }
             else if (Input.GetKeyDown(KeyCode.P) && pTwoCanLaser)//P2 laser place
             {
                 PlaceBuild(Player.PlayerTwo, Building.Laser, goList[1], p2Pos);
-                pTwoCanLaser = !pTwoCanLaser;
             }
         }
         else if (!pOneCanBase && !pTwoCanBase)
-                pOneCanLaser = pTwoCanLaser = true;
-        if(basePhase == laserPhase)
+            pOneCanLaser = pTwoCanLaser = true;
+        if (basePhase == laserPhase)
         {
             int i = 0;
 
@@ -92,120 +95,15 @@ public class setupManager : MonoBehaviour {
             if (Input.GetKeyDown("6")) { selection = Building.Portal; i = 6; print("Portal Selected"); }
             if (Input.GetKeyDown("7")) { selection = Building.Resource; i = 7; print("Resource Selected"); }
 
-            if (Input.GetMouseButtonDown(0) && i > 1)
+            if (Input.GetKeyDown(KeyCode.Space) && i > 1)
             {
                 PlaceBuild(Player.PlayerOne, selection, goList[i], p1Pos);
             }
-            else if (Input.GetMouseButtonDown(1) && i > 1)
+            else if (Input.GetKeyDown(KeyCode.P) && i > 1)
             {
                 PlaceBuild(Player.PlayerTwo, selection, goList[i], p2Pos);
             }
         }
-    }
-
-    private void UpdateSelection()//gets the position on the grid, to be replaced with Scott's movement
-    {
-        p1Pos = cursor1.pos;
-        p2Pos = cursor2.pos;
-    }
-
-    void PlaceBuild(Player player, Building newBuild, GameObject build, Vector3 pos)
-    {
-
-        if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.y, newBuild, player))//place in grid
-        {
-            GameObject go = Instantiate(build, pos, Quaternion.identity) as GameObject;//if it works, create an instance of object
-            go.transform.SetParent(transform);
-        }
-        else
-            print("dont work");
-    }
-}
-=======
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
-//This file will be replaced by Scott's actual keyboard control files once that is done
-public class setupManager : MonoBehaviour {
-    
-
-    public GameObject Base;
-    public GameObject Laser;
-    public Material p1Mat;
-    public Material p2Mat;
-    private List<GameObject> instances = new List<GameObject>();
-    private GridItem selected;
-    private Vector2 selectedLoc;
-    private bool haveSelected;
-    // location of the mouse on grid
-    private Vector3 p1Pos;
-    private Vector3 p2Pos;
-    //if players can place base
-    private bool pOneCanBase;
-    private bool pTwoCanBase;
-    //if players can place laser
-    private bool pOneCanLaser;
-    private bool pTwoCanLaser;
-    //so players cant place both at same time and after laser phase its over
-    private bool basePhase;
-    private bool laserPhase;
-	public GameObject useThis;
-
-    // Use this for initialization
-    void Start () {
-        //Setup to set bases
-        pOneCanBase = true;
-        pTwoCanBase = true;
-        pOneCanLaser = false;
-        pTwoCanLaser = false;
-        basePhase = true;
-        laserPhase = false;
-        haveSelected = false;
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateSelection();
-        if (!pOneCanLaser && !pTwoCanLaser)//when players cant place lasers, not laser phase
-        {
-            laserPhase = false;
-            pOneCanLaser = true;//changing one keeps it from coming back here
-        }
-        else if (!pOneCanBase && !pTwoCanBase)//when players cant place bases end basePhase start laserPhase
-        {
-            basePhase = false;
-            pOneCanBase = true;//changing one keeps it from coming back here
-            laserPhase = true;
-            pOneCanLaser = true;
-            pTwoCanLaser = true;
-        }
-        if (basePhase)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && pOneCanBase)//P1 base place
-            {
-                PlaceBaseLaser(Player.PlayerOne, Building.Base, Base, p1Pos);
-            }
-            else if (Input.GetKeyDown(KeyCode.P) && pTwoCanBase)//P2 base place
-            {
-                PlaceBaseLaser(Player.PlayerTwo, Building.Base, Base, p2Pos);
-            }
-        }
-        else if (laserPhase)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && pOneCanLaser)//P1 laser place
-            {
-                PlaceBaseLaser(Player.PlayerOne, Building.Laser, Laser, p1Pos);
-            }
-            else if (Input.GetKeyDown(KeyCode.P) && pTwoCanLaser)//P2 laser place
-            {
-                PlaceBaseLaser(Player.PlayerTwo, Building.Laser, Laser, p2Pos);
-            }
-        }
-        else if (!pOneCanBase && !pTwoCanBase)
-            pOneCanLaser = pTwoCanLaser = true;
         if (haveSelected)
         {
             if (Input.GetKeyDown(KeyCode.Space))//P1 laser place
@@ -217,7 +115,7 @@ public class setupManager : MonoBehaviour {
                 SwapBlock(p2Pos);
             }
         }
-        else if(laserPhase == basePhase && !haveSelected)
+        else if(laserPhase == basePhase && selection == Building.Empty)
         {
             if (Input.GetKeyDown(KeyCode.Space))//P1 laser place
             {
@@ -236,9 +134,9 @@ public class setupManager : MonoBehaviour {
         p2Pos = cursor2.pos;
     }
 
-    void PlaceBaseLaser(Player player, Building newBuild, GameObject build, Vector3 pos)
+    void PlaceBuild(Player player, Building newBuild, GameObject build, Vector3 pos)
     {
-
+        if (player == Player.PlayerOne) pos.x += 6.5f; pos.y += 3.5f;
         if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.y, newBuild, player))//place in grid
         {
             GameObject go = Instantiate(build, pos, Quaternion.identity) as GameObject;//if it works, create an instance of object
@@ -304,4 +202,3 @@ public class setupManager : MonoBehaviour {
         }
     }
 }
->>>>>>> origin/master
