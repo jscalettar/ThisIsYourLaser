@@ -1,42 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
-public enum MoveDir { Up, Down, Left, Right }
-
-public class Mobility : MonoBehaviour
+public class cursor2 : MonoBehaviour
 {
     // Public Vars
-    public GameObject laserPrefab;
-    
-     //Should be changed to be a list of all possible buildings
-    
+    public Text playerState;
+    //Should be changed to be a list of all possible buildings
+
     // Private Vars
     private bool moving = false;
     private bool posMove = true;
     private int speed = 10;
     private int buttonPress = 0;
+    private int dimX;
+    private int dimZ;
     private MoveDir dir = MoveDir.Up;
     private Vector3 pos;
+    private int currentBuilding = (int)Building.Laser;
+    private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
     // Use this for initialization
     void Start()
     {
-
+        
+        dimX = gridManager.theGrid.getDimX() / 2;
+        dimZ = gridManager.theGrid.getDimY() / 2;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Instantiate(laserPrefab, pos, Quaternion.identity);
-        }
+        buildingControls();
         buttonPress--;
         if (posMove)
         {
             pos = transform.position;
             moveTower();
         }
-        if (moving)
+        // Check if cursor is moving and doesn't move outside the board
+        if (moving && pos.x >= -dimX && pos.x <= dimX
+                   && pos.z >= -dimZ && pos.z <= dimZ)
         {
             if (transform.position == pos)
             {
@@ -46,12 +50,34 @@ public class Mobility : MonoBehaviour
             }
             transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
         }
+        // Moved outside of board, so return to last position
+        else if (dir == MoveDir.Up)
+        {
+            pos += Vector3.back;
+        }
+        else if (dir == MoveDir.Down)
+        {
+            pos += Vector3.forward;
+        }
+        else if (dir == MoveDir.Left)
+        {
+            pos += Vector3.right;
+        }
+        else if (dir == MoveDir.Right)
+        {
+            pos += Vector3.left;
+        }
+        if (posMove)
+        {
+            pos = transform.position;
+            moveTower();
+        }
     }
     private void moveTower()
     {
         if (buttonPress <= 0)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.I))
             {
                 if (dir != MoveDir.Up)
                 {
@@ -65,7 +91,7 @@ public class Mobility : MonoBehaviour
                     pos += Vector3.forward;
                 }
             }
-            else if (Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.K))
             {
                 if (dir != MoveDir.Down)
                 {
@@ -79,7 +105,7 @@ public class Mobility : MonoBehaviour
                     pos += Vector3.back;
                 }
             }
-            else if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.J))
             {
                 if (dir != MoveDir.Left)
                 {
@@ -93,7 +119,7 @@ public class Mobility : MonoBehaviour
                     pos += Vector3.left;
                 }
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.L))
             {
                 if (dir != MoveDir.Right)
                 {
@@ -107,6 +133,26 @@ public class Mobility : MonoBehaviour
                     pos += Vector3.right;
                 }
             }
+        }
+    }
+
+    private void buildingControls() {
+
+        if (Input.GetKeyDown("m")) {
+            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerTwo);
+            print(currentBuilding);
+        }
+        else if (Input.GetKeyDown("o")) {
+            currentBuilding += 1;
+            if (currentBuilding == numberOfTypes) currentBuilding = 0;
+        }
+        else if (Input.GetKeyDown("u")) {
+            currentBuilding -= 1;
+            if (currentBuilding == -1) currentBuilding = currentBuilding - 1;
+        }
+        else if (Input.GetKeyDown("p"))
+        {
+            gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerTwo);
         }
     }
 }
