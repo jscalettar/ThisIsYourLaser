@@ -143,6 +143,9 @@ public class cursor1 : MonoBehaviour
         }else if (Input.GetKeyDown("q")) {
             currentBuilding -= 1;
             if (currentBuilding == -1) currentBuilding = currentBuilding-1;
+        }else if (Input.GetKeyDown("r"))
+        {
+            gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
         
     }

@@ -40,7 +40,7 @@ public class cursor2 : MonoBehaviour
         if (moving && pos.x >= -dimX && pos.x <= dimX
                    && pos.z >= -dimZ && pos.z <= dimZ)
         {
-            if (/*curr.*/transform.position == pos)
+            if (transform.position == pos)
             {
                 moving = false;
                 posMove = true;
@@ -64,6 +64,11 @@ public class cursor2 : MonoBehaviour
         else if (dir == MoveDir.Right)
         {
             pos += Vector3.left;
+        }
+        if (posMove)
+        {
+            pos = transform.position;
+            moveTower();
         }
     }
     private void moveTower()
@@ -131,7 +136,7 @@ public class cursor2 : MonoBehaviour
 
     private void buildingControls() {
         if (Input.GetKeyDown("m")) {
-            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.y + 3.5), (Building)currentBuilding, Player.PlayerOne);
+            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerTwo);
             print(currentBuilding);
         }
         else if (Input.GetKeyDown("o")) {
@@ -141,6 +146,10 @@ public class cursor2 : MonoBehaviour
         else if (Input.GetKeyDown("u")) {
             currentBuilding -= 1;
             if (currentBuilding == -1) currentBuilding = currentBuilding - 1;
+        }
+        else if (Input.GetKeyDown("p"))
+        {
+            gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerTwo);
         }
 
     }
