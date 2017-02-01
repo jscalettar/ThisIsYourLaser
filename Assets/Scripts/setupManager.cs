@@ -108,8 +108,8 @@ public class setupManager : MonoBehaviour {
 
     private void UpdateSelection()//gets the position on the grid, to be replaced with Scott's movement
     {
-        p1Pos = cursor1.pos;
-        p2Pos = cursor2.pos;
+        //p1Pos = cursor1.pos;
+        //p2Pos = cursor2.pos;
     }
 
     void PlaceBaseLaser(Player player, Building newBuild, GameObject build, Vector3 pos)

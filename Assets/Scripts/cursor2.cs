@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class cursor2 : MonoBehaviour
 {
     // Public Vars
-    public Text playerState;
+    public static PlayerTwoUI p2UI;
     //Should be changed to be a list of all possible buildings
 
     // Private Vars
@@ -23,7 +23,12 @@ public class cursor2 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+        //default values for UI  
+        p2UI = gameObject.AddComponent<PlayerTwoUI>();
+        p2UI.playerState = GameObject.Find("playerTwoState").GetComponent<Text>();
+        p2UI.playerHealth = GameObject.Find("playerTwoHealth").GetComponent<Text>();
+        p2UI.currentSelection = GameObject.Find("playerTwoSelection").GetComponent<Text>();
+        p2UI.playerState.text = "Placing";
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
     }
@@ -32,6 +37,9 @@ public class cursor2 : MonoBehaviour
     void Update()
     {
         buildingControls();
+        Building currentText = (Building)currentBuilding;
+        buildingControls();
+        p2UI.currentSelection.text = currentText.ToString();
         buttonPress--;
         if (posMove)
         {
@@ -142,14 +150,20 @@ public class cursor2 : MonoBehaviour
             gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerTwo);
             print(currentBuilding);
         }
-        else if (Input.GetKeyDown("o")) {
-            currentBuilding += 1;
-            if (currentBuilding == numberOfTypes) currentBuilding = 0;
+        //Building selection////////////////////////////////////////////////
+        else if (Input.GetKeyDown("7")) {
+            currentBuilding = 2;
         }
-        else if (Input.GetKeyDown("u")) {
-            currentBuilding -= 1;
-            if (currentBuilding == -1) currentBuilding = currentBuilding - 1;
+        else if (Input.GetKeyDown("8")) {
+            currentBuilding = 3;
         }
+        else if (Input.GetKeyDown("9")) {
+            currentBuilding = 4;
+        }
+        else if (Input.GetKeyDown("0")) {
+            currentBuilding = 5;
+        }
+        ////////////////////////////////////////////////////////////////////
         else if (Input.GetKeyDown("p"))
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerTwo);

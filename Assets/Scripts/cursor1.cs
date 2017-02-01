@@ -43,9 +43,9 @@ public class cursor1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Building currentTex = (Building)currentBuilding;
+        Building currentText = (Building)currentBuilding;
         buildingControls();
-        p1UI.currentSelection.text = currentTex.ToString();
+        p1UI.currentSelection.text = currentText.ToString();
         buttonPress--;
         
         // Check if cursor is moving and doesn't move outside the board
@@ -150,14 +150,21 @@ public class cursor1 : MonoBehaviour
             gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerOne);
             print(currentBuilding);
         }
-        else if (Input.GetKeyDown("e")) {
-            currentBuilding += 1;
-            if (currentBuilding == numberOfTypes) currentBuilding = 0;
-        }else if (Input.GetKeyDown("q")) {
-            currentBuilding -= 1;
-            if (currentBuilding == -1) currentBuilding = currentBuilding-1;
-        }else if (Input.GetKeyDown("r"))
-        {
+        //Building selection////////////////////////////////////////////////
+        else if (Input.GetKeyDown("1")) {
+            currentBuilding = 2;
+        }
+        else if (Input.GetKeyDown("2")) {
+            currentBuilding = 3;
+        }
+        else if (Input.GetKeyDown("3")) {
+            currentBuilding = 4;
+        }
+        else if (Input.GetKeyDown("4")) {
+            currentBuilding = 5;
+        }
+        ////////////////////////////////////////////////////////////////////
+        else if (Input.GetKeyDown("r")) {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
         if (Input.GetKeyDown("r")) {
