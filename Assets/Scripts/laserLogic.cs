@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Readme: Don't bother trying to understand this yet lol
 // Issues: Refraction blocks can cause infinite laser loop
@@ -196,7 +197,7 @@ public class laserLogic : MonoBehaviour {
             case Building.Redirecting: break;
             case Building.Portal: break;
             case Building.Resource: laserStep(x, y, strength - laserDecay, heading, direction, player, false); break; // need to push laser hit
-            case Building.Base: break;
+            case Building.Base: SceneManager.LoadScene("GameOver", LoadSceneMode.Single); break;
             case Building.Laser: laserStep(x, y, strength - laserDecay, heading, direction, player, false); break;
 
         }

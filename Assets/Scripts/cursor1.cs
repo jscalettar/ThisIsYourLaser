@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public enum MoveDir { Up, Down, Left, Right }
 
 public class cursor1 : MonoBehaviour
 {
-    // Public Vars
-    public GameObject laserPrefab;
-     //Should be changed to be a list of all possible buildings
+    //public vars
+    public static playerOneUI p1UI;
 
-    
+
     // Private Vars
     private bool moving = false;
     private bool posMove = true;
@@ -22,17 +22,34 @@ public class cursor1 : MonoBehaviour
     public static Vector3 pos;
     private int currentBuilding = (int)Building.Laser;
     private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
+
+
     // Use this for initialization
+
     void Start()
     {
+        //default values for UI  
+        p1UI = gameObject.AddComponent<playerOneUI>();
+        p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
+        p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
+        p1UI.currentSelection = GameObject.Find("playerOneSelection").GetComponent<Text>();
+        p1UI.playerState.text = "Placing";
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
         //buildingControls();
+=======
+        Building currentTex = (Building)currentBuilding;
+        buildingControls();
+        p1UI.currentSelection.text = currentTex.ToString();
+>>>>>>> origin/master
         buttonPress--;
         
         // Check if cursor is moving and doesn't move outside the board
@@ -143,7 +160,19 @@ public class cursor1 : MonoBehaviour
         }else if (Input.GetKeyDown("q")) {
             currentBuilding -= 1;
             if (currentBuilding == -1) currentBuilding = currentBuilding-1;
+        }else if (Input.GetKeyDown("r"))
+        {
+            gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
-        
+        if (Input.GetKeyDown("r")) {
+            p1UI.playerState.text = "swapping";
+        }
+        if (Input.GetKeyDown("t")) {
+            p1UI.playerState.text = "deleting";
+        }
+        if (Input.GetKeyDown("f")) {
+            p1UI.playerState.text = "placing";
+        }
+
     }
 }
