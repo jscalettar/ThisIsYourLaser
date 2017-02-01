@@ -7,7 +7,8 @@ public enum MoveDir { Up, Down, Left, Right }
 
 public class cursor1 : MonoBehaviour
 {
-    //Should be changed to be a list of all possible buildings
+    //public vars
+    public static playerOneUI p1UI;
 
 
     // Private Vars
@@ -26,15 +27,25 @@ public class cursor1 : MonoBehaviour
     // Use this for initialization
 
     void Start()
-    {        
+    {
+        //default values for UI  
+        p1UI = gameObject.AddComponent<playerOneUI>();
+        p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
+        p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
+        p1UI.currentSelection = GameObject.Find("playerOneSelection").GetComponent<Text>();
+        p1UI.playerState.text = "Placing";
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Building currentTex = (Building)currentBuilding;
         buildingControls();
+        p1UI.currentSelection.text = currentTex.ToString();
         buttonPress--;
         
         // Check if cursor is moving and doesn't move outside the board
@@ -149,7 +160,15 @@ public class cursor1 : MonoBehaviour
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
-       
+        if (Input.GetKeyDown("r")) {
+            p1UI.playerState.text = "swapping";
+        }
+        if (Input.GetKeyDown("t")) {
+            p1UI.playerState.text = "deleting";
+        }
+        if (Input.GetKeyDown("f")) {
+            p1UI.playerState.text = "placing";
+        }
 
     }
 }
