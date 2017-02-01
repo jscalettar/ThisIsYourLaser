@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public enum MoveDir { Up, Down, Left, Right }
 
 public class cursor1 : MonoBehaviour
 {
-    // Public Vars
-    public GameObject laserPrefab;
-     //Should be changed to be a list of all possible buildings
+    //Should be changed to be a list of all possible buildings
 
-    
+
     // Private Vars
     private bool moving = false;
     private bool posMove = true;
@@ -22,9 +21,12 @@ public class cursor1 : MonoBehaviour
     private Vector3 pos;
     private int currentBuilding = (int)Building.Laser;
     private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
+
+
     // Use this for initialization
+
     void Start()
-    {
+    {        
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
     }
@@ -144,6 +146,7 @@ public class cursor1 : MonoBehaviour
             currentBuilding -= 1;
             if (currentBuilding == -1) currentBuilding = currentBuilding-1;
         }
-        
+       
+
     }
 }

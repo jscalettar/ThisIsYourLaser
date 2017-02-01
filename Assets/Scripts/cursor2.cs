@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class cursor2 : MonoBehaviour
 {
     // Public Vars
-    public GameObject laserPrefab;
+    public Text playerState;
     //Should be changed to be a list of all possible buildings
 
     // Private Vars
@@ -22,6 +23,7 @@ public class cursor2 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
     }
@@ -130,6 +132,7 @@ public class cursor2 : MonoBehaviour
     }
 
     private void buildingControls() {
+
         if (Input.GetKeyDown("m")) {
             gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.y + 3.5), (Building)currentBuilding, Player.PlayerOne);
             print(currentBuilding);
@@ -142,6 +145,6 @@ public class cursor2 : MonoBehaviour
             currentBuilding -= 1;
             if (currentBuilding == -1) currentBuilding = currentBuilding - 1;
         }
-
+        
     }
 }
