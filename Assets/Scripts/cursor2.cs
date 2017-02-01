@@ -16,7 +16,7 @@ public class cursor2 : MonoBehaviour
     private int dimX;
     private int dimZ;
     private MoveDir dir = MoveDir.Up;
-    private Vector3 pos;
+    public static Vector3 pos;
     private int currentBuilding = (int)Building.Laser;
     private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
     // Use this for initialization
@@ -29,7 +29,7 @@ public class cursor2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        buildingControls();
+        //buildingControls();
         buttonPress--;
         if (posMove)
         {
