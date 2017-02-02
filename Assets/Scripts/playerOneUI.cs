@@ -7,11 +7,5 @@ public class playerOneUI : MonoBehaviour {
     public Text playerState;
     public Text playerHealth;
     public Text currentSelection;
-    void Awake() {
-    }
-	// Use this for initialization
-	void Start () {
-       
-
-    }
+    
 }
