@@ -29,11 +29,11 @@ public class cursor1 : MonoBehaviour
     void Start()
     {
         //default values for UI  
-        //p1UI = gameObject.AddComponent<playerOneUI>();
-        //p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
-        //p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
-        //p1UI.currentSelection = GameObject.Find("playerOneSelection").GetComponent<Text>();
-        //p1UI.playerState.text = "Placing";
+        p1UI = gameObject.AddComponent<playerOneUI>();
+        p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
+        p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
+        p1UI.currentSelection = GameObject.Find("playerOneSelection").GetComponent<Text>();
+        p1UI.playerState.text = "Placing";
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
 
@@ -43,9 +43,9 @@ public class cursor1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Building currentTex = (Building)currentBuilding;
+        Building currentTex = (Building)currentBuilding;
         buildingControls();
-        //p1UI.currentSelection.text = currentTex.ToString();
+        p1UI.currentSelection.text = currentTex.ToString();
         buttonPress--;
         
         // Check if cursor is moving and doesn't move outside the board
@@ -156,13 +156,13 @@ public class cursor1 : MonoBehaviour
         }else if (Input.GetKeyDown("q")) {
             currentBuilding -= 1;
             if (currentBuilding == -1) currentBuilding = numberOfTypes-1;
-        }/*else if (Input.GetKeyDown("r"))
+        }else if (Input.GetKeyDown("r"))
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
-        if (Input.GetKeyDown("r")) {
+        /*if (Input.GetKeyDown("r")) {
             p1UI.playerState.text = "swapping";
-        }
+        }SS
         if (Input.GetKeyDown("t")) {
             p1UI.playerState.text = "deleting";
         }
