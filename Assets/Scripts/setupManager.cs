@@ -37,9 +37,9 @@ public class setupManager : MonoBehaviour
     //so players cant place both at same time and after laser phase its over
     private bool basePhase;
     private bool laserPhase;
-    private int i;
+    public static int i;
     private bool haveSelected;
-    private Building selection;
+    public static Building selection;
     private Vector2 selectedLoc;
     private GridItem selected;
 
