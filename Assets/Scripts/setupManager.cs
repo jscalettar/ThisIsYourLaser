@@ -8,6 +8,7 @@ public class setupManager : MonoBehaviour
 {
 
     public List<GameObject> goList;
+    private GameObject[,] listPlace = new GameObject[14, 8];
     public Material p1Mat;
     public Material p2Mat;
     // location of the mouse on grid
@@ -137,12 +138,15 @@ public class setupManager : MonoBehaviour
 
     public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos)
     {
+<<<<<<< HEAD
         //make it so lasers have to be put on the edge
         /*bool allow = false;
         if (newBuild != Building.Laser) allow = true;
         else if (player == Player.PlayerOne && newBuild == Building.Laser && (int)pos.x == 0) allow = true;
         else if (player == Player.PlayerTwo && newBuild == Building.Laser && (int)pos.x == 13) allow = true;
         else allow = false;*/
+=======
+>>>>>>> refs/remotes/origin/Msandfrey-patch-2
         if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player)) //place in grid
         {
             pos = new Vector3(pos.x - 6.5f, 0, pos.z - 3.5f);
@@ -166,6 +170,8 @@ public class setupManager : MonoBehaviour
                     pTwoCanLaser = !pTwoCanLaser;
             }
             go.transform.SetParent(transform);
+            pos = new Vector3(pos.x + 6.5f, 0, pos.z + 3.5f);
+            listPlace[(int)pos.x,(int)pos.z] = go;
         }
         else
             print("dont work");
@@ -190,8 +196,18 @@ public class setupManager : MonoBehaviour
         if (temp.owner == selected.owner)
         {
             bool swap = gridManager.theGrid.swapBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
-            if (swap)//connect the instances to the gridItem so when they swap the instance will also move
+            if (swap)
+            {//connect the instances to the gridItem so when they swap the instance will also move
+                GameObject go1 = listPlace[(int)selectedLoc.x, (int)selectedLoc.y];
+                GameObject go2 = listPlace[(int)newPos.x, (int)newPos.z];
+                listPlace[(int)selectedLoc.x, (int)selectedLoc.y] = listPlace[(int)newPos.x, (int)newPos.z];
+                listPlace[(int)newPos.x, (int)newPos.z] = go1;
+                newPos = new Vector3(newPos.x - 6.5f, 0, newPos.z - 3.5f);
+                Vector3 loc = new Vector3(selectedLoc.x - 6.5f, 0, selectedLoc.y - 3.5f);
+                go1.transform.position = newPos;
+                go2.transform.position = loc;
                 print("Swap Complete");
+            }
             else
                 print("Cannot complete swap");
             haveSelected = false;
@@ -200,7 +216,14 @@ public class setupManager : MonoBehaviour
         {
             bool move = gridManager.theGrid.moveBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
             if (move)
+            {
+                listPlace[(int)newPos.x, (int)newPos.z] = listPlace[(int)selectedLoc.x, (int)selectedLoc.y];
+                listPlace[(int)selectedLoc.x, (int)selectedLoc.y] = null;
+                GameObject go = listPlace[(int)newPos.x, (int)newPos.z];
+                newPos = new Vector3(newPos.x - 6.5f, 0, newPos.z - 3.5f);
+                go.transform.position = newPos;
                 print("Move complete");
+            }
             else print("Cannot move");
             haveSelected = false;
         }

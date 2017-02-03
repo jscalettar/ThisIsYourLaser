@@ -29,6 +29,7 @@ public class cursor1 : MonoBehaviour
     void Start()
     {
         //default values for UI  
+        //what happens
         p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
         p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
