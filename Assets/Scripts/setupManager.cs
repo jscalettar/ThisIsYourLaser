@@ -137,7 +137,12 @@ public class setupManager : MonoBehaviour
 
     public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos)
     {
-        print(pos);
+        //make it so lasers have to be put on the edge
+        /*bool allow = false;
+        if (newBuild != Building.Laser) allow = true;
+        else if (player == Player.PlayerOne && newBuild == Building.Laser && (int)pos.x == 0) allow = true;
+        else if (player == Player.PlayerTwo && newBuild == Building.Laser && (int)pos.x == 13) allow = true;
+        else allow = false;*/
         if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player)) //place in grid
         {
             pos = new Vector3(pos.x - 6.5f, 0, pos.z - 3.5f);
@@ -176,7 +181,6 @@ public class setupManager : MonoBehaviour
             haveSelected = true;
             selected = gi;
             selectedLoc = new Vector2(pos.x, pos.z);
-            print("objLoc: " + selectedLoc);
         }
     }
 
@@ -185,7 +189,6 @@ public class setupManager : MonoBehaviour
         GridItem temp = gridManager.theGrid.getCellInfo((int)newPos.x, (int)newPos.z);
         if (temp.owner == selected.owner)
         {
-            print("newLoc: " + newPos);
             bool swap = gridManager.theGrid.swapBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
             if (swap)//connect the instances to the gridItem so when they swap the instance will also move
                 print("Swap Complete");
@@ -195,7 +198,6 @@ public class setupManager : MonoBehaviour
         }
         else if (temp.owner == Player.World)
         {
-            print("newLoc: " + newPos);
             bool move = gridManager.theGrid.moveBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
             if (move)
                 print("Move complete");
