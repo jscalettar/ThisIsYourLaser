@@ -58,7 +58,7 @@ public struct GridItem
     }
 }
 
-public struct Grid
+public struct Grid 
 {
     private GridItem[,] grid;
     private int dimX;
@@ -92,6 +92,7 @@ public struct Grid
     {
         if (!validateInput(x, y)) return false;
         if (grid[y, x].isEmpty) {
+            Console.WriteLine("something");
             grid[y, x].isEmpty = false;
             grid[y, x].building = newBuilding;
             grid[y, x].owner = playerID;
@@ -128,6 +129,22 @@ public struct Grid
         return true;
     }
 
+    public bool swapBuilding(int x, int y, int xNew, int yNew, Player playerID)
+    {
+        if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
+        if (!grid[y, x].isEmpty && !grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner && playerID == grid[yNew, xNew].owner)
+        {
+            Building tempBuild = grid[yNew, xNew].building;
+            Direction tempDir = grid[yNew, xNew].direction;
+            grid[yNew, xNew].building = grid[y, x].building;
+            grid[yNew, xNew].direction = grid[y, x].direction;
+            grid[y, x].building = tempBuild;
+            grid[y, x].direction = tempDir;
+        }
+        else return false;
+            return true;
+    }
+
     private bool canBeUpgraded(GridItem item)
     {
         // Add upgrade conditions here
@@ -144,12 +161,15 @@ public struct Grid
     }
 }
 
+
 public class gridManager : MonoBehaviour {
 
     public static Grid theGrid;
     public int boardWidth = 14;
     public int boardHeight = 10;
 
+    public List<GameObject> goList;
+    private GameObject[,] listPlace = new GameObject[8*14,8*14];
     void Awake () {
         theGrid = new Grid(boardWidth, boardHeight);
     }
@@ -166,7 +186,7 @@ public class gridManager : MonoBehaviour {
             for (int col = 0; col < theGrid.getDimX(); col++) {
                 if ((row%2 == 0 && col%2 == 0) || (row % 2 != 0 && col % 2 != 0)) Gizmos.color = new Color(1f, 1f, 1f, 1f);
                 else Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-                Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
+                Gizmos.DrawCube(new Vector3((-dimX / 2) + col +0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
                 if (!theGrid.getCellInfo(col, row).isEmpty) {
                     Gizmos.color = theGrid.getCellInfo(col, row).owner == Player.PlayerOne ? new Color(1f, 0, 0, 1f) : new Color(0, 1f, 0, 1f);
                     Gizmos.DrawCube(new Vector3((-dimX / 2) + col + 0.5f, 0.5f * 0.8f, (-dimY / 2) + row + 0.5f), Vector3.one * 0.8f);
@@ -174,5 +194,4 @@ public class gridManager : MonoBehaviour {
             }
         }
     }
-    
 }

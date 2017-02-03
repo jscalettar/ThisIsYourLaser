@@ -37,10 +37,10 @@ public class buildingPlacementTest : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0)) {
             Vector2 coords = mouseToCoords(Input.mousePosition);
-            gridManager.theGrid.placeBuilding((int)coords.x, (int)coords.y, selection, Player.PlayerOne);
+            //gridManager.theGrid.placeBuilding((int)coords.x, (int)coords.y, selection, Player.PlayerOne);
         } else if (Input.GetMouseButtonDown(1)) {
             Vector2 coords = mouseToCoords(Input.mousePosition);
-            gridManager.theGrid.placeBuilding((int)coords.x, (int)coords.y, selection, Player.PlayerTwo);
+            //gridManager.theGrid.placeBuilding((int)coords.x, (int)coords.y, selection, Player.PlayerTwo);
         } else if (Input.GetMouseButtonDown(2)) {
             Vector2 coords = mouseToCoords(Input.mousePosition);
             gridManager.theGrid.destroyBuilding((int)coords.x, (int)coords.y, Player.World);
