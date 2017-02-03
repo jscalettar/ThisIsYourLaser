@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d5bbf3d8b65d04ca9cf26339ef55cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerState: {fileID: 0}
 --- !u!23 &174806834
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -870,7 +871,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1166739909}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 7.5, z: 0}
+  m_LocalPosition: {x: 1, y: 7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1156,7 +1157,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2040606545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1220786829}
@@ -1183,6 +1184,8 @@ MonoBehaviour:
   - {fileID: 1514336581799410, guid: 561cd42c486b95f44960551027dc8707, type: 2}
   - {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   - {fileID: 1796474192286352, guid: bfe2703388dd9f64c924f35a49f10225, type: 2}
+  p1Mat: {fileID: 2100000, guid: 67d18f659aa074a4cb5c3a399169ea18, type: 2}
+  p2Mat: {fileID: 2100000, guid: 17659933dc5030d4eb1a0617e4a80871, type: 2}
 --- !u!114 &2040606549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1214,7 +1217,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2040606545}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15a07b041e8b4e04680223eaae69b881, type: 3}
   m_Name: 

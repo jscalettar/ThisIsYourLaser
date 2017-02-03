@@ -44,10 +44,10 @@ public class cursor1 : MonoBehaviour
     void Update()
     {
         Building currentTex = (Building)currentBuilding;
-        buildingControls();
+        //buildingControls();
         p1UI.currentSelection.text = currentTex.ToString();
         buttonPress--;
-        
+
         // Check if cursor is moving and doesn't move outside the board
         if (moving && pos.x >= -dimX && pos.x <= dimX
                    && pos.z >= -dimZ && pos.z <= dimZ)
@@ -77,11 +77,11 @@ public class cursor1 : MonoBehaviour
         {
             pos += Vector3.left;
         }
-		if (posMove)
-		{
-			pos = transform.position;
-			moveTower();
-		}
+        if (posMove)
+        {
+            pos = transform.position;
+            moveTower();
+        }
     }
     private void moveTower()
     {
@@ -145,30 +145,41 @@ public class cursor1 : MonoBehaviour
             }
         }
     }
-    private void buildingControls() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerOne);
+    private void buildingControls()
+    {
+        //if (!setupManager.basePhase && !setupManager.laserPhase)
+        //{
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //setupManager.PlaceBuild(Player.PlayerOne, (Building)currentBuilding, currentBuilding, pos);
+            //gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerOne);
             print(currentBuilding);
         }
-        else if (Input.GetKeyDown("e")) {
+        else if (Input.GetKeyDown("e"))
+        {
             currentBuilding += 1;
             if (currentBuilding == numberOfTypes) currentBuilding = 0;
-        }else if (Input.GetKeyDown("q")) {
+        }
+        else if (Input.GetKeyDown("q"))
+        {
             currentBuilding -= 1;
-            if (currentBuilding == -1) currentBuilding = numberOfTypes-1;
-        }else if (Input.GetKeyDown("r"))
+            if (currentBuilding == -1) currentBuilding = numberOfTypes - 1;
+        }
+        else if (Input.GetKeyDown("r"))
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
-        /*if (Input.GetKeyDown("r")) {
+        if (Input.GetKeyDown("r"))
+        {
             p1UI.playerState.text = "swapping";
-        }SS
-        if (Input.GetKeyDown("t")) {
+        }
+        if (Input.GetKeyDown("t"))
+        {
             p1UI.playerState.text = "deleting";
         }
-        if (Input.GetKeyDown("f")) {
+        if (Input.GetKeyDown("f"))
+        {
             p1UI.playerState.text = "placing";
-        }*/
-
+        }
     }
 }
