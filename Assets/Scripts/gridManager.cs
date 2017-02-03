@@ -133,7 +133,7 @@ public struct Grid
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
         if (!grid[y, x].isEmpty && !grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner && playerID == grid[yNew, xNew].owner)
-        {
+        {//only swaps building types and directions since it is still not empty and it needs to be the same owner for both
             Building tempBuild = grid[yNew, xNew].building;
             Direction tempDir = grid[yNew, xNew].direction;
             grid[yNew, xNew].building = grid[y, x].building;

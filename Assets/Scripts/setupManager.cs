@@ -2,6 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Move 
+///     player one with WASD
+///     player two with IJKL
+/// Place buildings and swap 
+///     Space for Player one
+///     P for Player two
+/// Numbers
+///     2-7 select different buildings
+///     1 sets to free selection allowing for swapping
+/// There is no delete for these yet
+/// </summary>
+
+
 
 //This file will be replaced by Scott's actual keyboard control files once that is done
 public class setupManager : MonoBehaviour
@@ -85,29 +99,29 @@ public class setupManager : MonoBehaviour
         }
         else if (!pOneCanBase && !pTwoCanBase)
             pOneCanLaser = pTwoCanLaser = true;
-        if (haveSelected)
+        if (haveSelected)//if you have an object selected
         {
-            if (Input.GetKeyDown(KeyCode.Space))//P1 laser place
+            if (Input.GetKeyDown(KeyCode.Space))//P1 
             {
                 SwapBlock(p1Pos);
             }
-            else if (Input.GetKeyDown(KeyCode.P))//P2 laser place
+            else if (Input.GetKeyDown(KeyCode.P))//P2 
             {
                 SwapBlock(p2Pos);
             }
         }
-        else if (laserPhase == basePhase && selection == Building.Empty)
+        else if (laserPhase == basePhase && selection == Building.Empty)//if no object is selected, select one
         {
-            if (Input.GetKeyDown(KeyCode.Space))//P1 laser place
+            if (Input.GetKeyDown(KeyCode.Space))//P1 
             {
                 SelectBlock(p1Pos);
             }
-            else if (Input.GetKeyDown(KeyCode.P))//P2 laser place
+            else if (Input.GetKeyDown(KeyCode.P))//P2 
             {
                 SelectBlock(p2Pos);
             }
         }
-        if (basePhase == laserPhase)
+        if (basePhase == laserPhase)//pick a building that you want to place
         {
 
             if (Input.GetKeyDown("1")) { selection = Building.Empty; i = 1; print("Free Move selection"); }
@@ -140,9 +154,9 @@ public class setupManager : MonoBehaviour
     {
         if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player)) //place in grid
         {
-            pos = new Vector3(pos.x - 6.5f, 0, pos.z - 3.5f);
+            pos = new Vector3(pos.x - 6.5f, 0, pos.z - 3.5f);//cursor position is based on grid not world coordinates; adjust
             GameObject go = Instantiate(goList[val], pos, Quaternion.identity) as GameObject;//if it works, create an instance of object
-            if (player == Player.PlayerOne)
+            if (player == Player.PlayerOne)//if player one, make the mat red and update bools so you dont place more than one base/laser
             {
                 MeshRenderer r = go.GetComponent<MeshRenderer>();
                 r.material = p1Mat;
@@ -151,7 +165,7 @@ public class setupManager : MonoBehaviour
                 else if (newBuild == Building.Laser)
                     pOneCanLaser = !pOneCanLaser;
             }
-            else
+            else//if player two, make the mat red and update bools so you dont place more than one base/laser
             {
                 MeshRenderer r = go.GetComponent<MeshRenderer>();
                 r.material = p2Mat;
@@ -161,7 +175,7 @@ public class setupManager : MonoBehaviour
                     pTwoCanLaser = !pTwoCanLaser;
             }
             go.transform.SetParent(transform);
-            pos = new Vector3(pos.x + 6.5f, 0, pos.z + 3.5f);
+            pos = new Vector3(pos.x + 6.5f, 0, pos.z + 3.5f);//want grid coordinates because negative numbers dont work for array
             listPlace[(int)pos.x,(int)pos.z] = go;
         }
         else
@@ -171,14 +185,13 @@ public class setupManager : MonoBehaviour
     private void SelectBlock(Vector3 pos)
     {
         GridItem gi = gridManager.theGrid.getCellInfo((int)pos.x, (int)pos.z);
-        if (gi.isEmpty)
+        if (gi.isEmpty)//if cell is empty nothing to select
             return;
-        else
+        else//get grid items info
         {
             haveSelected = true;
             selected = gi;
             selectedLoc = new Vector2(pos.x, pos.z);
-            print("objLoc: " + selectedLoc);
         }
     }
 
@@ -186,10 +199,8 @@ public class setupManager : MonoBehaviour
     {
         GridItem temp = gridManager.theGrid.getCellInfo((int)newPos.x, (int)newPos.z);
         if (temp.owner == selected.owner)
-        {
-            print("newLoc: " + newPos);
-            bool swap = gridManager.theGrid.swapBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
-            if (swap)
+        {//swap buildings
+            if (gridManager.theGrid.swapBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner))
             {//connect the instances to the gridItem so when they swap the instance will also move
                 GameObject go1 = listPlace[(int)selectedLoc.x, (int)selectedLoc.y];
                 GameObject go2 = listPlace[(int)newPos.x, (int)newPos.z];
@@ -210,7 +221,7 @@ public class setupManager : MonoBehaviour
             print("newLoc: " + newPos);
             bool move = gridManager.theGrid.moveBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
             if (move)
-            {
+            {//move the instance to new location
                 listPlace[(int)newPos.x, (int)newPos.z] = listPlace[(int)selectedLoc.x, (int)selectedLoc.y];
                 listPlace[(int)selectedLoc.x, (int)selectedLoc.y] = null;
                 GameObject go = listPlace[(int)newPos.x, (int)newPos.z];
