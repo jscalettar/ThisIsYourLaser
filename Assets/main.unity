@@ -1183,7 +1183,7 @@ MonoBehaviour:
   - {fileID: 1213130919227048, guid: e4fdf889a6a937f46bc4a18df79c26e7, type: 2}
   - {fileID: 1514336581799410, guid: 561cd42c486b95f44960551027dc8707, type: 2}
   - {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
-  - {fileID: 1796474192286352, guid: bfe2703388dd9f64c924f35a49f10225, type: 2}
+  - {fileID: 1391260837703470, guid: 28e85a6912b3e95429f4b4e82bd0df66, type: 2}
   p1Mat: {fileID: 2100000, guid: 67d18f659aa074a4cb5c3a399169ea18, type: 2}
   p2Mat: {fileID: 2100000, guid: 17659933dc5030d4eb1a0617e4a80871, type: 2}
 --- !u!114 &2040606549
@@ -1198,6 +1198,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserDecay: 0.025
+  laserWidth: 0.03
+  laserVisualHeight: 0.5
+  laserIntensity: 0.5
+  laserMaterialP1: {fileID: 0}
+  laserMaterialP2: {fileID: 0}
+  laserMaterialCombined: {fileID: 0}
 --- !u!114 &2040606550
 MonoBehaviour:
   m_ObjectHideFlags: 0

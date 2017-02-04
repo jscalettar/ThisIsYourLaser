@@ -37,7 +37,8 @@ public class setupManager : MonoBehaviour
     //so players cant place both at same time and after laser phase its over
     private bool basePhase;
     private bool laserPhase;
-    public static int i;
+    public static int i1;
+    public static int i2;
     private bool haveSelected;
     public static Building selection;
     private Vector2 selectedLoc;
@@ -55,7 +56,8 @@ public class setupManager : MonoBehaviour
         laserPhase = false;
         haveSelected = false;
         selection = Building.Empty;
-        i = 0;
+        i1 = 0;
+        i2 = 0;
     }
 
     // Update is called once per frame
@@ -77,22 +79,22 @@ public class setupManager : MonoBehaviour
         }
         if (basePhase)
         {
-            if (Input.GetKeyDown(KeyCode.Space) && pOneCanBase)//P1 base place
+            if (Input.GetKeyDown(KeyCode.E) && pOneCanBase && p1Pos.x == 0)//P1 base place
             {
                 PlaceBuild(Player.PlayerOne, Building.Base, 0, p1Pos);
             }
-            else if (Input.GetKeyDown(KeyCode.P) && pTwoCanBase)//P2 base place
+            else if (Input.GetKeyDown(KeyCode.O) && pTwoCanBase && p2Pos.x == 13)//P2 base place
             {
                 PlaceBuild(Player.PlayerTwo, Building.Base, 0, p2Pos);
             }
         }
         else if (laserPhase)
         {
-            if (Input.GetKeyDown(KeyCode.Space) && pOneCanLaser)//P1 laser place
+            if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
                 PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos);
             }
-            else if (Input.GetKeyDown(KeyCode.P) && pTwoCanLaser)//P2 laser place
+            else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == 13)//P2 laser place
             {
                 PlaceBuild(Player.PlayerTwo, Building.Laser, 1, p2Pos);
             }
@@ -101,45 +103,47 @@ public class setupManager : MonoBehaviour
             pOneCanLaser = pTwoCanLaser = true;
         if (haveSelected)//if you have an object selected
         {
-            if (Input.GetKeyDown(KeyCode.Space))//P1 
+            if (Input.GetKeyDown(KeyCode.Q))//P1 
             {
                 SwapBlock(p1Pos);
             }
-            else if (Input.GetKeyDown(KeyCode.P))//P2 
+            else if (Input.GetKeyDown(KeyCode.U))//P2 
             {
                 SwapBlock(p2Pos);
             }
         }
-        else if (laserPhase == basePhase && selection == Building.Empty)//if no object is selected, select one
+        else if (laserPhase == basePhase)//if no object is selected, select one
         {
-            if (Input.GetKeyDown(KeyCode.Space))//P1 
+            if (Input.GetKeyDown(KeyCode.Q))//P1 
             {
                 SelectBlock(p1Pos);
             }
-            else if (Input.GetKeyDown(KeyCode.P))//P2 
+            else if (Input.GetKeyDown(KeyCode.U))//P2 
             {
                 SelectBlock(p2Pos);
             }
         }
         if (basePhase == laserPhase)//pick a building that you want to place
         {
+            if (Input.GetKeyDown("1")) { selection = Building.Blocking; i1 = 2; print("Blocking Selected"); }
+            if (Input.GetKeyDown("2")) { selection = Building.Reflecting; i1 = 3; print("Reflecting Selected"); }
+            if (Input.GetKeyDown("3")) { selection = Building.Refracting; i1 = 4; print("Refracting Selected"); }
+            if (Input.GetKeyDown("4")) { selection = Building.Redirecting; i1 = 5; print("Redirecting Selected"); }
+            if (Input.GetKeyDown("5")) { selection = Building.Portal; i1 = 6; print("Portal Selected"); }
 
-            if (Input.GetKeyDown("1")) { selection = Building.Empty; i = 1; print("Free Move selection"); }
-            if (Input.GetKeyDown("2")) { selection = Building.Blocking; i = 2; print("Blocking Selected"); }
-            if (Input.GetKeyDown("3")) { selection = Building.Reflecting; i = 3; print("Reflecting Selected"); }
-            if (Input.GetKeyDown("4")) { selection = Building.Refracting; i = 4; print("Refracting Selected"); }
-            if (Input.GetKeyDown("5")) { selection = Building.Redirecting; i = 5; print("Redirecting Selected"); }
-            if (Input.GetKeyDown("6")) { selection = Building.Portal; i = 6; print("Portal Selected"); }
-            if (Input.GetKeyDown("7")) { selection = Building.Resource; i = 7; print("Resource Selected"); }
+            if (Input.GetKeyDown("7")) { selection = Building.Blocking; i2 = 2; print("Blocking Selected"); }
+            if (Input.GetKeyDown("8")) { selection = Building.Reflecting; i2 = 3; print("Reflecting Selected"); }
+            if (Input.GetKeyDown("9")) { selection = Building.Refracting; i2 = 4; print("Refracting Selected"); }
+            if (Input.GetKeyDown("0")) { selection = Building.Redirecting; i2 = 5; print("Redirecting Selected"); }
+            if (Input.GetKeyDown("-")) { selection = Building.Portal; i2 = 6; print("Portal Selected"); }
 
-            if (Input.GetKeyDown(KeyCode.Space) && i > 1)
+            if (Input.GetKeyDown(KeyCode.E) && i1 > 0)
             {
-                print(i);
-                PlaceBuild(Player.PlayerOne, selection, i, p1Pos);
+                PlaceBuild(Player.PlayerOne, selection, i1, p1Pos);
             }
-            else if (Input.GetKeyDown(KeyCode.P) && i > 1)
+            else if (Input.GetKeyDown(KeyCode.O) && i2 > 0)
             {
-                PlaceBuild(Player.PlayerTwo, selection, i, p2Pos);
+                PlaceBuild(Player.PlayerTwo, selection, i2, p2Pos);
             }
         }
     }
@@ -189,6 +193,7 @@ public class setupManager : MonoBehaviour
             return;
         else//get grid items info
         {
+            print(pos);
             haveSelected = true;
             selected = gi;
             selectedLoc = new Vector2(pos.x, pos.z);
@@ -197,6 +202,8 @@ public class setupManager : MonoBehaviour
 
     private void SwapBlock(Vector3 newPos)//this should be a fuction in the grid
     {
+        if (selectedLoc.x == 0 && newPos.x > 0) return;
+        if (selectedLoc.x == 13 && newPos.x < 13) return;
         GridItem temp = gridManager.theGrid.getCellInfo((int)newPos.x, (int)newPos.z);
         if (temp.owner == selected.owner)
         {//swap buildings
@@ -218,7 +225,6 @@ public class setupManager : MonoBehaviour
         }
         else if (temp.owner == Player.World)
         {
-            print("newLoc: " + newPos);
             bool move = gridManager.theGrid.moveBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
             if (move)
             {//move the instance to new location
