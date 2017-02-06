@@ -1201,9 +1201,10 @@ MonoBehaviour:
   laserWidth: 0.03
   laserVisualHeight: 0.5
   laserIntensity: 0.5
-  laserMaterialP1: {fileID: 0}
-  laserMaterialP2: {fileID: 0}
-  laserMaterialCombined: {fileID: 0}
+  laserMaterialP1: {fileID: 2100000, guid: 67d18f659aa074a4cb5c3a399169ea18, type: 2}
+  laserMaterialP2: {fileID: 2100000, guid: 17659933dc5030d4eb1a0617e4a80871, type: 2}
+  laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
+    type: 2}
 --- !u!114 &2040606550
 MonoBehaviour:
   m_ObjectHideFlags: 0
