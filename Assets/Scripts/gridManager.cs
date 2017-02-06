@@ -130,7 +130,8 @@ public struct Grid
     public bool swapBuilding(int x, int y, int xNew, int yNew, Player playerID)
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
-        if (!grid[y, x].isEmpty && !grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner && playerID == grid[yNew, xNew].owner) {
+        if (!grid[y, x].isEmpty && !grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner && playerID == grid[yNew, xNew].owner)
+        {//only swaps building types and directions since it is still not empty and it needs to be the same owner for both
             Building tempBuild = grid[yNew, xNew].building;
             Direction tempDir = grid[yNew, xNew].direction;
             grid[yNew, xNew].building = grid[y, x].building;
@@ -179,7 +180,7 @@ public class gridManager : MonoBehaviour {
             for (int col = 0; col < theGrid.getDimX(); col++) {
                 if ((row%2 == 0 && col%2 == 0) || (row % 2 != 0 && col % 2 != 0)) Gizmos.color = new Color(1f, 1f, 1f, 1f);
                 else Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-                //Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
+                Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
                 if (!theGrid.getCellInfo(col, row).isEmpty) {
                     Gizmos.color = theGrid.getCellInfo(col, row).owner == Player.PlayerOne ? new Color(1f, 0, 0, 1f) : new Color(0, 1f, 0, 1f);
                     //Gizmos.DrawCube(new Vector3((-dimX / 2) + col + 0.5f, 0.5f, (-dimY / 2) + row + 0.5f), Vector3.one);

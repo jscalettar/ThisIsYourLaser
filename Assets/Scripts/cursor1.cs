@@ -21,7 +21,7 @@ public class cursor1 : MonoBehaviour
     private MoveDir dir = MoveDir.Up;
     public static Vector3 pos;
     private int currentBuilding = (int)Building.Laser;
-    private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
+    private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length -1;
 
 
     // Use this for initialization
@@ -29,7 +29,6 @@ public class cursor1 : MonoBehaviour
     void Start()
     {
         //default values for UI  
-        //what happens
         p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
         p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
@@ -148,29 +147,35 @@ public class cursor1 : MonoBehaviour
     }
     private void buildingControls()
     {
-        //if (!setupManager.basePhase && !setupManager.laserPhase)
-        //{
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown("e"))
         {
-            //setupManager.PlaceBuild(Player.PlayerOne, (Building)currentBuilding, currentBuilding, pos);
-            //gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerOne);
-            print(currentBuilding);
-        }
-        else if (Input.GetKeyDown("e"))
-        {
-            currentBuilding += 1;
-            if (currentBuilding == numberOfTypes) currentBuilding = 0;
+            setupManager.i1 += 1;
+            if (setupManager.i1 == numberOfTypes) setupManager.i1 = 1;
+            if (setupManager.i1 == 1) { setupManager.selection = Building.Empty; setupManager.i1 = 1; print("Free Move selection"); }
+            if (setupManager.i1 == 2) { setupManager.selection = Building.Blocking; setupManager.i1 = 2; print("Blocking Selected"); }
+            if (setupManager.i1 == 3) { setupManager.selection = Building.Reflecting; setupManager.i1 = 3; print("Reflecting Selected"); }
+            if (setupManager.i1 == 4) { setupManager.selection = Building.Refracting; setupManager.i1 = 4; print("Refracting Selected"); }
+            if (setupManager.i1 == 5) { setupManager.selection = Building.Redirecting; setupManager.i1 = 5; print("Redirecting Selected"); }
+            if (setupManager.i1 == 6) { setupManager.selection = Building.Portal; setupManager.i1 = 6; print("Portal Selected"); }
+            if (setupManager.i1 == 7) { setupManager.selection = Building.Resource; setupManager.i1 = 7; print("Resource Selected"); }
         }
         else if (Input.GetKeyDown("q"))
         {
-            currentBuilding -= 1;
-            if (currentBuilding == -1) currentBuilding = numberOfTypes - 1;
+            setupManager.i1 -= 1;
+            if (setupManager.i1 == 0) setupManager.i1 = numberOfTypes - 1;
+            if (setupManager.i1 == 1) { setupManager.selection = Building.Empty; setupManager.i1 = 1; print("Free Move selection"); }
+            if (setupManager.i1 == 2) { setupManager.selection = Building.Blocking; setupManager.i1 = 2; print("Blocking Selected"); }
+            if (setupManager.i1 == 3) { setupManager.selection = Building.Reflecting; setupManager.i1 = 3; print("Reflecting Selected"); }
+            if (setupManager.i1 == 4) { setupManager.selection = Building.Refracting; setupManager.i1 = 4; print("Refracting Selected"); }
+            if (setupManager.i1 == 5) { setupManager.selection = Building.Redirecting; setupManager.i1 = 5; print("Redirecting Selected"); }
+            if (setupManager.i1 == 6) { setupManager.selection = Building.Portal; setupManager.i1 = 6; print("Portal Selected"); }
+            if (setupManager.i1 == 7) { setupManager.selection = Building.Resource; setupManager.i1 = 7; print("Resource Selected"); }
         }
-        else if (Input.GetKeyDown("r"))
+        else if (Input.GetKeyDown("r"))//does not destroy instance
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
-        if (Input.GetKeyDown("r"))
+        /*if (Input.GetKeyDown("r"))
         {
             p1UI.playerState.text = "swapping";
         }
@@ -181,6 +186,6 @@ public class cursor1 : MonoBehaviour
         if (Input.GetKeyDown("f"))
         {
             p1UI.playerState.text = "placing";
-        }
+        }*/
     }
 }
