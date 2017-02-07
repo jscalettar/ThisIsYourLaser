@@ -44,7 +44,7 @@ public class cursor1 : MonoBehaviour
     void Update()
     {
         Building currentTex = (Building)currentBuilding;
-        //buildingControls();
+        buildingControls();
         p1UI.currentSelection.text = currentTex.ToString();
         buttonPress--;
 
@@ -147,31 +147,8 @@ public class cursor1 : MonoBehaviour
     }
     private void buildingControls()
     {
-        if (Input.GetKeyDown("e"))
-        {
-            setupManager.i1 += 1;
-            if (setupManager.i1 == numberOfTypes) setupManager.i1 = 1;
-            if (setupManager.i1 == 1) { setupManager.selection = Building.Empty; setupManager.i1 = 1; print("Free Move selection"); }
-            if (setupManager.i1 == 2) { setupManager.selection = Building.Blocking; setupManager.i1 = 2; print("Blocking Selected"); }
-            if (setupManager.i1 == 3) { setupManager.selection = Building.Reflecting; setupManager.i1 = 3; print("Reflecting Selected"); }
-            if (setupManager.i1 == 4) { setupManager.selection = Building.Refracting; setupManager.i1 = 4; print("Refracting Selected"); }
-            if (setupManager.i1 == 5) { setupManager.selection = Building.Redirecting; setupManager.i1 = 5; print("Redirecting Selected"); }
-            if (setupManager.i1 == 6) { setupManager.selection = Building.Portal; setupManager.i1 = 6; print("Portal Selected"); }
-            if (setupManager.i1 == 7) { setupManager.selection = Building.Resource; setupManager.i1 = 7; print("Resource Selected"); }
-        }
-        else if (Input.GetKeyDown("q"))
-        {
-            setupManager.i1 -= 1;
-            if (setupManager.i1 == 0) setupManager.i1 = numberOfTypes - 1;
-            if (setupManager.i1 == 1) { setupManager.selection = Building.Empty; setupManager.i1 = 1; print("Free Move selection"); }
-            if (setupManager.i1 == 2) { setupManager.selection = Building.Blocking; setupManager.i1 = 2; print("Blocking Selected"); }
-            if (setupManager.i1 == 3) { setupManager.selection = Building.Reflecting; setupManager.i1 = 3; print("Reflecting Selected"); }
-            if (setupManager.i1 == 4) { setupManager.selection = Building.Refracting; setupManager.i1 = 4; print("Refracting Selected"); }
-            if (setupManager.i1 == 5) { setupManager.selection = Building.Redirecting; setupManager.i1 = 5; print("Redirecting Selected"); }
-            if (setupManager.i1 == 6) { setupManager.selection = Building.Portal; setupManager.i1 = 6; print("Portal Selected"); }
-            if (setupManager.i1 == 7) { setupManager.selection = Building.Resource; setupManager.i1 = 7; print("Resource Selected"); }
-        }
-        else if (Input.GetKeyDown("r"))//does not destroy instance
+        
+        if (Input.GetKeyDown("r"))//does not destroy instance
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }

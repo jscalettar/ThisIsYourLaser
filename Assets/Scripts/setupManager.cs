@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Move 
@@ -44,9 +45,22 @@ public class setupManager : MonoBehaviour
     private Vector2 selectedLoc;
     private GridItem selected;
 
+	//Vars for UI
+	public static playerOneUI p1UI;
+
+	
+
+	Building currentText = (Building)selection;
     // Use this for initialization
     void Start()
     {
+		//default values for UI  
+		p1UI = gameObject.AddComponent<playerOneUI>();
+		p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
+		p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
+		p1UI.currentSelection = GameObject.Find("playerOneSelection").GetComponent<Text>();
+		p1UI.playerState.text = "Placing";
+
         //Setup to set bases
         pOneCanBase = true;
         pTwoCanBase = true;
@@ -63,7 +77,13 @@ public class setupManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateSelection();
+		//updtes UI
+		Building currentText = (Building)selection;
+
+		p1UI.currentSelection.text = currentText.ToString();
+        
+
+		UpdateSelection();
         if (!pOneCanLaser && !pTwoCanLaser)//when players cant place lasers, not laser phase
         {
             laserPhase = false;
@@ -79,9 +99,11 @@ public class setupManager : MonoBehaviour
         }
         if (basePhase)
         {
+			selection = Building.Base;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanBase && p1Pos.x == 0)//P1 base place
             {
-                PlaceBuild(Player.PlayerOne, Building.Base, 0, p1Pos);
+				
+                PlaceBuild(Player.PlayerOne, selection, 0, p1Pos);
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanBase && p2Pos.x == 13)//P2 base place
             {
@@ -89,10 +111,13 @@ public class setupManager : MonoBehaviour
             }
         }
         else if (laserPhase)
+			
         {
+			selection = Building.Laser;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
                 PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos);
+				selection = Building.Empty;
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == 13)//P2 laser place
             {
@@ -105,6 +130,7 @@ public class setupManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))//P1 
             {
+				p1UI.playerState.text = "placing";
                 SwapBlock(p1Pos);
             }
             else if (Input.GetKeyDown(KeyCode.U))//P2 
@@ -116,6 +142,7 @@ public class setupManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))//P1 
             {
+				p1UI.playerState.text = "swapping";
                 SelectBlock(p1Pos);
             }
             else if (Input.GetKeyDown(KeyCode.U))//P2 
@@ -125,17 +152,17 @@ public class setupManager : MonoBehaviour
         }
         if (basePhase == laserPhase)//pick a building that you want to place
         {
-            if (Input.GetKeyDown("1")) { selection = Building.Blocking; i1 = 2; print("Blocking Selected"); }
+			if (Input.GetKeyDown("1")) { selection = Building.Blocking; i1 = 2; print ("Blocking Selected");}
             if (Input.GetKeyDown("2")) { selection = Building.Reflecting; i1 = 3; print("Reflecting Selected"); }
             if (Input.GetKeyDown("3")) { selection = Building.Refracting; i1 = 4; print("Refracting Selected"); }
             if (Input.GetKeyDown("4")) { selection = Building.Redirecting; i1 = 5; print("Redirecting Selected"); }
-            if (Input.GetKeyDown("5")) { selection = Building.Portal; i1 = 6; print("Portal Selected"); }
+            //if (Input.GetKeyDown("5")) { selection = Building.Portal; i1 = 6; print("Portal Selected"); }
 
             if (Input.GetKeyDown("7")) { selection = Building.Blocking; i2 = 2; print("Blocking Selected"); }
             if (Input.GetKeyDown("8")) { selection = Building.Reflecting; i2 = 3; print("Reflecting Selected"); }
             if (Input.GetKeyDown("9")) { selection = Building.Refracting; i2 = 4; print("Refracting Selected"); }
             if (Input.GetKeyDown("0")) { selection = Building.Redirecting; i2 = 5; print("Redirecting Selected"); }
-            if (Input.GetKeyDown("-")) { selection = Building.Portal; i2 = 6; print("Portal Selected"); }
+            //if (Input.GetKeyDown("-")) { selection = Building.Portal; i2 = 6; print("Portal Selected"); }
 
             if (Input.GetKeyDown(KeyCode.E) && i1 > 0)
             {
