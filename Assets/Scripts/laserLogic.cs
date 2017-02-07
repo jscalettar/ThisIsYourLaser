@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Readme:  Redirecting Block WIP
 //          Resources not yet implemented
@@ -454,7 +455,7 @@ public class laserLogic : MonoBehaviour
             case Building.Redirecting: laserRedirect(x, y, strength, heading, direction, player, indx, subIndx); break;
             case Building.Portal: break; // Not implemented
             case Building.Resource: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false); break; // push resource hit? or damage hit
-            case Building.Base: break; // push damage hit
+            case Building.Base: SceneManager.LoadScene("GameOver", LoadSceneMode.Single); break; // push damage hit
             case Building.Laser: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false); break;
 
         }
