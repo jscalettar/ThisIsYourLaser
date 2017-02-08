@@ -261,20 +261,13 @@ public class setupManager : MonoBehaviour
 
     public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos, Direction facing)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         //make it so lasers have to be put on the edge
         /*bool allow = false;
         if (newBuild != Building.Laser) allow = true;
         else if (player == Player.PlayerOne && newBuild == Building.Laser && (int)pos.x == 0) allow = true;
         else if (player == Player.PlayerTwo && newBuild == Building.Laser && (int)pos.x == 13) allow = true;
         else allow = false;*/
-=======
->>>>>>> refs/remotes/origin/Msandfrey-patch-2
-        if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player)) //place in grid
-=======
         if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player, facing)) //place in grid
->>>>>>> origin/master
         {
             print(newBuild + " building placed with direction = " + facing);
             pos = new Vector3(pos.x - 6.5f, 0, pos.z - 3.5f);//cursor position is based on grid not world coordinates; adjust
@@ -325,14 +318,8 @@ public class setupManager : MonoBehaviour
         if (selectedLoc.x == 13 && newPos.x < 13) return;
         GridItem temp = gridManager.theGrid.getCellInfo((int)newPos.x, (int)newPos.z);
         if (temp.owner == selected.owner)
-<<<<<<< HEAD
         {
-            bool swap = gridManager.theGrid.swapBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
-            if (swap)
-=======
-        {//swap buildings
             if (gridManager.theGrid.swapBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner))
->>>>>>> origin/master
             {//connect the instances to the gridItem so when they swap the instance will also move
                 GameObject go1 = listPlace[(int)selectedLoc.x, (int)selectedLoc.y];
                 GameObject go2 = listPlace[(int)newPos.x, (int)newPos.z];
