@@ -7,5 +7,5 @@ public class playerOneUI : MonoBehaviour {
     public Text playerState;
     public Text playerHealth;
     public Text currentSelection;
-    
+     
 }
