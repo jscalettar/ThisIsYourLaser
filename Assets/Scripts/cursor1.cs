@@ -155,17 +155,5 @@ public class cursor1 : MonoBehaviour
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
-        /*if (Input.GetKeyDown("r"))
-        {
-            p1UI.playerState.text = "swapping";
-        }
-        if (Input.GetKeyDown("t"))
-        {
-            p1UI.playerState.text = "deleting";
-        }
-        if (Input.GetKeyDown("f"))
-        {
-            p1UI.playerState.text = "placing";
-        }*/
     }
 }
