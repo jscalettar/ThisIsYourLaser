@@ -9,7 +9,7 @@ public class cursor1 : MonoBehaviour
 {
     //public vars
     public static playerOneUI p1UI;
-
+    setupManager noP1Direction;
 
     // Private Vars
     private bool moving = false;
@@ -85,62 +85,65 @@ public class cursor1 : MonoBehaviour
     }
     private void moveTower()
     {
-        if (buttonPress <= 0)
+        if (noP1Direction == false)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (buttonPress <= 0)
             {
-                if (dir != MoveDir.Up)
+                if (Input.GetKey(KeyCode.W))
                 {
-                    buttonPress = 3;
-                    dir = MoveDir.Up;
+                    if (dir != MoveDir.Up)
+                    {
+                        buttonPress = 3;
+                        dir = MoveDir.Up;
+                    }
+                    else
+                    {
+                        posMove = false;
+                        moving = true;
+                        pos += Vector3.forward;
+                    }
                 }
-                else
+                else if (Input.GetKey(KeyCode.S))
                 {
-                    posMove = false;
-                    moving = true;
-                    pos += Vector3.forward;
+                    if (dir != MoveDir.Down)
+                    {
+                        buttonPress = 3;
+                        dir = MoveDir.Down;
+                    }
+                    else
+                    {
+                        posMove = false;
+                        moving = true;
+                        pos += Vector3.back;
+                    }
                 }
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                if (dir != MoveDir.Down)
+                else if (Input.GetKey(KeyCode.A))
                 {
-                    buttonPress = 3;
-                    dir = MoveDir.Down;
+                    if (dir != MoveDir.Left)
+                    {
+                        buttonPress = 3;
+                        dir = MoveDir.Left;
+                    }
+                    else
+                    {
+                        posMove = false;
+                        moving = true;
+                        pos += Vector3.left;
+                    }
                 }
-                else
+                else if (Input.GetKey(KeyCode.D))
                 {
-                    posMove = false;
-                    moving = true;
-                    pos += Vector3.back;
-                }
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                if (dir != MoveDir.Left)
-                {
-                    buttonPress = 3;
-                    dir = MoveDir.Left;
-                }
-                else
-                {
-                    posMove = false;
-                    moving = true;
-                    pos += Vector3.left;
-                }
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                if (dir != MoveDir.Right)
-                {
-                    buttonPress = 3;
-                    dir = MoveDir.Right;
-                }
-                else
-                {
-                    posMove = false;
-                    moving = true;
-                    pos += Vector3.right;
+                    if (dir != MoveDir.Right)
+                    {
+                        buttonPress = 3;
+                        dir = MoveDir.Right;
+                    }
+                    else
+                    {
+                        posMove = false;
+                        moving = true;
+                        pos += Vector3.right;
+                    }
                 }
             }
         }

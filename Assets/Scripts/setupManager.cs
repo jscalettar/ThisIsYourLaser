@@ -8,7 +8,7 @@ using UnityEngine.UI;
 ///     player one with WASD
 ///     player two with IJKL
 /// Place buildings and swap 
-///     Space for Player one
+///     E for Player one
 ///     P for Player two
 /// Numbers
 ///     2-7 select different buildings
@@ -38,6 +38,9 @@ public class setupManager : MonoBehaviour
     //so players cant place both at same time and after laser phase its over
     private bool basePhase;
     private bool laserPhase;
+    //wait for direction of block to be specified
+    public bool noP1Direction;
+    public bool noP2Direction;
     public static int i1;
     public static int i2;
     private bool haveSelected1;
@@ -51,19 +54,26 @@ public class setupManager : MonoBehaviour
 
 	//Vars for UI
 	public static playerOneUI p1UI;
-
+    public static playerTwoUI p2UI;
+    Building currentTextp1 = (Building)selection1;
+    Building currentTextp2 = (Building)selection2;
 	
-
-	Building currentText = (Building)selection1;
     // Use this for initialization
     void Start()
     {
-		//default values for UI  
+		//default values for Player 1 UI  
 		p1UI = gameObject.AddComponent<playerOneUI>();
 		p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
 		p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
 		p1UI.currentSelection = GameObject.Find("playerOneSelection").GetComponent<Text>();
 		p1UI.playerState.text = "Placing";
+
+        //default values for Player 2 UI  
+        p2UI = gameObject.AddComponent<playerTwoUI>();
+        p2UI.playerState = GameObject.Find("playerTwoState").GetComponent<Text>();
+        p2UI.playerHealth = GameObject.Find("playerTwoHealth").GetComponent<Text>();
+        p2UI.currentSelection = GameObject.Find("playerTwoSelection").GetComponent<Text>();
+        p2UI.playerState.text = "Placing";
 
         //Setup to set bases
         pOneCanBase = true;
@@ -72,6 +82,8 @@ public class setupManager : MonoBehaviour
         pTwoCanLaser = false;
         basePhase = true;
         laserPhase = false;
+        noP1Direction = true;
+        noP2Direction = true;
         haveSelected1 = false;
         haveSelected2 = false;
         selection1 = Building.Empty;
@@ -84,10 +96,13 @@ public class setupManager : MonoBehaviour
     void Update()
     {
 		//updtes UI
-		Building currentText = (Building)selection1;
+		Building currentTextp1 = (Building)selection1;
+        Building currentTextp2 = (Building)selection2;
+        p1UI.currentSelection.text = currentTextp1.ToString();
+        p2UI.currentSelection.text = currentTextp2.ToString();
+		//Building currentText = (Building)selection1;
 
-		p1UI.currentSelection.text = currentText.ToString();
-        
+		//p1UI.currentSelection.text = currentText.ToString();
 
 		UpdateSelection();
         if (!pOneCanLaser && !pTwoCanLaser)//when players cant place lasers, not laser phase
@@ -110,11 +125,11 @@ public class setupManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && pOneCanBase && p1Pos.x == 0)//P1 base place
             {
 				
-                PlaceBuild(Player.PlayerOne, selection1, 0, p1Pos);
+                PlaceBuild(Player.PlayerOne, selection1, 0, p1Pos, Direction.None);
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanBase && p2Pos.x == 13)//P2 base place
             {
-                PlaceBuild(Player.PlayerTwo, selection2, 0, p2Pos);
+                PlaceBuild(Player.PlayerTwo, selection2, 0, p2Pos, Direction.None);
             }
         }
         else if (laserPhase)
@@ -124,12 +139,12 @@ public class setupManager : MonoBehaviour
             selection2 = Building.Laser;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
-                PlaceBuild(Player.PlayerOne, selection1, 1, p1Pos);
+                PlaceBuild(Player.PlayerOne, selection1, 1, p1Pos, Direction.None);
 				selection1 = Building.Empty;
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == 13)//P2 laser place
             {
-                PlaceBuild(Player.PlayerTwo, selection2, 1, p2Pos);
+                PlaceBuild(Player.PlayerTwo, selection2, 1, p2Pos, Direction.None);
                 selection2 = Building.Empty;
             }
         }
@@ -171,25 +186,73 @@ public class setupManager : MonoBehaviour
         }
         if (basePhase == laserPhase)//pick a building that you want to place
         {
+            //Player 1 selection controls
 			if (Input.GetKeyDown("1")) { selection1 = Building.Blocking; i1 = 2; print ("Blocking Selected");}
             if (Input.GetKeyDown("2")) { selection1 = Building.Reflecting; i1 = 3; print("Reflecting Selected"); }
             if (Input.GetKeyDown("3")) { selection1 = Building.Refracting; i1 = 4; print("Refracting Selected"); }
             if (Input.GetKeyDown("4")) { selection1 = Building.Redirecting; i1 = 5; print("Redirecting Selected"); }
-            //if (Input.GetKeyDown("5")) { selection = Building.Portal; i1 = 6; print("Portal Selected"); }
-
+            
+            //Player 2 selection controls
             if (Input.GetKeyDown("7")) { selection2 = Building.Blocking; i2 = 2; print("Blocking Selected"); }
             if (Input.GetKeyDown("8")) { selection2 = Building.Reflecting; i2 = 3; print("Reflecting Selected"); }
             if (Input.GetKeyDown("9")) { selection2 = Building.Refracting; i2 = 4; print("Refracting Selected"); }
             if (Input.GetKeyDown("0")) { selection2 = Building.Redirecting; i2 = 5; print("Redirecting Selected"); }
-            //if (Input.GetKeyDown("-")) { selection = Building.Portal; i2 = 6; print("Portal Selected"); }
 
-            if (Input.GetKeyDown(KeyCode.E) && i1 > 0)
+            if (Input.GetKeyDown(KeyCode.E) && selection1 != Building.Empty)
             {
-                PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos);
+                noP1Direction = true;
+            }else if (Input.GetKeyDown(KeyCode.O) && selection2 != Building.Empty)
+            {
+                noP2Direction = true;
             }
-            else if (Input.GetKeyDown(KeyCode.O) && i2 > 0)
+            // PLAYER 1 BUILDING SELECTION
+            if (noP1Direction == true) //need to select a direction for the P1 building
             {
-                PlaceBuild(Player.PlayerTwo, selection2, i2, p2Pos);
+                if (Input.GetKeyDown(KeyCode.W)) //Up
+                {
+                    PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Up);
+                    noP1Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.A)) //Left
+                {
+                    PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Left);
+                    noP1Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.S)) //Down
+                {
+                    PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Down);
+                    noP1Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.D)) //Right
+                {
+                    PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Right);
+                    noP1Direction = false;
+                }
+            }
+
+            // PLAYER 2 BUILDING SELECTION
+            if (noP2Direction == true) //need to select a direction for the P2 building
+            {
+                if (Input.GetKeyDown(KeyCode.I)) //Up
+                {
+                    PlaceBuild(Player.PlayerTwo, selection2, i2, p2Pos, Direction.Up);
+                    noP2Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.J)) //Left
+                {
+                    PlaceBuild(Player.PlayerTwo, selection2, i2, p2Pos, Direction.Left);
+                    noP2Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.K)) //Down
+                {
+                    PlaceBuild(Player.PlayerTwo, selection2, i2, p2Pos, Direction.Down);
+                    noP2Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.L)) //Right
+                {
+                    PlaceBuild(Player.PlayerTwo, selection2, i2, p2Pos, Direction.Right);
+                    noP2Direction = false;
+                }
             }
         }
     }
@@ -200,10 +263,17 @@ public class setupManager : MonoBehaviour
         p2Pos = new Vector3(cursor2.pos.x + 6.5f, 0, cursor2.pos.z + 3.5f);
     }
 
-    public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos)
+    public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos, Direction facing)
     {
-        if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player)) //place in grid
+        //make it so lasers have to be put on the edge
+        /*bool allow = false;
+        if (newBuild != Building.Laser) allow = true;
+        else if (player == Player.PlayerOne && newBuild == Building.Laser && (int)pos.x == 0) allow = true;
+        else if (player == Player.PlayerTwo && newBuild == Building.Laser && (int)pos.x == 13) allow = true;
+        else allow = false;*/
+        if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player, facing)) //place in grid
         {
+            print(newBuild + " building placed with direction = " + facing);
             pos = new Vector3(pos.x - 6.5f, 0, pos.z - 3.5f);//cursor position is based on grid not world coordinates; adjust
             GameObject go = Instantiate(goList[val], pos, Quaternion.identity) as GameObject;//if it works, create an instance of object
             if (player == Player.PlayerOne)//if player one, make the mat red and update bools so you dont place more than one base/laser
