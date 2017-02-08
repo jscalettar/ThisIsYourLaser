@@ -31,7 +31,7 @@ public class cursor2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //buildingControls();
+        buildingControls();
         buttonPress--;
         // Check if cursor is moving and doesn't move outside the board
         if (moving && pos.x >= -dimX && pos.x <= dimX
@@ -133,22 +133,7 @@ public class cursor2 : MonoBehaviour
 
     private void buildingControls() {
 
-        if (Input.GetKeyDown(KeyCode.Semicolon))
-        {
-            //gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerTwo);
-            print(currentBuilding);
-        }
-        else if (Input.GetKeyDown("o"))
-        {
-            currentBuilding += 1;
-            if (currentBuilding == numberOfTypes) currentBuilding = 0;
-        }
-        else if (Input.GetKeyDown("u"))
-        {
-            currentBuilding -= 1;
-            if (currentBuilding == -1) currentBuilding = numberOfTypes - 1;
-        }
-        else if (Input.GetKeyDown("p"))
+        if (Input.GetKeyDown("p"))
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerTwo);
         }

@@ -40,17 +40,21 @@ public class setupManager : MonoBehaviour
     private bool laserPhase;
     public static int i1;
     public static int i2;
-    private bool haveSelected;
-    public static Building selection;
-    private Vector2 selectedLoc;
-    private GridItem selected;
+    private bool haveSelected1;
+    private bool haveSelected2;
+    public static Building selection1;
+    public static Building selection2;
+    private Vector2 selectedLoc1;
+    private Vector2 selectedLoc2;
+    private GridItem selected1;
+    private GridItem selected2;
 
 	//Vars for UI
 	public static playerOneUI p1UI;
 
 	
 
-	Building currentText = (Building)selection;
+	Building currentText = (Building)selection1;
     // Use this for initialization
     void Start()
     {
@@ -68,8 +72,10 @@ public class setupManager : MonoBehaviour
         pTwoCanLaser = false;
         basePhase = true;
         laserPhase = false;
-        haveSelected = false;
-        selection = Building.Empty;
+        haveSelected1 = false;
+        haveSelected2 = false;
+        selection1 = Building.Empty;
+        selection2 = Building.Empty;
         i1 = 0;
         i2 = 0;
     }
@@ -78,7 +84,7 @@ public class setupManager : MonoBehaviour
     void Update()
     {
 		//updtes UI
-		Building currentText = (Building)selection;
+		Building currentText = (Building)selection1;
 
 		p1UI.currentSelection.text = currentText.ToString();
         
@@ -99,78 +105,91 @@ public class setupManager : MonoBehaviour
         }
         if (basePhase)
         {
-			selection = Building.Base;
+			selection1 = Building.Base;
+            selection2 = Building.Base;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanBase && p1Pos.x == 0)//P1 base place
             {
 				
-                PlaceBuild(Player.PlayerOne, selection, 0, p1Pos);
+                PlaceBuild(Player.PlayerOne, selection1, 0, p1Pos);
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanBase && p2Pos.x == 13)//P2 base place
             {
-                PlaceBuild(Player.PlayerTwo, Building.Base, 0, p2Pos);
+                PlaceBuild(Player.PlayerTwo, selection2, 0, p2Pos);
             }
         }
         else if (laserPhase)
 			
         {
-			selection = Building.Laser;
+			selection1 = Building.Laser;
+            selection2 = Building.Laser;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
-                PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos);
-				selection = Building.Empty;
+                PlaceBuild(Player.PlayerOne, selection1, 1, p1Pos);
+				selection1 = Building.Empty;
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == 13)//P2 laser place
             {
-                PlaceBuild(Player.PlayerTwo, Building.Laser, 1, p2Pos);
+                PlaceBuild(Player.PlayerTwo, selection2, 1, p2Pos);
+                selection2 = Building.Empty;
             }
         }
-        else if (!pOneCanBase && !pTwoCanBase)
-            pOneCanLaser = pTwoCanLaser = true;
-        if (haveSelected)//if you have an object selected
+        if (haveSelected1)//if you have an object selected
         {
             if (Input.GetKeyDown(KeyCode.Q))//P1 
             {
+                if (SwapBlock(p1Pos, selectedLoc1, selected1))
+                {
+                    haveSelected1 = false;
+                }
 				p1UI.playerState.text = "placing";
-                SwapBlock(p1Pos);
-            }
-            else if (Input.GetKeyDown(KeyCode.U))//P2 
-            {
-                SwapBlock(p2Pos);
             }
         }
         else if (laserPhase == basePhase)//if no object is selected, select one
         {
             if (Input.GetKeyDown(KeyCode.Q))//P1 
             {
+                SelectBlock(p1Pos, Player.PlayerOne);
 				p1UI.playerState.text = "swapping";
-                SelectBlock(p1Pos);
             }
-            else if (Input.GetKeyDown(KeyCode.U))//P2 
+        }
+        if (haveSelected2)//if you have an object selected
+        {
+           if (Input.GetKeyDown(KeyCode.U))//P2 
             {
-                SelectBlock(p2Pos);
+                if (SwapBlock(p2Pos, selectedLoc2, selected2))
+                {
+                    haveSelected2 = false;
+                }
+            }
+        }
+        else if (laserPhase == basePhase)//if no object is selected, select one
+        {
+            if (Input.GetKeyDown(KeyCode.U))//P2 
+            {
+                SelectBlock(p2Pos, Player.PlayerTwo);
             }
         }
         if (basePhase == laserPhase)//pick a building that you want to place
         {
-			if (Input.GetKeyDown("1")) { selection = Building.Blocking; i1 = 2; print ("Blocking Selected");}
-            if (Input.GetKeyDown("2")) { selection = Building.Reflecting; i1 = 3; print("Reflecting Selected"); }
-            if (Input.GetKeyDown("3")) { selection = Building.Refracting; i1 = 4; print("Refracting Selected"); }
-            if (Input.GetKeyDown("4")) { selection = Building.Redirecting; i1 = 5; print("Redirecting Selected"); }
+			if (Input.GetKeyDown("1")) { selection1 = Building.Blocking; i1 = 2; print ("Blocking Selected");}
+            if (Input.GetKeyDown("2")) { selection1 = Building.Reflecting; i1 = 3; print("Reflecting Selected"); }
+            if (Input.GetKeyDown("3")) { selection1 = Building.Refracting; i1 = 4; print("Refracting Selected"); }
+            if (Input.GetKeyDown("4")) { selection1 = Building.Redirecting; i1 = 5; print("Redirecting Selected"); }
             //if (Input.GetKeyDown("5")) { selection = Building.Portal; i1 = 6; print("Portal Selected"); }
 
-            if (Input.GetKeyDown("7")) { selection = Building.Blocking; i2 = 2; print("Blocking Selected"); }
-            if (Input.GetKeyDown("8")) { selection = Building.Reflecting; i2 = 3; print("Reflecting Selected"); }
-            if (Input.GetKeyDown("9")) { selection = Building.Refracting; i2 = 4; print("Refracting Selected"); }
-            if (Input.GetKeyDown("0")) { selection = Building.Redirecting; i2 = 5; print("Redirecting Selected"); }
+            if (Input.GetKeyDown("7")) { selection2 = Building.Blocking; i2 = 2; print("Blocking Selected"); }
+            if (Input.GetKeyDown("8")) { selection2 = Building.Reflecting; i2 = 3; print("Reflecting Selected"); }
+            if (Input.GetKeyDown("9")) { selection2 = Building.Refracting; i2 = 4; print("Refracting Selected"); }
+            if (Input.GetKeyDown("0")) { selection2 = Building.Redirecting; i2 = 5; print("Redirecting Selected"); }
             //if (Input.GetKeyDown("-")) { selection = Building.Portal; i2 = 6; print("Portal Selected"); }
 
             if (Input.GetKeyDown(KeyCode.E) && i1 > 0)
             {
-                PlaceBuild(Player.PlayerOne, selection, i1, p1Pos);
+                PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos);
             }
             else if (Input.GetKeyDown(KeyCode.O) && i2 > 0)
             {
-                PlaceBuild(Player.PlayerTwo, selection, i2, p2Pos);
+                PlaceBuild(Player.PlayerTwo, selection2, i2, p2Pos);
             }
         }
     }
@@ -213,58 +232,65 @@ public class setupManager : MonoBehaviour
             print("dont work");
     }
 
-    private void SelectBlock(Vector3 pos)
+    private void SelectBlock(Vector3 pos, Player player)
     {
         GridItem gi = gridManager.theGrid.getCellInfo((int)pos.x, (int)pos.z);
         if (gi.isEmpty)//if cell is empty nothing to select
             return;
-        else//get grid items info
+        else if (gi.building == Building.Base || gi.building == Building.Laser)
+            return;
+        else if (player == Player.PlayerOne)//get grid items info
         {
             print(pos);
-            haveSelected = true;
-            selected = gi;
-            selectedLoc = new Vector2(pos.x, pos.z);
+            haveSelected1 = true;
+            selected1 = gi;
+            selectedLoc1 = new Vector2(pos.x, pos.z);
+        }else if(player == Player.PlayerTwo)
+        {
+            print(pos);
+            haveSelected2 = true;
+            selected2 = gi;
+            selectedLoc2 = new Vector2(pos.x, pos.z);
         }
     }
 
-    private void SwapBlock(Vector3 newPos)//this should be a fuction in the grid
+    private bool SwapBlock(Vector3 newPos, Vector2 oldPos, GridItem gridObj)//this should be a fuction in the grid
     {
-        if (selectedLoc.x == 0 && newPos.x > 0) return;
-        if (selectedLoc.x == 13 && newPos.x < 13) return;
         GridItem temp = gridManager.theGrid.getCellInfo((int)newPos.x, (int)newPos.z);
-        if (temp.owner == selected.owner)
+        if (temp.owner == gridObj.owner)
         {//swap buildings
-            if (gridManager.theGrid.swapBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner))
+            if (gridManager.theGrid.swapBuilding((int)oldPos.x, (int)oldPos.y, (int)newPos.x, (int)newPos.z, gridObj.owner))
             {//connect the instances to the gridItem so when they swap the instance will also move
-                GameObject go1 = listPlace[(int)selectedLoc.x, (int)selectedLoc.y];
+                GameObject go1 = listPlace[(int)oldPos.x, (int)oldPos.y];
                 GameObject go2 = listPlace[(int)newPos.x, (int)newPos.z];
-                listPlace[(int)selectedLoc.x, (int)selectedLoc.y] = listPlace[(int)newPos.x, (int)newPos.z];
+                listPlace[(int)oldPos.x, (int)oldPos.y] = listPlace[(int)newPos.x, (int)newPos.z];
                 listPlace[(int)newPos.x, (int)newPos.z] = go1;
                 newPos = new Vector3(newPos.x - 6.5f, 0, newPos.z - 3.5f);
-                Vector3 loc = new Vector3(selectedLoc.x - 6.5f, 0, selectedLoc.y - 3.5f);
+                Vector3 loc = new Vector3(oldPos.x - 6.5f, 0, oldPos.y - 3.5f);
                 go1.transform.position = newPos;
                 go2.transform.position = loc;
                 print("Swap Complete");
             }
             else
                 print("Cannot complete swap");
-            haveSelected = false;
+            return true;
         }
         else if (temp.owner == Player.World)
         {
-            bool move = gridManager.theGrid.moveBuilding((int)selectedLoc.x, (int)selectedLoc.y, (int)newPos.x, (int)newPos.z, selected.owner);
+            bool move = gridManager.theGrid.moveBuilding((int)oldPos.x, (int)oldPos.y, (int)newPos.x, (int)newPos.z, gridObj.owner);
             if (move)
             {//move the instance to new location
-                listPlace[(int)newPos.x, (int)newPos.z] = listPlace[(int)selectedLoc.x, (int)selectedLoc.y];
-                listPlace[(int)selectedLoc.x, (int)selectedLoc.y] = null;
+                listPlace[(int)newPos.x, (int)newPos.z] = listPlace[(int)oldPos.x, (int)oldPos.y];
+                listPlace[(int)oldPos.x, (int)oldPos.y] = null;
                 GameObject go = listPlace[(int)newPos.x, (int)newPos.z];
                 newPos = new Vector3(newPos.x - 6.5f, 0, newPos.z - 3.5f);
                 go.transform.position = newPos;
                 print("Move complete");
             }
             else print("Cannot move");
-            haveSelected = false;
+            return true;
         }
+        return false;
     }
 }
 
