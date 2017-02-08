@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33003705305148276}
   - component: {fileID: 136778405482326048}
   - component: {fileID: 23315817413919376}
+  - component: {fileID: 114781420126921044}
   m_Layer: 0
   m_Name: Refract
   m_TagString: Untagged
@@ -80,6 +81,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1213130919227048}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114781420126921044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213130919227048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c773a9a73f49a4c800bb1abf5884cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!136 &136778405482326048
 CapsuleCollider:
   m_ObjectHideFlags: 1
