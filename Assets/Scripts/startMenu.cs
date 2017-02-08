@@ -41,8 +41,8 @@ public class startMenu : MonoBehaviour {
     public void InstructionsMenu()
     {
         StartMenu.SetActive(false);
-        OptionMenu.SetActive(true);
-        InstructMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(true);
     }
 
     public void exitGame()
