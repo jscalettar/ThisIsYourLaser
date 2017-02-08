@@ -87,7 +87,7 @@ public struct Grid
     public int getDimX() { return dimX; }
     public int getDimY() { return dimY; }
 
-    public bool placeBuilding(int x, int y, Building newBuilding, Player playerID, Direction facing = Direction.None)
+    public bool placeBuilding(int x, int y, Building newBuilding, Player playerID, Direction facing /*= Direction.None*/)
     {
         if (!validateInput(x, y)) return false;
         if (grid[y, x].isEmpty) {

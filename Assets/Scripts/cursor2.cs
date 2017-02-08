@@ -8,6 +8,7 @@ public class cursor2 : MonoBehaviour
     // Public Vars
     public Text playerState;
     //Should be changed to be a list of all possible buildings
+    setupManager noP2Direction;
 
     // Private Vars
     private bool moving = false;
@@ -70,62 +71,65 @@ public class cursor2 : MonoBehaviour
     }
     private void moveTower()
     {
-        if (buttonPress <= 0)
+        if (noP2Direction == false)
         {
-            if (Input.GetKey(KeyCode.I))
+            if (buttonPress <= 0)
             {
-                if (dir != MoveDir.Up)
+                if (Input.GetKey(KeyCode.I))
                 {
-                    buttonPress = 3;
-                    dir = MoveDir.Up;
+                    if (dir != MoveDir.Up)
+                    {
+                        buttonPress = 3;
+                        dir = MoveDir.Up;
+                    }
+                    else
+                    {
+                        posMove = false;
+                        moving = true;
+                        pos += Vector3.forward;
+                    }
                 }
-                else
+                else if (Input.GetKey(KeyCode.K))
                 {
-                    posMove = false;
-                    moving = true;
-                    pos += Vector3.forward;
+                    if (dir != MoveDir.Down)
+                    {
+                        buttonPress = 3;
+                        dir = MoveDir.Down;
+                    }
+                    else
+                    {
+                        posMove = false;
+                        moving = true;
+                        pos += Vector3.back;
+                    }
                 }
-            }
-            else if (Input.GetKey(KeyCode.K))
-            {
-                if (dir != MoveDir.Down)
+                else if (Input.GetKey(KeyCode.J))
                 {
-                    buttonPress = 3;
-                    dir = MoveDir.Down;
+                    if (dir != MoveDir.Left)
+                    {
+                        buttonPress = 3;
+                        dir = MoveDir.Left;
+                    }
+                    else
+                    {
+                        posMove = false;
+                        moving = true;
+                        pos += Vector3.left;
+                    }
                 }
-                else
+                else if (Input.GetKey(KeyCode.L))
                 {
-                    posMove = false;
-                    moving = true;
-                    pos += Vector3.back;
-                }
-            }
-            else if (Input.GetKey(KeyCode.J))
-            {
-                if (dir != MoveDir.Left)
-                {
-                    buttonPress = 3;
-                    dir = MoveDir.Left;
-                }
-                else
-                {
-                    posMove = false;
-                    moving = true;
-                    pos += Vector3.left;
-                }
-            }
-            else if (Input.GetKey(KeyCode.L))
-            {
-                if (dir != MoveDir.Right)
-                {
-                    buttonPress = 3;
-                    dir = MoveDir.Right;
-                }
-                else
-                {
-                    posMove = false;
-                    moving = true;
-                    pos += Vector3.right;
+                    if (dir != MoveDir.Right)
+                    {
+                        buttonPress = 3;
+                        dir = MoveDir.Right;
+                    }
+                    else
+                    {
+                        posMove = false;
+                        moving = true;
+                        pos += Vector3.right;
+                    }
                 }
             }
         }
