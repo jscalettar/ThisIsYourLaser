@@ -49,6 +49,8 @@ public class cursor2 : MonoBehaviour
                     posMove = true;
                     moveTower();
                 }
+                if(moving && pos.x >= -dimX && pos.x <= dimX
+                   && pos.z >= -dimZ && pos.z <= dimZ)
                 transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
             }
             // Moved outside of board, so return to last position
