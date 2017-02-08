@@ -38,6 +38,9 @@ public class setupManager : MonoBehaviour
     //so players cant place both at same time and after laser phase its over
     private bool basePhase;
     private bool laserPhase;
+    //wait for direction of block to be specified
+    public bool noP1Direction;
+    public bool noP2Direction;
     public static int i1;
     public static int i2;
     private bool haveSelected;
@@ -79,6 +82,9 @@ public class setupManager : MonoBehaviour
         basePhase = true;
         laserPhase = false;
         haveSelected = false;
+        noP1Direction = true;
+        noP2Direction = true;
+        //selection = Building.Empty;
         p1selection = Building.Empty;
         p2selection = Building.Empty;
         i1 = 0;
@@ -115,11 +121,11 @@ public class setupManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && pOneCanBase && p1Pos.x == 0)//P1 base place
             {
 				
-                PlaceBuild(Player.PlayerOne, p1selection, 0, p1Pos);
+                PlaceBuild(Player.PlayerOne, Building.Base, 0, p1Pos, Direction.None);
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanBase && p2Pos.x == 13)//P2 base place
             {
-                PlaceBuild(Player.PlayerTwo, p2selection, 0, p2Pos);
+                PlaceBuild(Player.PlayerTwo, Building.Base, 0, p2Pos, Direction.None);
             }
         }
         else if (laserPhase)
@@ -129,12 +135,12 @@ public class setupManager : MonoBehaviour
             p2selection = Building.Laser;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
-                PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos);
-				p1selection = Building.Empty;
+                PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos, Direction.None);
+                p1selection = Building.Empty;
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == 13)//P2 laser place
             {
-                PlaceBuild(Player.PlayerTwo, p2selection, 1, p2Pos);
+                PlaceBuild(Player.PlayerTwo, Building.Laser, 1, p2Pos, Direction.None);
                 p2selection = Building.Empty;
             }
         }
@@ -179,13 +185,70 @@ public class setupManager : MonoBehaviour
             if (Input.GetKeyDown("0")) { p2selection = Building.Redirecting; i2 = 5; print("Redirecting Selected"); }
 
 
-            if (Input.GetKeyDown(KeyCode.E) && i1 > 0)
+            // PLAYER 1 BUILDING SELECTION
+            if (noP1Direction == true) //need to select a direction for the P1 building
             {
-                PlaceBuild(Player.PlayerOne, p1selection, i1, p1Pos);
+                if (Input.GetKeyDown(KeyCode.W)) //Up
+                {
+                    PlaceBuild(Player.PlayerOne, p1selection, i1, p1Pos, Direction.Up);
+                    noP1Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.A)) //Left
+                {
+                    PlaceBuild(Player.PlayerOne, p1selection, i1, p1Pos, Direction.Left);
+                    noP1Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.S)) //Down
+                {
+                    PlaceBuild(Player.PlayerOne, p1selection, i1, p1Pos, Direction.Down);
+                    noP1Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.D)) //Right
+                {
+                    PlaceBuild(Player.PlayerOne, p1selection, i1, p1Pos, Direction.Right);
+                    noP1Direction = false;
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.O) && i2 > 0)
+            else //can place a new P1 building
+            {  
+                if (Input.GetKeyDown(KeyCode.E) && i1 > 0)
+                {
+                    noP1Direction = true; //now you need to pick a direction
+                    //PlaceBuild(Player.PlayerOne, selection, i1, p1Pos);
+                }
+            }
+
+            // PLAYER 2 BUILDING SELECTION
+            if (noP2Direction == true) //need to select a direction for the P2 building
             {
-                PlaceBuild(Player.PlayerTwo, p2selection, i2, p2Pos);
+                if (Input.GetKeyDown(KeyCode.I)) //Up
+                {
+                    PlaceBuild(Player.PlayerTwo, p2selection, i2, p2Pos, Direction.Up);
+                    noP2Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.J)) //Left
+                {
+                    PlaceBuild(Player.PlayerTwo, p2selection, i2, p2Pos, Direction.Left);
+                    noP2Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.K)) //Down
+                {
+                    PlaceBuild(Player.PlayerTwo, p2selection, i2, p2Pos, Direction.Down);
+                    noP2Direction = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.L)) //Right
+                {
+                    PlaceBuild(Player.PlayerTwo, p2selection, i2, p2Pos, Direction.Right);
+                    noP2Direction = false;
+                }
+            }
+            else //can place a new P2 building
+            {
+                if (Input.GetKeyDown(KeyCode.O) && i2 > 0)
+                {
+                    noP2Direction = true; //now you need to pick a direction
+                    //PlaceBuild(Player.PlayerTwo, selection, i2, p2Pos, Direction.None);
+                }
             }
         }
     }
@@ -196,10 +259,11 @@ public class setupManager : MonoBehaviour
         p2Pos = new Vector3(cursor2.pos.x + 6.5f, 0, cursor2.pos.z + 3.5f);
     }
 
-    public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos)
+    public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos, Direction facing)
     {
-        if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player)) //place in grid
+        if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player, facing)) //place in grid
         {
+            print(newBuild + " building placed with direction = " + facing);
             pos = new Vector3(pos.x - 6.5f, 0, pos.z - 3.5f);//cursor position is based on grid not world coordinates; adjust
             GameObject go = Instantiate(goList[val], pos, Quaternion.identity) as GameObject;//if it works, create an instance of object
             if (player == Player.PlayerOne)//if player one, make the mat red and update bools so you dont place more than one base/laser
