@@ -2039,6 +2039,8 @@ MonoBehaviour:
   - {fileID: 1391260837703470, guid: 28e85a6912b3e95429f4b4e82bd0df66, type: 2}
   p1Mat: {fileID: 2100000, guid: 67d18f659aa074a4cb5c3a399169ea18, type: 2}
   p2Mat: {fileID: 2100000, guid: 17659933dc5030d4eb1a0617e4a80871, type: 2}
+  noP1Direction: 0
+  noP2Direction: 0
 --- !u!114 &2040606549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2284,10 +2286,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3ef091f2da19348a7c64b6c0fa2015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenuCanvas: {fileID: 0}
+  PauseMenu: {fileID: 1151074142}
+  OptionMenu: {fileID: 151807177}
   Pause: {fileID: 195128396}
-  Resume: {fileID: 0}
-  End: {fileID: 0}
+  Resume: {fileID: 1001031426}
+  End: {fileID: 410688570}
   isPaused: 0
 --- !u!1 &2104127934
 GameObject:
