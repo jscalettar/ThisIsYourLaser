@@ -21,12 +21,15 @@ public class cursor2 : MonoBehaviour
     public static Vector3 pos;
     private int currentBuilding = (int)Building.Laser;
     private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
+    public GameObject PauseMenu;
+
     // Use this for initialization
     void Start()
     {
         
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
+        PauseMenu = GameObject.Find("Pause Menu");
     }
 
     // Update is called once per frame
@@ -34,39 +37,44 @@ public class cursor2 : MonoBehaviour
     {
         buildingControls();
         buttonPress--;
-        // Check if cursor is moving and doesn't move outside the board
-        if (moving && pos.x >= -dimX && pos.x <= dimX
-                   && pos.z >= -dimZ && pos.z <= dimZ)
+        if (PauseMenu.activeInHierarchy == false)
         {
-            if (transform.position == pos)
+            // Check if cursor is moving and doesn't move outside the board
+            if (moving && pos.x >= -dimX && pos.x <= dimX
+                   && pos.z >= -dimZ && pos.z <= dimZ)
             {
-                moving = false;
-                posMove = true;
+                if (transform.position == pos)
+                {
+                    moving = false;
+                    posMove = true;
+                    moveTower();
+                }
+                if(moving && pos.x >= -dimX && pos.x <= dimX
+                   && pos.z >= -dimZ && pos.z <= dimZ)
+                transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
+            }
+            // Moved outside of board, so return to last position
+            else if (dir == MoveDir.Up)
+            {
+                pos += Vector3.back;
+            }
+            else if (dir == MoveDir.Down)
+            {
+                pos += Vector3.forward;
+            }
+            else if (dir == MoveDir.Left)
+            {
+                pos += Vector3.right;
+            }
+            else if (dir == MoveDir.Right)
+            {
+                pos += Vector3.left;
+            }
+            if (posMove)
+            {
+                pos = transform.position;
                 moveTower();
             }
-            transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
-        }
-        // Moved outside of board, so return to last position
-        else if (dir == MoveDir.Up)
-        {
-            pos += Vector3.back;
-        }
-        else if (dir == MoveDir.Down)
-        {
-            pos += Vector3.forward;
-        }
-        else if (dir == MoveDir.Left)
-        {
-            pos += Vector3.right;
-        }
-        else if (dir == MoveDir.Right)
-        {
-            pos += Vector3.left;
-        }
-        if (posMove)
-        {
-            pos = transform.position;
-            moveTower();
         }
     }
     private void moveTower()

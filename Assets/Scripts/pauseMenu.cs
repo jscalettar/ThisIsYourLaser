@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class pauseMenu : MonoBehaviour
 {
 
-    public GameObject pauseMenuCanvas;
+    public GameObject PauseMenu;
     public Button Pause;
     public Button Resume;
     /* --- Unimplemented Buttons ---
@@ -20,8 +20,7 @@ public class pauseMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        pauseMenuCanvas = GameObject.Find("Pause Menu");
-        pauseMenuCanvas.SetActive(false);
+        PauseMenu.SetActive(false);
         Pause = Pause.GetComponent<Button>();
         //Resume = Resume.GetComponent<Button>();
         // Instructions = Instructions.GetComponent<Button>();
@@ -34,7 +33,7 @@ public class pauseMenu : MonoBehaviour
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
         isPaused = true;
-        pauseMenuCanvas.SetActive(true);
+        PauseMenu.SetActive(true);
     }
 
     public void resumeGame()
@@ -42,7 +41,7 @@ public class pauseMenu : MonoBehaviour
         // Sets the game time to realtime
         Time.timeScale = 1F;
         isPaused = false;
-        pauseMenuCanvas.SetActive(false);
+        PauseMenu.SetActive(false);
     }
 
     public void endGame()
