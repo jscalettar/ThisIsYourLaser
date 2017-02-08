@@ -21,7 +21,7 @@ public class cursor1 : MonoBehaviour
     private MoveDir dir = MoveDir.Up;
     public static Vector3 pos;
     private int currentBuilding = (int)Building.Laser;
-    private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
+    private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length -1;
 
 
     // Use this for initialization
@@ -29,7 +29,6 @@ public class cursor1 : MonoBehaviour
     void Start()
     {
         //default values for UI  
-        //what happens
         p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
         p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
@@ -45,7 +44,7 @@ public class cursor1 : MonoBehaviour
     void Update()
     {
         Building currentTex = (Building)currentBuilding;
-        //buildingControls();
+        buildingControls();
         p1UI.currentSelection.text = currentTex.ToString();
         buttonPress--;
 
@@ -148,29 +147,12 @@ public class cursor1 : MonoBehaviour
     }
     private void buildingControls()
     {
-        //if (!setupManager.basePhase && !setupManager.laserPhase)
-        //{
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //setupManager.PlaceBuild(Player.PlayerOne, (Building)currentBuilding, currentBuilding, pos);
-            //gridManager.theGrid.placeBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), (Building)currentBuilding, Player.PlayerOne);
-            print(currentBuilding);
-        }
-        else if (Input.GetKeyDown("e"))
-        {
-            currentBuilding += 1;
-            if (currentBuilding == numberOfTypes) currentBuilding = 0;
-        }
-        else if (Input.GetKeyDown("q"))
-        {
-            currentBuilding -= 1;
-            if (currentBuilding == -1) currentBuilding = numberOfTypes - 1;
-        }
-        else if (Input.GetKeyDown("r"))
+        
+        if (Input.GetKeyDown("r"))//does not destroy instance
         {
             gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
         }
-        if (Input.GetKeyDown("r"))
+        /*if (Input.GetKeyDown("r"))
         {
             p1UI.playerState.text = "swapping";
         }
@@ -181,6 +163,6 @@ public class cursor1 : MonoBehaviour
         if (Input.GetKeyDown("f"))
         {
             p1UI.playerState.text = "placing";
-        }
+        }*/
     }
 }

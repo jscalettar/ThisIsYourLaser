@@ -31,7 +31,7 @@ using UnityEngine;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public enum Building { Empty, Base, Blocking, Reflecting, Refracting, Redirecting, Portal, Resource, Laser };
-public enum Player { World, PlayerOne, PlayerTwo }; // World Refers to neutral spaces owned by neither player
+public enum Player { World, PlayerOne, PlayerTwo, Shared }; // World Refers to neutral spaces owned by neither player
 public enum Direction { None, NE, NW, SE, SW, Left, Right, Up, Down };
 
 public struct GridItem
@@ -39,9 +39,8 @@ public struct GridItem
     public bool isEmpty;        // Empty grid cell?
     public Building building;   // Building type
     public Player owner;        // Who owns the block
-    public Direction direction; // Used for laser block direction, and possibly other blocks in the future?
+    public Direction direction; // Used for laser block direction, other block rotations
     public byte level;          // Upgrade level
-    
 
     public GridItem(bool emptyCell, Building buildingID, Player ownedBy, Direction facingDirection, byte upgradeLevel)
     {
@@ -54,11 +53,11 @@ public struct GridItem
 
     public string toString()    // Convert GridItem to string for easy printing
     {
-        return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level;
+        return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level + "  |  Direction: " + direction + "  |  Owner: " + owner;
     }
 }
 
-public struct Grid 
+public struct Grid
 {
     private GridItem[,] grid;
     private int dimX;
@@ -92,7 +91,6 @@ public struct Grid
     {
         if (!validateInput(x, y)) return false;
         if (grid[y, x].isEmpty) {
-            Console.WriteLine("something");
             grid[y, x].isEmpty = false;
             grid[y, x].building = newBuilding;
             grid[y, x].owner = playerID;
@@ -133,16 +131,15 @@ public struct Grid
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
         if (!grid[y, x].isEmpty && !grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner && playerID == grid[yNew, xNew].owner)
-        {
+        {//only swaps building types and directions since it is still not empty and it needs to be the same owner for both
             Building tempBuild = grid[yNew, xNew].building;
             Direction tempDir = grid[yNew, xNew].direction;
             grid[yNew, xNew].building = grid[y, x].building;
             grid[yNew, xNew].direction = grid[y, x].direction;
             grid[y, x].building = tempBuild;
             grid[y, x].direction = tempDir;
-        }
-        else return false;
-            return true;
+        } else return false;
+        return true;
     }
 
     private bool canBeUpgraded(GridItem item)
@@ -161,13 +158,12 @@ public struct Grid
     }
 }
 
-
 public class gridManager : MonoBehaviour {
 
     public static Grid theGrid;
     public int boardWidth = 14;
     public int boardHeight = 10;
-    
+
     void Awake () {
         theGrid = new Grid(boardWidth, boardHeight);
     }
@@ -184,12 +180,13 @@ public class gridManager : MonoBehaviour {
             for (int col = 0; col < theGrid.getDimX(); col++) {
                 if ((row%2 == 0 && col%2 == 0) || (row % 2 != 0 && col % 2 != 0)) Gizmos.color = new Color(1f, 1f, 1f, 1f);
                 else Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-                Gizmos.DrawCube(new Vector3((-dimX / 2) + col +0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
-                //if (!theGrid.getCellInfo(col, row).isEmpty) {
-                    //Gizmos.color = theGrid.getCellInfo(col, row).owner == Player.PlayerOne ? new Color(1f, 0, 0, 1f) : new Color(0, 1f, 0, 1f);
-                    //Gizmos.DrawCube(new Vector3((-dimX / 2) + col + 0.5f, 0.5f * 0.8f, (-dimY / 2) + row + 0.5f), Vector3.one * 0.8f);
-                //}
+                Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
+                if (!theGrid.getCellInfo(col, row).isEmpty) {
+                    Gizmos.color = theGrid.getCellInfo(col, row).owner == Player.PlayerOne ? new Color(1f, 0, 0, 1f) : new Color(0, 1f, 0, 1f);
+                    //Gizmos.DrawCube(new Vector3((-dimX / 2) + col + 0.5f, 0.5f, (-dimY / 2) + row + 0.5f), Vector3.one);
+                }
             }
         }
     }
+    
 }
