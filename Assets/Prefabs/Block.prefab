@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33627740198052586}
   - component: {fileID: 65710336862639952}
   - component: {fileID: 23926862528113652}
+  - component: {fileID: 114253507967876652}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -92,3 +93,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114253507967876652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1737375806282318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c773a9a73f49a4c800bb1abf5884cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100

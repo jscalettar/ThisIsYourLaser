@@ -476,9 +476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77d779e0378e374db087cdb0909e18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerState: {fileID: 0}
-  playerHealth: {fileID: 0}
-  currentSelection: {fileID: 0}
 --- !u!1 &318693193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,7 +1531,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1166739909}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.05, y: 7.5, z: 0}
+  m_LocalPosition: {x: 0, y: 7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1967,11 +1964,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2040606547}
-  - component: {fileID: 2040606546}
-  - component: {fileID: 2040606551}
   - component: {fileID: 2040606550}
   - component: {fileID: 2040606549}
   - component: {fileID: 2040606548}
+  - component: {fileID: 2040606552}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1979,30 +1975,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2040606546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2040606545}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5233d01c9074b4ab79f5ed9f8efbc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chessmanPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &2040606547
 Transform:
   m_ObjectHideFlags: 0
@@ -2028,17 +2000,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720357178b474644b9805f96db16acb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goList:
-  - {fileID: 1718999871870560, guid: 483fe14c380132f4c8767aac5e65e87c, type: 2}
-  - {fileID: 1857337499070074, guid: e8b4216f3f61fd04787f914a67bb57de, type: 2}
-  - {fileID: 1737375806282318, guid: 5047ebc5d548d8f4fb2ceffa7b621528, type: 2}
-  - {fileID: 1883300556590216, guid: afce4c4c0b2087c4584f3330281538f5, type: 2}
-  - {fileID: 1213130919227048, guid: e4fdf889a6a937f46bc4a18df79c26e7, type: 2}
-  - {fileID: 1514336581799410, guid: 561cd42c486b95f44960551027dc8707, type: 2}
-  - {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
-  - {fileID: 1391260837703470, guid: 28e85a6912b3e95429f4b4e82bd0df66, type: 2}
   p1Mat: {fileID: 2100000, guid: 67d18f659aa074a4cb5c3a399169ea18, type: 2}
   p2Mat: {fileID: 2100000, guid: 17659933dc5030d4eb1a0617e4a80871, type: 2}
+  noP1Direction: 0
+  noP2Direction: 0
 --- !u!114 &2040606549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2071,7 +2036,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardWidth: 14
   boardHeight: 8
---- !u!114 &2040606551
+  Base: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Base2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Laser: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Laser2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Block: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Block2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Reflect: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Reflect2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Refract: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Refract2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Redirect: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Redirect2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Resource: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Resource2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Portal: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Portal2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+--- !u!114 &2040606552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2284,10 +2265,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3ef091f2da19348a7c64b6c0fa2015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenuCanvas: {fileID: 0}
+  PauseMenu: {fileID: 1151074142}
+  OptionMenu: {fileID: 151807177}
   Pause: {fileID: 195128396}
-  Resume: {fileID: 0}
-  End: {fileID: 0}
+  Resume: {fileID: 1001031426}
+  End: {fileID: 410688570}
   isPaused: 0
 --- !u!1 &2104127934
 GameObject:

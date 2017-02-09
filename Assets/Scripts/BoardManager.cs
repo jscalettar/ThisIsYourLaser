@@ -8,7 +8,7 @@ public class BoardManager : MonoBehaviour {
     private const float TILE_SIZE = 1.0f;
     private const float TILE_OFFSET = 0.5f;
     private const int TILE_DIMX = 14;
-    private const int TILE_DIMY = 10;
+    private const int TILE_DIMY = 8;
 
     private int selectionX = -1;
     private int selectionY = -1;

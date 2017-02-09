@@ -25,9 +25,10 @@ public class laserLogic : MonoBehaviour
     public Material laserMaterialP2;
     public Material laserMaterialCombined;
 
-    // Hardcoded for now
-    private Direction laserHeadingP1 = Direction.NE;
-    private Direction laserHeadingP2 = Direction.NW;
+    // Can change laser heading like this:
+    // laserLogic.laserHeadingP1 = Direction.SE;  or  laserLogic.laserHeadingP2 = Direction.SW;
+    public static Direction laserHeadingP1 = Direction.NE;
+    public static Direction laserHeadingP2 = Direction.NW;
 
     // Private Variables
     private int laserStartP1 = 0;

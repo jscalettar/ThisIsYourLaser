@@ -9,6 +9,7 @@ public class startMenu : MonoBehaviour {
     //Hold game objects to show/hide as neccesary
     public GameObject StartMenu;
     public GameObject OptionMenu;
+    public GameObject InstructMenu;
 
     //Vars for buttons
     public Button Play;
@@ -18,6 +19,7 @@ public class startMenu : MonoBehaviour {
 	void Start () {
         StartMenu.SetActive(true);
         OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
     }
 	
 	public void startGame()
@@ -27,12 +29,20 @@ public class startMenu : MonoBehaviour {
     public void mainMenu() {
         StartMenu.SetActive(true);
         OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
     }
 
     public void OptionsMenu()
     {
         StartMenu.SetActive(false);
         OptionMenu.SetActive(true);
+        InstructMenu.SetActive(false);
+    }
+    public void InstructionsMenu()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(true);
     }
 
     public void exitGame()
