@@ -21,6 +21,22 @@ using UnityEngine.UI;
 //This file will be replaced by Scott's actual keyboard control files once that is done
 public class setupManager : MonoBehaviour
 {
+    //Change cursor stuff
+    public Sprite P1BaseSprite;
+    public Sprite P1BlockSprite;
+    public Sprite P1LaserSprite;
+    public Sprite P1ReflectSprite;
+    public Sprite P1RefractSprite;
+    public Sprite P1RedirectSprite;
+    public GameObject P1Cursor;
+
+    public Sprite P2BaseSprite;
+    public Sprite P2BlockSprite;
+    public Sprite P2LaserSprite;
+    public Sprite P2ReflectSprite;
+    public Sprite P2RefractSprite;
+    public Sprite P2RedirectSprite;
+    public GameObject P2Cursor;
 
     //public List<GameObject> goList;
     //private GameObject[,] listPlace = new GameObject[14, 8];
@@ -90,6 +106,7 @@ public class setupManager : MonoBehaviour
         selection2 = Building.Empty;
         i1 = 0;
         i2 = 0;
+
     }
 
     // Update is called once per frame
@@ -135,7 +152,9 @@ public class setupManager : MonoBehaviour
         else if (laserPhase)
 			
         {
-			selection1 = Building.Laser;
+            P1Cursor.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
+            P2Cursor.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
+            selection1 = Building.Laser;
             selection2 = Building.Laser;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
@@ -187,16 +206,16 @@ public class setupManager : MonoBehaviour
         if (basePhase == laserPhase)//pick a building that you want to place
         {
             //Player 1 selection controls
-			if (Input.GetKeyDown("1")) { selection1 = Building.Blocking; i1 = 2; print ("Blocking Selected");}
-            if (Input.GetKeyDown("2")) { selection1 = Building.Reflecting; i1 = 3; print("Reflecting Selected"); }
-            if (Input.GetKeyDown("3")) { selection1 = Building.Refracting; i1 = 4; print("Refracting Selected"); }
-            if (Input.GetKeyDown("4")) { selection1 = Building.Redirecting; i1 = 5; print("Redirecting Selected"); }
+			if (Input.GetKeyDown("1")) { selection1 = Building.Blocking; i1 = 2; print ("Blocking Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite= P1BlockSprite; }
+            if (Input.GetKeyDown("2")) { selection1 = Building.Reflecting; i1 = 3; print("Reflecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; }
+            if (Input.GetKeyDown("3")) { selection1 = Building.Refracting; i1 = 4; print("Refracting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; }
+            if (Input.GetKeyDown("4")) { selection1 = Building.Redirecting; i1 = 5; print("Redirecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; }
             
             //Player 2 selection controls
-            if (Input.GetKeyDown("7")) { selection2 = Building.Blocking; i2 = 2; print("Blocking Selected"); }
-            if (Input.GetKeyDown("8")) { selection2 = Building.Reflecting; i2 = 3; print("Reflecting Selected"); }
-            if (Input.GetKeyDown("9")) { selection2 = Building.Refracting; i2 = 4; print("Refracting Selected"); }
-            if (Input.GetKeyDown("0")) { selection2 = Building.Redirecting; i2 = 5; print("Redirecting Selected"); }
+            if (Input.GetKeyDown("7")) { selection2 = Building.Blocking; i2 = 2; print("Blocking Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2BlockSprite; }
+            if (Input.GetKeyDown("8")) { selection2 = Building.Reflecting; i2 = 3; print("Reflecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; }
+            if (Input.GetKeyDown("9")) { selection2 = Building.Refracting; i2 = 4; print("Refracting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2RefractSprite; }
+            if (Input.GetKeyDown("0")) { selection2 = Building.Redirecting; i2 = 5; print("Redirecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; }
 
             if (Input.GetKeyDown(KeyCode.E) && selection1 != Building.Empty)
             {
