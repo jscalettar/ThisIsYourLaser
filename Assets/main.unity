@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: {fileID: 0}
+  PauseMenu: {fileID: 0}
 --- !u!23 &174806834
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -895,6 +896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900622142cad9c643947ccefd09835b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 0}
 --- !u!23 &869729622
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2042,7 +2044,7 @@ MonoBehaviour:
   Laser2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
   Block: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
   Block2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
-  Reflect: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
+  Reflect: {fileID: 1883300556590216, guid: afce4c4c0b2087c4584f3330281538f5, type: 2}
   Reflect2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
   Refract: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
   Refract2: {fileID: 1314904449610328, guid: 730202c33b09b1f4c883ee84f0588104, type: 2}
@@ -2266,7 +2268,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 1151074142}
-  OptionMenu: {fileID: 151807177}
   Pause: {fileID: 195128396}
   Resume: {fileID: 1001031426}
   End: {fileID: 410688570}

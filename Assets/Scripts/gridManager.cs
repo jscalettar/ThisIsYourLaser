@@ -142,7 +142,7 @@ public struct Grid
             grid[y, x].direction = facing;
         } else return false;
         // Place Building Prefab
-        GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + playerID == Player.PlayerOne ? 0 : 8]);
+        GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
         building.GetComponent<buildingParameters>().x = x;
         building.GetComponent<buildingParameters>().y = y;
         building.GetComponent<buildingParameters>().owner = playerID;
