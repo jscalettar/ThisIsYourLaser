@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4807324918544876}
   - component: {fileID: 33394704270694676}
-  - component: {fileID: 65277293603983224}
   - component: {fileID: 23810368701195608}
   - component: {fileID: 114105079807383150}
+  - component: {fileID: 114081754390295740}
   m_Layer: 0
   m_Name: LaserBuilding
   m_TagString: Untagged
@@ -81,18 +81,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1857337499070074}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65277293603983224
-BoxCollider:
+--- !u!114 &114081754390295740
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1857337499070074}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36633ddff7853944782cdec310a8ef13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: -1
+  y: -1
+  owner: 0
+  building: 8
+  health: 100
+  cost: 100
 --- !u!114 &114105079807383150
 MonoBehaviour:
   m_ObjectHideFlags: 1

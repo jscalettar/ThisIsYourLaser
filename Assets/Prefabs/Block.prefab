@@ -20,9 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4228673223865582}
   - component: {fileID: 33627740198052586}
-  - component: {fileID: 65710336862639952}
   - component: {fileID: 23926862528113652}
-  - component: {fileID: 114253507967876652}
+  - component: {fileID: 114442910951166462}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -81,19 +80,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1737375806282318}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65710336862639952
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1737375806282318}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114253507967876652
+--- !u!114 &114442910951166462
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -101,7 +88,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1737375806282318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1c773a9a73f49a4c800bb1abf5884cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 36633ddff7853944782cdec310a8ef13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  x: -1
+  y: -1
+  owner: 0
+  building: 8
   health: 100
+  cost: 100
