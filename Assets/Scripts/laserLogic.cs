@@ -481,6 +481,11 @@ public class laserLogic : MonoBehaviour
     private void laserReflect(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
         // Need to add if (direction == building weak side), add damageHit, break;
+        GridItem gi = gridManager.theGrid.getCellInfo(x, y);
+        if (direction == Direction.Right && gi.weakSides[0] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
+        if (direction == Direction.Left && gi.weakSides[1] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
+        if (direction == Direction.Down && gi.weakSides[2] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
+        if (direction == Direction.Up && gi.weakSides[3] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
 
         switch (direction) {
                                 case Direction.Down: addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;

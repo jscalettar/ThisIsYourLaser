@@ -331,12 +331,14 @@ public class setupManager : MonoBehaviour
         else if (player == Player.PlayerOne)//get grid items info
         {
             print(pos);
+            for (int i = 0; i < 4; i++) print(gi.weakSides[i]);
             haveSelected1 = true;
             selected1 = gi;
             selectedLoc1 = new Vector2(pos.x, pos.z);
         }else if(player == Player.PlayerTwo)
         {
             print(pos);
+            for (int i = 0; i < 4; i++) print(gi.weakSides[i]);
             haveSelected2 = true;
             selected2 = gi;
             selectedLoc2 = new Vector2(pos.x, pos.z);

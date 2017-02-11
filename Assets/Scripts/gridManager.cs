@@ -181,6 +181,7 @@ public struct Grid
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
+            for (int i = 4; i < 4; i++) grid[y, x].weakSides[i] = 0;
         } else return false;
         // Remove Building Prefab
         MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
@@ -196,10 +197,12 @@ public struct Grid
             grid[yNew, xNew].building = grid[y, x].building;
             grid[yNew, xNew].owner = playerID;
             grid[yNew, xNew].direction = grid[y, x].direction;
+            grid[yNew, xNew].weakSides = grid[y, x].weakSides;
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
+            grid[y, x].weakSides = new int[] { 0, 0, 0, 0 };
         } else return false;
         // Move Building Prefab
         GameObject building = prefabDictionary[new XY(x, y)];
@@ -217,10 +220,13 @@ public struct Grid
         if (!grid[y, x].isEmpty && !grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner && playerID == grid[yNew, xNew].owner) {
             Building tempBuild = grid[yNew, xNew].building;
             Direction tempDir = grid[yNew, xNew].direction;
+            int[] tempWeakSides = grid[yNew, xNew].weakSides;
             grid[yNew, xNew].building = grid[y, x].building;
             grid[yNew, xNew].direction = grid[y, x].direction;
+            grid[yNew, xNew].weakSides = grid[y, x].weakSides;
             grid[y, x].building = tempBuild;
             grid[y, x].direction = tempDir;
+            grid[y, x].weakSides = tempWeakSides;
         } else return false;
         // Swap Building Prefab
         GameObject building = prefabDictionary[new XY(x, y)];
