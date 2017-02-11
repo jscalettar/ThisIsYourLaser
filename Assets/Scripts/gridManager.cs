@@ -142,13 +142,13 @@ public struct Grid
             grid[y, x].building = newBuilding;
             grid[y, x].owner = playerID;
             grid[y, x].direction = facing;
-            if (newBuilding == Building.Reflecting)
+            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking)
             {
-                if((int)facing == 5) grid[y, x].weakSides[0] = 1;
+                if ((int)facing == 5) grid[y, x].weakSides[0] = 1;
                 if ((int)facing == 6) grid[y, x].weakSides[1] = 1;
                 if ((int)facing == 7) grid[y, x].weakSides[2] = 1;
                 if ((int)facing == 8) grid[y, x].weakSides[3] = 1;
-            }else if(newBuilding == Building.Blocking)
+            }else if (newBuilding == Building.Resource)
             {
                 if ((int)facing == 6) grid[y, x].weakSides[0] = 0;
                 else grid[y, x].weakSides[0] = 1;
