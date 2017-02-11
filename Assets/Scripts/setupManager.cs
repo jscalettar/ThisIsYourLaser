@@ -159,7 +159,7 @@ public class setupManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
                 PlaceBuild(Player.PlayerOne, selection1, 1, p1Pos, Direction.None);
-				selection1 = Building.Empty;
+                selection1 = Building.Empty;
             }
             else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == 13)//P2 laser place
             {
