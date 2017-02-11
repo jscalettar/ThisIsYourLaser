@@ -249,27 +249,27 @@ public class laserLogic : MonoBehaviour
                 }
             }
             else switch (heading) {
-                case Direction.NE:
-                    {
-                        if (direction == Direction.Right) { yOff += 0.5f; } else { xOff += 0.5f; }
-                        break;
-                    }
-                case Direction.SE:
-                    {
-                        if (direction == Direction.Right) { yOff += 0.5f; } else { xOff += 0.5f; yOff++; }
-                        break;
-                    }
-                case Direction.NW:
-                    {
-                        if (direction == Direction.Up) { xOff += 0.5f; } else { xOff++; yOff += 0.5f; }
-                        break;
-                    }
-                case Direction.SW:
-                    {
-                        if (direction == Direction.Down) { xOff += 0.5f; yOff++; } else { xOff++; yOff += 0.5f; }
-                        break;
-                    }
-            }
+                    case Direction.NE:
+                        {
+                            if (direction == Direction.Right) { yOff += 0.5f; } else { xOff += 0.5f; }
+                            break;
+                        }
+                    case Direction.SE:
+                        {
+                            if (direction == Direction.Right) { yOff += 0.5f; } else { xOff += 0.5f; yOff++; }
+                            break;
+                        }
+                    case Direction.NW:
+                        {
+                            if (direction == Direction.Up) { xOff += 0.5f; } else { xOff++; yOff += 0.5f; }
+                            break;
+                        }
+                    case Direction.SW:
+                        {
+                            if (direction == Direction.Down) { xOff += 0.5f; yOff++; } else { xOff++; yOff += 0.5f; }
+                            break;
+                        }
+                }
         } else {
             if (gridManager.theGrid.getBuilding(x, y) == Building.Redirecting) {
                 switch (heading) {
@@ -280,27 +280,27 @@ public class laserLogic : MonoBehaviour
                 }
             }
             else switch (heading) {
-                case Direction.NE:
-                    {
-                        if (direction == Direction.Right) { xOff += 0.5f; yOff++; } else { xOff++; yOff += 0.5f; }
-                        break;
-                    }
-                case Direction.SE:
-                    {
-                        if (direction == Direction.Right) { xOff += 0.5f; } else { xOff++; yOff += 0.5f; }
-                        break;
-                    }
-                case Direction.NW:
-                    {
-                        if (direction == Direction.Up) { yOff += 0.5f; } else { xOff += 0.5f; yOff++; }
-                        break;
-                    }
-                case Direction.SW:
-                    {
-                        if (direction == Direction.Down) { yOff += 0.5f; } else { xOff += 0.5f; }
-                        break;
-                    }
-            }
+                    case Direction.NE:
+                        {
+                            if (direction == Direction.Right) { xOff += 0.5f; yOff++; } else { xOff++; yOff += 0.5f; }
+                            break;
+                        }
+                    case Direction.SE:
+                        {
+                            if (direction == Direction.Right) { xOff += 0.5f; } else { xOff++; yOff += 0.5f; }
+                            break;
+                        }
+                    case Direction.NW:
+                        {
+                            if (direction == Direction.Up) { yOff += 0.5f; } else { xOff += 0.5f; yOff++; }
+                            break;
+                        }
+                    case Direction.SW:
+                        {
+                            if (direction == Direction.Down) { yOff += 0.5f; } else { xOff += 0.5f; }
+                            break;
+                        }
+                }
         }
 
         return new Vector3(x - (gridManager.theGrid.getDimX() / 2) + xOff, laserVisualHeight, y - (gridManager.theGrid.getDimY() / 2) + yOff);
@@ -483,11 +483,11 @@ public class laserLogic : MonoBehaviour
         // Need to add if (direction == building weak side), add damageHit, break;
 
         switch (direction) {
-            case Direction.Down: addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
-            case Direction.Up: addLaserToQueue(x, y - 1, strength + powerSolver(x, y), heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, true); break;
-            case Direction.Left: addLaserToQueue(x + 1, y, strength + powerSolver(x, y), heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, true); break;
-            case Direction.Right: addLaserToQueue(x - 1, y, strength + powerSolver(x, y), heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, true); break;
-        }
+                                case Direction.Down: addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
+                                case Direction.Up: addLaserToQueue(x, y - 1, strength + powerSolver(x, y), heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, true); break;
+                                case Direction.Left: addLaserToQueue(x + 1, y, strength + powerSolver(x, y), heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, true); break;
+                                case Direction.Right: addLaserToQueue(x - 1, y, strength + powerSolver(x, y), heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, true); break;
+                            }
     }
 
     // What happens when a laser collides with a refraction block
