@@ -97,7 +97,7 @@ MonoBehaviour:
   owner: 0
   building: 8
   health: 100
-  cost: 100
+  cost: 0
 --- !u!114 &114105079807383150
 MonoBehaviour:
   m_ObjectHideFlags: 1

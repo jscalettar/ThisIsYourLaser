@@ -4,14 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // Readme:  Redirecting Block WIP
-//          Resources not yet implemented
-//          Damage hits not yet implemented
+//          Damage not yet implemented
 //          Infinite loop possible with refracting blocks atm
 //          Opposing lasers do not account for strength atm
 //          Gizmos commented out at bottom (Use for debugging laser strength)
 //
-// NEW FEATURES:    Supports lasers combining through refraction block
-//                  Supports lasers opposing eachother from reflections
+// NEW FEATURES:    Resources are now generated
+//                  laserLogic only runs simulations when the board changes
 
 public class laserLogic : MonoBehaviour
 {
@@ -21,6 +20,7 @@ public class laserLogic : MonoBehaviour
     public float laserWidth = 0.03f;
     public float laserVisualHeight = 0.5f;
     public float laserIntensity = 0.5f;
+    public float resourceRate = 1f;
     public Material laserMaterialP1;
     public Material laserMaterialP2;
     public Material laserMaterialCombined;
@@ -39,10 +39,10 @@ public class laserLogic : MonoBehaviour
     private int laserLimit = 100;
     private int laserIndex = 0;
     private int laserCounter = 0;
-    private List<List<laserNode>> lasers;  // Laser list for line rendering
+    private List<List<laserNode>> lasers;   // Laser list for line rendering
     private List<laserNode> laserQueue;
     private laserGrid laserData;
-    //private List<laserHit> laserHits; // Laser-building collision list
+    private List<laserHit> laserHits;       // Laser-building collision list
     private GameObject laserContainer;
 
     private struct laserNode
@@ -165,28 +165,26 @@ public class laserLogic : MonoBehaviour
     }
 
 
-    /*
-    // For storing when lasers hit resource or blocking blocks
+    // For storing when lasers hit resource or blocking blocks, base
     struct laserHit
     {
         public int X;
         public int Y;
+        public bool weakSideHit;
         public float laserStrength;
         public Building buildingHit;
-        public Direction sideHit;
-        public Player laserOwner;
+        public Player buildingOwner;
 
-        public laserHit(int x, int y, float laserPower, Building buildingType, Direction hitSide, Player laserOwnedBy)
+        public laserHit(int x, int y, bool weakHit, float laserPower, Building buildingType, Player buildingOwnedBy)
         {
             X = x;
             Y = y;
+            weakSideHit = weakHit;
             laserStrength = laserPower;
             buildingHit = buildingType;
-            sideHit = hitSide;
-            laserOwner = laserOwnedBy;
+            buildingOwner = buildingOwnedBy;
         }
     }
-    */
 
 
     void Awake()
@@ -194,7 +192,7 @@ public class laserLogic : MonoBehaviour
         laserIndex = -1;
         lasers = new List<List<laserNode>>();
         laserQueue = new List<laserNode>();
-        //laserHits = new List<laserHit>();
+        laserHits = new List<laserHit>();
         laserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
         laserContainer = new GameObject("laserContainer");
         laserContainer.transform.SetParent(gameObject.transform);
@@ -211,14 +209,20 @@ public class laserLogic : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        //simulateLasers();
-    }
-
     void LateUpdate()
     {
-        simulateLasers(); // should change this to only run when building placed/destroyed/modified
+        if (gridManager.theGrid.updateLaser()) simulateLasers(); // Update laser if needed
+
+        // Generate Resources, apply damage (damage not yet implemented)
+        foreach (laserHit hit in laserHits) {
+            if (hit.buildingHit == Building.Resource && !hit.weakSideHit) {
+                // Add Resources
+                if (hit.buildingOwner == Player.PlayerOne) gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0);
+                else if (hit.buildingOwner == Player.PlayerTwo) gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate);
+            } else {
+                // Apply Damage
+            }
+        }
     }
 
     private void drawLaser(laserNode start, laserNode end)
@@ -325,7 +329,8 @@ public class laserLogic : MonoBehaviour
         for (int i = 0; i < laserCounter; i++) laserContainer.transform.GetChild(i).GetComponent<LineRenderer>().enabled = false;
         laserCounter = 0;
 
-        //laserHits.Clear();
+        // Clear laser hits
+        laserHits.Clear();
 
         // Simulate each player's laser
         if (p1LaserFound) laserQueue.Add(new laserNode(0, laserStartP1, 1f, laserHeadingP1, Direction.Right, Player.PlayerOne, ++laserIndex, 0));
@@ -455,8 +460,8 @@ public class laserLogic : MonoBehaviour
             case Building.Refracting: laserRefract(x, y, strength, heading, direction, player, indx, subIndx); break;
             case Building.Redirecting: laserRedirect(x, y, strength, heading, direction, player, indx, subIndx); break;
             case Building.Portal: break; // Not implemented
-            case Building.Resource: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false); break; // push resource hit? or damage hit
-            case Building.Base: SceneManager.LoadScene("GameOver", LoadSceneMode.Single); break; // push damage hit
+            case Building.Resource: laserResource(x, y, strength, heading, direction, player, indx, subIndx); break;
+            case Building.Base: SceneManager.LoadScene("GameOver", LoadSceneMode.Single); break; // Will change to apply damage hit instead of end game
             case Building.Laser: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false); break;
 
         }
@@ -477,15 +482,26 @@ public class laserLogic : MonoBehaviour
         else laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, indx, subIndx + 1));
     }
 
+    // What happens when a laser collides with a resource block
+    private void laserResource(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
+    {
+        GridItem gi = gridManager.theGrid.getCellInfo(x, y);
+        bool weakHit = true;
+        if (direction == Direction.Right && gi.weakSides[0] == 1) { weakHit = false; }
+        else if (direction == Direction.Left && gi.weakSides[1] == 1) { weakHit = false; }
+        else if (direction == Direction.Down && gi.weakSides[2] == 1) { weakHit = false; }
+        else if (direction == Direction.Up && gi.weakSides[3] == 1) { weakHit = false; }
+        laserHits.Add(new laserHit(x, y, weakHit, strength, Building.Resource, gi.owner));
+    }
     // What happens when a laser collides with a reflection block
     private void laserReflect(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
         // Need to add if (direction == building weak side), add damageHit, break;
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
-        if (direction == Direction.Right && gi.weakSides[0] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
-        if (direction == Direction.Left && gi.weakSides[1] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
-        if (direction == Direction.Down && gi.weakSides[2] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
-        if (direction == Direction.Up && gi.weakSides[3] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
+        if (direction == Direction.Right && gi.weakSides[0] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; } // Will change to apply damage hit instead of destroy
+        else if (direction == Direction.Left && gi.weakSides[1] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
+        else if (direction == Direction.Down && gi.weakSides[2] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
+        else if (direction == Direction.Up && gi.weakSides[3] == 1) { gridManager.theGrid.destroyBuilding(x, y, player); return; }
 
         switch (direction) {
                                 case Direction.Down: addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
