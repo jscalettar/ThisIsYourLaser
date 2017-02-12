@@ -77,10 +77,13 @@ public struct Grid
     private Dictionary<XY, GameObject> prefabDictionary;
     private int dimX;
     private int dimY;
+    private float resourcesP1;
+    private float resourcesP2;
+    private bool needsUpdate;
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2, 
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
@@ -109,6 +112,9 @@ public struct Grid
         buildingPrefabs[(int)Building.Resource + 8] = resourcePrefab2;
         buildingPrefabs[(int)Building.Portal + 8] = portalPrefab2;
         prefabDictionary = new Dictionary<XY, GameObject>(buildingPrefabs.Length);
+        resourcesP1 = resources;
+        resourcesP2 = resources;
+        needsUpdate = false;
     }
 
     private bool validateInput(int x, int y)
@@ -128,28 +134,38 @@ public struct Grid
         return new Vector3(0, 0, 0);
     }
 
+    private float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
+    {
+        float cost = buildingPrefabs[(int)building].GetComponent<buildingParameters>().cost;
+        if (x == -1) return cost;
+        if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2) cost *= 2f;
+        else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2) cost *= 2f;
+        if (moving || removing) cost /= 2f;
+        else if (swaping) cost /= 4f;
+        return cost;
+    }
+
     public GridItem getCellInfo(int x, int y) { return validateInput(x, y) ? grid[y, x] : new GridItem(true, Building.Empty, Player.World, Direction.None, 0); }
     public Building getBuilding(int x, int y) { return validateInput(x, y) ? grid[y, x].building : Building.Empty; }
     public Direction getDirection(int x, int y) { return validateInput(x, y) ? grid[y, x].direction : Direction.None; }
     public int getDimX() { return dimX; }
     public int getDimY() { return dimY; }
+    public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; }
+    public bool updateLaser() { return needsUpdate; }
 
     public bool placeBuilding(int x, int y, Building newBuilding, Player playerID, Direction facing = Direction.Up)
     {
         if (!validateInput(x, y)) return false;
-        if (grid[y, x].isEmpty && newBuilding != Building.Empty) {
+        if (grid[y, x].isEmpty && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost(newBuilding)) {
             grid[y, x].isEmpty = false;
             grid[y, x].building = newBuilding;
             grid[y, x].owner = playerID;
             grid[y, x].direction = facing;
+            // Add Weak Side(s)
             if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking)
             {
-                if ((int)facing == 5) grid[y, x].weakSides[0] = 1;
-                if ((int)facing == 6) grid[y, x].weakSides[1] = 1;
-                if ((int)facing == 7) grid[y, x].weakSides[2] = 1;
-                if ((int)facing == 8) grid[y, x].weakSides[3] = 1;
-            }else if (newBuilding == Building.Resource)
-            {
+                if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
+            } else if (newBuilding == Building.Resource) {
                 if ((int)facing == 6) grid[y, x].weakSides[0] = 0;
                 else grid[y, x].weakSides[0] = 1;
                 if ((int)facing == 5) grid[y, x].weakSides[1] = 0;
@@ -159,17 +175,45 @@ public struct Grid
                 if ((int)facing == 7) grid[y, x].weakSides[3] = 0;
                 else grid[y, x].weakSides[3] = 1;
             }
+            // Place Building Prefab
+            GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
+            building.GetComponent<buildingParameters>().x = x;
+            building.GetComponent<buildingParameters>().y = y;
+            building.GetComponent<buildingParameters>().owner = playerID;
+            building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
+            building.transform.SetParent(buildingContainer.transform);
+            building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
+            building.transform.localEulerAngles = directionToEular(facing);
+            prefabDictionary.Add(new XY(x, y), building);
+            // Subtract Cost From Resources
+            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(newBuilding, x, playerID);
+            else resourcesP2 -= getCost(newBuilding, x, playerID);
+            // Specify that the board was updated and that laserLogic needs to run a simulation
+            needsUpdate = true;
         } else return false;
-        // Place Building Prefab
-        GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
-        building.GetComponent<buildingParameters>().x = x;
-        building.GetComponent<buildingParameters>().y = y;
-        building.GetComponent<buildingParameters>().owner = playerID;
-        building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
-        building.transform.SetParent(buildingContainer.transform);
-        building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
-        building.transform.localEulerAngles = directionToEular(facing);
-        prefabDictionary.Add(new XY(x, y), building);
+        return true;
+    }
+
+    // removeBuilding, unlike destroyBuilding, restores half of a building's cost
+    public bool removeBuilding(int x, int y, Player playerID)
+    {
+        if (!validateInput(x, y)) return false;
+        if (!grid[y, x].isEmpty && (playerID == grid[y, x].owner || playerID == Player.World)) {
+            grid[y, x].isEmpty = true;
+            grid[y, x].building = Building.Empty;
+            grid[y, x].owner = Player.World;
+            grid[y, x].level = 0;
+            // Reset Weak Sides
+            for (int i = 4; i < 4; i++) grid[y, x].weakSides[i] = 0;
+            // Give some resources back to player
+            if (playerID == Player.PlayerOne) resourcesP1 += getCost(prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().building, x, playerID, false, true);
+            else resourcesP2 += getCost(prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().building, x, playerID, false, true);
+            // Remove Building Prefab
+            MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
+            prefabDictionary.Remove(new XY(x, y));
+            // Specify that the board was updated and that laserLogic needs to run a simulation
+            needsUpdate = true;
+        } else return false;
         return true;
     }
 
@@ -181,11 +225,14 @@ public struct Grid
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
+            // Reset Weak Sides
             for (int i = 4; i < 4; i++) grid[y, x].weakSides[i] = 0;
+            // Remove Building Prefab
+            MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
+            prefabDictionary.Remove(new XY(x, y));
+            // Specify that the board was updated and that laserLogic needs to run a simulation
+            needsUpdate = true;
         } else return false;
-        // Remove Building Prefab
-        MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
-        prefabDictionary.Remove(new XY(x, y));
         return true;
     }
 
@@ -203,14 +250,19 @@ public struct Grid
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
             grid[y, x].weakSides = new int[] { 0, 0, 0, 0 };
+            // Move Building Prefab
+            GameObject building = prefabDictionary[new XY(x, y)];
+            building.GetComponent<buildingParameters>().x = xNew;
+            building.GetComponent<buildingParameters>().y = yNew;
+            building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
+            prefabDictionary.Remove(new XY(x, y));
+            prefabDictionary.Add(new XY(xNew, yNew), building);
+            // Subtract some resources for move
+            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building.GetComponent<buildingParameters>().building, x, playerID, true);
+            else resourcesP2 -= getCost(building.GetComponent<buildingParameters>().building, x, playerID, true);
+            // Specify that the board was updated and that laserLogic needs to run a simulation
+            needsUpdate = true;
         } else return false;
-        // Move Building Prefab
-        GameObject building = prefabDictionary[new XY(x, y)];
-        building.GetComponent<buildingParameters>().x = xNew;
-        building.GetComponent<buildingParameters>().y = yNew;
-        building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
-        prefabDictionary.Remove(new XY(x, y));
-        prefabDictionary.Add(new XY(xNew, yNew), building);
         return true;
     }
 
@@ -227,23 +279,31 @@ public struct Grid
             grid[y, x].building = tempBuild;
             grid[y, x].direction = tempDir;
             grid[y, x].weakSides = tempWeakSides;
+            // Swap Building Prefab
+            GameObject building = prefabDictionary[new XY(x, y)];
+            GameObject building2 = prefabDictionary[new XY(xNew, yNew)];
+            building.GetComponent<buildingParameters>().x = xNew;
+            building.GetComponent<buildingParameters>().y = yNew;
+            building2.GetComponent<buildingParameters>().x = x;
+            building2.GetComponent<buildingParameters>().y = y;
+            building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
+            building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
+            prefabDictionary.Remove(new XY(x, y));
+            prefabDictionary.Remove(new XY(xNew, yNew));
+            prefabDictionary.Add(new XY(xNew, yNew), building);
+            prefabDictionary.Add(new XY(x, y), building2);
+            // Subtract some resources for swapped buildings (equal to the cost to individually move each building / 2)
+            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, false, false, true);
+            else resourcesP2 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, false, false, true);
+            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building2.GetComponent<buildingParameters>().building, x, playerID, false, false, true);
+            else resourcesP2 -= getCost(building2.GetComponent<buildingParameters>().building, x, playerID, false, false, true);
+            // Specify that the board was updated and that laserLogic needs to run a simulation
+            needsUpdate = true;
         } else return false;
-        // Swap Building Prefab
-        GameObject building = prefabDictionary[new XY(x, y)];
-        GameObject building2 = prefabDictionary[new XY(xNew, yNew)];
-        building.GetComponent<buildingParameters>().x = xNew;
-        building.GetComponent<buildingParameters>().y = yNew;
-        building2.GetComponent<buildingParameters>().x = x;
-        building2.GetComponent<buildingParameters>().y = y;
-        building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
-        building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
-        prefabDictionary.Remove(new XY(x, y));
-        prefabDictionary.Remove(new XY(xNew, yNew));
-        prefabDictionary.Add(new XY(xNew, yNew), building);
-        prefabDictionary.Add(new XY(x, y), building2);
         return true;
     }
 
+    /* Backlog
     private bool canBeUpgraded(GridItem item)
     {
         // Add upgrade conditions here
@@ -257,7 +317,7 @@ public struct Grid
             grid[y, x].level++;
         } else return false;
         return true;
-    }
+    }*/
 }
 
 public class gridManager : MonoBehaviour
@@ -265,6 +325,7 @@ public class gridManager : MonoBehaviour
     public static Grid theGrid;
     public int boardWidth = 14;
     public int boardHeight = 10;
+    public float startingResources = 20;
     public GameObject Base;
     public GameObject Base2;
     public GameObject Laser;
@@ -288,7 +349,7 @@ public class gridManager : MonoBehaviour
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources);
     }
 
     // Debug building placements
@@ -303,7 +364,7 @@ public class gridManager : MonoBehaviour
             for (int col = 0; col < theGrid.getDimX(); col++) {
                 if ((row % 2 == 0 && col % 2 == 0) || (row % 2 != 0 && col % 2 != 0)) Gizmos.color = new Color(1f, 1f, 1f, 1f);
                 else Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-                Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
+                //Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
                 if (!theGrid.getCellInfo(col, row).isEmpty) {
                     Gizmos.color = theGrid.getCellInfo(col, row).owner == Player.PlayerOne ? new Color(1f, 0, 0, 1f) : new Color(0, 1f, 0, 1f);
                     //Gizmos.DrawCube(new Vector3((-dimX / 2) + col + 0.5f, 0.5f, (-dimY / 2) + row + 0.5f), Vector3.one);

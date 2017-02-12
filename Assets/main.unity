@@ -7396,6 +7396,7 @@ GameObject:
   - component: {fileID: 2040606549}
   - component: {fileID: 2040606548}
   - component: {fileID: 2040606552}
+  - component: {fileID: 2040606546}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -7403,6 +7404,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2040606546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040606545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5233d01c9074b4ab79f5ed9f8efbc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chessmanPrefabs: []
 --- !u!4 &2040606547
 Transform:
   m_ObjectHideFlags: 0
@@ -7423,7 +7436,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2040606545}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 720357178b474644b9805f96db16acb8, type: 3}
   m_Name: 
@@ -7461,6 +7474,7 @@ MonoBehaviour:
   laserWidth: 0.03
   laserVisualHeight: 0.5
   laserIntensity: 0.5
+  resourceRate: 1
   laserMaterialP1: {fileID: 2100000, guid: 67d18f659aa074a4cb5c3a399169ea18, type: 2}
   laserMaterialP2: {fileID: 2100000, guid: 17659933dc5030d4eb1a0617e4a80871, type: 2}
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
@@ -7478,6 +7492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardWidth: 14
   boardHeight: 8
+  startingResources: 20
   Base: {fileID: 1718999871870560, guid: 483fe14c380132f4c8767aac5e65e87c, type: 2}
   Base2: {fileID: 1718999871870560, guid: 483fe14c380132f4c8767aac5e65e87c, type: 2}
   Laser: {fileID: 1857337499070074, guid: e8b4216f3f61fd04787f914a67bb57de, type: 2}
@@ -7500,7 +7515,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2040606545}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15a07b041e8b4e04680223eaae69b881, type: 3}
   m_Name: 
