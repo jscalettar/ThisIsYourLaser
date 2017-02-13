@@ -159,7 +159,7 @@ public class cursor1 : MonoBehaviour
         
         if (Input.GetKeyDown("r"))//does not destroy instance
         {
-            gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
+			gridManager.theGrid.removeBuilding((int)(pos.x + (gridManager.theGrid.getDimX() / 2) - 0.5f), (int)(pos.z + (gridManager.theGrid.getDimY() / 2) - 0.5f), Player.PlayerOne);
         }
     }
 }
