@@ -67,6 +67,7 @@ public class setupManager : MonoBehaviour
     private Vector2 selectedLoc2;
     private GridItem selected1;
     private GridItem selected2;
+	private bool endFlag = false;
 
 	//Vars for UI
 	public static playerOneUI p1UI;
@@ -137,16 +138,18 @@ public class setupManager : MonoBehaviour
         }
         if (basePhase)
         {
-			selection1 = Building.Base;
-            selection2 = Building.Base;
+			//selection1 = Building.Base;
+            //selection2 = Building.Base;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanBase && p1Pos.x == 0)//P1 base place
             {
 				
-                PlaceBuild(Player.PlayerOne, selection1, 0, p1Pos, Direction.None);
+				PlaceBuild(Player.PlayerOne, Building.Base, 0, p1Pos, Direction.None);
+				//selection1 = Building.Laser;
             }
-            else if (Input.GetKeyDown(KeyCode.O) && pTwoCanBase && p2Pos.x == 13)//P2 base place
+			else if (Input.GetKeyDown(KeyCode.O) && pTwoCanBase && p2Pos.x == gridManager.theGrid.getDimX()-1)//P2 base place
             {
-                PlaceBuild(Player.PlayerTwo, selection2, 0, p2Pos, Direction.None);
+				PlaceBuild(Player.PlayerTwo, Building.Base, 0, p2Pos, Direction.None);
+				//selection2 = Building.Laser;
             }
         }
         else if (laserPhase)
@@ -154,17 +157,15 @@ public class setupManager : MonoBehaviour
         {
             P1Cursor.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
             P2Cursor.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
-            selection1 = Building.Laser;
-            selection2 = Building.Laser;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
-                PlaceBuild(Player.PlayerOne, selection1, 1, p1Pos, Direction.None);
-				selection1 = Building.Empty;
+                PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos, Direction.None);
+				//selection1 = Building.Empty;
             }
-            else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == 13)//P2 laser place
+			else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == gridManager.theGrid.getDimX()-1)//P2 laser place
             {
-                PlaceBuild(Player.PlayerTwo, selection2, 1, p2Pos, Direction.None);
-                selection2 = Building.Empty;
+                PlaceBuild(Player.PlayerTwo, Building.Laser, 1, p2Pos, Direction.None);
+                //selection2 = Building.Empty;
             }
         }
         if (haveSelected1)//if you have an object selected
@@ -178,13 +179,16 @@ public class setupManager : MonoBehaviour
 				p1UI.playerState.text = "placing";
             }
         }
-        else if (laserPhase == basePhase)//if no object is selected, select one
+        else if (laserPhase == basePhase && !endFlag)//if no object is selected, select one
         {
+			//selection1 = Building.Empty;
+			//selection2 = Building.Empty;
             if (Input.GetKeyDown(KeyCode.Q))//P1 
             {
                 SelectBlock(p1Pos, Player.PlayerOne);
 				p1UI.playerState.text = "swapping";
             }
+			//endFlag = true;
         }
         if (haveSelected2)//if you have an object selected
         {
@@ -196,12 +200,13 @@ public class setupManager : MonoBehaviour
                 }
             }
         }
-        else if (laserPhase == basePhase)//if no object is selected, select one
+		else if (laserPhase == basePhase && !endFlag)//if no object is selected, select one
         {
             if (Input.GetKeyDown(KeyCode.U))//P2 
             {
                 SelectBlock(p2Pos, Player.PlayerTwo);
             }
+			//endFlag = true;
         }
         if (basePhase == laserPhase)//pick a building that you want to place
         {
@@ -278,8 +283,10 @@ public class setupManager : MonoBehaviour
 
     private void UpdateSelection()//gets the position on the grid, to be replaced with Scott's movement
     {
-        p1Pos = new Vector3(cursor1.pos.x + 6.5f, 0, cursor1.pos.z + 3.5f);
-        p2Pos = new Vector3(cursor2.pos.x + 6.5f, 0, cursor2.pos.z + 3.5f);
+		float xOff = ((gridManager.theGrid.getDimX() / 2) - 0.5f);
+		float zOff = ((gridManager.theGrid.getDimY() / 2) - 0.5f);
+		p1Pos = new Vector3(cursor1.pos.x + xOff, 0, cursor1.pos.z + zOff);
+		p2Pos = new Vector3(cursor2.pos.x + xOff, 0, cursor2.pos.z + zOff);
     }
     
     public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos, Direction facing)

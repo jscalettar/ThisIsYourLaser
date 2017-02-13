@@ -36,8 +36,9 @@ public class cursor1 : MonoBehaviour
         p1UI.playerState.text = "Placing";
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
-        PauseMenu = GameObject.Find("Pause Menu");
+		PauseMenu = GameObject.Find("Pause Menu");
 
+		transform.position = new Vector3 (-(dimX-0.5f), 0.01f, -(dimZ-0.5f));
     }
 
     // Update is called once per frame
