@@ -127,11 +127,11 @@ public struct Grid
     {
         switch (direction)
         {
-            case Direction.Right: return new Vector3(0, 90, 0);
-            case Direction.Down: return new Vector3(0, 180, 0);
-            case Direction.Left: return new Vector3(0, 270, 0);
+			case Direction.Right: return new Vector3(90, 90, 0);
+			case Direction.Down: return new Vector3(90, 180, 0);
+			case Direction.Left: return new Vector3(90, 270, 0);
         }
-        return new Vector3(0, 0, 0);
+		return new Vector3(90, 0, 0);
     }
 
     private float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
