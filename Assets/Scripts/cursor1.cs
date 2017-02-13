@@ -36,8 +36,9 @@ public class cursor1 : MonoBehaviour
         p1UI.playerState.text = "Placing";
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
-        PauseMenu = GameObject.Find("Pause Menu");
+		PauseMenu = GameObject.Find("Pause Menu");
 
+		transform.position = new Vector3 (-(dimX-0.5f), 0.01f, -(dimZ-0.5f));
     }
 
     // Update is called once per frame
@@ -158,7 +159,7 @@ public class cursor1 : MonoBehaviour
         
         if (Input.GetKeyDown("r"))//does not destroy instance
         {
-            gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerOne);
+			gridManager.theGrid.removeBuilding((int)(pos.x + (gridManager.theGrid.getDimX() / 2) - 0.5f), (int)(pos.z + (gridManager.theGrid.getDimY() / 2) - 0.5f), Player.PlayerOne);
         }
     }
 }

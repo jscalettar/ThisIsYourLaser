@@ -127,11 +127,11 @@ public struct Grid
     {
         switch (direction)
         {
-            case Direction.Right: return new Vector3(0, 90, 0);
-            case Direction.Down: return new Vector3(0, 180, 0);
-            case Direction.Left: return new Vector3(0, 270, 0);
+			case Direction.Right: return new Vector3(90, 90, 0);
+			case Direction.Down: return new Vector3(90, 180, 0);
+			case Direction.Left: return new Vector3(90, 270, 0);
         }
-        return new Vector3(0, 0, 0);
+		return new Vector3(90, 0, 0);
     }
 
     private float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
@@ -162,10 +162,14 @@ public struct Grid
             grid[y, x].owner = playerID;
             grid[y, x].direction = facing;
             // Add Weak Side(s)
-            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking)
+			if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource)
             {
-                if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
-            } else if (newBuilding == Building.Resource) {
+                //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
+				if ((int)facing == 5) grid[y, x].weakSides[0] = 1;
+				if ((int)facing == 6) grid[y, x].weakSides[1] = 1;
+				if ((int)facing == 7) grid[y, x].weakSides[2] = 1;
+				if ((int)facing == 8) grid[y, x].weakSides[3] = 1;
+            } /*else if (newBuilding == Building.Resource) {
                 if ((int)facing == 6) grid[y, x].weakSides[0] = 0;
                 else grid[y, x].weakSides[0] = 1;
                 if ((int)facing == 5) grid[y, x].weakSides[1] = 0;
@@ -174,7 +178,7 @@ public struct Grid
                 else grid[y, x].weakSides[2] = 1;
                 if ((int)facing == 7) grid[y, x].weakSides[3] = 0;
                 else grid[y, x].weakSides[3] = 1;
-            }
+            }*/
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
             building.GetComponent<buildingParameters>().x = x;
@@ -220,7 +224,7 @@ public struct Grid
     public bool destroyBuilding(int x, int y, Player playerID)
     {
         if (!validateInput(x, y)) return false;
-        if (!grid[y, x].isEmpty && (playerID == grid[y, x].owner || playerID == Player.World)) {
+        if (!grid[y, x].isEmpty) {
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
