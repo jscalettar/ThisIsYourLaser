@@ -162,14 +162,14 @@ public struct Grid
             grid[y, x].owner = playerID;
             grid[y, x].direction = facing;
             // Add Weak Side(s)
-            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking)
+			if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource)
             {
                 //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
 				if ((int)facing == 5) grid[y, x].weakSides[0] = 1;
 				if ((int)facing == 6) grid[y, x].weakSides[1] = 1;
 				if ((int)facing == 7) grid[y, x].weakSides[2] = 1;
 				if ((int)facing == 8) grid[y, x].weakSides[3] = 1;
-            } else if (newBuilding == Building.Resource) {
+            } /*else if (newBuilding == Building.Resource) {
                 if ((int)facing == 6) grid[y, x].weakSides[0] = 0;
                 else grid[y, x].weakSides[0] = 1;
                 if ((int)facing == 5) grid[y, x].weakSides[1] = 0;
@@ -178,7 +178,7 @@ public struct Grid
                 else grid[y, x].weakSides[2] = 1;
                 if ((int)facing == 7) grid[y, x].weakSides[3] = 0;
                 else grid[y, x].weakSides[3] = 1;
-            }
+            }*/
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
             building.GetComponent<buildingParameters>().x = x;

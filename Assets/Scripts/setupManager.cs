@@ -215,12 +215,13 @@ public class setupManager : MonoBehaviour
             if (Input.GetKeyDown("2")) { selection1 = Building.Reflecting; i1 = 3; print("Reflecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; }
             if (Input.GetKeyDown("3")) { selection1 = Building.Refracting; i1 = 4; print("Refracting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; }
             if (Input.GetKeyDown("4")) { selection1 = Building.Redirecting; i1 = 5; print("Redirecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; }
-            
+			if (Input.GetKeyDown("5")) { selection1 = Building.Resource; i1 = 6; print("Resource Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1LaserSprite; }
             //Player 2 selection controls
             if (Input.GetKeyDown("7")) { selection2 = Building.Blocking; i2 = 2; print("Blocking Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2BlockSprite; }
             if (Input.GetKeyDown("8")) { selection2 = Building.Reflecting; i2 = 3; print("Reflecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; }
             if (Input.GetKeyDown("9")) { selection2 = Building.Refracting; i2 = 4; print("Refracting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2RefractSprite; }
             if (Input.GetKeyDown("0")) { selection2 = Building.Redirecting; i2 = 5; print("Redirecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; }
+			if (Input.GetKeyDown("-")) { selection2= Building.Resource; i1 = 6; print("Resource Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2LaserSprite; }
 
             if (Input.GetKeyDown(KeyCode.E) && selection1 != Building.Empty)
             {
@@ -233,7 +234,7 @@ public class setupManager : MonoBehaviour
             if (noP1Direction == true) //need to select a direction for the P1 building
             {
                 if (Input.GetKeyDown(KeyCode.W)) //Up
-                {
+				{
                     PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Up);
                     noP1Direction = false;
                 }

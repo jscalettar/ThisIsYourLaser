@@ -622,7 +622,7 @@ ParticleSystem:
   m_GameObject: {fileID: 367682182}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3592,7 +3592,7 @@ ParticleSystem:
   m_GameObject: {fileID: 749703399}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -7459,7 +7459,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1630470809}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -10209,7 +10209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardWidth: 12
   boardHeight: 8
-  startingResources: 9001
+  startingResources: 20
   Base: {fileID: 1718999871870560, guid: 483fe14c380132f4c8767aac5e65e87c, type: 2}
   Base2: {fileID: 1718999871870560, guid: 483fe14c380132f4c8767aac5e65e87c, type: 2}
   Laser: {fileID: 1857337499070074, guid: e8b4216f3f61fd04787f914a67bb57de, type: 2}

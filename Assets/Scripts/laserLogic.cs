@@ -219,7 +219,7 @@ public class laserLogic : MonoBehaviour
                 // Add Resources
                 if (hit.buildingOwner == Player.PlayerOne) gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0);
                 else if (hit.buildingOwner == Player.PlayerTwo) gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate);
-            } else {
+			} else if (hit.weakSideHit) {
                 // Apply Damage
             }
         }
@@ -491,6 +491,10 @@ public class laserLogic : MonoBehaviour
         else if (direction == Direction.Left && gi.weakSides[1] == 1) { weakHit = false; }
         else if (direction == Direction.Down && gi.weakSides[2] == 1) { weakHit = false; }
         else if (direction == Direction.Up && gi.weakSides[3] == 1) { weakHit = false; }
+		if (weakHit) {
+			gridManager.theGrid.destroyBuilding (x, y, player);
+			return;
+		} // DEBUG DELETE LATER
         laserHits.Add(new laserHit(x, y, weakHit, strength, Building.Resource, gi.owner));
     }
     // What happens when a laser collides with a reflection block
