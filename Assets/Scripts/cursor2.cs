@@ -148,7 +148,7 @@ public class cursor2 : MonoBehaviour
 
         if (Input.GetKeyDown("p"))
         {
-            gridManager.theGrid.destroyBuilding((int)(pos.x + 6.5), (int)(pos.z + 3.5), Player.PlayerTwo);
+            gridManager.theGrid.removeBuilding((int)(pos.x + (gridManager.theGrid.getDimX() / 2) - 0.5f), (int)(pos.z + (gridManager.theGrid.getDimY() / 2) - 0.5f), Player.PlayerTwo);
         }
     }
 }
