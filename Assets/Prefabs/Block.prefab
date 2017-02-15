@@ -95,5 +95,5 @@ MonoBehaviour:
   y: -1
   owner: 0
   building: 8
-  health: 100
+  health: 10
   cost: 1

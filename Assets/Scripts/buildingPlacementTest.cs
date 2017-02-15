@@ -43,7 +43,7 @@ public class buildingPlacementTest : MonoBehaviour {
             gridManager.theGrid.placeBuilding((int)coords.x, (int)coords.y, selection, Player.PlayerTwo);
         } else if (Input.GetMouseButtonDown(2)) {
             Vector2 coords = mouseToCoords(Input.mousePosition);
-            gridManager.theGrid.destroyBuilding((int)coords.x, (int)coords.y, Player.World);
+            gridManager.theGrid.destroyBuilding((int)coords.x, (int)coords.y);
         }
     }
 }

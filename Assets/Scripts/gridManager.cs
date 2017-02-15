@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 // README: ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,20 +53,22 @@ public struct GridItem
     public Direction direction; // Used for laser block direction, other block rotations
     public int[] weakSides;     // {left, right, top, down} 1 for weak, 0 for not
     public byte level;          // Upgrade level
+    public float health;
 
-    public GridItem(bool emptyCell, Building buildingID, Player ownedBy, Direction facingDirection, byte upgradeLevel)
+    public GridItem(bool emptyCell, Building buildingID, Player ownedBy, Direction facingDirection, float hitpoints)
     {
         isEmpty = emptyCell;
         building = buildingID;
-        level = upgradeLevel;
+        level = 0;
         owner = ownedBy;
         direction = facingDirection;
         weakSides = new int[4] { 0, 0, 0, 0 };
+        health = hitpoints;
     }
 
     public string toString()    // Convert GridItem to string for easy printing
     {
-        return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level + "  |  Direction: " + direction + "  |  Owner: " + owner;
+        return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level+ "  |  HP: " + health + "  |  Direction: " + direction + "  |  Owner: " + owner;
     }
 }
 
@@ -152,6 +155,18 @@ public struct Grid
     public int getDimY() { return dimY; }
     public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; }
     public bool updateLaser() { return needsUpdate; }
+    public bool applyDamage(int x, int y, float damage)
+    {
+        if (!validateInput(x, y)) return false;
+        if (!grid[y, x].isEmpty) {
+            grid[y, x].health -= damage;
+            if (grid[y, x].health <= 0f) {
+                if (getBuilding(x, y) == Building.Base) SceneManager.LoadScene("GameOver", LoadSceneMode.Single); // Add player specific win screen in future
+                else destroyBuilding(x, y);
+            }
+        } else return false;
+        return true;
+    }
 
     public bool placeBuilding(int x, int y, Building newBuilding, Player playerID, Direction facing = Direction.Up)
     {
@@ -162,13 +177,13 @@ public struct Grid
             grid[y, x].owner = playerID;
             grid[y, x].direction = facing;
             // Add Weak Side(s)
-			if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource)
+            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource)
             {
                 //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
-				if ((int)facing == 5) grid[y, x].weakSides[0] = 1;
-				if ((int)facing == 6) grid[y, x].weakSides[1] = 1;
-				if ((int)facing == 7) grid[y, x].weakSides[2] = 1;
-				if ((int)facing == 8) grid[y, x].weakSides[3] = 1;
+				if (facing == Direction.Left) grid[y, x].weakSides[0] = 1;
+				if (facing == Direction.Right) grid[y, x].weakSides[1] = 1;
+				if (facing == Direction.Up) grid[y, x].weakSides[2] = 1;
+				if (facing == Direction.Down) grid[y, x].weakSides[3] = 1;
             } /*else if (newBuilding == Building.Resource) {
                 if ((int)facing == 6) grid[y, x].weakSides[0] = 0;
                 else grid[y, x].weakSides[0] = 1;
@@ -181,6 +196,7 @@ public struct Grid
             }*/
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
+            grid[y, x].health = building.GetComponent<buildingParameters>().health; // Building starting health
             building.GetComponent<buildingParameters>().x = x;
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
@@ -207,6 +223,7 @@ public struct Grid
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
+            grid[y, x].health = 0;
             // Reset Weak Sides
             for (int i = 4; i < 4; i++) grid[y, x].weakSides[i] = 0;
             // Give some resources back to player
@@ -221,7 +238,7 @@ public struct Grid
         return true;
     }
 
-    public bool destroyBuilding(int x, int y, Player playerID)
+    public bool destroyBuilding(int x, int y)
     {
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
@@ -229,6 +246,7 @@ public struct Grid
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
+            grid[y, x].health = 0;
             // Reset Weak Sides
             for (int i = 4; i < 4; i++) grid[y, x].weakSides[i] = 0;
             // Remove Building Prefab
@@ -249,11 +267,14 @@ public struct Grid
             grid[yNew, xNew].owner = playerID;
             grid[yNew, xNew].direction = grid[y, x].direction;
             grid[yNew, xNew].weakSides = grid[y, x].weakSides;
+            grid[yNew, xNew].level = grid[y, x].level;
+            grid[yNew, xNew].health = grid[y, x].health;
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
-            grid[y, x].level = 0;
             grid[y, x].weakSides = new int[] { 0, 0, 0, 0 };
+            grid[y, x].level = 0;
+            grid[y, x].health = 0;
             // Move Building Prefab
             GameObject building = prefabDictionary[new XY(x, y)];
             building.GetComponent<buildingParameters>().x = xNew;
@@ -277,12 +298,18 @@ public struct Grid
             Building tempBuild = grid[yNew, xNew].building;
             Direction tempDir = grid[yNew, xNew].direction;
             int[] tempWeakSides = grid[yNew, xNew].weakSides;
+            byte tempLevel = grid[yNew, xNew].level;
+            float tempHealth = grid[yNew, xNew].health;
             grid[yNew, xNew].building = grid[y, x].building;
             grid[yNew, xNew].direction = grid[y, x].direction;
             grid[yNew, xNew].weakSides = grid[y, x].weakSides;
+            grid[yNew, xNew].level = grid[y, x].level;
+            grid[yNew, xNew].health = grid[y, x].health;
             grid[y, x].building = tempBuild;
             grid[y, x].direction = tempDir;
             grid[y, x].weakSides = tempWeakSides;
+            grid[y, x].level = tempLevel;
+            grid[y, x].health = tempHealth;
             // Swap Building Prefab
             GameObject building = prefabDictionary[new XY(x, y)];
             GameObject building2 = prefabDictionary[new XY(xNew, yNew)];

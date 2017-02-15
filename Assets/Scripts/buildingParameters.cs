@@ -11,7 +11,7 @@ public class buildingParameters : MonoBehaviour {
     public Player owner = Player.World;
 
     public Building building = Building.Empty;
-    public float health = 100;
-    public float cost = 100;
+    public float health = 5;
+    public float cost = 2;
 
 }
