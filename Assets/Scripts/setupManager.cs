@@ -159,16 +159,7 @@ public class setupManager : MonoBehaviour
             P2Cursor.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
             if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
-<<<<<<< HEAD
-                PlaceBuild(Player.PlayerOne, selection1, 1, p1Pos, Direction.None);
-                selection1 = Building.Empty;
-=======
                 PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos, Direction.None);
-<<<<<<< HEAD
-				//selection1 = Building.Empty;
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> refs/remotes/origin/master
             }
 			else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == gridManager.theGrid.getDimX()-1)//P2 laser place
             {
