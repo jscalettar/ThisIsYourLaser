@@ -28,6 +28,7 @@ public class cursor1 : MonoBehaviour
 
     void Start()
     {
+        
         //default values for UI  
         p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
@@ -44,6 +45,9 @@ public class cursor1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetButtonDown("xboxA")) {
+            print("pressed button 0");
+        }
         Building currentTex = (Building)currentBuilding;
         buildingControls();
         p1UI.currentSelection.text = currentTex.ToString();
@@ -154,6 +158,7 @@ public class cursor1 : MonoBehaviour
             }
         }
     }
+    
     private void buildingControls()
     {
         

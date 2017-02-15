@@ -164,13 +164,15 @@ public class setupManager : MonoBehaviour
                 selection1 = Building.Empty;
 =======
                 PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos, Direction.None);
+<<<<<<< HEAD
 				//selection1 = Building.Empty;
+>>>>>>> refs/remotes/origin/master
+=======
 >>>>>>> refs/remotes/origin/master
             }
 			else if (Input.GetKeyDown(KeyCode.O) && pTwoCanLaser && p2Pos.x == gridManager.theGrid.getDimX()-1)//P2 laser place
             {
                 PlaceBuild(Player.PlayerTwo, Building.Laser, 1, p2Pos, Direction.None);
-                //selection2 = Building.Empty;
             }
         }
         if (haveSelected1)//if you have an object selected
@@ -186,8 +188,7 @@ public class setupManager : MonoBehaviour
         }
         else if (laserPhase == basePhase && !endFlag)//if no object is selected, select one
         {
-			//selection1 = Building.Empty;
-			//selection2 = Building.Empty;
+		
             if (Input.GetKeyDown(KeyCode.Q))//P1 
             {
                 SelectBlock(p1Pos, Player.PlayerOne);
@@ -221,6 +222,18 @@ public class setupManager : MonoBehaviour
             if (Input.GetKeyDown("3")) { selection1 = Building.Refracting; i1 = 4; print("Refracting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; }
             if (Input.GetKeyDown("4")) { selection1 = Building.Redirecting; i1 = 5; print("Redirecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; }
 			if (Input.GetKeyDown("5")) { selection1 = Building.Resource; i1 = 6; print("Resource Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1LaserSprite; }
+
+            if (Input.GetButtonDown("xboxRightBumper")) {
+                if (selection1 == Building.Redirecting) { selection1 = Building.Blocking; }
+                else if (selection1 == Building.Empty) { selection1 = Building.Blocking; }
+                else { selection1 += 1; }         
+            }
+            if (Input.GetButtonDown("xboxLeftBumper")) {
+                if (selection1 == Building.Blocking) { selection1 = Building.Redirecting; }  
+                else { selection1 -= 1; }
+              
+               
+            }
             //Player 2 selection controls
             if (Input.GetKeyDown("7")) { selection2 = Building.Blocking; i2 = 2; print("Blocking Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2BlockSprite; }
             if (Input.GetKeyDown("8")) { selection2 = Building.Reflecting; i2 = 3; print("Reflecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; }
