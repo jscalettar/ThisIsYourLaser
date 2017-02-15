@@ -2050,7 +2050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &367682183
 ParticleSystemRenderer:
   serializedVersion: 2
@@ -2156,7 +2156,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 509320539
+  randomSeed: -993993428
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6210,7 +6210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &749703400
 ParticleSystemRenderer:
   serializedVersion: 2
@@ -6316,7 +6316,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -815991422
+  randomSeed: 295246192
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12761,7 +12761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1630470810
 ParticleSystemRenderer:
   serializedVersion: 2
@@ -12867,7 +12867,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1760846029
+  randomSeed: 1583031097
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15998,7 +15998,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1879519084
 ParticleSystemRenderer:
   serializedVersion: 2
@@ -16104,7 +16104,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 121865131
+  randomSeed: 1154639862
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -19428,6 +19428,7 @@ MonoBehaviour:
   P1ReflectSprite: {fileID: 21300000, guid: 1d8398a435fb5d145822d46661f017f0, type: 3}
   P1RefractSprite: {fileID: 21300000, guid: 326b9ea40b267a64bbe5fcf1c8b07db4, type: 3}
   P1RedirectSprite: {fileID: 21300000, guid: 879d00434a609cb40a351f63eb43052a, type: 3}
+  P1ResourceSprite: {fileID: 21300000, guid: 1e2ccdd600cd6f14da0543de1acb2ace, type: 3}
   P1Cursor: {fileID: 869729620}
   P2BaseSprite: {fileID: 21300000, guid: deb4624d063151344abdf095853929b8, type: 3}
   P2BlockSprite: {fileID: 21300000, guid: c742e505acbb6dd4a9e31a9029fd8e87, type: 3}
@@ -19435,6 +19436,7 @@ MonoBehaviour:
   P2ReflectSprite: {fileID: 21300000, guid: 96f659aa221e4114dbe79c382192e07f, type: 3}
   P2RefractSprite: {fileID: 21300000, guid: 98c6b02c9583ed24bbeed2021ea051d6, type: 3}
   P2RedirectSprite: {fileID: 21300000, guid: d7ae165998a4708469bad176d67a84ea, type: 3}
+  P2ResourceSprite: {fileID: 21300000, guid: e465fc2b68ffd8143b7c38c9c5781810, type: 3}
   P2Cursor: {fileID: 174806832}
   p1Mat: {fileID: 2100000, guid: 67d18f659aa074a4cb5c3a399169ea18, type: 2}
   p2Mat: {fileID: 2100000, guid: 17659933dc5030d4eb1a0617e4a80871, type: 2}
