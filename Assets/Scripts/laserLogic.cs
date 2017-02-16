@@ -325,6 +325,9 @@ public class laserLogic : MonoBehaviour
                 drawLaser(lasers[i][0], lasers[i][last]);
             }
         }
+
+        // Set needsUpdate to false
+        gridManager.theGrid.updateFinished();
     }
 
 
@@ -461,7 +464,7 @@ public class laserLogic : MonoBehaviour
     {
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
         bool weakHit = true;
-        if ((int)direction > 4 && gi.weakSides[(int)direction - 5] == 1) weakHit = false;
+        if ((int)direction >= 5 && gi.weakSides[(int)direction - 5] == 1) weakHit = false;
         laserHits.Add(new laserHit(x, y, weakHit, strength, Building.Resource, gi.owner));
     }
 
@@ -470,7 +473,7 @@ public class laserLogic : MonoBehaviour
     {
         // Need to add if (direction == building weak side), add damageHit, break;
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
-        if ((int)direction > 4 && gi.weakSides[(int)direction - 5] == 1) laserHits.Add(new laserHit(x, y, true, strength, Building.Reflecting, gi.owner));
+        if ((int)direction >= 5 && gi.weakSides[(int)direction - 5] == 1) laserHits.Add(new laserHit(x, y, true, strength, Building.Reflecting, gi.owner));
 
         switch (direction) {
                                 case Direction.Down: addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;

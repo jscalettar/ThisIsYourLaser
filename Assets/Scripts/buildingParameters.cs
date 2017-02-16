@@ -9,6 +9,8 @@ public class buildingParameters : MonoBehaviour {
     public int y = -1;
     [HideInInspector]
     public Player owner = Player.World;
+    [HideInInspector]
+    public float currentHP = 0;
 
     public Building building = Building.Empty;
     public float health = 5;
