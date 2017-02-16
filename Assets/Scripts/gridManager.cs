@@ -86,12 +86,14 @@ public struct Grid
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2, 
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
             for (int col = 0; col < x; col++) {
                 grid[row, col] = new GridItem(true, Building.Empty, Player.World, Direction.None, 0);
+                //GameObject empty = MonoBehaviour.Instantiate(emptyHolder);    //makes transparent planes on each grid square
+                //empty.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, 0, (-y / 2) + row + 0.5f);
             }
         }
         dimX = x;
@@ -374,13 +376,17 @@ public class gridManager : MonoBehaviour
     public GameObject Portal;
     public GameObject Portal2;
 
+    public GameObject emptyHolder;
+
     private GameObject buildingContainer;
 
     void Awake()
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, emptyHolder);
+
+
     }
 
     // Debug building placements
@@ -393,11 +399,10 @@ public class gridManager : MonoBehaviour
 
         for (int row = 0; row < theGrid.getDimY(); row++) {
             for (int col = 0; col < theGrid.getDimX(); col++) {
-                if ((row % 2 == 0 && col % 2 == 0) || (row % 2 != 0 && col % 2 != 0)) Gizmos.color = new Color(1f, 1f, 1f, 1f);
-                else Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-                //Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), Vector3.one);
-                if (!theGrid.getCellInfo(col, row).isEmpty) {
-                    Gizmos.color = theGrid.getCellInfo(col, row).owner == Player.PlayerOne ? new Color(1f, 0, 0, 1f) : new Color(0, 1f, 0, 1f);
+                Gizmos.color = new Color(1f, 1f, 1f, .8f);
+                //Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), new Vector3(.8f, 1f, .8f));
+                if (theGrid.getCellInfo(col, row).isEmpty) {
+                    Gizmos.color = new Color(1f, 1f, 1f, .8f);
                     //Gizmos.DrawCube(new Vector3((-dimX / 2) + col + 0.5f, 0.5f, (-dimY / 2) + row + 0.5f), Vector3.one);
                 }
             }
