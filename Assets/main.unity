@@ -9949,6 +9949,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 955753747}
+--- !u!1001 &995591237
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1001031424
 GameObject:
   m_ObjectHideFlags: 0
@@ -19492,6 +19534,7 @@ MonoBehaviour:
   Resource2: {fileID: 1391260837703470, guid: 28e85a6912b3e95429f4b4e82bd0df66, type: 2}
   Portal: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   Portal2: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
+  emptyHolder: {fileID: 0}
 --- !u!114 &2040606552
 MonoBehaviour:
   m_ObjectHideFlags: 0
