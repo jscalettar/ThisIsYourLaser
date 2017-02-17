@@ -89,12 +89,13 @@ public struct Grid
     private float resourcesP1;
     private float resourcesP2;
     private bool needsUpdate;
+    private Sprite[] turtle;
     private GameObject baseP1;
     private GameObject baseP2;
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2, 
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder, Sprite[] ReflectTurtle)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
@@ -130,6 +131,7 @@ public struct Grid
         baseP1 = null;
         baseP2 = null;
         needsUpdate = false;
+        turtle = ReflectTurtle;
     }
 
     private bool validateInput(int x, int y)
@@ -200,10 +202,10 @@ public struct Grid
             if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource)
             {
                 //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
-				if (facing == Direction.Left) grid[y, x].weakSides[0] = 1;
-				if (facing == Direction.Right) grid[y, x].weakSides[1] = 1;
-				if (facing == Direction.Up) grid[y, x].weakSides[2] = 1;
-				if (facing == Direction.Down) grid[y, x].weakSides[3] = 1;
+				if (facing == Direction.Left) grid[y, x].weakSides[1] = 1;
+				if (facing == Direction.Right) grid[y, x].weakSides[0] = 1;
+				if (facing == Direction.Up) grid[y, x].weakSides[3] = 1;
+				if (facing == Direction.Down) grid[y, x].weakSides[2] = 1;
             } /*else if (newBuilding == Building.Resource) {
                 if ((int)facing == 6) grid[y, x].weakSides[0] = 0;
                 else grid[y, x].weakSides[0] = 1;
@@ -224,7 +226,11 @@ public struct Grid
             building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);
             building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
-            building.transform.localEulerAngles = directionToEular(facing);
+            building.transform.localEulerAngles = directionToEular(Direction.Up);
+            if(newBuilding == Building.Reflecting)
+            {
+                building.GetComponent<SpriteRenderer>().sprite = turtle[(int)facing - 5];
+            }
             prefabDictionary.Add(new XY(x, y), building);
             // Subtract Cost From Resources
             if (playerID == Player.PlayerOne) resourcesP1 -= getCost(newBuilding, x, playerID);
@@ -400,6 +406,7 @@ public class gridManager : MonoBehaviour
     public GameObject Portal2;
 
     public GameObject emptyHolder;
+    public Sprite[] ReflectSprites;
 
     private GameObject buildingContainer;
 
@@ -407,7 +414,7 @@ public class gridManager : MonoBehaviour
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, emptyHolder);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, emptyHolder, ReflectSprites);
 
 
     }
