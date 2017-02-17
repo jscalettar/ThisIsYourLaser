@@ -11,7 +11,8 @@ using UnityEngine;
 //                                                                                                                                  //
 //  getCellInfo(int x, int y)                                               - returns GridItem at specified coords.                 //
 //  placeBuilding(int x, int y, Building newBuilding, Player playerID)      - Places a building into theGrid, rotation optional.    //
-//  destroyBuilding(int x, int y, Player playerID)                          - Removes a building from theGrid.                      //
+//  removeBuilding(int x, int y, Player playerID)                           - Removes a building, returns half of its resources.    //
+//  destroyBuilding(int x, int y)                                           - Removes a building from theGrid.                      //
 //  moveBuilding(int x, int y, int xNew, int yNew, Player playerID)         - Moves a building to a new location.                   //
 //  upgradeBuilding(int x, int y, Player playerID)                          - Upgrades a building if it can be upgraded.            //
 //                                                                                                                                  //
@@ -21,13 +22,18 @@ using UnityEngine;
 //                                                                                                                                  //
 //  Example:                                                                                                                        //
 //  if (gridManager.theGrid.placeBuilding(x, y, Building.Blocking, Player.PlayerOne, Direction.Up)) {                               //
-//      decrementResources(Building.Blocking, Player.PlayerOne, x); // x can be used to determine if on enemy side (increased cost) //
+//      print("Success");                                                                                                           //
 //  } else {                                                                                                                        //
 //      print("Failed to place building, make sure you select a valid location");                                                   //
 //  }                                                                                                                               //
 //                                                                                                                                  //
 //  Example2:                                                                                                                       //
 //  print(gridManager.theGrid.getCellInfo(x, y).toString()); // Use this for debugging grid cells.                                  //
+//                                                                                                                                  //
+//  Example3:                                                                                                                       //
+//  foreach (Transform building in gridManager.theGrid.getBuildingContainer().transform)    // Print the health of all buildings    //
+//      print(building.GetComponent<buildingParameters>().currentHP);                                                               //
+//                                                                                                                                  //
 //                                                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -84,6 +90,8 @@ public struct Grid
     private float resourcesP2;
     private bool needsUpdate;
     private Sprite[] turtle;
+    private GameObject baseP1;
+    private GameObject baseP2;
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2, 
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
@@ -120,6 +128,8 @@ public struct Grid
         prefabDictionary = new Dictionary<XY, GameObject>(buildingPrefabs.Length);
         resourcesP1 = resources;
         resourcesP2 = resources;
+        baseP1 = null;
+        baseP2 = null;
         needsUpdate = false;
         turtle = ReflectTurtle;
     }
@@ -157,13 +167,21 @@ public struct Grid
     public Direction getDirection(int x, int y) { return validateInput(x, y) ? grid[y, x].direction : Direction.None; }
     public int getDimX() { return dimX; }
     public int getDimY() { return dimY; }
+    public float getResourcesP1() { return resourcesP1; }
+    public float getResourcesP2() { return resourcesP2; }
+    public float baseHealthP1() { return baseP1 != null ? baseP1.GetComponent<buildingParameters>().currentHP : 0f; }
+    public float baseHealthP2() { return baseP2 != null ? baseP2.GetComponent<buildingParameters>().currentHP : 0f; }
     public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; }
     public bool updateLaser() { return needsUpdate; }
+    public void updateFinished() { needsUpdate = false; }
+    public GameObject getBuildingContainer() { return buildingContainer; }
+
     public bool applyDamage(int x, int y, float damage)
     {
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
             grid[y, x].health -= damage;
+            prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
             if (grid[y, x].health <= 0f) {
                 if (getBuilding(x, y) == Building.Base) SceneManager.LoadScene("GameOver", LoadSceneMode.Single); // Add player specific win screen in future
                 else destroyBuilding(x, y);
@@ -204,6 +222,7 @@ public struct Grid
             building.GetComponent<buildingParameters>().x = x;
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
+            building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
             building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);
             building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
@@ -216,6 +235,8 @@ public struct Grid
             // Subtract Cost From Resources
             if (playerID == Player.PlayerOne) resourcesP1 -= getCost(newBuilding, x, playerID);
             else resourcesP2 -= getCost(newBuilding, x, playerID);
+            // Set base references for getting health later
+            if (newBuilding == Building.Base) { if (playerID == Player.PlayerOne) baseP1 = building; else baseP2 = building; }
             // Specify that the board was updated and that laserLogic needs to run a simulation
             needsUpdate = true;
         } else return false;
@@ -227,6 +248,7 @@ public struct Grid
     {
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty && (playerID == grid[y, x].owner || playerID == Player.World)) {
+            if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
@@ -250,6 +272,7 @@ public struct Grid
     {
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
+            if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
