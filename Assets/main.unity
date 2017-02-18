@@ -19535,6 +19535,11 @@ MonoBehaviour:
   Portal: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   Portal2: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   emptyHolder: {fileID: 0}
+  ReflectSprites:
+  - {fileID: 21300002, guid: 51aac6aab3b4ffc4293bdbd3f2370c14, type: 3}
+  - {fileID: 21300006, guid: 51aac6aab3b4ffc4293bdbd3f2370c14, type: 3}
+  - {fileID: 21300004, guid: 51aac6aab3b4ffc4293bdbd3f2370c14, type: 3}
+  - {fileID: 21300000, guid: 51aac6aab3b4ffc4293bdbd3f2370c14, type: 3}
 --- !u!114 &2040606552
 MonoBehaviour:
   m_ObjectHideFlags: 0
