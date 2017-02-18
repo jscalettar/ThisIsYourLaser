@@ -74,7 +74,7 @@ public struct GridItem
 
     public string toString()    // Convert GridItem to string for easy printing
     {
-        return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level+ "  |  HP: " + health + "  |  Direction: " + direction + "  |  Owner: " + owner;
+        return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level + "  |  HP: " + health + "  |  Direction: " + direction + "  |  Owner: " + owner;
     }
 }
 
@@ -92,7 +92,7 @@ public struct Grid
     private GameObject baseP1;
     private GameObject baseP2;
 
-    public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2, 
+    public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
         GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder)
     {
@@ -140,13 +140,12 @@ public struct Grid
 
     private Vector3 directionToEular(Direction direction) // obsolete?
     {
-        switch (direction)
-        {
-			case Direction.Right: return new Vector3(90, 90, 0);
-			case Direction.Down: return new Vector3(90, 180, 0);
-			case Direction.Left: return new Vector3(90, 270, 0);
+        switch (direction) {
+            case Direction.Right: return new Vector3(90, 90, 0);
+            case Direction.Down: return new Vector3(90, 180, 0);
+            case Direction.Left: return new Vector3(90, 270, 0);
         }
-		return new Vector3(90, 0, 0);
+        return new Vector3(90, 0, 0);
     }
 
     private int directionToIndex(Direction direction)
@@ -207,13 +206,12 @@ public struct Grid
             grid[y, x].owner = playerID;
             grid[y, x].direction = facing;
             // Add Weak Side(s)
-            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource)
-            {
+            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource) {
                 //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
-				if (facing == Direction.Left) grid[y, x].weakSides[1] = 1;
-				if (facing == Direction.Right) grid[y, x].weakSides[0] = 1;
-				if (facing == Direction.Up) grid[y, x].weakSides[3] = 1;
-				if (facing == Direction.Down) grid[y, x].weakSides[2] = 1;
+                if (facing == Direction.Left) grid[y, x].weakSides[1] = 1;
+                if (facing == Direction.Right) grid[y, x].weakSides[0] = 1;
+                if (facing == Direction.Up) grid[y, x].weakSides[3] = 1;
+                if (facing == Direction.Down) grid[y, x].weakSides[2] = 1;
             }
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
