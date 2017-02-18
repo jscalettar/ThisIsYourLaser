@@ -15,5 +15,6 @@ public class buildingParameters : MonoBehaviour {
     public Building building = Building.Empty;
     public float health = 5;
     public float cost = 2;
+    public Sprite[] sprites;
 
 }
