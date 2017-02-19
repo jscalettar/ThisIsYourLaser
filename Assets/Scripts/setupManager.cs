@@ -152,7 +152,7 @@ public class setupManager : MonoBehaviour
         {
 			//selection1 = Building.Base;
             //selection2 = Building.Base;
-            if (Input.GetKeyDown(KeyCode.E) && pOneCanBase && p1Pos.x == 0)//P1 base place
+			if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("xboxA")) && pOneCanBase && p1Pos.x == 0)//P1 base place
             {
 				
 				PlaceBuild(Player.PlayerOne, Building.Base, 0, p1Pos, Direction.None);
@@ -169,7 +169,7 @@ public class setupManager : MonoBehaviour
         {
             P1Cursor.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
             P2Cursor.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
-            if (Input.GetKeyDown(KeyCode.E) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
+			if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("xboxA")) && pOneCanLaser && p1Pos.x == 0)//P1 laser place
             {
                 PlaceBuild(Player.PlayerOne, Building.Laser, 1, p1Pos, Direction.None);
             }
@@ -180,7 +180,7 @@ public class setupManager : MonoBehaviour
         }
         if (haveSelected1)//if you have an object selected
         {
-            if (Input.GetKeyDown(KeyCode.Q))//P1 
+			if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("xboxX"))//P1 
             {
                 if (SwapBlock(p1Pos, selectedLoc1, selected1))
                 {
@@ -192,7 +192,7 @@ public class setupManager : MonoBehaviour
         else if (laserPhase == basePhase && !endFlag)//if no object is selected, select one
         {
 		
-            if (Input.GetKeyDown(KeyCode.Q))//P1 
+			if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("xboxX"))//P1 
             {
                 SelectBlock(p1Pos, Player.PlayerOne);
 				p1UI.playerState.text = "swapping";
@@ -264,37 +264,37 @@ public class setupManager : MonoBehaviour
                 p2UI.p2ResourceBackground.color = Color.green; p2UI.p2BlockBackground.color = Color.white; p2UI.p2ReflectBackground.color = Color.white;
                 p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.white; }
 
-            if (Input.GetKeyDown(KeyCode.E) && selection1 != Building.Empty)
+			if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("xboxA")) && selection1 != Building.Empty)
             {
                 noP1Direction = true;
             }else if (Input.GetKeyDown(KeyCode.O) && selection2 != Building.Empty)
             {
                 noP2Direction = true;
             }
-            // PLAYER 1 BUILDING SELECTION
-            if (noP1Direction == true) //need to select a direction for the P1 building
-            {
-                if (Input.GetKeyDown(KeyCode.W)) //Up
+			// PLAYER 1 BUILDING SELECTION
+			if (noP1Direction == true) //need to select a direction for the P1 building
+			{
+				if (Input.GetKeyDown(KeyCode.W) || Input.GetAxis("xboxLeftVert") == -1) //Up
 				{
-                    PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Up);
-                    noP1Direction = false;
-                }
-                else if (Input.GetKeyDown(KeyCode.A)) //Left
-                {
-                    PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Left);
-                    noP1Direction = false;
-                }
-                else if (Input.GetKeyDown(KeyCode.S)) //Down
-                {
-                    PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Down);
-                    noP1Direction = false;
-                }
-                else if (Input.GetKeyDown(KeyCode.D)) //Right
-                {
-                    PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Right);
-                    noP1Direction = false;
-                }
-            }
+					PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Up);
+					noP1Direction = false;
+				}
+				else if (Input.GetKeyDown(KeyCode.A) || Input.GetAxis("xboxLeftHor") == -1) //Left
+				{
+					PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Left);
+					noP1Direction = false;
+				}
+				else if (Input.GetKeyDown(KeyCode.S) || Input.GetAxis("xboxLeftVert") == 1) //Down
+				{
+					PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Down);
+					noP1Direction = false;
+				}
+				else if (Input.GetKeyDown(KeyCode.D) || Input.GetAxis("xboxLeftHor") == 1) //Right
+				{
+					PlaceBuild(Player.PlayerOne, selection1, i1, p1Pos, Direction.Right);
+					noP1Direction = false;
+				}
+			}
 
             // PLAYER 2 BUILDING SELECTION
             if (noP2Direction == true) //need to select a direction for the P2 building
