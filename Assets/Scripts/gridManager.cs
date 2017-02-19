@@ -49,6 +49,10 @@ public struct XY
         x = X;
         y = Y;
     }
+    public bool Equals(XY other)
+    {
+        return x == other.x && y == other.y;
+    }
 }
 
 public struct GridItem
@@ -94,7 +98,7 @@ public struct Grid
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
@@ -158,8 +162,9 @@ public struct Grid
         return 2;
     }
 
-    private float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
+    public float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
     {
+        if (building == Building.Empty) return 0f;
         float cost = buildingPrefabs[(int)building].GetComponent<buildingParameters>().cost;
         if (x == -1) return cost;
         if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2) cost *= 2f;
@@ -286,14 +291,14 @@ public struct Grid
         return true;
     }
 
-    public bool moveBuilding(int x, int y, int xNew, int yNew, Player playerID) // need to add rotation?
+    public bool moveBuilding(int x, int y, int xNew, int yNew, Player playerID, Direction rotation) // need to add rotation?
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
-        if (!grid[y, x].isEmpty && grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner) {
+        if (!grid[y, x].isEmpty && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
             grid[yNew, xNew].isEmpty = false;
             grid[yNew, xNew].building = grid[y, x].building;
             grid[yNew, xNew].owner = playerID;
-            grid[yNew, xNew].direction = grid[y, x].direction;
+            grid[yNew, xNew].direction = rotation;
             grid[yNew, xNew].weakSides = grid[y, x].weakSides;
             grid[yNew, xNew].level = grid[y, x].level;
             grid[yNew, xNew].health = grid[y, x].health;
@@ -311,8 +316,8 @@ public struct Grid
             prefabDictionary.Remove(new XY(x, y));
             prefabDictionary.Add(new XY(xNew, yNew), building);
             // Subtract some resources for move
-            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building.GetComponent<buildingParameters>().building, x, playerID, true);
-            else resourcesP2 -= getCost(building.GetComponent<buildingParameters>().building, x, playerID, true);
+            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, true);
+            else resourcesP2 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, true);
             // Specify that the board was updated and that laserLogic needs to run a simulation
             needsUpdate = true;
         } else return false;
@@ -402,15 +407,13 @@ public class gridManager : MonoBehaviour
     public GameObject Portal;
     public GameObject Portal2;
 
-    public GameObject emptyHolder;
-
     private GameObject buildingContainer;
 
     void Awake()
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, emptyHolder);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources);
 
 
     }

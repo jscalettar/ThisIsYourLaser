@@ -417,17 +417,17 @@ public class setupManager : MonoBehaviour
         }
         else if (temp.owner == Player.World)
         {
-            bool move = gridManager.theGrid.moveBuilding((int)oldPos.x, (int)oldPos.y, (int)newPos.x, (int)newPos.z, gridObj.owner);
-            if (move)
-            {//move the instance to new location
+            //bool move = gridManager.theGrid.moveBuilding((int)oldPos.x, (int)oldPos.y, (int)newPos.x, (int)newPos.z, gridObj.owner);
+            //if (move)
+            //{//move the instance to new location
                 /*listPlace[(int)newPos.x, (int)newPos.z] = listPlace[(int)oldPos.x, (int)oldPos.y];
                 listPlace[(int)oldPos.x, (int)oldPos.y] = null;
                 GameObject go = listPlace[(int)newPos.x, (int)newPos.z];
                 newPos = new Vector3(newPos.x - 6.5f, 0, newPos.z - 3.5f);
                 go.transform.position = newPos;*/
-                print("Move complete");
-            }
-            else print("Cannot move");
+            //    print("Move complete");
+            //}
+            //else print("Cannot move");
             return true;
         }
         return false;

@@ -1031,8 +1031,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 174806837}
-  - component: {fileID: 174806835}
-  - component: {fileID: 174806833}
   - component: {fileID: 174806834}
   m_Layer: 0
   m_Name: Cursor2
@@ -1041,19 +1039,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &174806833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 174806832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01d5bbf3d8b65d04ca9cf26339ef55cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerState: {fileID: 0}
-  PauseMenu: {fileID: 0}
 --- !u!212 &174806834
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1089,18 +1074,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!65 &174806835
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 174806832}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &174806837
 Transform:
   m_ObjectHideFlags: 0
@@ -1108,7 +1081,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 174806832}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 6.5, y: -0.120000005, z: 3.5}
+  m_LocalPosition: {x: 6.5, y: 0.01, z: 3.5}
   m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9355,8 +9328,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 869729625}
-  - component: {fileID: 869729623}
-  - component: {fileID: 869729621}
   - component: {fileID: 869729622}
   m_Layer: 0
   m_Name: Cursor1
@@ -9365,18 +9336,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &869729621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 869729620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 900622142cad9c643947ccefd09835b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PauseMenu: {fileID: 0}
 --- !u!212 &869729622
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9412,18 +9371,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!65 &869729623
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 869729620}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &869729625
 Transform:
   m_ObjectHideFlags: 0
@@ -9431,7 +9378,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 869729620}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -6.5, y: -0.12, z: -3.5}
+  m_LocalPosition: {x: -6.5, y: 0.01, z: -3.5}
   m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -19417,6 +19364,7 @@ GameObject:
   - component: {fileID: 2040606547}
   - component: {fileID: 2040606550}
   - component: {fileID: 2040606549}
+  - component: {fileID: 2040606551}
   - component: {fileID: 2040606548}
   - component: {fileID: 2040606552}
   - component: {fileID: 2040606546}
@@ -19438,7 +19386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5233d01c9074b4ab79f5ed9f8efbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chessmanPrefabs: []
 --- !u!4 &2040606547
 Transform:
   m_ObjectHideFlags: 0
@@ -19459,7 +19406,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2040606545}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 720357178b474644b9805f96db16acb8, type: 3}
   m_Name: 
@@ -19534,12 +19481,33 @@ MonoBehaviour:
   Resource2: {fileID: 1391260837703470, guid: 28e85a6912b3e95429f4b4e82bd0df66, type: 2}
   Portal: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   Portal2: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
-  emptyHolder: {fileID: 0}
-  ReflectSprites:
-  - {fileID: 21300002, guid: 51aac6aab3b4ffc4293bdbd3f2370c14, type: 3}
-  - {fileID: 21300006, guid: 51aac6aab3b4ffc4293bdbd3f2370c14, type: 3}
-  - {fileID: 21300004, guid: 51aac6aab3b4ffc4293bdbd3f2370c14, type: 3}
-  - {fileID: 21300000, guid: 51aac6aab3b4ffc4293bdbd3f2370c14, type: 3}
+--- !u!114 &2040606551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040606545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fa78b1ca20638458978d8005cbdb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorObjP1: {fileID: 869729620}
+  cursorObjP2: {fileID: 174806832}
+  P1BaseSprite: {fileID: 21300000, guid: 5d1730c5fe5a3d943bc0c4245e9c5a71, type: 3}
+  P1BlockSprite: {fileID: 21300000, guid: 84176c3ec015e93409e6f2692390bf6b, type: 3}
+  P1LaserSprite: {fileID: 21300000, guid: 2b59f6c15dceee9478d4ee7378f92606, type: 3}
+  P1ReflectSprite: {fileID: 21300000, guid: 1d8398a435fb5d145822d46661f017f0, type: 3}
+  P1RefractSprite: {fileID: 21300000, guid: 326b9ea40b267a64bbe5fcf1c8b07db4, type: 3}
+  P1RedirectSprite: {fileID: 21300000, guid: 879d00434a609cb40a351f63eb43052a, type: 3}
+  P1ResourceSprite: {fileID: 21300000, guid: 1e2ccdd600cd6f14da0543de1acb2ace, type: 3}
+  P2BaseSprite: {fileID: 21300000, guid: deb4624d063151344abdf095853929b8, type: 3}
+  P2BlockSprite: {fileID: 21300000, guid: c742e505acbb6dd4a9e31a9029fd8e87, type: 3}
+  P2LaserSprite: {fileID: 21300000, guid: 8f498de6aac950a4a8eaad7b900e3f6d, type: 3}
+  P2ReflectSprite: {fileID: 21300000, guid: 96f659aa221e4114dbe79c382192e07f, type: 3}
+  P2RefractSprite: {fileID: 21300000, guid: 98c6b02c9583ed24bbeed2021ea051d6, type: 3}
+  P2RedirectSprite: {fileID: 21300000, guid: d7ae165998a4708469bad176d67a84ea, type: 3}
+  P2ResourceSprite: {fileID: 21300000, guid: e465fc2b68ffd8143b7c38c9c5781810, type: 3}
 --- !u!114 &2040606552
 MonoBehaviour:
   m_ObjectHideFlags: 0
