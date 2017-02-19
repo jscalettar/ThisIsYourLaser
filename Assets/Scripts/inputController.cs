@@ -62,7 +62,6 @@ public class inputController : MonoBehaviour {
         cycleP2 = 0;
         xEnd = gridManager.theGrid.getDimX() - 1;
         yEnd = gridManager.theGrid.getDimY() - 1;
-        print(clamp(20,0, xEnd));
         cursorP1 = new Cursor(0, 0, Direction.Right, Building.Blocking, State.placeBase);
         cursorP2 = new Cursor(xEnd, yEnd, Direction.Left, Building.Blocking, State.placeBase);
     }
