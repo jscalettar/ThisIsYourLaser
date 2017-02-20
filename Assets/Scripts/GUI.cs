@@ -17,7 +17,7 @@ public class GUI : MonoBehaviour {
         p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
         p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
         p1UI.currentResource = GameObject.Find("playerOneResource").GetComponent<Text>();
-        p1UI.playerState.text = "Placing";
+        //p1UI.playerState.text = "Placing";
         p1UI.p1ResourceBackground = GameObject.Find("p1ResourceBackground").GetComponent<Image>();
         p1UI.p1BlockBackground = GameObject.Find("p1BlockBackground").GetComponent<Image>();
         p1UI.p1ReflectBackground = GameObject.Find("p1ReflectBackground").GetComponent<Image>();
@@ -29,7 +29,7 @@ public class GUI : MonoBehaviour {
         p2UI.playerState = GameObject.Find("playerTwoState").GetComponent<Text>();
         p2UI.playerHealth = GameObject.Find("playerTwoHealth").GetComponent<Text>();
         p2UI.currentResource = GameObject.Find("playerTwoResource").GetComponent<Text>();
-        p2UI.playerState.text = "Placing";
+        //p2UI.playerState.text = "Placing";
         p2UI.p2ResourceBackground = GameObject.Find("p2ResourceBackground").GetComponent<Image>();
         p2UI.p2BlockBackground = GameObject.Find("p2BlockBackground").GetComponent<Image>();
         p2UI.p2ReflectBackground = GameObject.Find("p2ReflectBackground").GetComponent<Image>();
@@ -39,10 +39,10 @@ public class GUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        p1UI.playerHealth.text = "Base HP: " + gridManager.theGrid.baseHealthP1();
-        p2UI.playerHealth.text = "Base HP: " + gridManager.theGrid.baseHealthP2();
-        p1UI.currentResource.text = "Resources: " + gridManager.theGrid.getResourcesP1().ToString("F0");
-        p2UI.currentResource.text = "Resources: " + gridManager.theGrid.getResourcesP2().ToString("F0");
+        p1UI.playerHealth.text = "Base HP: " + (Mathf.Round(gridManager.theGrid.baseHealthP1() * 2) / 2f).ToString("F1");
+        p2UI.playerHealth.text = "Base HP: " + (Mathf.Round(gridManager.theGrid.baseHealthP2() * 2) / 2f).ToString("F1");
+        p1UI.currentResource.text = "Resources: " + (Mathf.Round(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
+        p2UI.currentResource.text = "Resources: " + (Mathf.Round(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
 
         p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
         p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white;

@@ -225,11 +225,12 @@ public struct Grid
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
-            if (newBuilding == Building.Reflecting || newBuilding == Building.Resource || newBuilding == Building.Refracting) { // This if statement will be removed once all buildings are set up properly
+            if (newBuilding == Building.Reflecting) { // This if statement will be removed once all buildings are set up properly
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, 1f) : new Vector4(0.7f, 1, 0.7f, 1f);
             }
-            //building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
+            else building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);
             building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
             building.transform.localEulerAngles = new Vector3(90, 0, 0);
