@@ -14,9 +14,6 @@ public class BoardManager : MonoBehaviour {
     private int selectionY = -1;
     private bool selectionValid = false;
 
-    public List<GameObject> chessmanPrefabs;
-    private List<GameObject> activeChessman;
-
     private void Update() {
 
         UpdateSelection();

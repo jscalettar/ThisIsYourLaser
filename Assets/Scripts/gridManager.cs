@@ -49,6 +49,10 @@ public struct XY
         x = X;
         y = Y;
     }
+    public bool Equals(XY other)
+    {
+        return x == other.x && y == other.y;
+    }
 }
 
 public struct GridItem
@@ -74,7 +78,7 @@ public struct GridItem
 
     public string toString()    // Convert GridItem to string for easy printing
     {
-        return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level+ "  |  HP: " + health + "  |  Direction: " + direction + "  |  Owner: " + owner;
+        return "isEmpty: " + isEmpty + "  |  Building: " + building + "  |  Level: " + level + "  |  HP: " + health + "  |  Direction: " + direction + "  |  Owner: " + owner;
     }
 }
 
@@ -89,13 +93,12 @@ public struct Grid
     private float resourcesP1;
     private float resourcesP2;
     private bool needsUpdate;
-    private Sprite[] turtle;
     private GameObject baseP1;
     private GameObject baseP2;
 
-    public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2, 
+    public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder, Sprite[] ReflectTurtle)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
@@ -131,7 +134,6 @@ public struct Grid
         baseP1 = null;
         baseP2 = null;
         needsUpdate = false;
-        turtle = ReflectTurtle;
     }
 
     private bool validateInput(int x, int y)
@@ -140,19 +142,29 @@ public struct Grid
         return true;
     }
 
-    private Vector3 directionToEular(Direction direction)
+    private Vector3 directionToEular(Direction direction) // obsolete?
     {
-        switch (direction)
-        {
-			case Direction.Right: return new Vector3(90, 90, 0);
-			case Direction.Down: return new Vector3(90, 180, 0);
-			case Direction.Left: return new Vector3(90, 270, 0);
+        switch (direction) {
+            case Direction.Right: return new Vector3(90, 90, 0);
+            case Direction.Down: return new Vector3(90, 180, 0);
+            case Direction.Left: return new Vector3(90, 270, 0);
         }
-		return new Vector3(90, 0, 0);
+        return new Vector3(90, 0, 0);
     }
 
-    private float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
+    private int directionToIndex(Direction direction)
     {
+        switch (direction) {
+            case Direction.Right: return 1;
+            case Direction.Down: return 3;
+            case Direction.Left: return 0;
+        }
+        return 2;
+    }
+
+    public float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
+    {
+        if (building == Building.Empty) return 0f;
         float cost = buildingPrefabs[(int)building].GetComponent<buildingParameters>().cost;
         if (x == -1) return cost;
         if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2) cost *= 2f;
@@ -199,23 +211,13 @@ public struct Grid
             grid[y, x].owner = playerID;
             grid[y, x].direction = facing;
             // Add Weak Side(s)
-            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource)
-            {
+            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource) {
                 //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
-				if (facing == Direction.Left) grid[y, x].weakSides[1] = 1;
-				if (facing == Direction.Right) grid[y, x].weakSides[0] = 1;
-				if (facing == Direction.Up) grid[y, x].weakSides[3] = 1;
-				if (facing == Direction.Down) grid[y, x].weakSides[2] = 1;
-            } /*else if (newBuilding == Building.Resource) {
-                if ((int)facing == 6) grid[y, x].weakSides[0] = 0;
-                else grid[y, x].weakSides[0] = 1;
-                if ((int)facing == 5) grid[y, x].weakSides[1] = 0;
-                else grid[y, x].weakSides[1] = 1;
-                if ((int)facing == 8) grid[y, x].weakSides[2] = 0;
-                else grid[y, x].weakSides[2] = 1;
-                if ((int)facing == 7) grid[y, x].weakSides[3] = 0;
-                else grid[y, x].weakSides[3] = 1;
-            }*/
+                if (facing == Direction.Left) grid[y, x].weakSides[1] = 1;
+                if (facing == Direction.Right) grid[y, x].weakSides[0] = 1;
+                if (facing == Direction.Up) grid[y, x].weakSides[3] = 1;
+                if (facing == Direction.Down) grid[y, x].weakSides[2] = 1;
+            }
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
             grid[y, x].health = building.GetComponent<buildingParameters>().health; // Building starting health
@@ -223,14 +225,14 @@ public struct Grid
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
-            building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
+            if (newBuilding == Building.Reflecting) { // This if statement will be removed once all buildings are set up properly
+                building.AddComponent<SpriteRenderer>();
+                building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
+            }
+            //building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);
             building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
-            building.transform.localEulerAngles = directionToEular(Direction.Up);
-            if(newBuilding == Building.Reflecting)
-            {
-                building.GetComponent<SpriteRenderer>().sprite = turtle[(int)facing - 5];
-            }
+            building.transform.localEulerAngles = new Vector3(90, 0, 0);
             prefabDictionary.Add(new XY(x, y), building);
             // Subtract Cost From Resources
             if (playerID == Player.PlayerOne) resourcesP1 -= getCost(newBuilding, x, playerID);
@@ -289,14 +291,14 @@ public struct Grid
         return true;
     }
 
-    public bool moveBuilding(int x, int y, int xNew, int yNew, Player playerID) // need to add rotation?
+    public bool moveBuilding(int x, int y, int xNew, int yNew, Player playerID, Direction rotation) // need to add rotation?
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
-        if (!grid[y, x].isEmpty && grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner) {
+        if (!grid[y, x].isEmpty && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
             grid[yNew, xNew].isEmpty = false;
             grid[yNew, xNew].building = grid[y, x].building;
             grid[yNew, xNew].owner = playerID;
-            grid[yNew, xNew].direction = grid[y, x].direction;
+            grid[yNew, xNew].direction = rotation;
             grid[yNew, xNew].weakSides = grid[y, x].weakSides;
             grid[yNew, xNew].level = grid[y, x].level;
             grid[yNew, xNew].health = grid[y, x].health;
@@ -314,8 +316,8 @@ public struct Grid
             prefabDictionary.Remove(new XY(x, y));
             prefabDictionary.Add(new XY(xNew, yNew), building);
             // Subtract some resources for move
-            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building.GetComponent<buildingParameters>().building, x, playerID, true);
-            else resourcesP2 -= getCost(building.GetComponent<buildingParameters>().building, x, playerID, true);
+            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, true);
+            else resourcesP2 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, true);
             // Specify that the board was updated and that laserLogic needs to run a simulation
             needsUpdate = true;
         } else return false;
@@ -405,16 +407,13 @@ public class gridManager : MonoBehaviour
     public GameObject Portal;
     public GameObject Portal2;
 
-    public GameObject emptyHolder;
-    public Sprite[] ReflectSprites;
-
     private GameObject buildingContainer;
 
     void Awake()
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, emptyHolder, ReflectSprites);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources);
 
 
     }

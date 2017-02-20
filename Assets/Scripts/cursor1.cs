@@ -45,9 +45,7 @@ public class cursor1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("xboxA")) {
-            print("pressed button 0");
-        }
+        
         Building currentTex = (Building)currentBuilding;
         buildingControls();
         p1UI.currentSelection.text = currentTex.ToString();
@@ -93,78 +91,78 @@ public class cursor1 : MonoBehaviour
             }
         }
     }
-    private void moveTower()
-    {
-        if (noP1Direction == false)
-        {
-            if (buttonPress <= 0)
-            {
-                if (Input.GetKey(KeyCode.W))
-                {
-                    if (dir != MoveDir.Up)
-                    {
-                        buttonPress = 3;
-                        dir = MoveDir.Up;
-                    }
-                    else
-                    {
-                        posMove = false;
-                        moving = true;
-                        pos += Vector3.forward;
-                    }
-                }
-                else if (Input.GetKey(KeyCode.S))
-                {
-                    if (dir != MoveDir.Down)
-                    {
-                        buttonPress = 3;
-                        dir = MoveDir.Down;
-                    }
-                    else
-                    {
-                        posMove = false;
-                        moving = true;
-                        pos += Vector3.back;
-                    }
-                }
-                else if (Input.GetKey(KeyCode.A))
-                {
-                    if (dir != MoveDir.Left)
-                    {
-                        buttonPress = 3;
-                        dir = MoveDir.Left;
-                    }
-                    else
-                    {
-                        posMove = false;
-                        moving = true;
-                        pos += Vector3.left;
-                    }
-                }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    if (dir != MoveDir.Right)
-                    {
-                        buttonPress = 3;
-                        dir = MoveDir.Right;
-                    }
-                    else
-                    {
-                        posMove = false;
-                        moving = true;
-                        pos += Vector3.right;
-                    }
-                }
-            }
-        }
-    }
-    
-    private void buildingControls()
-    {
-        
-        if (Input.GetKeyDown("r"))//does not destroy instance
-        {
+	private void moveTower()
+	{
+		if (noP1Direction == false)
+		{
+			if (buttonPress <= 0)
+			{
+				if (Input.GetKey(KeyCode.W) || Input.GetAxis("xboxLeftVert") == -1)
+				{
+					if (dir != MoveDir.Up)
+					{
+						buttonPress = 3;
+						dir = MoveDir.Up;
+					}
+					else
+					{
+						posMove = false;
+						moving = true;
+						pos += Vector3.forward;
+					}
+				}
+				else if (Input.GetKey(KeyCode.S) || Input.GetAxis("xboxLeftVert") == 1)
+				{
+					if (dir != MoveDir.Down)
+					{
+						buttonPress = 3;
+						dir = MoveDir.Down;
+					}
+					else
+					{
+						posMove = false;
+						moving = true;
+						pos += Vector3.back;
+					}
+				}
+				else if (Input.GetKey(KeyCode.A) || Input.GetAxis("xboxLeftHor") == -1)
+				{
+					if (dir != MoveDir.Left)
+					{
+						buttonPress = 3;
+						dir = MoveDir.Left;
+					}
+					else
+					{
+						posMove = false;
+						moving = true;
+						pos += Vector3.left;
+					}
+				}
+				else if (Input.GetKey(KeyCode.D) || Input.GetAxis("xboxLeftHor") == 1 )
+				{
+					if (dir != MoveDir.Right)
+					{
+						buttonPress = 3;
+						dir = MoveDir.Right;
+					}
+					else
+					{
+						posMove = false;
+						moving = true;
+						pos += Vector3.right;
+					}
+				}
+			}
+		}
+	}
+
+	private void buildingControls()
+	{
+
+		if (Input.GetKeyDown("r") || Input.GetButtonDown("xboxB"))//does not destroy instance
+		{
 			gridManager.theGrid.removeBuilding((int)(pos.x + (gridManager.theGrid.getDimX() / 2) - 0.5f), (int)(pos.z + (gridManager.theGrid.getDimY() / 2) - 0.5f), Player.PlayerOne);
-        }
-    }
+		}
+	}
 }
