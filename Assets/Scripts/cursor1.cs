@@ -33,7 +33,7 @@ public class cursor1 : MonoBehaviour
         p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
         p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
-        p1UI.currentSelection = GameObject.Find("playerOneSelection").GetComponent<Text>();
+        p1UI.currentResource = GameObject.Find("playerOneResource").GetComponent<Text>();
         p1UI.playerState.text = "Placing";
         dimX = gridManager.theGrid.getDimX() / 2;
         dimZ = gridManager.theGrid.getDimY() / 2;
@@ -48,7 +48,7 @@ public class cursor1 : MonoBehaviour
         
         Building currentTex = (Building)currentBuilding;
         buildingControls();
-        p1UI.currentSelection.text = currentTex.ToString();
+        p1UI.currentResource.text = currentTex.ToString();
         buttonPress--;
         if (PauseMenu.activeInHierarchy == false)
         {
