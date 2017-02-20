@@ -9833,7 +9833,7 @@ GameObject:
   - component: {fileID: 955753750}
   - component: {fileID: 955753749}
   m_Layer: 5
-  m_Name: playerOneSelection
+  m_Name: playerOneResource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10194,7 +10194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: {fileID: 0}
   playerHealth: {fileID: 0}
-  currentSelection: {fileID: 0}
+  currentResource: {fileID: 0}
   p1ResourceBackground: {fileID: 0}
   p1BlockBackground: {fileID: 0}
   p1ReflectBackground: {fileID: 0}
@@ -11709,7 +11709,7 @@ GameObject:
   - component: {fileID: 1345976616}
   - component: {fileID: 1345976615}
   m_Layer: 5
-  m_Name: playerTwoSelection
+  m_Name: playerTwoResource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11765,7 +11765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Selection
+  m_Text: Resource
 --- !u!222 &1345976616
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19368,6 +19368,7 @@ GameObject:
   - component: {fileID: 2040606548}
   - component: {fileID: 2040606552}
   - component: {fileID: 2040606546}
+  - component: {fileID: 2040606553}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -19520,6 +19521,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a07b041e8b4e04680223eaae69b881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2040606553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040606545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23c1e5aa01ca6745961216269f4aaff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 2061673243}
 --- !u!1 &2053190675
 GameObject:
   m_ObjectHideFlags: 0

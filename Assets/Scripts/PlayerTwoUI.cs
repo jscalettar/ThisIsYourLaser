@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class playerTwoUI : MonoBehaviour {
     public Text playerState;
     public Text playerHealth;
-    public Text currentSelection;
+    public Text currentResource;
 
     public Image p2ResourceBackground;
     public Image p2BlockBackground;

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class inputController : MonoBehaviour {
+public enum State { placeBase, placeLaser, placingLaser, placing, moving, placingMove, idle };
 
-    enum State { placeBase, placeLaser, placingLaser, placing, moving, placingMove, idle };
+public class inputController : MonoBehaviour {
 
     // These should be gameObjects that contain a sprite renderer
     public GameObject cursorObjP1;
@@ -27,7 +27,7 @@ public class inputController : MonoBehaviour {
     public Sprite P2RedirectSprite;
     public Sprite P2ResourceSprite;
 
-    private struct Cursor
+    public struct Cursor
     {
         public int x, y;
         public XY moveOrigin;
@@ -53,7 +53,7 @@ public class inputController : MonoBehaviour {
         return value;
     }
 
-    private Cursor cursorP1, cursorP2;
+    public static Cursor cursorP1, cursorP2;
     private int xEnd, yEnd;
     private int cycleP1, cycleP2;
 

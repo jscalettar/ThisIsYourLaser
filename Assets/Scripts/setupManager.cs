@@ -84,7 +84,7 @@ public class setupManager : MonoBehaviour
 		p1UI = gameObject.AddComponent<playerOneUI>();
 		p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
 		p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
-		p1UI.currentSelection = GameObject.Find("playerOneSelection").GetComponent<Text>();
+		p1UI.currentResource = GameObject.Find("playerOneResource").GetComponent<Text>();
 		p1UI.playerState.text = "Placing";
         p1UI.p1ResourceBackground = GameObject.Find("p1ResourceBackground").GetComponent<Image>();
         p1UI.p1BlockBackground = GameObject.Find("p1BlockBackground").GetComponent<Image>();
@@ -96,7 +96,7 @@ public class setupManager : MonoBehaviour
         p2UI = gameObject.AddComponent<playerTwoUI>();
         p2UI.playerState = GameObject.Find("playerTwoState").GetComponent<Text>();
         p2UI.playerHealth = GameObject.Find("playerTwoHealth").GetComponent<Text>();
-        p2UI.currentSelection = GameObject.Find("playerTwoSelection").GetComponent<Text>();
+        p2UI.currentResource = GameObject.Find("playerTwoResource").GetComponent<Text>();
         p2UI.playerState.text = "Placing";
         p2UI.p2ResourceBackground = GameObject.Find("p2ResourceBackground").GetComponent<Image>();
         p2UI.p2BlockBackground = GameObject.Find("p2BlockBackground").GetComponent<Image>();
@@ -128,8 +128,8 @@ public class setupManager : MonoBehaviour
 		//updtes UI
 		Building currentTextp1 = (Building)selection1;
         Building currentTextp2 = (Building)selection2;
-        p1UI.currentSelection.text = currentTextp1.ToString();
-        p2UI.currentSelection.text = currentTextp2.ToString();
+        p1UI.currentResource.text = currentTextp1.ToString();
+        p2UI.currentResource.text = currentTextp2.ToString();
 		//Building currentText = (Building)selection1;
 
 		//p1UI.currentSelection.text = currentText.ToString();
