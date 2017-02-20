@@ -98,14 +98,14 @@ public struct Grid
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
             for (int col = 0; col < x; col++) {
                 grid[row, col] = new GridItem(true, Building.Empty, Player.World, Direction.None, 0);
-                //GameObject empty = MonoBehaviour.Instantiate(emptyHolder);    //makes transparent planes on each grid square
-                //empty.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, 0, (-y / 2) + row + 0.5f);
+                GameObject empty = MonoBehaviour.Instantiate(emptyHolder);    //makes transparent planes on each grid square
+                empty.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, 0, (-y / 2) + row + 0.5f);
             }
         }
         dimX = x;
@@ -225,7 +225,7 @@ public struct Grid
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
-            if (newBuilding == Building.Reflecting) { // This if statement will be removed once all buildings are set up properly
+            if (newBuilding == Building.Reflecting || newBuilding == Building.Resource || newBuilding == Building.Refracting) { // This if statement will be removed once all buildings are set up properly
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
             }
@@ -407,13 +407,14 @@ public class gridManager : MonoBehaviour
     public GameObject Portal;
     public GameObject Portal2;
 
+    public GameObject empty;
     private GameObject buildingContainer;
 
     void Awake()
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, empty);
 
 
     }
