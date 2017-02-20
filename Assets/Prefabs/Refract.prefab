@@ -55,9 +55,11 @@ MonoBehaviour:
   x: -1
   y: -1
   owner: 0
+  currentHP: 0
   building: 8
   health: 10
   cost: 2
+  sprites: []
 --- !u!212 &212787702685517578
 SpriteRenderer:
   m_ObjectHideFlags: 1
