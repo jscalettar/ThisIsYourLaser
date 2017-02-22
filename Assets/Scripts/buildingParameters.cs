@@ -16,5 +16,6 @@ public class buildingParameters : MonoBehaviour {
     public float health = 5;
     public float cost = 2;
     public Sprite[] sprites;
+    public float scale = 1;
 
 }
