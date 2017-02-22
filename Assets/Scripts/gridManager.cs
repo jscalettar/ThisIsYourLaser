@@ -105,7 +105,7 @@ public struct Grid
             for (int col = 0; col < x; col++) {
                 grid[row, col] = new GridItem(true, Building.Empty, Player.World, Direction.None, 0);
                 GameObject empty = MonoBehaviour.Instantiate(emptyHolder);    //makes transparent planes on each grid square
-                empty.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, 0, (-y / 2) + row + 0.5f);
+                empty.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, -0.1f, (-y / 2) + row + 0.5f);
             }
         }
         dimX = x;
@@ -225,13 +225,14 @@ public struct Grid
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
-            if (newBuilding == Building.Reflecting || newBuilding == Building.Resource || newBuilding == Building.Refracting || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
+            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, 1f) : new Vector4(0.7f, 1, 0.7f, 1f);
                 float scale = building.GetComponent<buildingParameters>().scale;
                 building.transform.localScale = new Vector3(scale, scale, 1f);
             }
-            //building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
+            else building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);
             building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
             building.transform.localEulerAngles = new Vector3(90, 0, 0);

@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -232,10 +232,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Core Loop note: In order to begin play, both players must place their respective
-    bases and lasers. Resources are in, but not shown. Xbox controls are in, and this
-    page will be changed to reflect in later builds. This and the start menu are definitely
-    unfinished at the present build.'
+  m_Text: 'First: Place your base followed by your laser on the edge of grid (on your
+    side).
+
+    When placing your LASER, press UP or DOWN to set laser direction.
+
+    Similarly, when placing blocks press a directional key to set it''s orientation.'
 --- !u!222 &77835547
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -671,7 +673,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 233, y: -28}
+  m_AnchoredPosition: {x: 133, y: -28}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &172558964
@@ -3852,7 +3854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 233, y: 18}
+  m_AnchoredPosition: {x: 133, y: 18}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608354550
@@ -4263,10 +4265,18 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Each structure costs resources, and each of them also has weak points. For
-    the reflecting sprite, this is the head. After a certain time, structures are
-    destroyed after taking enough damage from their weak point. Pictures will be here
-    to show, along with captions when we have them.
+  m_Text: 'Each structure costs resources.
+
+
+    Most structures have weak point(s).
+
+
+    A RESOURCE block needs to face towards an incoming laser to gather resources,
+    all other sides are weak.
+
+
+    Blocks take damage over time when their weak point is hit by a laser. Blocking
+    blocks, reflecting blocks also have one weak point.'
 --- !u!222 &1911990209
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4728,10 +4738,10 @@ RectTransform:
   m_Father: {fileID: 1362271650}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -415, y: -181}
-  m_SizeDelta: {x: 3.17, y: 3.63}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -150, y: -100}
+  m_SizeDelta: {x: 3.169983, y: 3.630005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &2032359232
 SpriteRenderer:
@@ -5102,7 +5112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 337, y: -211}
+  m_AnchoredPosition: {x: 237, y: -211}
   m_SizeDelta: {x: 370, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2074710492
