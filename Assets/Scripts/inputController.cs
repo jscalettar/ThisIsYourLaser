@@ -273,10 +273,10 @@ public class inputController : MonoBehaviour {
             }
         } else if (currentState == State.placingMove) {
             if (player == Player.PlayerOne) {
-                if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty) print("You can not place here, selection is no longer empty");
+                if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty && !cursorP1.moveOrigin.Equals(new XY(cursorP1.x, cursorP1.y))) print("You can not move here, selection is no longer empty");
                 else { if (!gridManager.theGrid.moveBuilding(cursorP1.moveOrigin.x, cursorP1.moveOrigin.y, cursorP1.x, cursorP1.y, Player.PlayerOne, cursorP1.direction)) print("Moving failed."); cursorP1.state = State.idle; }
             } else {
-                if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty) print("You can not place here, selection is no longer empty");
+                if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty && !cursorP2.moveOrigin.Equals(new XY(cursorP2.x, cursorP2.y))) print("You can not move here, selection is no longer empty");
                 else { if (!gridManager.theGrid.moveBuilding(cursorP2.moveOrigin.x, cursorP2.moveOrigin.y, cursorP2.x, cursorP2.y, Player.PlayerTwo, cursorP2.direction)) print("Moving failed."); cursorP2.state = State.idle; }
             }
         } else if (currentState == State.idle) {
