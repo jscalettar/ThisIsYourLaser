@@ -202,19 +202,25 @@ public class inputController : MonoBehaviour {
         } else if (currentState == State.placeLaser) {
             if (player == Player.PlayerOne) {
                 if (cursorP1.x > 0) print("Laser must be placed on the edge of the board");
-                else cursorP1.state = State.placingLaser;
+                else {
+                    if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty) print("Laser can not be placed on top of base.");
+                    else cursorP1.state = State.placingLaser;
+                }
             } else {
                 if (cursorP2.x < xEnd) print("Laser must be placed on the edge of the board");
-                else cursorP2.state = State.placingLaser;
+                else {
+                    if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty) print("Laser can not be placed on top of base.");
+                    else cursorP2.state = State.placingLaser;
+                }
             }
         } else if (currentState == State.placingLaser) {
             if (player == Player.PlayerOne) {
-                if (cursorP1.direction == Direction.Up) { laserLogic.laserHeadingP1 = Direction.NE; gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up); cursorP1.state = State.idle; }
-                else if (cursorP1.direction == Direction.Down) { laserLogic.laserHeadingP1 = Direction.SE; gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down); cursorP1.state = State.idle; }
+                if (cursorP1.direction == Direction.Up) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
+                else if (cursorP1.direction == Direction.Down) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else print("Press the up or down direction keys to place laser");
             } else {
-                if (cursorP2.direction == Direction.Up) { laserLogic.laserHeadingP2 = Direction.NW; gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up); cursorP2.state = State.idle; }
-                else if (cursorP2.direction == Direction.Down) { laserLogic.laserHeadingP2 = Direction.SW; gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down); cursorP2.state = State.idle; }
+                if (cursorP2.direction == Direction.Up) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
+                else if (cursorP2.direction == Direction.Down) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else print("Press the up or down direction keys to place laser");
             }
         } else if (currentState == State.placing) {
