@@ -266,6 +266,10 @@ public struct Grid
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty && (playerID == grid[y, x].owner || playerID == Player.World)) {
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
+            // Give some resources back to player
+            if (playerID == Player.PlayerOne) resourcesP1 += getCost(grid[y, x].building, x, playerID, false, true);
+            else resourcesP2 += getCost(grid[y, x].building, x, playerID, false, true);
+            // Clear out GridItem
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
@@ -273,9 +277,7 @@ public struct Grid
             grid[y, x].health = 0;
             // Reset Weak Sides
             for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;
-            // Give some resources back to player
-            if (playerID == Player.PlayerOne) resourcesP1 += getCost(prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().building, x, playerID, false, true);
-            else resourcesP2 += getCost(prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().building, x, playerID, false, true);
+
             // Remove Building Prefab
             MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
             prefabDictionary.Remove(new XY(x, y));
@@ -310,6 +312,10 @@ public struct Grid
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
         if (!grid[y, x].isEmpty && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
+            // Subtract some resources for move
+            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(grid[y, x].building, xNew, playerID, true);
+            else resourcesP2 -= getCost(grid[y, x].building, xNew, playerID, true);
+            // Move Building
             GameObject building = prefabDictionary[new XY(x, y)];
             if (x != xNew || y != yNew) { // If moving to same place, skip this and just rotate instead
                 grid[yNew, xNew].isEmpty = false;
@@ -336,9 +342,6 @@ public struct Grid
             addWeakSides(xNew, yNew, grid[yNew, xNew].building, facing);
             // Rotate
             if(canRotate(grid[yNew, xNew].building)) building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
-            // Subtract some resources for move
-            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, true);
-            else resourcesP2 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, true);
             // Specify that the board was updated and that laserLogic needs to run a simulation
             needsUpdate = true;
         } else return false;
@@ -429,6 +432,7 @@ public class gridManager : MonoBehaviour
     public GameObject Portal2;
 
     public GameObject empty;
+
     private GameObject buildingContainer;
 
     void Awake()

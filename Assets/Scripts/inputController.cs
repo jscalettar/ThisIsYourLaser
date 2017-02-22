@@ -27,6 +27,9 @@ public class inputController : MonoBehaviour {
     public Sprite P2RedirectSprite;
     public Sprite P2ResourceSprite;
 
+    // Cursor movement speed
+    public float cursorSpeed = 10f;
+
     public struct Cursor
     {
         public int x, y;
@@ -56,6 +59,9 @@ public class inputController : MonoBehaviour {
     public static Cursor cursorP1, cursorP2;
     private int xEnd, yEnd;
     private int cycleP1, cycleP2;
+    private bool p1HasPlacedBase = false, p2HasPlacedBase = false;
+    private Queue<XY> moveQueueP1 = new Queue<XY>();
+    private Queue<XY> moveQueueP2 = new Queue<XY>();
 
     void Start () {
         cycleP1 = 0;
@@ -64,6 +70,9 @@ public class inputController : MonoBehaviour {
         yEnd = gridManager.theGrid.getDimY() - 1;
         cursorP1 = new Cursor(0, 0, Direction.Right, Building.Blocking, State.placeBase);
         cursorP2 = new Cursor(xEnd, yEnd, Direction.Left, Building.Blocking, State.placeBase);
+        // Set initial cursor positions
+        cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
+        cursorObjP2.transform.position = new Vector3(cursorP2.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP2.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
     }
 	
 	void Update () {
@@ -101,10 +110,10 @@ public class inputController : MonoBehaviour {
 
         if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove) {
             // Cursor Movement P1
-            if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) cursorP1.y = clamp(cursorP1.y + 1, 0, yEnd);
-            else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) cursorP1.y = clamp(cursorP1.y - 1, 0, yEnd);
-            else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) cursorP1.x = clamp(cursorP1.x + 1, 0, xEnd);
-            else if (Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1) cursorP1.x = clamp(cursorP1.x - 1, 0, xEnd);
+            if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.y = clamp(cursorP1.y + 1, 0, yEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
+            else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.y = clamp(cursorP1.y - 1, 0, yEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
+            if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.x = clamp(cursorP1.x + 1, 0, xEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
+            else if (Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1) { cursorP1.x = clamp(cursorP1.x - 1, 0, xEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
         } else {
             // Cursor Rotation P1
             bool selectionMade = false;
@@ -120,10 +129,10 @@ public class inputController : MonoBehaviour {
 
         if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove) {
             // Cursor Movement P2
-            if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) cursorP2.y = clamp(cursorP2.y + 1, 0, yEnd);
-            else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) cursorP2.y = clamp(cursorP2.y - 1, 0, yEnd);
-            else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) cursorP2.x = clamp(cursorP2.x + 1, 0, xEnd);
-            else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) cursorP2.x = clamp(cursorP2.x - 1, 0, xEnd);
+            if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.y = clamp(cursorP2.y + 1, 0, yEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
+            else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.y = clamp(cursorP2.y - 1, 0, yEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
+            if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.x = clamp(cursorP2.x + 1, 0, xEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
+            else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.x = clamp(cursorP2.x - 1, 0, xEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
         } else {
             // Cursor Rotation P1
             bool selectionMade = false;
@@ -173,15 +182,19 @@ public class inputController : MonoBehaviour {
             }
         }
 
-        //print(cursorP2.x);
         float xOff = -gridManager.theGrid.getDimX() / 2f + 0.5f;
         float yOff = -gridManager.theGrid.getDimY() / 2f + 0.5f;
 
         // Update Cursor Position P1
-        cursorObjP1.transform.position = new Vector3(cursorP1.x + xOff, 0.01f, cursorP1.y + yOff);
-
+        if (moveQueueP1.Count > 0) {
+            cursorObjP1.transform.position = Vector3.MoveTowards(cursorObjP1.transform.position, new Vector3(moveQueueP1.Peek().x + xOff, 0.01f, moveQueueP1.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP1.Count, 2) * 0.2f));
+            if (Vector2.Distance(new Vector2(cursorObjP1.transform.position.x, cursorObjP1.transform.position.z), new Vector2(moveQueueP1.Peek().x + xOff, moveQueueP1.Peek().y + yOff)) == 0f) moveQueueP1.Dequeue();
+        }
         // Update Cursor Position P2
-        cursorObjP2.transform.position = new Vector3(cursorP2.x + xOff, 0.01f, cursorP2.y + yOff);
+        if (moveQueueP2.Count > 0) {
+            cursorObjP2.transform.position = Vector3.MoveTowards(cursorObjP2.transform.position, new Vector3(moveQueueP2.Peek().x + xOff, 0.01f, moveQueueP2.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP2.Count, 2) * 0.2f));
+            if (Vector2.Distance(new Vector2(cursorObjP2.transform.position.x, cursorObjP2.transform.position.z), new Vector2(moveQueueP2.Peek().x + xOff, moveQueueP2.Peek().y + yOff)) == 0f) moveQueueP2.Dequeue();
+        }
     }
 
     private Building cycleToBuilding(int index)
@@ -202,16 +215,16 @@ public class inputController : MonoBehaviour {
                 if (cursorP1.x > 0) print("Base must be placed on the edge of the board");
                 else {
                     gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Base, Player.PlayerOne);
-                    cursorP1.state = State.placeLaser;
+                    cursorP1.state = State.placeLaser; p1HasPlacedBase = true;
                 }
             } else {
                 if (cursorP2.x < xEnd) print("Base must be placed on the edge of the board");
                 else {
                     gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Base, Player.PlayerTwo);
-                    cursorP2.state = State.placeLaser;
+                    cursorP2.state = State.placeLaser; p2HasPlacedBase = true;
                 }
             }
-        } else if (currentState == State.placeLaser) {
+        } else if (currentState == State.placeLaser && p1HasPlacedBase && p2HasPlacedBase) {
             if (player == Player.PlayerOne) {
                 if (cursorP1.x > 0) print("Laser must be placed on the edge of the board");
                 else {
@@ -300,10 +313,12 @@ public class inputController : MonoBehaviour {
             if (player == Player.PlayerOne) {
                 if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Empty) print("Nothing to remove here.");
                 else if (gridManager.theGrid.getCellInfo(cursorP1.x, cursorP1.y).owner != Player.PlayerOne) print("You can not remove a building that you do not own.");
+                else if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Laser) print("Cannot remove this building.");
                 else { if (!gridManager.theGrid.removeBuilding(cursorP1.x, cursorP1.y, Player.PlayerOne)) print("Removing failed."); }
             } else {
                 if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Empty) print("Nothing to remove here.");
                 else if (gridManager.theGrid.getCellInfo(cursorP2.x, cursorP2.y).owner != Player.PlayerTwo) print("You can not remove a building that you do not own.");
+                else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser) print("Cannot remove this building.");
                 else { if (!gridManager.theGrid.removeBuilding(cursorP2.x, cursorP2.y, Player.PlayerTwo)) print("Removing failed."); }
             }
         } else {
