@@ -1,0 +1,52 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     4058 MB
+    Driver:   20.19.15.4549
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.155 seconds
+Platform assembly: C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\nccarlso\UnityProjects\ThisIsYourLaser\devBuild\laserDevBuild_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1200 59Hz; virtual: 3600x1200 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 28.332260 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 2b50 -> priority: 1 
+  Thread -> id: b4c -> priority: 1 
+The referenced script on this Behaviour is missing!
+ 
+(Filename:  Line: 1526)
+
+The referenced script on this Behaviour (Game Object 'PlayerTwoInfo') is missing!
+ 
+(Filename:  Line: 1754)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.219781 ms
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 1642.
+Total: 1.166757 ms (FindLiveObjects: 0.056621 ms CreateObjectMapping: 0.423755 ms MarkObjects: 0.671924 ms  DeleteObjects: 0.013552 ms)
+
+Iniating laser
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Iniating laser
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
