@@ -225,10 +225,12 @@ public struct Grid
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
-            if (newBuilding == Building.Reflecting) { // This if statement will be removed once all buildings are set up properly
+            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
                 building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, 1f) : new Vector4(0.7f, 1, 0.7f, 1f);
+                float scale = building.GetComponent<buildingParameters>().scale;
+                building.transform.localScale = new Vector3(scale, scale, 1f);
             }
             else building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);
