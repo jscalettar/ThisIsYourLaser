@@ -74,8 +74,14 @@ public class inputController : MonoBehaviour {
         else if (Input.GetKeyDown("4")) cursorP1.selection = Building.Redirecting;
         else if (Input.GetKeyDown("5")) cursorP1.selection = Building.Resource;
         // Cycle P1
-        if (Input.GetButtonDown("cycleR_1")) cursorP1.selection = cycleToBuilding(clamp(cycleP1 + 1, 0, 4));
-        else if (Input.GetButtonDown("cycleL_1")) cursorP1.selection = cycleToBuilding(clamp(cycleP1 - 1, 0, 4));
+        if (Input.GetButtonDown("cycleR_1")) {
+            if (cursorP1.selection == Building.Redirecting) cursorP1.selection = Building.Blocking;
+            else cursorP1.selection += 1;
+        }
+        else if (Input.GetButtonDown("cycleL_1")) {
+            if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Redirecting;
+            else cursorP1.selection -= 1;
+        }
 
         // Cursor Selection P2
         if (Input.GetKeyDown("7")) cursorP2.selection = Building.Blocking;
@@ -84,22 +90,28 @@ public class inputController : MonoBehaviour {
         else if (Input.GetKeyDown("0")) cursorP2.selection = Building.Redirecting;
         else if (Input.GetKeyDown("-")) cursorP2.selection = Building.Resource;
         // Cycle P2
-        if (Input.GetButtonDown("cycleR_2")) cursorP2.selection = cycleToBuilding(clamp(cycleP2 + 1, 0, 4));
-        else if (Input.GetButtonDown("cycleL_2")) cursorP2.selection = cycleToBuilding(clamp(cycleP2 - 1, 0, 4));
+        if (Input.GetButtonDown("cycleR_2")) {
+            if (cursorP2.selection == Building.Redirecting) cursorP2.selection = Building.Blocking;
+            else cursorP2.selection += 1;
+        }
+        else if (Input.GetButtonDown("cycleL_2")) {
+            if (cursorP2.selection == Building.Blocking) cursorP2.selection = Building.Redirecting;
+            else cursorP2.selection -= 1;
+        }
 
         if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove) {
             // Cursor Movement P1
-            if (Input.GetButtonDown("up_1")) cursorP1.y = clamp(cursorP1.y + 1, 0, yEnd);
-            else if (Input.GetButtonDown("down_1")) cursorP1.y = clamp(cursorP1.y - 1, 0, yEnd);
-            else if (Input.GetButtonDown("right_1")) cursorP1.x = clamp(cursorP1.x + 1, 0, xEnd);
-            else if (Input.GetButtonDown("left_1")) cursorP1.x = clamp(cursorP1.x - 1, 0, xEnd);
+            if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) cursorP1.y = clamp(cursorP1.y + 1, 0, yEnd);
+            else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) cursorP1.y = clamp(cursorP1.y - 1, 0, yEnd);
+            else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) cursorP1.x = clamp(cursorP1.x + 1, 0, xEnd);
+            else if (Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1) cursorP1.x = clamp(cursorP1.x - 1, 0, xEnd);
         } else {
             // Cursor Rotation P1
             bool selectionMade = false;
-            if (Input.GetButtonDown("up_1")) { cursorP1.direction = Direction.Up; selectionMade = true; }
-            else if (Input.GetButtonDown("down_1")) { cursorP1.direction = Direction.Down; selectionMade = true; }
-            else if (Input.GetButtonDown("right_1")) { cursorP1.direction = Direction.Right; selectionMade = true; }
-            else if (Input.GetButtonDown("left_1")) { cursorP1.direction = Direction.Left; selectionMade = true; }
+            if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; selectionMade = true; }
+            else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.direction = Direction.Down; selectionMade = true; }
+            else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.direction = Direction.Right; selectionMade = true; }
+            else if (Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1) { cursorP1.direction = Direction.Left; selectionMade = true; }
             if (selectionMade) { // If placing or moving, finalize action
                 if (cursorP1.state == State.placingMove) move(Player.PlayerOne, cursorP1.state);
                 else place(Player.PlayerOne, cursorP1.state);
@@ -108,17 +120,17 @@ public class inputController : MonoBehaviour {
 
         if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove) {
             // Cursor Movement P2
-            if (Input.GetButtonDown("up_2")) cursorP2.y = clamp(cursorP2.y + 1, 0, yEnd);
-            else if (Input.GetButtonDown("down_2")) cursorP2.y = clamp(cursorP2.y - 1, 0, yEnd);
-            else if (Input.GetButtonDown("right_2")) cursorP2.x = clamp(cursorP2.x + 1, 0, xEnd);
-            else if (Input.GetButtonDown("left_2")) cursorP2.x = clamp(cursorP2.x - 1, 0, xEnd);
+            if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) cursorP2.y = clamp(cursorP2.y + 1, 0, yEnd);
+            else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) cursorP2.y = clamp(cursorP2.y - 1, 0, yEnd);
+            else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) cursorP2.x = clamp(cursorP2.x + 1, 0, xEnd);
+            else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) cursorP2.x = clamp(cursorP2.x - 1, 0, xEnd);
         } else {
             // Cursor Rotation P1
             bool selectionMade = false;
-            if (Input.GetButtonDown("up_2")) { cursorP2.direction = Direction.Up; selectionMade = true; }
-            else if (Input.GetButtonDown("down_2")) { cursorP2.direction = Direction.Down; selectionMade = true; }
-            else if (Input.GetButtonDown("right_2")) { cursorP2.direction = Direction.Right; selectionMade = true; }
-            else if (Input.GetButtonDown("left_2")) { cursorP2.direction = Direction.Left; selectionMade = true; }
+            if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; selectionMade = true; }
+            else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.direction = Direction.Down; selectionMade = true; }
+            else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.direction = Direction.Right; selectionMade = true; }
+            else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.direction = Direction.Left; selectionMade = true; }
             if (selectionMade) { // If placing or moving, finalize action
                 if (cursorP2.state == State.placingMove) move(Player.PlayerTwo, cursorP2.state);
                 else place(Player.PlayerTwo, cursorP2.state);
