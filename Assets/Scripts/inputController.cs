@@ -112,7 +112,7 @@ public class inputController : MonoBehaviour {
             // Cursor Movement P1
             if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.y = clamp(cursorP1.y + 1, 0, yEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
             else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.y = clamp(cursorP1.y - 1, 0, yEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
-            if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.x = clamp(cursorP1.x + 1, 0, xEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
+            if ((Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { cursorP1.x = clamp(cursorP1.x + 1, 0, xEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
             else if (Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1) { cursorP1.x = clamp(cursorP1.x - 1, 0, xEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
         } else {
             // Cursor Rotation P1
@@ -120,7 +120,7 @@ public class inputController : MonoBehaviour {
             if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; selectionMade = true; }
             else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.direction = Direction.Down; selectionMade = true; }
             else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.direction = Direction.Right; selectionMade = true; }
-            else if (Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1) { cursorP1.direction = Direction.Left; selectionMade = true; }
+            else if ((Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1)) { cursorP1.direction = Direction.Left; selectionMade = true; }
             if (selectionMade) { // If placing or moving, finalize action
                 if (cursorP1.state == State.placingMove) move(Player.PlayerOne, cursorP1.state);
                 else place(Player.PlayerOne, cursorP1.state);
@@ -132,7 +132,7 @@ public class inputController : MonoBehaviour {
             if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.y = clamp(cursorP2.y + 1, 0, yEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
             else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.y = clamp(cursorP2.y - 1, 0, yEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
             if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.x = clamp(cursorP2.x + 1, 0, xEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
-            else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.x = clamp(cursorP2.x - 1, 0, xEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
+            else if ((Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { cursorP2.x = clamp(cursorP2.x - 1, 0, xEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
         } else {
             // Cursor Rotation P1
             bool selectionMade = false;
