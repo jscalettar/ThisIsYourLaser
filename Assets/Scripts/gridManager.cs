@@ -377,7 +377,6 @@ public struct Grid
                 grid[yNew, xNew].isEmpty = false;
                 grid[yNew, xNew].building = grid[y, x].building;
                 grid[yNew, xNew].owner = playerID;
-                grid[yNew, xNew].direction = facing;
                 grid[yNew, xNew].level = grid[y, x].level;
                 grid[yNew, xNew].health = grid[y, x].health;
                 grid[y, x].isEmpty = true;
@@ -385,38 +384,39 @@ public struct Grid
                 grid[y, x].owner = Player.World;
                 grid[y, x].level = 0;
                 grid[y, x].health = 0;
-                //make spots next to building available
-                if (temp.building == Building.Blocking || temp.building == Building.Reflecting)
-                {
-                    if (grid[y, x].direction == Direction.Left) { grid[y, x - 1].isEmpty = true; }
-                    if (grid[y, x].direction == Direction.Right) { grid[y, x + 1].isEmpty = true; }
-                    if (grid[y, x].direction == Direction.Up) { grid[y + 1, x].isEmpty = true; }
-                    if (grid[y, x].direction == Direction.Down) { grid[y - 1, x].isEmpty = true; }
-                    //set new for new rotation
-                    if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew - 1].isEmpty = false; }
-                    if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew + 1].isEmpty = false; }
-                    if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew + 1, xNew].isEmpty = false; }
-                    if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew - 1, xNew].isEmpty = false; }
-                }
-                else if (temp.building == Building.Resource)
-                {
-                    if (grid[y, x].direction == Direction.Left) { grid[y, x + 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; }
-                    if (grid[y, x].direction == Direction.Right) { grid[y, x - 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; }
-                    if (grid[y, x].direction == Direction.Up) { grid[y - 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; }
-                    if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; }
-                    //set for new rotation
-                    if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew + 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
-                    if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew - 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
-                    if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew - 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
-                    if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew + 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
-                }
                 // Move Building Prefab
                 building.GetComponent<buildingParameters>().x = xNew;
                 building.GetComponent<buildingParameters>().y = yNew;
                 building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
                 prefabDictionary.Remove(new XY(x, y));
                 prefabDictionary.Add(new XY(xNew, yNew), building);
-            }
+			}
+			grid[yNew, xNew].direction = facing;
+			//make spots next to building available
+			if (temp.building == Building.Blocking || temp.building == Building.Reflecting)
+			{
+				if (temp.direction == Direction.Left) { grid[y, x - 1].isEmpty = true; }
+				if (temp.direction == Direction.Right) { grid[y, x + 1].isEmpty = true; }
+				if (temp.direction == Direction.Up) { grid[y + 1, x].isEmpty = true; }
+				if (temp.direction == Direction.Down) { grid[y - 1, x].isEmpty = true; }
+				//set new for new rotations
+				if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew - 1].isEmpty = false; }
+				if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew + 1].isEmpty = false; }
+				if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew + 1, xNew].isEmpty = false; }
+				if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew - 1, xNew].isEmpty = false; }
+			}
+			else if (temp.building == Building.Resource)
+			{
+				if (temp.direction == Direction.Left) { grid[y, x + 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; }
+				if (temp.direction == Direction.Right) { grid[y, x - 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; }
+				if (temp.direction == Direction.Up) { grid[y - 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; }
+				if (temp.direction == Direction.Down) { grid[y + 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; }
+				//set for new rotation
+				if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew + 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
+				if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew - 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
+				if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew - 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
+				if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew + 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
+			}
             // Reset Weak Sides
             for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;
             // Add Weak Side(s)
