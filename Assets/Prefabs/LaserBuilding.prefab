@@ -55,7 +55,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 0d0d0664239b9944ba6f45b80e785a23, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -139,10 +139,10 @@ MonoBehaviour:
   y: -1
   owner: 0
   currentHP: 0
-  building: 8
   health: 100
   cost: 0
   sprites: []
+  scale: 1
 --- !u!114 &114105079807383150
 MonoBehaviour:
   m_ObjectHideFlags: 1

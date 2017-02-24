@@ -7,8 +7,9 @@ using UnityEngine.Audio;
 
 public class startMenu : MonoBehaviour {
     //Vars for screen options
-    public int resolution;
     public bool isFull;
+    public Dropdown resDrop;
+    List<string> resos = new List<string>() { "800x600", "1024x768", "1280x720", "1920x1080" };
 
     //Vars for sounds options
     public float masterVol;
@@ -24,14 +25,12 @@ public class startMenu : MonoBehaviour {
     public Button Play;
     public Button Exit;
 
-    public Dropdown resolutionMenu;
     public Toggle fullscreenToggle;
 
     public Slider masterSlider;
     public Slider musicSlider;
     public Slider sfxSlider;
 
-    public Resolution[] resolutions;
  
     // Use this for initialization
     void Start () {
@@ -39,6 +38,7 @@ public class startMenu : MonoBehaviour {
         StartMenu.SetActive(true);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        populateList();
     }
 	
 	public void startGame()
@@ -81,32 +81,31 @@ public class startMenu : MonoBehaviour {
         //Need actual sound source to implement
     }
 
-    public void setResolution(int res) 
-    {
-        switch (resolutionMenu.value) 
-        {
-            case 0:
-                Screen.SetResolution(1366, 768, isFull);
-                break;
-            case 1:
-                Screen.SetResolution(1600, 900, isFull);
-                break;
-            case 2:
-                Screen.SetResolution(1920, 1080, isFull);
-                break;
-            default:
-                Screen.SetResolution(800, 600, isFull);
-                break;
-        }
-
-        
-    }
 
     public void toggleFullscreen() 
     {
         isFull = Screen.fullScreen = !Screen.fullScreen;
 
 
+    }
+
+    public void changeRes(int num)
+    {
+        switch (num)
+        {
+            case 0: Screen.SetResolution(800, 600, true);
+                    break;
+            case 1: Screen.SetResolution(1024, 768, true);
+                    break;
+            case 2: Screen.SetResolution(1280, 720, true);
+                break;
+            case 3: Screen.SetResolution(1920, 1080, true);
+                break;
+        }
+    }
+    public void populateList()
+    {
+        resDrop.AddOptions(resos);
     }
     public void exitGame()
     {

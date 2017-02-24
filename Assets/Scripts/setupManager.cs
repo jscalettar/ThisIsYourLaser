@@ -399,8 +399,8 @@ public class setupManager : MonoBehaviour
         GridItem temp = gridManager.theGrid.getCellInfo((int)newPos.x, (int)newPos.z);
         if (temp.owner == gridObj.owner)
         {//swap buildings
-            if (gridManager.theGrid.swapBuilding((int)oldPos.x, (int)oldPos.y, (int)newPos.x, (int)newPos.z, gridObj.owner))
-            {//connect the instances to the gridItem so when they swap the instance will also move
+            //if (gridManager.theGrid.swapBuilding((int)oldPos.x, (int)oldPos.y, (int)newPos.x, (int)newPos.z, gridObj.owner))
+            //{//connect the instances to the gridItem so when they swap the instance will also move
                 /*GameObject go1 = listPlace[(int)oldPos.x, (int)oldPos.y];
                 GameObject go2 = listPlace[(int)newPos.x, (int)newPos.z];
                 listPlace[(int)oldPos.x, (int)oldPos.y] = listPlace[(int)newPos.x, (int)newPos.z];
@@ -410,9 +410,9 @@ public class setupManager : MonoBehaviour
                 go1.transform.position = newPos;
                 go2.transform.position = loc;*/
                 print("Swap Complete");
-            }
-            else
-                print("Cannot complete swap");
+            //}
+            //else
+            //    print("Cannot complete swap");
             return true;
         }
         else if (temp.owner == Player.World)
