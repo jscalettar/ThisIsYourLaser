@@ -367,7 +367,7 @@ public struct Grid
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
         if (!grid[y, x].isEmpty && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
             // Subtract some resources for move
-            Building temp = grid[y, x].building;
+            GridItem temp = grid[y, x];
             if (playerID == Player.PlayerOne) resourcesP1 -= getCost(grid[y, x].building, xNew, playerID, true);
             else resourcesP2 -= getCost(grid[y, x].building, xNew, playerID, true);
             // Move Building
@@ -386,19 +386,29 @@ public struct Grid
                 grid[y, x].level = 0;
                 grid[y, x].health = 0;
                 //make spots next to building available
-                if (temp == Building.Blocking || temp == Building.Reflecting)
+                if (temp.building == Building.Blocking || temp.building == Building.Reflecting)
                 {
-                    if (grid[y, x].direction == Direction.Left) { grid[y, x - 1].isEmpty = true; grid[yNew, xNew - 1].isEmpty = false; }
-                    if (grid[y, x].direction == Direction.Right) { grid[y, x + 1].isEmpty = true; grid[yNew, xNew + 1].isEmpty = false; }
-                    if (grid[y, x].direction == Direction.Up) { grid[y + 1, x].isEmpty = true; grid[yNew + 1, xNew].isEmpty = false; }
-                    if (grid[y, x].direction == Direction.Down) { grid[y - 1, x].isEmpty = true; grid[yNew - 1, xNew].isEmpty = false; }
+                    if (grid[y, x].direction == Direction.Left) { grid[y, x - 1].isEmpty = true; }
+                    if (grid[y, x].direction == Direction.Right) { grid[y, x + 1].isEmpty = true; }
+                    if (grid[y, x].direction == Direction.Up) { grid[y + 1, x].isEmpty = true; }
+                    if (grid[y, x].direction == Direction.Down) { grid[y - 1, x].isEmpty = true; }
+                    //set new for new rotation
+                    if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew - 1].isEmpty = false; }
+                    if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew + 1].isEmpty = false; }
+                    if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew + 1, xNew].isEmpty = false; }
+                    if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew - 1, xNew].isEmpty = false; }
                 }
-                else if (temp == Building.Resource)
+                else if (temp.building == Building.Resource)
                 {
-                    if (grid[y, x].direction == Direction.Left) { grid[y, x + 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; grid[yNew, xNew + 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
-                    if (grid[y, x].direction == Direction.Right) { grid[y, x - 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; grid[yNew, xNew - 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
-                    if (grid[y, x].direction == Direction.Up) { grid[y - 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; grid[yNew - 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
-                    if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; grid[yNew + 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
+                    if (grid[y, x].direction == Direction.Left) { grid[y, x + 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; }
+                    if (grid[y, x].direction == Direction.Right) { grid[y, x - 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; }
+                    if (grid[y, x].direction == Direction.Up) { grid[y - 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; }
+                    if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; }
+                    //set for new rotation
+                    if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew + 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
+                    if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew - 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
+                    if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew - 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
+                    if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew + 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
                 }
                 // Move Building Prefab
                 building.GetComponent<buildingParameters>().x = xNew;
