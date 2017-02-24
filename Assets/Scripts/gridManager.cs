@@ -211,12 +211,18 @@ public struct Grid
             grid[y, x].owner = playerID;
             grid[y, x].direction = facing;
             // Add Weak Side(s)
-            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking || newBuilding == Building.Resource) {
+            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking) {
                 //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
-                if (facing == Direction.Left) grid[y, x].weakSides[1] = 1;
-                if (facing == Direction.Right) grid[y, x].weakSides[0] = 1;
-                if (facing == Direction.Up) grid[y, x].weakSides[3] = 1;
-                if (facing == Direction.Down) grid[y, x].weakSides[2] = 1;
+                if (facing == Direction.Left) { grid[y, x].weakSides[1] = 1; grid[y, x-1].building = newBuilding; }
+                if (facing == Direction.Right) { grid[y, x].weakSides[0] = 1; grid[y, x+1].building = newBuilding; }
+                if (facing == Direction.Up) { grid[y, x].weakSides[3] = 1; grid[y+1, x].building = newBuilding; }
+                if (facing == Direction.Down) { grid[y, x].weakSides[2] = 1; grid[y-1, x].building = newBuilding; }
+            }else if(newBuilding == Building.Resource)
+            {
+                if (facing == Direction.Left) { grid[y, x].weakSides[1] = 1; grid[y, x + 1].building = newBuilding; grid[y-1, x].building = newBuilding; grid[y+1, x].building = newBuilding; }
+                if (facing == Direction.Right) { grid[y, x].weakSides[0] = 1; grid[y, x - 1].building = newBuilding; grid[y - 1, x].building = newBuilding; grid[y + 1, x].building = newBuilding; }
+                if (facing == Direction.Up) { grid[y, x].weakSides[3] = 1; grid[y - 1, x].building = newBuilding; grid[y, x + 1].building = newBuilding; grid[y, x - 1].building = newBuilding; }
+                if (facing == Direction.Down) { grid[y, x].weakSides[2] = 1; grid[y + 1, x].building = newBuilding; grid[y, x + 1].building = newBuilding; grid[y, x - 1].building = newBuilding; }
             }
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
@@ -253,12 +259,28 @@ public struct Grid
     {
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty && (playerID == grid[y, x].owner || playerID == Player.World)) {
+            Building temp = grid[y, x].building;
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
             grid[y, x].health = 0;
+            //make spots next to building available
+            if (temp == Building.Blocking || temp == Building.Reflecting)
+            {
+                if (grid[y, x].direction == Direction.Left) grid[y, x - 1].building = Building.Empty;
+                if (grid[y, x].direction == Direction.Right) grid[y, x + 1].building = Building.Empty;
+                if (grid[y, x].direction == Direction.Up) grid[y + 1, x].building = Building.Empty;
+                if (grid[y, x].direction == Direction.Down) grid[y - 1, x].building = Building.Empty;
+            }
+            else if (temp == Building.Resource)
+            {
+                if (grid[y, x].direction == Direction.Left) { grid[y, x + 1].building = Building.Empty; grid[y + 1, x].building = Building.Empty; grid[y - 1, x].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Right) { grid[y, x - 1].building = Building.Empty; grid[y + 1, x].building = Building.Empty; grid[y - 1, x].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Up) { grid[y - 1, x].building = Building.Empty; grid[y, x + 1].building = Building.Empty; grid[y, x - 1].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].building = Building.Empty; grid[y, x + 1].building = Building.Empty; grid[y, x - 1].building = Building.Empty; }
+            }
             // Reset Weak Sides
             for (int i = 4; i < 4; i++) grid[y, x].weakSides[i] = 0;
             // Give some resources back to player
@@ -277,12 +299,28 @@ public struct Grid
     {
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
+            Building temp = grid[y, x].building;
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
             grid[y, x].health = 0;
+            //make spots next to building available
+            if (temp == Building.Blocking || temp == Building.Reflecting)
+            {
+                if (grid[y, x].direction == Direction.Left) grid[y, x - 1].building = Building.Empty;
+                if (grid[y, x].direction == Direction.Right) grid[y, x + 1].building = Building.Empty;
+                if (grid[y, x].direction == Direction.Up) grid[y + 1, x].building = Building.Empty;
+                if (grid[y, x].direction == Direction.Down) grid[y - 1, x].building = Building.Empty;
+            }
+            else if (temp == Building.Resource)
+            {
+                if (grid[y, x].direction == Direction.Left) { grid[y, x + 1].building = Building.Empty; grid[y + 1, x].building = Building.Empty; grid[y - 1, x].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Right) { grid[y, x - 1].building = Building.Empty; grid[y + 1, x].building = Building.Empty; grid[y - 1, x].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Up) { grid[y - 1, x].building = Building.Empty; grid[y, x + 1].building = Building.Empty; grid[y, x - 1].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].building = Building.Empty; grid[y, x + 1].building = Building.Empty; grid[y, x - 1].building = Building.Empty; }
+            }
             // Reset Weak Sides
             for (int i = 4; i < 4; i++) grid[y, x].weakSides[i] = 0;
             // Remove Building Prefab
@@ -298,6 +336,7 @@ public struct Grid
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
         if (!grid[y, x].isEmpty && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
+            Building temp = grid[y, x].building;
             grid[yNew, xNew].isEmpty = false;
             grid[yNew, xNew].building = grid[y, x].building;
             grid[yNew, xNew].owner = playerID;
@@ -311,6 +350,21 @@ public struct Grid
             grid[y, x].weakSides = new int[] { 0, 0, 0, 0 };
             grid[y, x].level = 0;
             grid[y, x].health = 0;
+            //make spots next to building available
+            if (temp == Building.Blocking || temp == Building.Reflecting)
+            {
+                if (grid[y, x].direction == Direction.Left) { grid[y, x - 1].building = Building.Empty; grid[yNew, xNew-1].building = temp; }
+                if (grid[y, x].direction == Direction.Right) { grid[y, x + 1].building = Building.Empty; grid[yNew, xNew+1].building = temp; }
+                if (grid[y, x].direction == Direction.Up) { grid[y + 1, x].building = Building.Empty; grid[yNew+1, xNew].building = temp; }
+                if (grid[y, x].direction == Direction.Down) { grid[y - 1, x].building = Building.Empty; grid[yNew-1, xNew].building = temp; }
+            }
+            else if (temp == Building.Resource)
+            {
+                if (grid[y, x].direction == Direction.Left) { grid[y, x + 1].building = Building.Empty; grid[y + 1, x].building = Building.Empty; grid[y - 1, x].building = Building.Empty; grid[yNew, xNew + 1].building = Building.Empty; grid[yNew + 1, xNew].building = Building.Empty; grid[yNew - 1, xNew].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Right) { grid[y, x - 1].building = Building.Empty; grid[y + 1, x].building = Building.Empty; grid[y - 1, x].building = Building.Empty; grid[yNew, xNew- 1].building = Building.Empty; grid[yNew + 1, xNew].building = Building.Empty; grid[yNew - 1, xNew].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Up) { grid[y - 1, x].building = Building.Empty; grid[y, x + 1].building = Building.Empty; grid[y, x - 1].building = Building.Empty; grid[yNew - 1, xNew].building = Building.Empty; grid[yNew, xNew + 1].building = Building.Empty; grid[yNew, xNew - 1].building = Building.Empty; }
+                if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].building = Building.Empty; grid[y, x + 1].building = Building.Empty; grid[y, x - 1].building = Building.Empty; grid[yNew + 1, xNew].building = Building.Empty; grid[yNew, xNew + 1].building = Building.Empty; grid[yNew, xNew - 1].building = Building.Empty; }
+            }
             // Move Building Prefab
             GameObject building = prefabDictionary[new XY(x, y)];
             building.GetComponent<buildingParameters>().x = xNew;
