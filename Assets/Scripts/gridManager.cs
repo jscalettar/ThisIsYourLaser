@@ -397,27 +397,27 @@ public struct Grid
 			//make spots next to building available
 			if (temp.building == Building.Blocking || temp.building == Building.Reflecting)
 			{
-				if (temp.direction == Direction.Left) { grid[y, x - 1].isEmpty = true; }
-				if (temp.direction == Direction.Right) { grid[y, x + 1].isEmpty = true; }
-				if (temp.direction == Direction.Up) { grid[y + 1, x].isEmpty = true; }
-				if (temp.direction == Direction.Down) { grid[y - 1, x].isEmpty = true; }
+				if (temp.direction == Direction.Left) { grid[y, x - 1].isWeak = false; }
+				if (temp.direction == Direction.Right) { grid[y, x + 1].isWeak = false; }
+				if (temp.direction == Direction.Up) { grid[y + 1, x].isWeak = false; }
+				if (temp.direction == Direction.Down) { grid[y - 1, x].isWeak = false; }
 				//set new for new rotations
-				if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew - 1].isEmpty = false; }
-				if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew + 1].isEmpty = false; }
-				if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew + 1, xNew].isEmpty = false; }
-				if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew - 1, xNew].isEmpty = false; }
+				if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew - 1].isWeak = true; }
+				if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew + 1].isWeak = true; }
+				if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew + 1, xNew].isWeak = true; }
+				if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew - 1, xNew].isWeak = true; }
 			}
 			else if (temp.building == Building.Resource)
 			{
-				if (temp.direction == Direction.Left) { grid[y, x + 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; }
-				if (temp.direction == Direction.Right) { grid[y, x - 1].isEmpty = true; grid[y + 1, x].isEmpty = true; grid[y - 1, x].isEmpty = true; }
-				if (temp.direction == Direction.Up) { grid[y - 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; }
-				if (temp.direction == Direction.Down) { grid[y + 1, x].isEmpty = true; grid[y, x + 1].isEmpty = true; grid[y, x - 1].isEmpty = true; }
+				if (temp.direction == Direction.Left) { grid[y, x + 1].isWeak = false; grid[y + 1, x].isWeak = false; grid[y - 1, x].isWeak = false; }
+				if (temp.direction == Direction.Right) { grid[y, x - 1].isWeak = false; grid[y + 1, x].isWeak = false; grid[y - 1, x].isWeak = false; }
+				if (temp.direction == Direction.Up) { grid[y - 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
+				if (temp.direction == Direction.Down) { grid[y + 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
 				//set for new rotation
-				if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew + 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
-				if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew - 1].isEmpty = false; grid[yNew + 1, xNew].isEmpty = false; grid[yNew - 1, xNew].isEmpty = false; }
-				if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew - 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
-				if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew + 1, xNew].isEmpty = false; grid[yNew, xNew + 1].isEmpty = false; grid[yNew, xNew - 1].isEmpty = false; }
+				if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew + 1].isWeak = true; grid[yNew + 1, xNew].isWeak = true; grid[yNew - 1, xNew].isWeak = true; }
+				if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew - 1].isWeak = true; grid[yNew + 1, xNew].isWeak = true; grid[yNew - 1, xNew].isWeak = true; }
+				if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew - 1, xNew].isWeak = true; grid[yNew, xNew + 1].isWeak = true; grid[yNew, xNew - 1].isWeak = true; }
+				if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew + 1, xNew].isWeak = true; grid[yNew, xNew + 1].isWeak = true; grid[yNew, xNew - 1].isWeak = true; }
 			}
             // Reset Weak Sides
             for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;
