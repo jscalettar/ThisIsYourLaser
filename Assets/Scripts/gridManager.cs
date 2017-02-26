@@ -380,12 +380,13 @@ public struct Grid
             // Give some resources back to player
             if (playerID == Player.PlayerOne) resourcesP1 += getCost(grid[y, x].building, x, playerID, false, true);
             else resourcesP2 += getCost(grid[y, x].building, x, playerID, false, true);
-            /*// Clear out GridItem
-            grid[y, x].isEmpty = true;
+            // Clear out GridItem
+            /*grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
-            grid[y, x].health = 0;*/
+            grid[y, x].health = 0;
+            needsUpdate = true;*/
 
             /*//make spots next to building available
             if (temp == Building.Blocking || temp == Building.Reflecting)
@@ -409,7 +410,6 @@ public struct Grid
             /*MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
             prefabDictionary.Remove(new XY(x, y));*/
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            //needsUpdate = true;
         } else return false;
         return true;
     }
@@ -417,17 +417,18 @@ public struct Grid
     public bool destroyBuilding(int x, int y)
     {
         if (!validateInput(x, y)) return false;
-        if (!grid[y, x].isEmpty && !grid[y, x].markedForDeath) {
+        if (!grid[y, x].isEmpty) {
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
-            grid[y, x].markedForDeath = true;
 
             //Building temp = grid[y, x].building;
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
-            /*grid[y, x].isEmpty = true;
+            grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
-            grid[y, x].health = 0;*/
+            grid[y, x].health = 0;
+            needsUpdate = true;
+
             /*//make spots next to building available
             if (temp == Building.Blocking || temp == Building.Reflecting)
             {
@@ -449,7 +450,6 @@ public struct Grid
             /*MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
             prefabDictionary.Remove(new XY(x, y));*/
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            //needsUpdate = true;
         } else return false;
         return true;
     }
@@ -666,15 +666,15 @@ public class gridManager : MonoBehaviour
             if (theGrid.destructionList[i].updateTime(Time.deltaTime) <= 0f) {
                 int x = theGrid.destructionList[i].coords.x;
                 int y = theGrid.destructionList[i].coords.y;
-                theGrid.grid[y, x].isEmpty = true;
+                /*theGrid.grid[y, x].isEmpty = true;
                 theGrid.grid[y, x].building = Building.Empty;
                 theGrid.grid[y, x].owner = Player.World;
                 theGrid.grid[y, x].level = 0;
                 theGrid.grid[y, x].health = 0;
-                theGrid.grid[y, x].markedForDeath = false;
+                theGrid.grid[y, x].markedForDeath = false;*/
                 DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
                 theGrid.prefabDictionary.Remove(new XY(x, y));
-                theGrid.queueUpdate();
+                //theGrid.queueUpdate();
                 deletions[deletionCount++] = i;
             }
         }
