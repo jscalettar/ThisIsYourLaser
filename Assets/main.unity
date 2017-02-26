@@ -19521,12 +19521,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserDecay: 0.025
-  laserWidth: 0.03
+  laserWidth: 0.05
   laserVisualHeight: 0.5
   laserIntensity: 0.5
   resourceRate: 1
-  laserMaterialP1: {fileID: 2100000, guid: 67d18f659aa074a4cb5c3a399169ea18, type: 2}
-  laserMaterialP2: {fileID: 2100000, guid: 17659933dc5030d4eb1a0617e4a80871, type: 2}
+  laserMaterialP1: {fileID: 2100000, guid: 0c7a4a17bc51ce34abbe492260b42caf, type: 2}
+  laserMaterialP2: {fileID: 2100000, guid: 5881a0a8f7395b54e8e5f711a120a7ba, type: 2}
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
     type: 2}
 --- !u!114 &2040606550

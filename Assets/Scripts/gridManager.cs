@@ -55,6 +55,31 @@ public struct XY
     }
 }
 
+public class buildingRequest
+{
+    public XY coords;
+    public float time;
+    public Building building;
+    public Player owner;
+    public Direction direction;
+    public float health;
+
+    public buildingRequest(XY xy, float actionTime, Building structure = Building.Empty, Player ownedBy = Player.World, Direction facing = Direction.None, float hitpoints = 0f)
+    {
+        coords = xy;
+        building = structure;
+        time = actionTime;
+        owner = ownedBy;
+        direction = facing;
+        health = hitpoints;
+    }
+
+    public float updateTime(float delta)
+    {
+        time -= delta; return time;
+    }
+}
+
 public struct GridItem
 {
     public bool isEmpty;        // Empty grid cell?
@@ -64,18 +89,20 @@ public struct GridItem
     public int[] weakSides;     // {left, right, top, down} 1 for weak, 0 for not
     public byte level;          // Upgrade level
     public float health;
-    public bool isWeak;
+    public bool markedForDeath;
+    //public bool isWeak;
 
-    public GridItem(bool emptyCell, Building buildingID, Player ownedBy, Direction facingDirection, float hitpoints)
+    public GridItem(bool emptyCell, Building structure, Player ownedBy, Direction facingDirection, float hitpoints, bool dying = false)
     {
         isEmpty = emptyCell;
-        building = buildingID;
+        building = structure;
         level = 0;
         owner = ownedBy;
         direction = facingDirection;
         weakSides = new int[4] { 0, 0, 0, 0 };
         health = hitpoints;
-        isWeak = false;
+        markedForDeath = dying;
+        //isWeak = false;
     }
 
     public string toString()    // Convert GridItem to string for easy printing
@@ -86,10 +113,13 @@ public struct GridItem
 
 public struct Grid
 {
-    private GridItem[,] grid;
+    public GridItem[,] grid;
+    public List<buildingRequest> placementList;
+    public List<buildingRequest> removalList;
+    public List<buildingRequest> destructionList;
     private GameObject buildingContainer;
     private GameObject[] buildingPrefabs;
-    private Dictionary<XY, GameObject> prefabDictionary;
+    public Dictionary<XY, GameObject> prefabDictionary;
     private int dimX;
     private int dimY;
     private float resourcesP1;
@@ -140,6 +170,9 @@ public struct Grid
         buildingPrefabs[(int)Building.Resource + 8] = resourcePrefab2;
         buildingPrefabs[(int)Building.Portal + 8] = portalPrefab2;
         prefabDictionary = new Dictionary<XY, GameObject>(buildingPrefabs.Length);
+        placementList = new List<buildingRequest>();
+        removalList = new List<buildingRequest>();
+        destructionList = new List<buildingRequest>();
         resourcesP1 = resources;
         resourcesP2 = resources;
         baseP1 = null;
@@ -171,6 +204,51 @@ public struct Grid
             case Direction.Left: return 0;
         }
         return 2;
+    }
+
+    // Determine if other buildings have weaksides that should block your building's placement
+    // Modify this and the below function if you want to change weaksides for structure placement.
+    // Note weak sides for laser logic are handled seperatly in their respective laser logic functions.
+    private bool isWeakSide(int x, int y, Direction dir, Building structure)
+    {
+        // Buildings with no weak sides
+        if (structure == Building.Refracting) return false;
+        // Buildings with all weak sides
+        else if (structure == Building.Base || structure == Building.Laser) return true;
+        else if (structure == Building.Blocking || structure == Building.Reflecting) {
+            return getDirection(x, y) == dir;
+        } else if (structure == Building.Resource) return getDirection(x, y) == dir;
+        else if (structure == Building.Redirecting) {
+            if (getDirection(x, y) == Direction.Up || getDirection(x, y) == Direction.Down) { if (dir == Direction.Right || dir == Direction.Left) return true; }
+            else { if (dir == Direction.Up || dir == Direction.Down) return true; }
+        }
+        return false;
+    }
+    // Used for determining if the building you are placing has a weakside that will intersect with existing buildings
+    private bool isWeakSide(Direction dir, Direction placeDir, Building structure)
+    {
+        // Buildings with no weak sides
+        if (structure == Building.Refracting) return false;
+        // Buildings with all weak sides
+        else if (structure == Building.Base || structure == Building.Laser) return true;
+        else if (structure == Building.Blocking || structure == Building.Reflecting) {
+            return placeDir == dir;
+        } else if (structure == Building.Resource) return placeDir == dir;
+        else if (structure == Building.Redirecting) {
+            if (placeDir == Direction.Up || placeDir == Direction.Down) { if (dir == Direction.Right || dir == Direction.Left) return true; } else { if (dir == Direction.Up || dir == Direction.Down) return true; }
+        }
+        return false;
+    }
+
+    // Checks if your placement is valid and does not intersect with other weaksides
+    public bool probeGrid(int x, int y, Direction placeDir, Building structure)
+    {
+        if (!validateInput(x, y)) return false;
+        if (getBuilding(x, y-1) != Building.Empty && (isWeakSide(x, y-1, Direction.Up, getBuilding(x, y-1)) || isWeakSide(Direction.Down, placeDir, structure))) return false;
+        if (getBuilding(x, y+1) != Building.Empty && (isWeakSide(x, y+1, Direction.Down, getBuilding(x, y+1)) || isWeakSide(Direction.Up, placeDir, structure))) return false;
+        if (getBuilding(x-1, y) != Building.Empty && (isWeakSide(x-1, y, Direction.Right, getBuilding(x-1, y)) || isWeakSide(Direction.Left, placeDir, structure))) return false;
+        if (getBuilding(x+1, y) != Building.Empty && (isWeakSide(x+1, y, Direction.Left, getBuilding(x+1, y)) || isWeakSide(Direction.Right, placeDir, structure))) return false;
+        return true;
     }
 
     public float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
@@ -205,6 +283,7 @@ public struct Grid
 
     public GridItem getCellInfo(int x, int y) { return validateInput(x, y) ? grid[y, x] : new GridItem(true, Building.Empty, Player.World, Direction.None, 0); }
     public Building getBuilding(int x, int y) { return validateInput(x, y) ? grid[y, x].building : Building.Empty; }
+    public Player getOwner(int x, int y) { return validateInput(x, y) ? grid[y, x].owner : Player.World; }
     public Direction getDirection(int x, int y) { return validateInput(x, y) ? grid[y, x].direction : Direction.None; }
     public int getDimX() { return dimX; }
     public int getDimY() { return dimY; }
@@ -215,6 +294,7 @@ public struct Grid
     public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; }
     public bool updateLaser() { return needsUpdate; }
     public void updateFinished() { needsUpdate = false; }
+    public void queueUpdate() { needsUpdate = true; }
     public GameObject getBuildingContainer() { return buildingContainer; }
 
     public bool applyDamage(int x, int y, float damage)
@@ -234,12 +314,9 @@ public struct Grid
     public bool placeBuilding(int x, int y, Building newBuilding, Player playerID, Direction facing = Direction.Up)
     {
         if (!validateInput(x, y)) return false;
-        if (grid[y, x].isEmpty && !grid[y,x].isWeak && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost(newBuilding)) {
-            grid[y, x].isEmpty = false;
-            grid[y, x].building = newBuilding;
-            grid[y, x].owner = playerID;
-            grid[y, x].direction = facing;
-            // Add Weak Side(s)
+        if (grid[y, x].isEmpty && probeGrid(x, y, facing, newBuilding) && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost(newBuilding)) {
+            if (prefabDictionary.ContainsKey(new XY(x, y))) return false;
+            /*// Add Weak Side(s)
             if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking) {
                 //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
                 if (facing == Direction.Left) { grid[y, x-1].isWeak = true; }
@@ -247,16 +324,22 @@ public struct Grid
                 if (facing == Direction.Up) { grid[y+1, x].isWeak = true; }
                 if (facing == Direction.Down) { grid[y-1, x].isWeak = true; }
             }else if(newBuilding == Building.Resource)
-            {
+            { // These cause error if on edge of map
                 if (facing == Direction.Left) { grid[y, x + 1].isWeak = true; grid[y-1, x].isWeak = true; grid[y+1, x].isWeak = true; }
                 if (facing == Direction.Right) { grid[y, x - 1].isWeak = true; grid[y - 1, x].isWeak = true; grid[y + 1, x].isWeak = true; }
                 if (facing == Direction.Up) { grid[y - 1, x].isWeak = true; grid[y, x + 1].isWeak = true; grid[y, x - 1].isWeak = true; }
                 if (facing == Direction.Down) { grid[y + 1, x].isWeak = true; grid[y, x + 1].isWeak = true; grid[y, x - 1].isWeak = true; }
             }
-            addWeakSides(x, y, newBuilding, facing);
+            addWeakSides(x, y, newBuilding, facing);*/
+
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
-            grid[y, x].health = building.GetComponent<buildingParameters>().health; // Building starting health
+            placementList.Add(new buildingRequest(new XY(x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
+            /*grid[y, x].isEmpty = false;
+            grid[y, x].building = newBuilding;
+            grid[y, x].owner = playerID;
+            grid[y, x].direction = facing;
+            grid[y, x].health = building.GetComponent<buildingParameters>().health; // Building starting health*/
             building.GetComponent<buildingParameters>().x = x;
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
@@ -279,7 +362,7 @@ public struct Grid
             // Set base references for getting health later
             if (newBuilding == Building.Base) { if (playerID == Player.PlayerOne) baseP1 = building; else baseP2 = building; }
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            needsUpdate = true;
+            //needsUpdate = true;
         } else return false;
         return true;
     }
@@ -288,19 +371,23 @@ public struct Grid
     public bool removeBuilding(int x, int y, Player playerID)
     {
         if (!validateInput(x, y)) return false;
-        if (!grid[y, x].isEmpty && (playerID == grid[y, x].owner || playerID == Player.World)) {
-            Building temp = grid[y, x].building;
+        if (!grid[y, x].isEmpty && (playerID == grid[y, x].owner || playerID == Player.World) && !grid[y, x].markedForDeath) {
+            removalList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime, grid[y, x].building, playerID));
+            grid[y, x].markedForDeath = true;
+
+            //Building temp = grid[y, x].building;
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             // Give some resources back to player
             if (playerID == Player.PlayerOne) resourcesP1 += getCost(grid[y, x].building, x, playerID, false, true);
             else resourcesP2 += getCost(grid[y, x].building, x, playerID, false, true);
-            // Clear out GridItem
+            /*// Clear out GridItem
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
-            grid[y, x].health = 0;
-            //make spots next to building available
+            grid[y, x].health = 0;*/
+
+            /*//make spots next to building available
             if (temp == Building.Blocking || temp == Building.Reflecting)
             {
                 if (grid[y, x].direction == Direction.Left) grid[y, x - 1].isWeak = false;
@@ -316,13 +403,13 @@ public struct Grid
                 if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
             }
             // Reset Weak Sides
-            for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;
+            for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;*/
 
             // Remove Building Prefab
-            MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
-            prefabDictionary.Remove(new XY(x, y));
+            /*MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
+            prefabDictionary.Remove(new XY(x, y));*/
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            needsUpdate = true;
+            //needsUpdate = true;
         } else return false;
         return true;
     }
@@ -330,15 +417,18 @@ public struct Grid
     public bool destroyBuilding(int x, int y)
     {
         if (!validateInput(x, y)) return false;
-        if (!grid[y, x].isEmpty) {
-            Building temp = grid[y, x].building;
+        if (!grid[y, x].isEmpty && !grid[y, x].markedForDeath) {
+            destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
+            grid[y, x].markedForDeath = true;
+
+            //Building temp = grid[y, x].building;
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
-            grid[y, x].isEmpty = true;
+            /*grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
-            grid[y, x].health = 0;
-            //make spots next to building available
+            grid[y, x].health = 0;*/
+            /*//make spots next to building available
             if (temp == Building.Blocking || temp == Building.Reflecting)
             {
                 if (grid[y, x].direction == Direction.Left) grid[y, x - 1].isWeak = false;
@@ -354,12 +444,12 @@ public struct Grid
                 if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
             }
             // Reset Weak Sides
-            for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;
+            for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;*/
             // Remove Building Prefab
-            MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
-            prefabDictionary.Remove(new XY(x, y));
+            /*MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
+            prefabDictionary.Remove(new XY(x, y));*/
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            needsUpdate = true;
+            //needsUpdate = true;
         } else return false;
         return true;
     }
@@ -367,7 +457,8 @@ public struct Grid
     public bool moveBuilding(int x, int y, int xNew, int yNew, Player playerID, Direction facing = Direction.Up) // need to add rotation?
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
-        if (!grid[y, x].isEmpty && !grid[y,x].isWeak && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
+        if (!grid[y, x].isEmpty && probeGrid(xNew, yNew, facing, grid[y, x].building) && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
+            if (prefabDictionary.ContainsKey(new XY(xNew, yNew))) return false;
             // Subtract some resources for move
             GridItem temp = grid[y, x];
             if (playerID == Player.PlayerOne) resourcesP1 -= getCost(grid[y, x].building, xNew, playerID, true);
@@ -394,7 +485,7 @@ public struct Grid
                 prefabDictionary.Add(new XY(xNew, yNew), building);
 			}
 			grid[yNew, xNew].direction = facing;
-			//make spots next to building available
+			/*//make spots next to building available
 			if (temp.building == Building.Blocking || temp.building == Building.Reflecting)
 			{
 				if (temp.direction == Direction.Left) { grid[y, x - 1].isWeak = false; }
@@ -422,7 +513,7 @@ public struct Grid
             // Reset Weak Sides
             for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;
             // Add Weak Side(s)
-            addWeakSides(xNew, yNew, grid[yNew, xNew].building, facing);
+            addWeakSides(xNew, yNew, grid[yNew, xNew].building, facing);*/
             // Rotate
             if(canRotate(grid[yNew, xNew].building)) building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
             // Specify that the board was updated and that laserLogic needs to run a simulation
@@ -517,14 +608,79 @@ public class gridManager : MonoBehaviour
     public GameObject empty;
 
     private GameObject buildingContainer;
+    private int[] deletions = new int[100];
+    private int deletionCount = 0;
+
 
     void Awake()
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
         theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, empty);
-
-
+    }
+    
+    void LateUpdate()
+    {
+        deletionCount = 0;
+        // Place buildings
+        for (int i = 0; i < theGrid.placementList.Count; i++) {
+            if (theGrid.placementList[i].updateTime(Time.deltaTime) <= 0f) {
+                int x = theGrid.placementList[i].coords.x;
+                int y = theGrid.placementList[i].coords.y;
+                theGrid.grid[y, x].isEmpty = false;
+                theGrid.grid[y, x].building = theGrid.placementList[i].building;
+                theGrid.grid[y, x].owner = theGrid.placementList[i].owner;
+                theGrid.grid[y, x].direction = theGrid.placementList[i].direction;
+                theGrid.grid[y, x].health = theGrid.placementList[i].health;
+                theGrid.queueUpdate();
+                deletions[deletionCount++] = i;
+            }
+        }
+        for (int i = 0; i < deletionCount; i++) {
+            theGrid.placementList.RemoveAt(deletions[i]);
+        }
+        deletionCount = 0;
+        // Remove buildings
+        for (int i = 0; i < theGrid.removalList.Count; i++) {
+            if (theGrid.removalList[i].updateTime(Time.deltaTime) <= 0f) {
+                int x = theGrid.removalList[i].coords.x;
+                int y = theGrid.removalList[i].coords.y;
+                theGrid.grid[y, x].isEmpty = true;
+                theGrid.grid[y, x].building = Building.Empty;
+                theGrid.grid[y, x].owner = Player.World;
+                theGrid.grid[y, x].level = 0;
+                theGrid.grid[y, x].health = 0;
+                theGrid.grid[y, x].markedForDeath = false;
+                DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
+                theGrid.prefabDictionary.Remove(new XY(x, y));
+                theGrid.queueUpdate();
+                deletions[deletionCount++] = i;
+            }
+        }
+        for (int i = 0; i < deletionCount; i++) {
+            theGrid.removalList.RemoveAt(deletions[i]);
+        }
+        deletionCount = 0;
+        // Destroy buildings
+        for (int i = 0; i < theGrid.destructionList.Count; i++) {
+            if (theGrid.destructionList[i].updateTime(Time.deltaTime) <= 0f) {
+                int x = theGrid.destructionList[i].coords.x;
+                int y = theGrid.destructionList[i].coords.y;
+                theGrid.grid[y, x].isEmpty = true;
+                theGrid.grid[y, x].building = Building.Empty;
+                theGrid.grid[y, x].owner = Player.World;
+                theGrid.grid[y, x].level = 0;
+                theGrid.grid[y, x].health = 0;
+                theGrid.grid[y, x].markedForDeath = false;
+                DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
+                theGrid.prefabDictionary.Remove(new XY(x, y));
+                theGrid.queueUpdate();
+                deletions[deletionCount++] = i;
+            }
+        }
+        for (int i = 0; i < deletionCount; i++) {
+            theGrid.destructionList.RemoveAt(deletions[i]);
+        }
     }
 
     // Debug building placements
