@@ -10370,7 +10370,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: {fileID: 0}
   playerHealth: {fileID: 0}
-  currentSelection: {fileID: 0}
+  currentResource: {fileID: 0}
+  p1ResourceBackground: {fileID: 0}
+  p1BlockBackground: {fileID: 0}
+  p1ReflectBackground: {fileID: 0}
+  p1RefractBackground: {fileID: 0}
+  p1RedirectBackground: {fileID: 0}
 --- !u!1 &1058558333
 GameObject:
   m_ObjectHideFlags: 0
@@ -22265,7 +22270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5233d01c9074b4ab79f5ed9f8efbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chessmanPrefabs: []
 --- !u!4 &2040606547
 Transform:
   m_ObjectHideFlags: 0
@@ -22330,6 +22334,7 @@ MonoBehaviour:
   Resource2: {fileID: 1391260837703470, guid: 28e85a6912b3e95429f4b4e82bd0df66, type: 2}
   Portal: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   Portal2: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
+  empty: {fileID: 1016938011168578, guid: 192d36f0c8e49bd4ea7e9eb222de6dac, type: 2}
 --- !u!114 &2040606551
 MonoBehaviour:
   m_ObjectHideFlags: 0
