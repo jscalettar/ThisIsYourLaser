@@ -86,7 +86,7 @@ public struct GridItem
     public Building building;   // Building type
     public Player owner;        // Who owns the block
     public Direction direction; // Used for laser block direction, other block rotations
-    public int[] weakSides;     // {left, right, top, down} 1 for weak, 0 for not
+    //public int[] weakSides;     // {left, right, top, down} 1 for weak, 0 for not
     public byte level;          // Upgrade level
     public float health;
     public bool markedForDeath;
@@ -99,7 +99,7 @@ public struct GridItem
         level = 0;
         owner = ownedBy;
         direction = facingDirection;
-        weakSides = new int[4] { 0, 0, 0, 0 };
+        //weakSides = new int[4] { 0, 0, 0, 0 };
         health = hitpoints;
         markedForDeath = dying;
         //isWeak = false;
@@ -263,7 +263,7 @@ public struct Grid
         return cost;
     }
 
-    private void addWeakSides(int x, int y, Building building, Direction facing)
+    /*private void addWeakSides(int x, int y, Building building, Direction facing)
     {
         if (building == Building.Reflecting || building == Building.Blocking || building == Building.Resource) {
             //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
@@ -272,7 +272,7 @@ public struct Grid
             if (facing == Direction.Up) grid[y, x].weakSides[3] = 1;
             if (facing == Direction.Down) grid[y, x].weakSides[2] = 1;
         }
-    }
+    }*/
 
     private bool canRotate(Building building) // Add buildings here that support 4 way sprite rotation
     {

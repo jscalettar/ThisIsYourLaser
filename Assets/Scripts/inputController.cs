@@ -10,6 +10,9 @@ public class inputController : MonoBehaviour {
     public GameObject cursorObjP1;
     public GameObject cursorObjP2;
 
+    public GameObject indicatorP1;
+    public GameObject indicatorP2;
+
     // Sprites for cursor appearance
     public Sprite P1BaseSprite;
     public Sprite P1BlockSprite;
@@ -195,6 +198,14 @@ public class inputController : MonoBehaviour {
             cursorObjP2.transform.position = Vector3.MoveTowards(cursorObjP2.transform.position, new Vector3(moveQueueP2.Peek().x + xOff, 0.01f, moveQueueP2.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP2.Count, 2) * 0.2f));
             if (Vector2.Distance(new Vector2(cursorObjP2.transform.position.x, cursorObjP2.transform.position.z), new Vector2(moveQueueP2.Peek().x + xOff, moveQueueP2.Peek().y + yOff)) == 0f) moveQueueP2.Dequeue();
         }
+
+        // Update Cursor Indicator
+        if (cursorP1.state == State.placing) {
+            indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
+        } else indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
+        if (cursorP2.state == State.placing) {
+            indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
+        } else indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     private Building cycleToBuilding(int index)

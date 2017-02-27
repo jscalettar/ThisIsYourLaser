@@ -42,6 +42,7 @@ public class laserLogic : MonoBehaviour
     private laserGrid laserData;
     private List<laserHit> laserHits;       // Laser-building collision list
     private Dictionary<XY, List<dirHeadPlayer>> refractHits;    // Refract collision dictionary
+    private Dictionary<XY, List<dirHeadPlayer>> particleHits;    // Refract collision dictionary
     private GameObject laserContainer;
 
     private struct laserNode
@@ -249,6 +250,7 @@ public class laserLogic : MonoBehaviour
         laserContainer = new GameObject("laserContainer");
         laserContainer.transform.SetParent(gameObject.transform);
         refractHits = new Dictionary<XY, List<dirHeadPlayer>>();
+        particleHits = new Dictionary<XY, List<dirHeadPlayer>>();
 
         for (int i = 0; i < laserLimit; i++) {
             GameObject lineObject = new GameObject("lineObject");
@@ -277,7 +279,9 @@ public class laserLogic : MonoBehaviour
                 gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * Time.deltaTime);
             }
         }
-    }
+        //foreach (dirHeadPlayer hit in particleHits) {
+
+        //}
 
     private void drawLaser(laserNode start, laserNode end)
     {
@@ -354,6 +358,7 @@ public class laserLogic : MonoBehaviour
         // Clear laser hits, refract hits
         laserHits.Clear();
         refractHits.Clear();
+        particleHits.Clear();
 
         // Simulate each player's laser
         if (p1LaserFound) laserQueue.Add(new laserNode(0, laserStartP1, 1f, laserHeadingP1, Direction.Right, Player.PlayerOne, ++laserIndex, 0));
