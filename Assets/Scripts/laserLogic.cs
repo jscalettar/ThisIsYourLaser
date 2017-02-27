@@ -216,14 +216,14 @@ public class laserLogic : MonoBehaviour
     }
 
     // Used for refraction loop checks
-    public bool headingsIntersect(Direction h1, Direction h2)
+    public bool headingsOpposite(Direction h1, Direction h2)
     {
         if (h1 == h2) return false;
         switch (h1) {
-            case Direction.NW: return h2 == Direction.NE || h2 == Direction.SW;
-            case Direction.NE: return h2 == Direction.NW || h2 == Direction.SE;
-            case Direction.SW: return h2 == Direction.SE || h2 == Direction.NW;
-            case Direction.SE: return h2 == Direction.SW || h2 == Direction.NE;
+            case Direction.NW: return h2 == Direction.SE;
+            case Direction.NE: return h2 == Direction.SW;
+            case Direction.SW: return h2 == Direction.NE;
+            case Direction.SE: return h2 == Direction.NW;
         }
         return false;
     }
@@ -274,7 +274,7 @@ public class laserLogic : MonoBehaviour
                 // Add Resources
                 if (hit.buildingOwner == Player.PlayerOne) gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0);
                 else if (hit.buildingOwner == Player.PlayerTwo) gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate);
-			} else if (hit.weakSideHit) {
+            } else if (hit.weakSideHit) {
                 // Apply Damage
                 gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * Time.deltaTime);
             }
@@ -282,6 +282,7 @@ public class laserLogic : MonoBehaviour
         //foreach (dirHeadPlayer hit in particleHits) {
 
         //}
+    }
 
     private void drawLaser(laserNode start, laserNode end)
     {
@@ -551,7 +552,7 @@ public class laserLogic : MonoBehaviour
         List<dirHeadPlayer> directionalHits;
         if (refractHits.TryGetValue(new XY(x, y), out directionalHits))
             foreach (dirHeadPlayer hit in directionalHits) {
-                if (opposites(hit.direction, direction) || headingsIntersect(hit.heading, heading)) { laserHits.Add(new laserHit(x, y, true, strength, Building.Refracting, gridManager.theGrid.getOwner(x, y))); return; }
+                if (opposites(hit.direction, direction) || !headingsOpposite(hit.heading, heading)) { laserHits.Add(new laserHit(x, y, true, strength, Building.Refracting, gridManager.theGrid.getOwner(x, y))); return; }
             }
         else directionalHits = new List<dirHeadPlayer>();
         directionalHits.Add(new dirHeadPlayer(getExit(direction, heading), heading, player));
