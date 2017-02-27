@@ -12,9 +12,12 @@ public class buildingParameters : MonoBehaviour {
     [HideInInspector]
     public float currentHP = 0;
 
-    public float health = 5;
-    public float cost = 2;
+    public float health = 5f;
+    public float cost = 2f;
     public Sprite[] sprites;
-    public float scale = 1;
+    public float scale = 1f;
+    public float placementTime = 1f;
+    public float removalTime = 1f;
+    public float destructionTime = 0.5f;
 
 }

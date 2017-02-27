@@ -15,10 +15,10 @@ public class laserLogic : MonoBehaviour
 
     // Configurable
     public float laserDecay = 0.025f;
-    public float laserWidth = 0.03f;
+    public float laserWidth = 0.05f;
     public float laserVisualHeight = 0.5f;
     public float laserIntensity = 0.5f;
-    public float resourceRate = 1f;
+    public float resourceRate = 0.1f;
     public Material laserMaterialP1;
     public Material laserMaterialP2;
     public Material laserMaterialCombined;
@@ -41,6 +41,7 @@ public class laserLogic : MonoBehaviour
     private List<laserNode> laserQueue;
     private laserGrid laserData;
     private List<laserHit> laserHits;       // Laser-building collision list
+    private Dictionary<XY, List<dirHeadPlayer>> refractHits;    // Refract collision dictionary
     private GameObject laserContainer;
 
     private struct laserNode
@@ -184,6 +185,59 @@ public class laserLogic : MonoBehaviour
         }
     }
 
+    // Used for refraction loop checks
+    public struct dirHeadPlayer
+    {
+        public Direction direction;
+        public Direction heading;
+        public Player player;
+
+        public dirHeadPlayer(Direction d, Direction h, Player p)
+        {
+            direction = d;
+            heading = h;
+            player = p;
+        }
+
+    }
+
+    // Used for refraction loop checks
+    public bool opposites(Direction d1, Direction d2)
+    {
+        if (d1 == d2) return false;
+        switch (d1) {
+            case Direction.Up: return d2 == Direction.Down;
+            case Direction.Down: return d2 == Direction.Up;
+            case Direction.Left: return d2 == Direction.Right;
+            case Direction.Right: return d2 == Direction.Left;
+        }
+        return false;
+    }
+
+    // Used for refraction loop checks
+    public bool headingsIntersect(Direction h1, Direction h2)
+    {
+        if (h1 == h2) return false;
+        switch (h1) {
+            case Direction.NW: return h2 == Direction.NE || h2 == Direction.SW;
+            case Direction.NE: return h2 == Direction.NW || h2 == Direction.SE;
+            case Direction.SW: return h2 == Direction.SE || h2 == Direction.NW;
+            case Direction.SE: return h2 == Direction.SW || h2 == Direction.NE;
+        }
+        return false;
+    }
+
+    // Gets the direction of a laser coming out of a refraction block
+    public Direction getExit(Direction direction, Direction heading)
+    {
+        switch (direction) {
+            case Direction.Up: return heading == Direction.NE ? Direction.Right : Direction.Left;
+            case Direction.Down: return heading == Direction.SE ? Direction.Right : Direction.Left;
+            case Direction.Right: return heading == Direction.NE ? Direction.Up : Direction.Down;
+            case Direction.Left: return heading == Direction.NW ? Direction.Up : Direction.Down;
+        }
+        return direction;
+    }
 
     void Awake()
     {
@@ -194,6 +248,7 @@ public class laserLogic : MonoBehaviour
         laserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
         laserContainer = new GameObject("laserContainer");
         laserContainer.transform.SetParent(gameObject.transform);
+        refractHits = new Dictionary<XY, List<dirHeadPlayer>>();
 
         for (int i = 0; i < laserLimit; i++) {
             GameObject lineObject = new GameObject("lineObject");
@@ -296,8 +351,9 @@ public class laserLogic : MonoBehaviour
         for (int i = 0; i < laserCounter; i++) laserContainer.transform.GetChild(i).GetComponent<LineRenderer>().enabled = false;
         laserCounter = 0;
 
-        // Clear laser hits
+        // Clear laser hits, refract hits
         laserHits.Clear();
+        refractHits.Clear();
 
         // Simulate each player's laser
         if (p1LaserFound) laserQueue.Add(new laserNode(0, laserStartP1, 1f, laserHeadingP1, Direction.Right, Player.PlayerOne, ++laserIndex, 0));
@@ -452,11 +508,11 @@ public class laserLogic : MonoBehaviour
         else laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, indx, subIndx + 1));
     }
 
-    // What happens when a laser collides with a resource block
+    // What happens when a laser collides with a blocking block
     private void laserBlock(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
-        if ((int)direction > 4 && gi.weakSides[(int)direction - 5] == 1) laserHits.Add(new laserHit(x, y, true, strength, Building.Blocking, gi.owner));
+        if (opposites(gi.direction, direction)) laserHits.Add(new laserHit(x, y, true, strength, Building.Blocking, gi.owner));
     }
 
     // What happens when a laser collides with a resource block
@@ -464,7 +520,7 @@ public class laserLogic : MonoBehaviour
     {
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
         bool weakHit = true;
-        if ((int)direction >= 5 && gi.weakSides[(int)direction - 5] == 1) weakHit = false;
+        if (opposites(gi.direction, direction)) weakHit = false;
         laserHits.Add(new laserHit(x, y, weakHit, strength, Building.Resource, gi.owner));
     }
 
@@ -473,7 +529,7 @@ public class laserLogic : MonoBehaviour
     {
         // Need to add if (direction == building weak side), add damageHit, break;
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
-        if ((int)direction >= 5 && gi.weakSides[(int)direction - 5] == 1) laserHits.Add(new laserHit(x, y, true, strength, Building.Reflecting, gi.owner));
+        if (opposites(gi.direction, direction)) laserHits.Add(new laserHit(x, y, true, strength, Building.Reflecting, gi.owner));
 
         switch (direction) {
                                 case Direction.Down: addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
@@ -486,7 +542,16 @@ public class laserLogic : MonoBehaviour
     // What happens when a laser collides with a refraction block
     private void laserRefract(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
-        // Need to add infinite loop check;
+        // Infinite loop check;
+        List<dirHeadPlayer> directionalHits;
+        if (refractHits.TryGetValue(new XY(x, y), out directionalHits))
+            foreach (dirHeadPlayer hit in directionalHits) {
+                if (opposites(hit.direction, direction) || headingsIntersect(hit.heading, heading)) { laserHits.Add(new laserHit(x, y, true, strength, Building.Refracting, gridManager.theGrid.getOwner(x, y))); return; }
+            }
+        else directionalHits = new List<dirHeadPlayer>();
+        directionalHits.Add(new dirHeadPlayer(getExit(direction, heading), heading, player));
+        if (refractHits.ContainsKey(new XY(x, y))) refractHits[new XY(x, y)] = directionalHits;
+        else refractHits.Add(new XY(x, y), directionalHits);
 
         addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false);
 
@@ -501,14 +566,20 @@ public class laserLogic : MonoBehaviour
     // What happens when a laser collides with a redirect block
     private void laserRedirect(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
-        // Need to add if (direction == building weak side), add damageHit, break;
+        // Add damage hit if side hit
+        bool damageHit = false;
+        GridItem gi = gridManager.theGrid.getCellInfo(x, y);
+        if (gi.direction == Direction.Up || gi.direction == Direction.Down) { if (direction == Direction.Right || direction == Direction.Left) damageHit = true; }
+        else { if (direction == Direction.Up || direction == Direction.Down) damageHit = true; }
 
-        switch (direction) {
-            case Direction.Down: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.SE ? Direction.Right : Direction.Left, player, indx, subIndx, true); break;
-            case Direction.Up: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NE ? Direction.Right : Direction.Left, player, indx, subIndx, true); break;
-            case Direction.Left: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NW ? Direction.Up : Direction.Down, player, indx, subIndx, true); break;
-            case Direction.Right: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NE ? Direction.Up : Direction.Down, player, indx, subIndx, true); break;
-        }
+        if (!damageHit)
+            switch (direction) {
+                case Direction.Down: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.SE ? Direction.Right : Direction.Left, player, indx, subIndx, true); break;
+                case Direction.Up: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NE ? Direction.Right : Direction.Left, player, indx, subIndx, true); break;
+                case Direction.Left: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NW ? Direction.Up : Direction.Down, player, indx, subIndx, true); break;
+                case Direction.Right: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NE ? Direction.Up : Direction.Down, player, indx, subIndx, true); break;
+            }
+        else laserHits.Add(new laserHit(x, y, true, strength, Building.Redirecting, gi.owner));
     }
 
 

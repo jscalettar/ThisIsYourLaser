@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4802106297814914}
-  - component: {fileID: 114172364371021766}
   - component: {fileID: 114118978213347328}
   - component: {fileID: 212160785449125804}
   m_Layer: 0
@@ -57,22 +56,10 @@ MonoBehaviour:
   y: -1
   owner: 0
   currentHP: 0
-  building: 8
-  health: 100
+  health: 3
   cost: 1
   sprites: []
---- !u!114 &114172364371021766
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1514336581799410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1c773a9a73f49a4c800bb1abf5884cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 5
+  scale: 1
 --- !u!212 &212160785449125804
 SpriteRenderer:
   m_ObjectHideFlags: 1

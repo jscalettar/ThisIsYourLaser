@@ -19521,7 +19521,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserDecay: 0.025
+<<<<<<< HEAD
   laserWidth: 0.06
+=======
+  laserWidth: 0.05
+>>>>>>> refs/remotes/origin/master
   laserVisualHeight: 0.5
   laserIntensity: 0.5
   resourceRate: 1
