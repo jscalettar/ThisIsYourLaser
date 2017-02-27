@@ -279,9 +279,6 @@ public class laserLogic : MonoBehaviour
                 gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * Time.deltaTime);
             }
         }
-        //foreach (KeyValuePair<> dirHeadPlayer hit in particleHits) {
-
-        //}
     }
 
     private void drawLaser(laserNode start, laserNode end)
@@ -386,6 +383,12 @@ public class laserLogic : MonoBehaviour
             } else {
                 drawLaser(lasers[i][0], lasers[i][last]);
             }
+        }
+
+        // Particles
+        foreach (KeyValuePair<XY, dirHeadPlayer> hit in particleHits) {
+            // particle shit
+            // Need prefab holder or something
         }
 
         // Set needsUpdate to false
