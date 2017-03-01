@@ -22,6 +22,7 @@ public class laserLogic : MonoBehaviour
     public Material laserMaterialP1;
     public Material laserMaterialP2;
     public Material laserMaterialCombined;
+    public GameObject hitEffect;
 
     // Can change laser heading like this:
     // laserLogic.laserHeadingP1 = Direction.SE;  or  laserLogic.laserHeadingP2 = Direction.SW;
@@ -37,13 +38,15 @@ public class laserLogic : MonoBehaviour
     private int laserLimit = 100;
     private int laserIndex = 0;
     private int laserCounter = 0;
+    private int particleCounter = 0;
     private List<List<laserNode>> lasers;   // Laser list for line rendering
     private List<laserNode> laserQueue;
     private laserGrid laserData;
     private List<laserHit> laserHits;       // Laser-building collision list
     private Dictionary<XY, List<dirHeadPlayer>> refractHits;    // Refract collision dictionary
-    private Dictionary<XY, dirHeadPlayer> particleHits;    // Refract collision dictionary
+    private Dictionary<XY, List<dirHeadPlayer>> particleHits;    // Refract collision dictionary
     private GameObject laserContainer;
+    private GameObject particleContainer;
 
     private struct laserNode
     {
@@ -249,10 +252,13 @@ public class laserLogic : MonoBehaviour
         laserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
         laserContainer = new GameObject("laserContainer");
         laserContainer.transform.SetParent(gameObject.transform);
+        particleContainer = new GameObject("particleContainer");
+        particleContainer.transform.SetParent(gameObject.transform);
         refractHits = new Dictionary<XY, List<dirHeadPlayer>>();
-        particleHits = new Dictionary<XY, dirHeadPlayer>();
+        particleHits = new Dictionary<XY, List<dirHeadPlayer>>();
 
         for (int i = 0; i < laserLimit; i++) {
+            // Line object pool
             GameObject lineObject = new GameObject("lineObject");
             lineObject.transform.SetParent(laserContainer.transform);
             LineRenderer line = lineObject.AddComponent<LineRenderer>();
@@ -261,6 +267,10 @@ public class laserLogic : MonoBehaviour
             line.numCapVertices = 5;
             line.material = laserMaterialP1;
             line.enabled = false;
+            // Particle object pool
+            GameObject particleObject = Instantiate(hitEffect);
+            particleObject.transform.SetParent(particleContainer.transform);
+            particleObject.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         }
     }
 
@@ -335,6 +345,16 @@ public class laserLogic : MonoBehaviour
 
     }
 
+    private Vector3 directionToEular(Direction direction)
+    {
+        switch (direction) {
+            case Direction.Left: return new Vector3(0, 90, 0);
+            case Direction.Up: return new Vector3(0, 180, 0);
+            case Direction.Right: return new Vector3(0, 270, 0);
+        }
+        return new Vector3(0, 0, 0);
+    }
+
     private void simulateLasers()
     {
         // Reset laser data grid, causes ocasional garbage collection spike
@@ -351,7 +371,9 @@ public class laserLogic : MonoBehaviour
         // Clear old lasers before starting again
         for (int i = 0; i < lasers.Count; i++) lasers[i].Clear();
         for (int i = 0; i < laserCounter; i++) laserContainer.transform.GetChild(i).GetComponent<LineRenderer>().enabled = false;
+        for (int i = 0; i < particleCounter; i++) particleContainer.transform.GetChild(i).transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         laserCounter = 0;
+        particleCounter = 0;
 
         // Clear laser hits, refract hits
         laserHits.Clear();
@@ -386,10 +408,18 @@ public class laserLogic : MonoBehaviour
         }
 
         // Particles
-        foreach (KeyValuePair<XY, dirHeadPlayer> hit in particleHits) {
-            // particle shit
-            // Need prefab holder or something
+        int dimX = gridManager.theGrid.getDimX(); int dimY = gridManager.theGrid.getDimY();
+        foreach (KeyValuePair<XY, List<dirHeadPlayer>> keyValue in particleHits) {
+            for (int i = 0; i < keyValue.Value.Count; i++) {
+                Transform particle = particleContainer.transform.GetChild(particleCounter);
+                particle.localPosition = new Vector3((-dimX / 2) + keyValue.Key.x + 0.5f, 0.01f, (-dimY / 2) + keyValue.Key.y + 0.5f); ;
+                particle.localEulerAngles = directionToEular(keyValue.Value[i].direction);
+                //particle.transform.GetChild(0).GetComponent<ParticleSystem>(). set color? // hit.Value.player == Player.PlayerOne ? red : green;
+                particle.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                particleCounter++;
+            }
         }
+        print(particleCounter);
 
         // Set needsUpdate to false
         gridManager.theGrid.updateFinished();
@@ -521,7 +551,11 @@ public class laserLogic : MonoBehaviour
     private void laserBlock(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
-        if (opposites(gi.direction, direction)) laserHits.Add(new laserHit(x, y, true, strength, Building.Blocking, gi.owner));
+        if (opposites(gi.direction, direction)) {
+            laserHits.Add(new laserHit(x, y, true, strength, Building.Blocking, gi.owner));
+            if (!particleHits.ContainsKey(new XY(x, y))) particleHits.Add(new XY(x, y), new List<dirHeadPlayer>());
+            particleHits[new XY(x, y)].Add(new dirHeadPlayer(direction, heading, player));
+        }
     }
 
     // What happens when a laser collides with a resource block
@@ -531,6 +565,10 @@ public class laserLogic : MonoBehaviour
         bool weakHit = true;
         if (opposites(gi.direction, direction)) weakHit = false;
         laserHits.Add(new laserHit(x, y, weakHit, strength, Building.Resource, gi.owner));
+        if (weakHit) {
+            if (!particleHits.ContainsKey(new XY(x, y))) particleHits.Add(new XY(x, y), new List<dirHeadPlayer>());
+            particleHits[new XY(x, y)].Add(new dirHeadPlayer(direction, heading, player));
+        }
     }
 
     // What happens when a laser collides with a reflection block
@@ -538,7 +576,11 @@ public class laserLogic : MonoBehaviour
     {
         // Need to add if (direction == building weak side), add damageHit, break;
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
-        if (opposites(gi.direction, direction)) laserHits.Add(new laserHit(x, y, true, strength, Building.Reflecting, gi.owner));
+        if (opposites(gi.direction, direction)) {
+            laserHits.Add(new laserHit(x, y, true, strength, Building.Reflecting, gi.owner));
+            if (!particleHits.ContainsKey(new XY(x, y))) particleHits.Add(new XY(x, y), new List<dirHeadPlayer>());
+            particleHits[new XY(x, y)].Add(new dirHeadPlayer(direction, heading, player));
+        }
 
         switch (direction) {
                                 case Direction.Down: addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
@@ -562,6 +604,8 @@ public class laserLogic : MonoBehaviour
         if (refractHits.ContainsKey(new XY(x, y))) refractHits[new XY(x, y)] = directionalHits;
         else refractHits.Add(new XY(x, y), directionalHits);
 
+        // Need to add particles somewhere
+
         addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false);
 
         switch (direction) {
@@ -578,17 +622,20 @@ public class laserLogic : MonoBehaviour
         // Add damage hit if side hit
         bool damageHit = false;
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
-        if (gi.direction == Direction.Up || gi.direction == Direction.Down) { if (direction == Direction.Right || direction == Direction.Left) damageHit = true; }
-        else { if (direction == Direction.Up || direction == Direction.Down) damageHit = true; }
+        if (gi.direction == Direction.Up || gi.direction == Direction.Down) { if (direction == Direction.Right || direction == Direction.Left) damageHit = true; } else { if (direction == Direction.Up || direction == Direction.Down) damageHit = true; }
 
-        if (!damageHit)
+        if (!damageHit) {
             switch (direction) {
                 case Direction.Down: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.SE ? Direction.Right : Direction.Left, player, indx, subIndx, true); break;
                 case Direction.Up: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NE ? Direction.Right : Direction.Left, player, indx, subIndx, true); break;
                 case Direction.Left: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NW ? Direction.Up : Direction.Down, player, indx, subIndx, true); break;
                 case Direction.Right: addLaserToQueue(x, y, strength + powerSolver(x, y), heading, heading == Direction.NE ? Direction.Up : Direction.Down, player, indx, subIndx, true); break;
             }
-        else laserHits.Add(new laserHit(x, y, true, strength, Building.Redirecting, gi.owner));
+        } else {
+            laserHits.Add(new laserHit(x, y, true, strength, Building.Redirecting, gi.owner));
+            if (!particleHits.ContainsKey(new XY(x, y))) particleHits.Add(new XY(x, y), new List<dirHeadPlayer>());
+            particleHits[new XY(x, y)].Add(new dirHeadPlayer(direction, heading, player));
+        }
     }
 
 
