@@ -53,7 +53,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: a17f61582ec6c3a4796cd4932455f4cf,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 0d0d0664239b9944ba6f45b80e785a23, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -143,6 +143,9 @@ MonoBehaviour:
   cost: 0
   sprites: []
   scale: 1
+  placementTime: 1
+  removalTime: 1
+  destructionTime: 0.5
 --- !u!114 &114105079807383150
 MonoBehaviour:
   m_ObjectHideFlags: 1
