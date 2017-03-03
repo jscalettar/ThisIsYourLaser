@@ -12,6 +12,8 @@ public class inputController : MonoBehaviour {
 
     public GameObject indicatorP1;
     public GameObject indicatorP2;
+    public GameObject LaserArrowP1;
+    public GameObject LaserArrowP2;
 
     // Sprites for cursor appearance
     public Sprite P1BaseSprite;
@@ -229,13 +231,32 @@ public class inputController : MonoBehaviour {
             if (cursorP1.state == State.placing)
             {
                 indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
+                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
             }
-            else indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
+            else if (cursorP1.state == State.placeLaser)
+            {
+                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = true;
+                indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
+            }else
+            {
+                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+                indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
+            }
             if (cursorP2.state == State.placing)
             {
                 indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
+                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
             }
-            else indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
+            else if (cursorP2.state == State.placeLaser)
+            {
+                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = true;
+                indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else
+            {
+                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
+                indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
+            }
         }
     }
 

@@ -276,7 +276,7 @@ public struct Grid
 
     private bool canRotate(Building building) // Add buildings here that support 4 way sprite rotation
     {
-        if (building == Building.Blocking || building == Building.Reflecting || building == Building.Resource)
+        if (building == Building.Blocking || building == Building.Reflecting || building == Building.Refracting || building == Building.Resource)
             return true;
         return false;
     }
