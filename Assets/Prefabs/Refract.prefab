@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4388509962201542}
   - component: {fileID: 114222122093701272}
-  - component: {fileID: 212787702685517578}
   - component: {fileID: 82377804377472942}
   m_Layer: 0
   m_Name: Refract
@@ -139,40 +138,12 @@ MonoBehaviour:
   currentHP: 0
   health: 1
   cost: 2
-  sprites: []
-  scale: 1
---- !u!212 &212787702685517578
-SpriteRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1213130919227048}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 53dd04d37a483de419c88bfdc4aec0d4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
+  sprites:
+  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
+  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
+  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
+  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
+  scale: 0.15
+  placementTime: 1
+  removalTime: 1
+  destructionTime: 0.5
