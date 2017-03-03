@@ -33,7 +33,24 @@ public class inputController : MonoBehaviour {
     public Sprite P2ResourceSprite;
 
     // Cursor movement speed
-    public float cursorSpeed = 10f;
+    private const float cursorSpeed = 8f;
+    private float delayFactor = 1f / cursorSpeed;
+    private float diagSpeed = 0.707f;
+
+    // Variables used with cursor movement
+    private float vertDelayP1 = 0f;
+    private float vertCounterP1 = 0f;
+    private float horDelayP1 = 0f;
+    private float horCounterP1 = 0f;
+    private bool vertMovingP1 = false;
+    private bool horMovingP1 = false;
+    private float vertDelayP2 = 0f;
+    private float vertCounterP2 = 0f;
+    private float horDelayP2 = 0f;
+    private float horCounterP2 = 0f;
+    private bool vertMovingP2 = false;
+    private bool horMovingP2 = false;
+
 
     // Pause menu
     public GameObject PauseMenu;
@@ -62,6 +79,10 @@ public class inputController : MonoBehaviour {
         if (value > max) return max;
         else if (value < min) return min;
         return value;
+    }
+
+    private bool isValid(int value, int min, int max) {
+        return value <= max && value >= min;
     }
 
     public static Cursor cursorP1, cursorP2;
@@ -128,10 +149,20 @@ public class inputController : MonoBehaviour {
             if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove)
             {
                 // Cursor Movement P1
-                if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.y = clamp(cursorP1.y + 1, 0, yEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
-                else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.y = clamp(cursorP1.y - 1, 0, yEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
-                if ((Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { cursorP1.x = clamp(cursorP1.x + 1, 0, xEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
-                else if (Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1) { cursorP1.x = clamp(cursorP1.x - 1, 0, xEnd); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); }
+                if (Input.GetAxis("xboxLeftVert") != 0) vertDelayP1 = delayFactor;
+                if (Input.GetAxis("xboxLeftHor") != 0) horDelayP1 = delayFactor;
+
+                if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
+                else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftHor") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
+                else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
+                else if (Input.GetButton("down_1") || Input.GetAxis("xboxLeftVert") == -1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
+                else { vertCounterP1 = 0f; vertDelayP1 = 0f; vertMovingP1 = false; }
+
+                if ((Input.GetButtonDown("right_1")) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { if (isValid(cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
+                else if ((Input.GetButton("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { horMovingP1 = true; horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } }
+                else if (Input.GetButtonDown("left_1")) { if (isValid(cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
+                else if (Input.GetButton("left_1") || Input.GetAxis("xboxLeftHor") == -1) { horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horMovingP1 = true; horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } }
+                else { horCounterP1 = 0f; horDelayP1 = 0f; horMovingP1 = false; }
             }
             else
             {
@@ -151,10 +182,20 @@ public class inputController : MonoBehaviour {
             if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove)
             {
                 // Cursor Movement P2
-                if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.y = clamp(cursorP2.y + 1, 0, yEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
-                else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.y = clamp(cursorP2.y - 1, 0, yEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
-                if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.x = clamp(cursorP2.x + 1, 0, xEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
-                else if ((Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { cursorP2.x = clamp(cursorP2.x - 1, 0, xEnd); moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); }
+                if (Input.GetAxis("xboxLeftVert2") != 0) vertDelayP2 = delayFactor;
+                if (Input.GetAxis("xboxLeftHor2") != 0) horDelayP2 = delayFactor;
+
+                if (Input.GetButtonDown("up_2")) { if (isValid(cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
+                else if (Input.GetButton("up_2") || Input.GetAxis("xboxLeftHor2") == 1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } }
+                else if (Input.GetButtonDown("down_2")) { if (isValid(cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
+                else if (Input.GetButton("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } }
+                else { vertCounterP2 = 0f; vertDelayP2 = 0f; vertMovingP2 = false; }
+
+                if ((Input.GetButtonDown("right_2")) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { if (isValid(cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
+                else if ((Input.GetButton("right_2") || Input.GetAxis("xboxLeftHor2") == 1) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { horMovingP2 = true; horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } }
+                else if (Input.GetButtonDown("left_2")) { if (isValid(cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
+                else if (Input.GetButton("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horMovingP2 = true; horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } }
+                else { horCounterP2 = 0f; horDelayP2 = 0f; horMovingP2 = false; }
             }
             else
             {
@@ -217,13 +258,13 @@ public class inputController : MonoBehaviour {
             // Update Cursor Position P1
             if (moveQueueP1.Count > 0)
             {
-                cursorObjP1.transform.position = Vector3.MoveTowards(cursorObjP1.transform.position, new Vector3(moveQueueP1.Peek().x + xOff, 0.01f, moveQueueP1.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP1.Count, 2) * 0.2f));
+                cursorObjP1.transform.position = Vector3.MoveTowards(cursorObjP1.transform.position, new Vector3(moveQueueP1.Peek().x + xOff, 0.01f, moveQueueP1.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP1.Count, 1.5f) * 0.2f));
                 if (Vector2.Distance(new Vector2(cursorObjP1.transform.position.x, cursorObjP1.transform.position.z), new Vector2(moveQueueP1.Peek().x + xOff, moveQueueP1.Peek().y + yOff)) == 0f) moveQueueP1.Dequeue();
             }
             // Update Cursor Position P2
             if (moveQueueP2.Count > 0)
             {
-                cursorObjP2.transform.position = Vector3.MoveTowards(cursorObjP2.transform.position, new Vector3(moveQueueP2.Peek().x + xOff, 0.01f, moveQueueP2.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP2.Count, 2) * 0.2f));
+                cursorObjP2.transform.position = Vector3.MoveTowards(cursorObjP2.transform.position, new Vector3(moveQueueP2.Peek().x + xOff, 0.01f, moveQueueP2.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP2.Count, 1.5f) * 0.2f));
                 if (Vector2.Distance(new Vector2(cursorObjP2.transform.position.x, cursorObjP2.transform.position.z), new Vector2(moveQueueP2.Peek().x + xOff, moveQueueP2.Peek().y + yOff)) == 0f) moveQueueP2.Dequeue();
             }
 
