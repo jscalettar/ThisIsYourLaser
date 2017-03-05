@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Readme:  Redirecting Block WIP
-//          Infinite loop possible with refracting blocks atm
 //          Opposing lasers do not account for strength atm
 //          Gizmos commented out at bottom (Use for debugging laser strength)
 //
-// NEW FEATURES:    Damage over time is now functional
-//                  Building health can be modified via buildingParameters on each prefab
+// NEW FEATURES:    Damage numbers added
+//                  
 
 public class laserLogic : MonoBehaviour
 {
@@ -419,7 +418,6 @@ public class laserLogic : MonoBehaviour
                 particleCounter++;
             }
         }
-        print(particleCounter);
 
         // Set needsUpdate to false
         gridManager.theGrid.updateFinished();

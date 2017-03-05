@@ -296,6 +296,10 @@ public struct Grid
     public void updateFinished() { needsUpdate = false; }
     public void queueUpdate() { needsUpdate = true; }
     public GameObject getBuildingContainer() { return buildingContainer; }
+    public Vector3 coordsToWorld(int x, int y, float yOffset = 0f) // Use this to easily convert coords from grid space to world space
+    {
+        return new Vector3(x - (dimX / 2f) + 0.5f, yOffset, y - (dimY / 2f) + 0.5f);
+    }
 
     public bool applyDamage(int x, int y, float damage)
     {
@@ -303,6 +307,7 @@ public struct Grid
         if (!grid[y, x].isEmpty) {
             grid[y, x].health -= damage;
             prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
+            floatingNumbers.floatingNumbersStruct.checkDamage(new XY(x, y), grid[y, x].health, prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().health, grid[y, x].building, grid[y, x].owner);
             if (grid[y, x].health <= 0f) {
                 if (getBuilding(x, y) == Building.Base) SceneManager.LoadScene("GameOver", LoadSceneMode.Single); // Add player specific win screen in future
                 else destroyBuilding(x, y);
@@ -584,6 +589,10 @@ public struct Grid
 
 public class gridManager : MonoBehaviour
 {
+    // Use this to make HP appear artificially higher on UI etc. (ie. gridManager.hpScale)
+    // EX: Lets say an actual damage value is 1.337f. With a hpScale of 100f it would show up on screen as 133.7
+    public const float hpScale = 10f; 
+
     public static Grid theGrid;
     public int boardWidth = 14;
     public int boardHeight = 10;
