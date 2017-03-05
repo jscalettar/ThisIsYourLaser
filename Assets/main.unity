@@ -2181,7 +2181,7 @@ ParticleSystem:
   m_GameObject: {fileID: 367682182}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6405,7 +6405,7 @@ ParticleSystem:
   m_GameObject: {fileID: 691219462}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -9050,7 +9050,7 @@ ParticleSystem:
   m_GameObject: {fileID: 749703399}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -15704,7 +15704,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1630470809}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -18941,7 +18941,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1879519083}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -22383,19 +22383,19 @@ MonoBehaviour:
   LaserArrowP1: {fileID: 455511569}
   LaserArrowP2: {fileID: 1272127807}
   P1BaseSprite: {fileID: 21300000, guid: 5d1730c5fe5a3d943bc0c4245e9c5a71, type: 3}
-  P1BlockSprite: {fileID: 21300000, guid: 84176c3ec015e93409e6f2692390bf6b, type: 3}
+  P1BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
   P1LaserSprite: {fileID: 21300000, guid: 2b59f6c15dceee9478d4ee7378f92606, type: 3}
-  P1ReflectSprite: {fileID: 21300000, guid: 1d8398a435fb5d145822d46661f017f0, type: 3}
-  P1RefractSprite: {fileID: 21300000, guid: 326b9ea40b267a64bbe5fcf1c8b07db4, type: 3}
+  P1ReflectSprite: {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
+  P1RefractSprite: {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
   P1RedirectSprite: {fileID: 21300000, guid: 879d00434a609cb40a351f63eb43052a, type: 3}
-  P1ResourceSprite: {fileID: 21300000, guid: 1e2ccdd600cd6f14da0543de1acb2ace, type: 3}
+  P1ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
   P2BaseSprite: {fileID: 21300000, guid: deb4624d063151344abdf095853929b8, type: 3}
-  P2BlockSprite: {fileID: 21300000, guid: c742e505acbb6dd4a9e31a9029fd8e87, type: 3}
+  P2BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
   P2LaserSprite: {fileID: 21300000, guid: 8f498de6aac950a4a8eaad7b900e3f6d, type: 3}
-  P2ReflectSprite: {fileID: 21300000, guid: 96f659aa221e4114dbe79c382192e07f, type: 3}
-  P2RefractSprite: {fileID: 21300000, guid: 98c6b02c9583ed24bbeed2021ea051d6, type: 3}
+  P2ReflectSprite: {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
+  P2RefractSprite: {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
   P2RedirectSprite: {fileID: 21300000, guid: d7ae165998a4708469bad176d67a84ea, type: 3}
-  P2ResourceSprite: {fileID: 21300000, guid: e465fc2b68ffd8143b7c38c9c5781810, type: 3}
+  P2ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
   Sounds:
   - audioclip: {fileID: 8300000, guid: 88ff972be695ef8438c3756582cc8082, type: 3}
   PauseMenu: {fileID: 0}
