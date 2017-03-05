@@ -40,7 +40,11 @@ public class startMenu : MonoBehaviour {
         InstructMenu.SetActive(false);
         populateList();
     }
-	
+	void Update(){
+		setMaster (masterSlider.value);
+		setMusic (musicSlider.value);
+		setSFX (sfxSlider.value);
+	}
 	public void startGame()
     {
         SceneManager.LoadScene("main");
@@ -68,16 +72,20 @@ public class startMenu : MonoBehaviour {
 
     public void setMaster(float vol) 
     {
+		
+		SoundManager.globalVolume = vol;
         //Need actual sound source to implement
     }
 
     public void setMusic(float vol) 
     {
+		SoundManager.globalMusicVolume = vol;
         //Need actual sound source to implement
     }
 
     public void setSFX(float vol) 
     {
+		SoundManager.globalSoundsVolume = vol;
         //Need actual sound source to implement
     }
 
