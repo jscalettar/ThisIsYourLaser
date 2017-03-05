@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+////////////////////////////All hope abandon...///////////////////////////
+////////////////////////////Ye who enter here/////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
 public class SoundManager : MonoBehaviour {
 	private static SoundManager _instance = null;
 	private static float vol = 1f;
@@ -86,6 +93,40 @@ public class SoundManager : MonoBehaviour {
 	void Awake(){
 		instance.Init();
 	}
+	void OnLevelWasLoaded(int level)
+	{
+		List<int> keys;
+
+		// Stop and remove all non-persistent music audio
+		keys = new List<int>(musicAudio.Keys);
+		foreach (int key in keys)
+		{
+			Audio audio = musicAudio[key];
+			if (!audio.persist && audio.activated)
+			{
+				Destroy(audio.audioSource);
+				musicAudio.Remove(key);
+			}
+		}
+
+		// Stop and remove all sound fx
+		keys = new List<int>(soundsAudio.Keys);
+		foreach (int key in keys)
+		{
+			Audio audio = soundsAudio[key];
+			Destroy(audio.audioSource);
+			soundsAudio.Remove(key);
+		}
+
+		// Stop and remove all UI sound fx
+		keys = new List<int>(UISoundsAudio.Keys);
+		foreach (int key in keys)
+		{
+			Audio audio = UISoundsAudio[key];
+			Destroy(audio.audioSource);
+			UISoundsAudio.Remove(key);
+		}
+	}
 	//Initialize variables
 	void Init(){
 		if (!initialized)
@@ -103,6 +144,51 @@ public class SoundManager : MonoBehaviour {
 		}
 	}
 
+	void Update()
+	{
+		List<int> keys;
+
+		// Update music
+		keys = new List<int>(musicAudio.Keys);
+		foreach (int key in keys){
+			Audio audio = musicAudio[key];
+			audio.Update();
+
+			// If music not playing remove
+			if (!audio.playing && !audio.paused){
+				Destroy(audio.audioSource);
+				//emove(key);
+			}
+		}
+
+		// Update sound fx
+		keys = new List<int>(soundsAudio.Keys);
+		foreach (int key in keys){
+			Audio audio = soundsAudio[key];
+			audio.Update();
+
+			if (!audio.playing && !audio.paused)
+			{
+				Destroy(audio.audioSource);
+				//.Remove(key);
+			}
+		}
+			
+		keys = new List<int>(UISoundsAudio.Keys);
+		foreach (int key in keys){
+			Audio audio = UISoundsAudio[key];
+			audio.Update();
+
+			// Remove all UI sound fx clips that are not playing
+			if (!audio.playing && !audio.paused){
+				Destroy(audio.audioSource);
+			}
+		}
+	}
+
+	/*public static Audio SetGlobalVolume(float vol){
+		globalVolume = vol;
+	}*/
 	//Stop sounds with with music fade
 	public static void FadeAll(float fadeOutSeconds){
 		StopAllMusic(fadeOutSeconds);

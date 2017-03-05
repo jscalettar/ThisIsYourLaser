@@ -2181,7 +2181,7 @@ ParticleSystem:
   m_GameObject: {fileID: 367682182}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -6405,7 +6405,7 @@ ParticleSystem:
   m_GameObject: {fileID: 691219462}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -9050,7 +9050,7 @@ ParticleSystem:
   m_GameObject: {fileID: 749703399}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -15704,7 +15704,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1630470809}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -18941,7 +18941,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1879519083}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -22396,6 +22396,8 @@ MonoBehaviour:
   P2RefractSprite: {fileID: 21300000, guid: 98c6b02c9583ed24bbeed2021ea051d6, type: 3}
   P2RedirectSprite: {fileID: 21300000, guid: d7ae165998a4708469bad176d67a84ea, type: 3}
   P2ResourceSprite: {fileID: 21300000, guid: e465fc2b68ffd8143b7c38c9c5781810, type: 3}
+  Sounds:
+  - audioclip: {fileID: 8300000, guid: 88ff972be695ef8438c3756582cc8082, type: 3}
   PauseMenu: {fileID: 0}
 --- !u!114 &2040606553
 MonoBehaviour:

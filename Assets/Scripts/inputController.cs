@@ -5,7 +5,7 @@ using UnityEngine;
 public enum State { placeBase, placeLaser, placingLaser, placing, moving, placingMove, idle };
 
 public class inputController : MonoBehaviour {
-
+	
     // These should be gameObjects that contain a sprite renderer
     public GameObject cursorObjP1;
     public GameObject cursorObjP2;
@@ -50,7 +50,8 @@ public class inputController : MonoBehaviour {
     private float horCounterP2 = 0f;
     private bool vertMovingP2 = false;
     private bool horMovingP2 = false;
-
+	//List of Sounds
+	public Audios[] Sounds;
 
     // Pause menu
     public GameObject PauseMenu;
@@ -260,6 +261,10 @@ public class inputController : MonoBehaviour {
             {
                 cursorObjP1.transform.position = Vector3.MoveTowards(cursorObjP1.transform.position, new Vector3(moveQueueP1.Peek().x + xOff, 0.01f, moveQueueP1.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP1.Count, 1.5f) * 0.2f));
                 if (Vector2.Distance(new Vector2(cursorObjP1.transform.position.x, cursorObjP1.transform.position.z), new Vector2(moveQueueP1.Peek().x + xOff, moveQueueP1.Peek().y + yOff)) == 0f) moveQueueP1.Dequeue();
+				/////////////////////////////////////////////////
+				SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume);
+				Debug.Log ("Sound Playing");
+				//////////////////////////////////////////////
             }
             // Update Cursor Position P2
             if (moveQueueP2.Count > 0)
@@ -429,4 +434,10 @@ public class inputController : MonoBehaviour {
             print("Can not remove, busy with some other action.");
         }
     }
+}
+[System.Serializable]
+public struct Audios
+{
+	public AudioClip audioclip;
+	public Audio audio;
 }
