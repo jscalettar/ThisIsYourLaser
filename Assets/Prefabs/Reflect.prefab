@@ -55,7 +55,6 @@ MonoBehaviour:
   y: -1
   owner: 0
   currentHP: 0
-  building: 3
   health: 5
   cost: 1
   sprites:
@@ -63,4 +62,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 009e2cb95441ad446bcdd76c7bd3e914, type: 3}
   - {fileID: 21300000, guid: 44191b574eba633459749b1bf6cc1f5f, type: 3}
   - {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
-  scale: 0.2
+  scale: 0.3
+  placementTime: 1
+  removalTime: 1
+  destructionTime: 0.5
