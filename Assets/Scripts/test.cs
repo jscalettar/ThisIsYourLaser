@@ -5,6 +5,7 @@ using WindowsInput;
 using System;
 
 public class test : MonoBehaviour {
+    public float sec;
     List<Action> test1 = new List<Action>();
     List<Action> test2 = new List<Action>();
     List<Action> test3 = new List<Action>();
@@ -68,7 +69,7 @@ public class test : MonoBehaviour {
             test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
             test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
 
-            //P1 Place reflect in all directions
+            //P1 Place 
             test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
             test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
             test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
@@ -87,7 +88,7 @@ public class test : MonoBehaviour {
 	IEnumerator doTest(List<Action> keyPressList) {
 		foreach(var keypress in keyPressList) {
             keypress();
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(sec);
         }
         yield return new WaitForSeconds(5);
         Application.CaptureScreenshot("testScreenshots/test.png");
