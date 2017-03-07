@@ -269,7 +269,7 @@ public class inputController : MonoBehaviour {
                 if (Vector2.Distance(new Vector2(cursorObjP1.transform.position.x, cursorObjP1.transform.position.z), new Vector2(moveQueueP1.Peek().x + xOff, moveQueueP1.Peek().y + yOff)) == 0f) moveQueueP1.Dequeue();
 				/////////////////////////////////////////////////
 				SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume);
-				Debug.Log ("Sound Playing");
+				//Debug.Log ("Sound Playing");
 				//////////////////////////////////////////////
             }
             // Update Cursor Position P2
