@@ -232,7 +232,7 @@ public class inputController : MonoBehaviour {
                 switch (cursorP1.selection)
                 {
                     case Building.Blocking: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1BlockSprite; scale = .15f; break;
-                    case Building.Reflecting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; scale = .2f; break;
+                    case Building.Reflecting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; scale = .17f; break;
                     case Building.Refracting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; scale = .15f; break;
                     case Building.Redirecting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; break;
                     case Building.Resource: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite; scale = .3f; break;
@@ -246,11 +246,11 @@ public class inputController : MonoBehaviour {
             else if (cursorP2.state == State.placeLaser || cursorP2.state == State.placingLaser) cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
             else
             {
-                float scale = .5f;
+                float scale = 1f;
                 switch (cursorP2.selection)
                 {
                     case Building.Blocking: cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2BlockSprite; scale = .15f; break;
-                    case Building.Reflecting: cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; scale = .2f; break;
+                    case Building.Reflecting: cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; scale = .17f; break;
                     case Building.Refracting: cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2RefractSprite; scale = .15f; break;
                     case Building.Redirecting: cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; break;
                     case Building.Resource: cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2ResourceSprite; scale = .3f; break;
