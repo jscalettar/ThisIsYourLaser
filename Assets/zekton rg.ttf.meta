@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f8969e71656a59f41b813bb57c0f7d02
+timeCreated: 1488957484
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Zekton
+  fontNames:
+  - Zekton
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
