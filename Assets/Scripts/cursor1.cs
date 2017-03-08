@@ -22,7 +22,13 @@ public class cursor1 : MonoBehaviour
     public static Vector3 pos;
     private int currentBuilding = (int)Building.Laser;
     private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length -1;
-    public GameObject PauseMenu;
+    //public GameObject PauseMenu;
+    public Sprite[] Block;
+    public Sprite[] Reflect;
+    public Sprite[] Refract;
+    public Sprite[] Redirect;
+    public Sprite[] Resource;
+    public Sprite[][] Sprites;
 
     // Use this for initialization
 
@@ -30,20 +36,22 @@ public class cursor1 : MonoBehaviour
     {
         
         //default values for UI  
-        p1UI = gameObject.AddComponent<playerOneUI>();
-        p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
-        p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
-        p1UI.currentResource = GameObject.Find("playerOneResource").GetComponent<Text>();
-        p1UI.playerState.text = "Placing";
-        dimX = gridManager.theGrid.getDimX() / 2;
-        dimZ = gridManager.theGrid.getDimY() / 2;
-		PauseMenu = GameObject.Find("Pause Menu");
+        //p1UI = gameObject.AddComponent<playerOneUI>();
+        //p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
+        //p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
+        //p1UI.currentResource = GameObject.Find("playerOneResource").GetComponent<Text>();
+        //p1UI.playerState.text = "Placing";
+        //dimX = gridManager.theGrid.getDimX() / 2;
+        //dimZ = gridManager.theGrid.getDimY() / 2;
+		//PauseMenu = GameObject.Find("Pause Menu");
 
-		transform.position = new Vector3 (-(dimX-0.5f), 0.01f, -(dimZ-0.5f));
+        Sprites = new Sprite[][] { Block, Reflect, Refract, Redirect, Resource };
+
+		//transform.position = new Vector3 (-(dimX-0.5f), 0.01f, -(dimZ-0.5f));
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         
         Building currentTex = (Building)currentBuilding;
@@ -164,5 +172,5 @@ public class cursor1 : MonoBehaviour
 		{
 			gridManager.theGrid.removeBuilding((int)(pos.x + (gridManager.theGrid.getDimX() / 2) - 0.5f), (int)(pos.z + (gridManager.theGrid.getDimY() / 2) - 0.5f), Player.PlayerOne);
 		}
-	}
+	}*/
 }

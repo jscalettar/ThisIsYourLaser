@@ -196,7 +196,7 @@ public struct Grid
         return new Vector3(90, 0, 0);
     }
 
-    private int directionToIndex(Direction direction)
+    public int directionToIndex(Direction direction)
     {
         switch (direction) {
             case Direction.Right: return 1;

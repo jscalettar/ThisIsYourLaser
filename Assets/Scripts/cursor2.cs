@@ -21,20 +21,27 @@ public class cursor2 : MonoBehaviour
     public static Vector3 pos;
     private int currentBuilding = (int)Building.Laser;
     private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length;
-    public GameObject PauseMenu;
+    //public GameObject PauseMenu;
+    public Sprite[] Block;
+    public Sprite[] Reflect;
+    public Sprite[] Refract;
+    public Sprite[] Redirect;
+    public Sprite[] Resource;
+    public Sprite[][] Sprites;
 
     // Use this for initialization
     void Start()
     {
-        
-        dimX = gridManager.theGrid.getDimX() / 2;
-        dimZ = gridManager.theGrid.getDimY() / 2;
-        PauseMenu = GameObject.Find("Pause Menu");
-		transform.position = new Vector3 ((dimX-0.5f), 0.01f, (dimZ-0.5f));
+
+        //dimX = gridManager.theGrid.getDimX() / 2;
+        // dimZ = gridManager.theGrid.getDimY() / 2;
+        ///PauseMenu = GameObject.Find("Pause Menu");
+        //transform.position = new Vector3 ((dimX-0.5f), 0.01f, (dimZ-0.5f));
+        Sprites = new Sprite[][] { Block, Reflect, Refract, Redirect, Resource };
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         buildingControls();
         buttonPress--;
@@ -150,5 +157,5 @@ public class cursor2 : MonoBehaviour
         {
             gridManager.theGrid.removeBuilding((int)(pos.x + (gridManager.theGrid.getDimX() / 2) - 0.5f), (int)(pos.z + (gridManager.theGrid.getDimY() / 2) - 0.5f), Player.PlayerTwo);
         }
-    }
+    }*/
 }

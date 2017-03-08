@@ -1230,6 +1230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 174806837}
   - component: {fileID: 174806834}
+  - component: {fileID: 174806833}
   m_Layer: 0
   m_Name: Cursor2
   m_TagString: Player2
@@ -1237,6 +1238,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &174806833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 174806832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900622142cad9c643947ccefd09835b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Block:
+  - {fileID: 21300000, guid: 31dab7f1106c1c04b9220614587c9259, type: 3}
+  - {fileID: 21300000, guid: 4821043a645c15542b20b9079832290d, type: 3}
+  - {fileID: 21300000, guid: dbe9387d05931e240a3ec726f0c8bce3, type: 3}
+  - {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
+  Reflect:
+  - {fileID: 21300000, guid: 469969743306a7041b42e9d4f4c21a8e, type: 3}
+  - {fileID: 21300000, guid: 009e2cb95441ad446bcdd76c7bd3e914, type: 3}
+  - {fileID: 21300000, guid: 44191b574eba633459749b1bf6cc1f5f, type: 3}
+  - {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
+  Refract:
+  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
+  Redirect:
+  - {fileID: 21300000, guid: d7ae165998a4708469bad176d67a84ea, type: 3}
+  Resource:
+  - {fileID: 21300000, guid: 354281af9e3149d4bacaf99d405736c0, type: 3}
+  - {fileID: 21300000, guid: 4011fc6d61eea984fad6238576735451, type: 3}
+  - {fileID: 21300000, guid: cb50162039f5730498d8289e4c6b9b9a, type: 3}
+  - {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
 --- !u!212 &174806834
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13224,6 +13255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 869729625}
   - component: {fileID: 869729622}
+  - component: {fileID: 869729621}
   m_Layer: 0
   m_Name: Cursor1
   m_TagString: Player1
@@ -13231,6 +13263,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &869729621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 869729620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900622142cad9c643947ccefd09835b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Block:
+  - {fileID: 21300000, guid: 31dab7f1106c1c04b9220614587c9259, type: 3}
+  - {fileID: 21300000, guid: 4821043a645c15542b20b9079832290d, type: 3}
+  - {fileID: 21300000, guid: dbe9387d05931e240a3ec726f0c8bce3, type: 3}
+  - {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
+  Reflect:
+  - {fileID: 21300000, guid: 469969743306a7041b42e9d4f4c21a8e, type: 3}
+  - {fileID: 21300000, guid: 009e2cb95441ad446bcdd76c7bd3e914, type: 3}
+  - {fileID: 21300000, guid: 44191b574eba633459749b1bf6cc1f5f, type: 3}
+  - {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
+  Refract:
+  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
+  Redirect:
+  - {fileID: 21300000, guid: 879d00434a609cb40a351f63eb43052a, type: 3}
+  Resource:
+  - {fileID: 21300000, guid: 354281af9e3149d4bacaf99d405736c0, type: 3}
+  - {fileID: 21300000, guid: 4011fc6d61eea984fad6238576735451, type: 3}
+  - {fileID: 21300000, guid: cb50162039f5730498d8289e4c6b9b9a, type: 3}
+  - {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
 --- !u!212 &869729622
 SpriteRenderer:
   m_ObjectHideFlags: 0
