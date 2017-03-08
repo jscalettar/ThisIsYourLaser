@@ -108,6 +108,8 @@ public class inputController : MonoBehaviour {
 
     void Update()
     {
+        bool notNow1 = false;
+        bool notNow2 = false;
         // Check that the game isn't paused
         if (PauseMenu.activeInHierarchy == false)
         {
@@ -169,10 +171,11 @@ public class inputController : MonoBehaviour {
             {
                 // Cursor Rotation P1
                 bool selectionMade = false;
-                if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; selectionMade = true; }
-                else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.direction = Direction.Down; selectionMade = true; }
-                else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.direction = Direction.Right; selectionMade = true; }
-                else if ((Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1)) { cursorP1.direction = Direction.Left; selectionMade = true; }
+                if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; }
+                else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.direction = Direction.Down; }
+                else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.direction = Direction.Right; }
+                else if ((Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1)) { cursorP1.direction = Direction.Left; }
+                if (Input.GetButtonDown("place_1")) { selectionMade = true; notNow1 = true; }
                 if (selectionMade)
                 { // If placing or moving, finalize action
                     if (cursorP1.state == State.placingMove) move(Player.PlayerOne, cursorP1.state);
@@ -202,10 +205,11 @@ public class inputController : MonoBehaviour {
             {
                 // Cursor Rotation P1
                 bool selectionMade = false;
-                if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; selectionMade = true; }
-                else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.direction = Direction.Down; selectionMade = true; }
-                else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.direction = Direction.Right; selectionMade = true; }
-                else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.direction = Direction.Left; selectionMade = true; }
+                if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; }
+                else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.direction = Direction.Down; }
+                else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.direction = Direction.Right; }
+                else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.direction = Direction.Left; }
+                if (Input.GetButtonDown("place_2")) { selectionMade = true; notNow2 = true; }
                 if (selectionMade)
                 { // If placing or moving, finalize action
                     if (cursorP2.state == State.placingMove) move(Player.PlayerTwo, cursorP2.state);
@@ -214,20 +218,33 @@ public class inputController : MonoBehaviour {
             }
 
             // Cursor Functions P1
-            if (Input.GetButtonDown("place_1")) place(Player.PlayerOne, cursorP1.state);
+            if (Input.GetButtonDown("place_1") && !notNow1) place(Player.PlayerOne, cursorP1.state);
             else if (Input.GetButtonDown("move_1")) move(Player.PlayerOne, cursorP1.state);
             else if (Input.GetButtonDown("remove_1")) remove(Player.PlayerOne, cursorP1.state);
 
             // Cursor Functions P2
-            if (Input.GetButtonDown("place_2")) place(Player.PlayerTwo, cursorP2.state);
+            if (Input.GetButtonDown("place_2") && !notNow2) place(Player.PlayerTwo, cursorP2.state);
             else if (Input.GetButtonDown("move_2")) move(Player.PlayerTwo, cursorP2.state);
             else if (Input.GetButtonDown("remove_2")) remove(Player.PlayerTwo, cursorP2.state);
 
             // Update Cursor Appearance P1
             if (cursorP1.state == State.placeBase) cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite;
             else if (cursorP1.state == State.placeLaser || cursorP1.state == State.placingLaser) cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
-            else
+            /*else if (cursorP1.state == State.placing) // in here change the sprite while choosing direction
             {
+                float scale = 1f;
+                switch (cursorP1.selection)
+                {
+                    case Building.Blocking: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1BlockSprite; scale = .15f; break;
+                    case Building.Reflecting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; scale = .17f; break;
+                    case Building.Refracting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; scale = .15f; break;
+                    case Building.Redirecting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; break;
+                    case Building.Resource: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite; scale = .3f; break;
+                }
+                cursorObjP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
+                cursorObjP1.transform.localScale = new Vector3(scale, scale, scale);
+            }*/
+            else {
                 float scale = 1f;
                 switch (cursorP1.selection)
                 {
