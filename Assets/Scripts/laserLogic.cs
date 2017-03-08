@@ -6,7 +6,7 @@ using UnityEngine;
 //          Opposing lasers do not account for strength atm
 //          Gizmos commented out at bottom (Use for debugging laser strength)
 //
-// NEW FEATURES:    Damage numbers added
+// NEW FEATURES:    Base hit particles working now
 //                  
 
 public class laserLogic : MonoBehaviour
@@ -524,7 +524,7 @@ public class laserLogic : MonoBehaviour
             case Building.Redirecting: laserRedirect(x, y, strength, heading, direction, player, indx, subIndx); break;
             case Building.Portal: break; // Not implemented
             case Building.Resource: laserResource(x, y, strength, heading, direction, player, indx, subIndx); break;
-            case Building.Base: laserHits.Add(new laserHit(x, y, true, strength, Building.Base, gridManager.theGrid.getCellInfo(x, y).owner)); break;
+            case Building.Base: laserBase(x, y, strength, heading, direction, player); break;
             case Building.Laser: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false); break;
 
         }
@@ -543,6 +543,14 @@ public class laserLogic : MonoBehaviour
         // Add laser node to queue
         if (isNew) laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, ++laserIndex, 0));
         else laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, indx, subIndx + 1));
+    }
+
+    // What happens when a laser collides with a base
+    private void laserBase(int x, int y, float strength, Direction heading, Direction direction, Player player)
+    {
+        laserHits.Add(new laserHit(x, y, true, strength, Building.Base, gridManager.theGrid.getOwner(x, y)));
+        if (!particleHits.ContainsKey(new XY(x, y))) particleHits.Add(new XY(x, y), new List<dirHeadPlayer>());
+        particleHits[new XY(x, y)].Add(new dirHeadPlayer(direction, heading, player));
     }
 
     // What happens when a laser collides with a blocking block
