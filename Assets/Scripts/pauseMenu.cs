@@ -10,6 +10,7 @@ public class pauseMenu : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject OptionMenu;
     public GameObject InstructMenu;
+    public GameObject StructureMenu;
 
     // Vars for menu buttons
     public Button Pause;
@@ -42,6 +43,7 @@ public class pauseMenu : MonoBehaviour
         PauseMenu.SetActive(false);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        StructureMenu.SetActive(false);
 
         // Set pause menu buttons to active
         Pause.interactable = true;
@@ -83,6 +85,7 @@ public class pauseMenu : MonoBehaviour
     {
         OptionMenu.SetActive(true);
         InstructMenu.SetActive(false);
+        StructureMenu.SetActive(false);
 
         // Disable pause menu buttons when options are up
         Pause.interactable = false;
@@ -96,8 +99,23 @@ public class pauseMenu : MonoBehaviour
     {
         InstructMenu.SetActive(true);
         OptionMenu.SetActive(false);
+        StructureMenu.SetActive(false);
 
         // Disable pause menu buttons when instructions are up
+        Pause.interactable = false;
+        Resume.interactable = false;
+        Instructions.interactable = false;
+        Options.interactable = false;
+        End.interactable = false;
+    }
+
+    public void structuresMenu()
+    {
+        InstructMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        StructureMenu.SetActive(true);
+
+        // Disable pause menu buttons when structures are up
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -119,6 +137,7 @@ public class pauseMenu : MonoBehaviour
     {
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        StructureMenu.SetActive(false);
 
         // Set pause menu buttons to active
         Pause.interactable = true;
