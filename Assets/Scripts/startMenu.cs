@@ -20,6 +20,7 @@ public class startMenu : MonoBehaviour {
     public GameObject StartMenu;
     public GameObject OptionMenu;
     public GameObject InstructMenu;
+    public GameObject StructuresMenu;
 
     //Vars for buttons/toggles/sliders
     public Button Play;
@@ -54,6 +55,7 @@ public class startMenu : MonoBehaviour {
         StartMenu.SetActive(true);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        StructuresMenu.SetActive(false);
     }
 
     public void OptionsMenu()
@@ -61,6 +63,7 @@ public class startMenu : MonoBehaviour {
         StartMenu.SetActive(false);
         OptionMenu.SetActive(true);
         InstructMenu.SetActive(false);
+        StructuresMenu.SetActive(false);
     }
 
     public void InstructionsMenu()
@@ -68,6 +71,15 @@ public class startMenu : MonoBehaviour {
         StartMenu.SetActive(false);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(true);
+        StructuresMenu.SetActive(false);
+    }
+
+    public void StructureMenu()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        StructuresMenu.SetActive(true);
     }
 
     public void setMaster(float vol) 
