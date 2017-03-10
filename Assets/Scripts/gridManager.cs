@@ -352,7 +352,7 @@ public struct Grid
             if (canRotate(newBuilding)) {// || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
-                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, 1f) : new Vector4(0.7f, 1, 0.7f, 1f);
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f);
                 float scale = building.GetComponent<buildingParameters>().scale;
                 building.transform.localScale = new Vector3(scale, scale, scale);
             }
@@ -385,6 +385,11 @@ public struct Grid
             // Give some resources back to player
             if (playerID == Player.PlayerOne) resourcesP1 += getCost(grid[y, x].building, x, playerID, false, true);
             else resourcesP2 += getCost(grid[y, x].building, x, playerID, false, true);
+            if (grid[y, x].building != Building.Base && grid[y, x].building != Building.Laser && grid[y, x].building != Building.Redirecting)
+            {
+                prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
+            }
+
             // Clear out GridItem
             /*grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
@@ -432,6 +437,10 @@ public struct Grid
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
             grid[y, x].health = 0;
+            if (grid[y, x].building != Building.Base && grid[y, x].building != Building.Laser && grid[y, x].building != Building.Redirecting)
+            {
+                prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
+            }
             needsUpdate = true;
 
             /*//make spots next to building available
@@ -641,6 +650,12 @@ public class gridManager : MonoBehaviour
                 theGrid.grid[y, x].owner = theGrid.placementList[i].owner;
                 theGrid.grid[y, x].direction = theGrid.placementList[i].direction;
                 theGrid.grid[y, x].health = theGrid.placementList[i].health;
+                if (theGrid.grid[y, x].building == Building.Base || theGrid.grid[y, x].building == Building.Laser || theGrid.grid[y, x].building == Building.Redirecting)
+                {
+                    theGrid.prefabDictionary[new XY(x,y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? Color.red : Color.green;
+                }
+                else theGrid.prefabDictionary[new XY(x,y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, 1f) : new Vector4(.7f, 1f, .7f, 1f);
+                
                 theGrid.queueUpdate();
                 deletions[deletionCount++] = i;
             }
