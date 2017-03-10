@@ -498,7 +498,7 @@ public class gridManager : MonoBehaviour
 {
     // Use this to make HP appear artificially higher on UI etc. (ie. gridManager.hpScale)
     // EX: Lets say an actual damage value is 1.337f. With a hpScale of 100f it would show up on screen as 133.7
-    public const float hpScale = 1f; 
+    public const float hpScale = 10f; 
 
     public static Grid theGrid;
     public int boardWidth = 14;
