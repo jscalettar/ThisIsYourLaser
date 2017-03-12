@@ -36,7 +36,7 @@ public class placementTimer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        print(time);
+        //print(time);
         TextMesh textMesh = GetComponent<TextMesh>();
         textMesh.text = time.ToString("F1");
         time -= Time.deltaTime;
