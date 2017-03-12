@@ -103,7 +103,7 @@ public class test : MonoBehaviour {
                 test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
                 test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
 
-                //Place Redirect
+        //Place Redirect
                 test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_4));
                 test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_0));
                 test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_A));
@@ -159,91 +159,91 @@ public class test : MonoBehaviour {
                 test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
                 test3.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
         //Test 4 - Testing Building Destruction
-            //Place Base
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                //Place Base
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
 
         // Place Laser
             // Place Laser
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
 
 
 
             //Place blocking on weakside
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_A));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_L));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_A));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_L));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
 
             //Placing reflecting
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_2));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_8));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_A));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_L));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_2));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_8));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_A));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_L));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
 
             //Placing Resource
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_5));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.OEM_MINUS));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_5));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.OEM_MINUS));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_D));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_J));
 
             //Placing Redirecting
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_2));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_0));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_L));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_L));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
-            test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_2));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_0));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_L));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_L));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_I));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_S));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_E));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_O));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_W));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
+                test4.Add(() => InputSimulator.SimulateKeyPress(VirtualKeyCode.VK_K));
 
 
     }
