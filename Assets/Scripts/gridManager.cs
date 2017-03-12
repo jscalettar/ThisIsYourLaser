@@ -263,17 +263,6 @@ public struct Grid
         return cost;
     }
 
-    /*private void addWeakSides(int x, int y, Building building, Direction facing)
-    {
-        if (building == Building.Reflecting || building == Building.Blocking || building == Building.Resource) {
-            //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
-            if (facing == Direction.Left) grid[y, x].weakSides[1] = 1;
-            if (facing == Direction.Right) grid[y, x].weakSides[0] = 1;
-            if (facing == Direction.Up) grid[y, x].weakSides[3] = 1;
-            if (facing == Direction.Down) grid[y, x].weakSides[2] = 1;
-        }
-    }*/
-
     private bool canRotate(Building building) // Add buildings here that support 4 way sprite rotation
     {
         if (building == Building.Blocking || building == Building.Reflecting || building == Building.Refracting || building == Building.Resource)
@@ -321,30 +310,10 @@ public struct Grid
         if (!validateInput(x, y)) return false;
         if (grid[y, x].isEmpty && probeGrid(x, y, facing, newBuilding) && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost(newBuilding)) {
             if (prefabDictionary.ContainsKey(new XY(x, y))) return false;
-            /*// Add Weak Side(s)
-            if (newBuilding == Building.Reflecting || newBuilding == Building.Blocking) {
-                //if ((int)facing > 4 && (int)facing < 9) grid[y, x].weakSides[(int)facing-5] = 1;
-                if (facing == Direction.Left) { grid[y, x-1].isWeak = true; }
-                if (facing == Direction.Right) { grid[y, x+1].isWeak = true; }
-                if (facing == Direction.Up) { grid[y+1, x].isWeak = true; }
-                if (facing == Direction.Down) { grid[y-1, x].isWeak = true; }
-            }else if(newBuilding == Building.Resource)
-            { // These cause error if on edge of map
-                if (facing == Direction.Left) { grid[y, x + 1].isWeak = true; grid[y-1, x].isWeak = true; grid[y+1, x].isWeak = true; }
-                if (facing == Direction.Right) { grid[y, x - 1].isWeak = true; grid[y - 1, x].isWeak = true; grid[y + 1, x].isWeak = true; }
-                if (facing == Direction.Up) { grid[y - 1, x].isWeak = true; grid[y, x + 1].isWeak = true; grid[y, x - 1].isWeak = true; }
-                if (facing == Direction.Down) { grid[y + 1, x].isWeak = true; grid[y, x + 1].isWeak = true; grid[y, x - 1].isWeak = true; }
-            }
-            addWeakSides(x, y, newBuilding, facing);*/
 
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
             placementList.Add(new buildingRequest(new XY(x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
-            /*grid[y, x].isEmpty = false;
-            grid[y, x].building = newBuilding;
-            grid[y, x].owner = playerID;
-            grid[y, x].direction = facing;
-            grid[y, x].health = building.GetComponent<buildingParameters>().health; // Building starting health*/
             building.GetComponent<buildingParameters>().x = x;
             building.GetComponent<buildingParameters>().y = y;
             building.GetComponent<buildingParameters>().owner = playerID;
@@ -389,36 +358,6 @@ public struct Grid
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
-
-            // Clear out GridItem
-            /*grid[y, x].isEmpty = true;
-            grid[y, x].building = Building.Empty;
-            grid[y, x].owner = Player.World;
-            grid[y, x].level = 0;
-            grid[y, x].health = 0;
-            needsUpdate = true;*/
-
-            /*//make spots next to building available
-            if (temp == Building.Blocking || temp == Building.Reflecting)
-            {
-                if (grid[y, x].direction == Direction.Left) grid[y, x - 1].isWeak = false;
-                if (grid[y, x].direction == Direction.Right) grid[y, x + 1].isWeak = false;
-                if (grid[y, x].direction == Direction.Up) grid[y + 1, x].isWeak = false;
-                if (grid[y, x].direction == Direction.Down) grid[y - 1, x].isWeak = false;
-            }
-            else if (temp == Building.Resource)
-            {
-                if (grid[y, x].direction == Direction.Left) { grid[y, x + 1].isWeak = false; grid[y + 1, x].isWeak = false; grid[y - 1, x].isWeak = false; }
-                if (grid[y, x].direction == Direction.Right) { grid[y, x - 1].isWeak = false; grid[y + 1, x].isWeak = false; grid[y - 1, x].isWeak = false; }
-                if (grid[y, x].direction == Direction.Up) { grid[y - 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
-                if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
-            }
-            // Reset Weak Sides
-            for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;*/
-
-            // Remove Building Prefab
-            /*MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
-            prefabDictionary.Remove(new XY(x, y));*/
             // Specify that the board was updated and that laserLogic needs to run a simulation
         } else return false;
         return true;
@@ -443,27 +382,6 @@ public struct Grid
             }
             needsUpdate = true;
 
-            /*//make spots next to building available
-            if (temp == Building.Blocking || temp == Building.Reflecting)
-            {
-                if (grid[y, x].direction == Direction.Left) grid[y, x - 1].isWeak = false;
-                if (grid[y, x].direction == Direction.Right) grid[y, x + 1].isWeak = false;
-                if (grid[y, x].direction == Direction.Up) grid[y + 1, x].isWeak = false;
-                if (grid[y, x].direction == Direction.Down) grid[y - 1, x].isWeak = false;
-            }
-            else if (temp == Building.Resource)
-            {
-                if (grid[y, x].direction == Direction.Left) { grid[y, x + 1].isWeak = false; grid[y + 1, x].isWeak = false; grid[y - 1, x].isWeak = false; }
-                if (grid[y, x].direction == Direction.Right) { grid[y, x - 1].isWeak = false; grid[y + 1, x].isWeak = false; grid[y - 1, x].isWeak = false; }
-                if (grid[y, x].direction == Direction.Up) { grid[y - 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
-                if (grid[y, x].direction == Direction.Down) { grid[y + 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
-            }
-            // Reset Weak Sides
-            for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;*/
-            // Remove Building Prefab
-            /*MonoBehaviour.DestroyImmediate(prefabDictionary[new XY(x, y)]);
-            prefabDictionary.Remove(new XY(x, y));*/
-            // Specify that the board was updated and that laserLogic needs to run a simulation
         } else return false;
         return true;
     }
@@ -499,35 +417,6 @@ public struct Grid
                 prefabDictionary.Add(new XY(xNew, yNew), building);
 			}
 			grid[yNew, xNew].direction = facing;
-			/*//make spots next to building available
-			if (temp.building == Building.Blocking || temp.building == Building.Reflecting)
-			{
-				if (temp.direction == Direction.Left) { grid[y, x - 1].isWeak = false; }
-				if (temp.direction == Direction.Right) { grid[y, x + 1].isWeak = false; }
-				if (temp.direction == Direction.Up) { grid[y + 1, x].isWeak = false; }
-				if (temp.direction == Direction.Down) { grid[y - 1, x].isWeak = false; }
-				//set new for new rotations
-				if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew - 1].isWeak = true; }
-				if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew + 1].isWeak = true; }
-				if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew + 1, xNew].isWeak = true; }
-				if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew - 1, xNew].isWeak = true; }
-			}
-			else if (temp.building == Building.Resource)
-			{
-				if (temp.direction == Direction.Left) { grid[y, x + 1].isWeak = false; grid[y + 1, x].isWeak = false; grid[y - 1, x].isWeak = false; }
-				if (temp.direction == Direction.Right) { grid[y, x - 1].isWeak = false; grid[y + 1, x].isWeak = false; grid[y - 1, x].isWeak = false; }
-				if (temp.direction == Direction.Up) { grid[y - 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
-				if (temp.direction == Direction.Down) { grid[y + 1, x].isWeak = false; grid[y, x + 1].isWeak = false; grid[y, x - 1].isWeak = false; }
-				//set for new rotation
-				if (grid[yNew, xNew].direction == Direction.Left) { grid[yNew, xNew + 1].isWeak = true; grid[yNew + 1, xNew].isWeak = true; grid[yNew - 1, xNew].isWeak = true; }
-				if (grid[yNew, xNew].direction == Direction.Right) { grid[yNew, xNew - 1].isWeak = true; grid[yNew + 1, xNew].isWeak = true; grid[yNew - 1, xNew].isWeak = true; }
-				if (grid[yNew, xNew].direction == Direction.Up) { grid[yNew - 1, xNew].isWeak = true; grid[yNew, xNew + 1].isWeak = true; grid[yNew, xNew - 1].isWeak = true; }
-				if (grid[yNew, xNew].direction == Direction.Down) { grid[yNew + 1, xNew].isWeak = true; grid[yNew, xNew + 1].isWeak = true; grid[yNew, xNew - 1].isWeak = true; }
-			}
-            // Reset Weak Sides
-            for (int i = 0; i < 4; i++) grid[y, x].weakSides[i] = 0;
-            // Add Weak Side(s)
-            addWeakSides(xNew, yNew, grid[yNew, xNew].building, facing);*/
             // Rotate
             if(canRotate(grid[yNew, xNew].building)) building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
             // Specify that the board was updated and that laserLogic needs to run a simulation
@@ -624,7 +513,7 @@ public class gridManager : MonoBehaviour
     public GameObject Portal2;
 
     public GameObject empty;
-
+    
     private GameObject buildingContainer;
     private int[] deletions = new int[100];
     private int deletionCount = 0;

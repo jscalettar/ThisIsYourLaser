@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class GUI : MonoBehaviour {
+public class GUI_Script : MonoBehaviour {
 
     public GameObject canvas;
     public static playerOneUI p1UI;

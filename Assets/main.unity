@@ -28098,6 +28098,7 @@ GameObject:
   - component: {fileID: 2040606546}
   - component: {fileID: 2040606553}
   - component: {fileID: 2040606548}
+  - component: {fileID: 2040606552}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -28234,6 +28235,25 @@ MonoBehaviour:
   Sounds:
   - audioclip: {fileID: 8300000, guid: 88ff972be695ef8438c3756582cc8082, type: 3}
   PauseMenu: {fileID: 0}
+--- !u!114 &2040606552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040606545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9216692a4a430348ba0170686e22243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarBG: {fileID: 2800000, guid: bdd590d8704e3a14fa143aa7d8e03803, type: 3}
+  yOffset: 0.55
+  yScale: 1
+  xScale: 1
+  p1Background: {r: 1, g: 0, b: 0, a: 0}
+  p1HealthColor: {r: 0, g: 1, b: 0, a: 0}
+  p2Background: {r: 1, g: 0, b: 1, a: 0}
+  p2HealthColor: {r: 0, g: 1, b: 1, a: 0}
 --- !u!114 &2040606553
 MonoBehaviour:
   m_ObjectHideFlags: 0
