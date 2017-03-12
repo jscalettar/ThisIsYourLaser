@@ -127,10 +127,11 @@ public struct Grid
     private bool needsUpdate;
     private GameObject baseP1;
     private GameObject baseP2;
+    private GameObject placementTimer;
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder, GameObject placementTimerObj)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
@@ -173,6 +174,7 @@ public struct Grid
         placementList = new List<buildingRequest>();
         removalList = new List<buildingRequest>();
         destructionList = new List<buildingRequest>();
+        placementTimer = placementTimerObj;
         resourcesP1 = resources;
         resourcesP2 = resources;
         baseP1 = null;
@@ -285,7 +287,7 @@ public struct Grid
     public void updateFinished() { needsUpdate = false; }
     public void queueUpdate() { needsUpdate = true; }
     public GameObject getBuildingContainer() { return buildingContainer; }
-    public Vector3 coordsToWorld(int x, int y, float yOffset = 0f) // Use this to easily convert coords from grid space to world space
+    public Vector3 coordsToWorld(float x, float y, float yOffset = 0f) // Use this to easily convert coords from grid space to world space
     {
         return new Vector3(x - (dimX / 2f) + 0.5f, yOffset, y - (dimY / 2f) + 0.5f);
     }
@@ -327,7 +329,7 @@ public struct Grid
             }
             else building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? Color.red : Color.green; // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);
-            building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
+            building.transform.localPosition = coordsToWorld(x, y);
             building.transform.localEulerAngles = new Vector3(90, 0, 0);
             prefabDictionary.Add(new XY(x, y), building);
             // Subtract Cost From Resources
@@ -335,8 +337,14 @@ public struct Grid
             else resourcesP2 -= getCost(newBuilding, x, playerID);
             // Set base references for getting health later
             if (newBuilding == Building.Base) { if (playerID == Player.PlayerOne) baseP1 = building; else baseP2 = building; }
+            // Placement Timer
+            GameObject placementTimerObject = MonoBehaviour.Instantiate(placementTimer);
+            placementTimerObject.transform.parent = buildingContainer.transform.parent.transform;
+            placementTimerObject.transform.localEulerAngles = new Vector3(90f, 0, 0);
+            placementTimerObject.transform.localPosition = coordsToWorld(x, y, 1f);
+            placementTimerObject.GetComponent<placementTimer>().init(building.GetComponent<buildingParameters>().placementTime, playerID);
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            //needsUpdate = true;
+            needsUpdate = true;
         } else return false;
         return true;
     }
@@ -359,6 +367,7 @@ public struct Grid
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
+            needsUpdate = true;
         } else return false;
         return true;
     }
@@ -513,6 +522,7 @@ public class gridManager : MonoBehaviour
     public GameObject Portal2;
 
     public GameObject empty;
+    public GameObject placementTimerObj;
     
     private GameObject buildingContainer;
     private int[] deletions = new int[100];
@@ -523,7 +533,7 @@ public class gridManager : MonoBehaviour
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, empty);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, empty, placementTimerObj);
     }
     
     void LateUpdate()

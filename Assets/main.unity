@@ -28149,6 +28149,7 @@ MonoBehaviour:
   textLifetime: 1
   p1DamageColor: {r: 1, g: 1, b: 0, a: 1}
   p2DamageColor: {r: 1, g: 0, b: 1, a: 1}
+  font: {fileID: 0}
 --- !u!114 &2040606549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28201,6 +28202,8 @@ MonoBehaviour:
   Portal: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   Portal2: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   empty: {fileID: 1016938011168578, guid: 192d36f0c8e49bd4ea7e9eb222de6dac, type: 2}
+  placementTimerObj: {fileID: 1212582469528822, guid: dd8945e57707bcd4590911d4ec55ea6e,
+    type: 2}
 --- !u!114 &2040606551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28250,10 +28253,10 @@ MonoBehaviour:
   yOffset: 0.55
   yScale: 1
   xScale: 1
-  p1Background: {r: 1, g: 0, b: 0, a: 0}
-  p1HealthColor: {r: 0, g: 1, b: 0, a: 0}
-  p2Background: {r: 1, g: 0, b: 1, a: 0}
-  p2HealthColor: {r: 0, g: 1, b: 1, a: 0}
+  p1Background: {r: 1, g: 0, b: 0, a: 1}
+  p1HealthColor: {r: 0, g: 1, b: 0, a: 1}
+  p2Background: {r: 1, g: 0, b: 1, a: 1}
+  p2HealthColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!114 &2040606553
 MonoBehaviour:
   m_ObjectHideFlags: 0

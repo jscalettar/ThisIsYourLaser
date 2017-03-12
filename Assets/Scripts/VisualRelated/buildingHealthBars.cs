@@ -24,6 +24,7 @@ public class buildingHealthBars : MonoBehaviour {
         float scale = (v2.x - v1.x) * 0.08f;
 
         foreach (KeyValuePair<XY, GameObject> pair in gridManager.theGrid.prefabDictionary) {
+            if (pair.Value.GetComponent<buildingParameters>().buildingType == Building.Laser) continue;
 
             Vector3 center = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(pair.Key.x, pair.Key.y));
             center.x -= scale * 0.5f * xScale;

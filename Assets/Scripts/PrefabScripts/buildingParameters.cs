@@ -19,5 +19,5 @@ public class buildingParameters : MonoBehaviour {
     public float placementTime = 1f;
     public float removalTime = 1f;
     public float destructionTime = 0.5f;
-
+    public Building buildingType = Building.Empty;
 }

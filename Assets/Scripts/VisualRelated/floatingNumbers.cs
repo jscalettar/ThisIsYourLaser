@@ -28,8 +28,9 @@ public struct damageResourceGrid
     private float textSize;
     private float textSpeed;
     private float textLifetime;
+    private Font font;
 
-    public damageResourceGrid(GameObject container, Color p1, Color p2, float rate = 1f, float randomAngle = 0f, float size = 1f, float speed = 1f, float life = 1f)
+    public damageResourceGrid(GameObject container, Color p1, Color p2, Font customFont, float rate = 1f, float randomAngle = 0f, float size = 1f, float speed = 1f, float life = 1f)
     {
         gameObject = container;
         grid = new Dictionary<XY, healthBuilding>();
@@ -40,6 +41,8 @@ public struct damageResourceGrid
         textLifetime = life * 1.5f;
         p1DamageColor = p1;
         p2DamageColor = p2;
+        if (customFont == null) customFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        font = customFont;
 }
 
     public void checkDamage(XY pos, float currHP, float maxHP, Building building, Player buildingOwner)
@@ -49,11 +52,10 @@ public struct damageResourceGrid
         else if (value.building != building || value.lastHP < currHP) grid[pos] = new healthBuilding(maxHP, emissionRate, building); // Reset if building has changed
         else if (value.time <= 0f) {
             // Emit damage number
-
             GameObject child = new GameObject();
             child.transform.parent = gameObject.transform;
             child.transform.localEulerAngles = new Vector3(90f, 0, 0);
-            child.transform.localPosition = gridManager.theGrid.coordsToWorld(pos.x, pos.y, 1f) + new Vector3(0,0,0.5f);
+            child.transform.localPosition = gridManager.theGrid.coordsToWorld(pos.x, pos.y + 0.5f, 1f);
             child.AddComponent<Rigidbody>();
             Rigidbody rigidBody = child.GetComponent<Rigidbody>();
 
@@ -69,6 +71,7 @@ public struct damageResourceGrid
             textMesh.anchor = TextAnchor.MiddleCenter;
             textMesh.color = buildingOwner == Player.PlayerOne ? p1DamageColor : p2DamageColor;
             textMesh.fontStyle = FontStyle.Bold;
+            textMesh.font = font;
             textMesh.text = "-" + ((value.lastHP - currHP) * gridManager.hpScale).ToString("F1");
 
             MonoBehaviour.Destroy(child, textLifetime);
@@ -99,12 +102,13 @@ public class floatingNumbers : MonoBehaviour {
     public float textLifetime = 1f;
     public Color p1DamageColor = Color.red;
     public Color p2DamageColor = Color.red;
+    public Font font;
 
     public static damageResourceGrid floatingNumbersStruct;
 
     void Awake()
     {
-        floatingNumbersStruct = new damageResourceGrid(gameObject, p1DamageColor, p2DamageColor, emissionRate, randomnessRange, textSize, textSpeed, textLifetime);
+        floatingNumbersStruct = new damageResourceGrid(gameObject, p1DamageColor, p2DamageColor, font, emissionRate, randomnessRange, textSize, textSpeed, textLifetime);
     }
 
 }

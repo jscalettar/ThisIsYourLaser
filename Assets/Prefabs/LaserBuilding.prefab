@@ -146,6 +146,7 @@ MonoBehaviour:
   placementTime: 1
   removalTime: 1
   destructionTime: 0.5
+  buildingType: 1
 --- !u!114 &114105079807383150
 MonoBehaviour:
   m_ObjectHideFlags: 1
