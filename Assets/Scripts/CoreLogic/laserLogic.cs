@@ -557,11 +557,11 @@ public class laserLogic : MonoBehaviour
     private void laserBlock(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
-        if (opposites(gi.direction, direction)) {
+        //if (opposites(gi.direction, direction)) {
             laserHits.Add(new laserHit(x, y, true, strength, Building.Blocking, gi.owner));
             if (!particleHits.ContainsKey(new XY(x, y))) particleHits.Add(new XY(x, y), new List<dirHeadPlayer>());
             particleHits[new XY(x, y)].Add(new dirHeadPlayer(direction, heading, player));
-        }
+        //}
     }
 
     // What happens when a laser collides with a resource block
