@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum State { placeBase, placeLaser, placingLaser, placing, moving, placingMove, idle };
 
@@ -53,6 +54,10 @@ public class inputController : MonoBehaviour {
 	//List of Sounds
 	public Audios[] Sounds;
 
+    //Vars for UI
+    public static playerOneUI p1UI;
+    public static playerTwoUI p2UI;
+
     // Pause menu
     public GameObject PauseMenu;
 
@@ -94,6 +99,13 @@ public class inputController : MonoBehaviour {
     private Queue<XY> moveQueueP2 = new Queue<XY>();
 
     void Start () {
+        //default values for Player 1 UI  
+        p1UI = gameObject.AddComponent<playerOneUI>();
+        p1UI.State = GameObject.Find("p1State").GetComponent<Text>();
+        //default values for Player 2 UI  
+        p2UI = gameObject.AddComponent<playerTwoUI>();
+        p2UI.State = GameObject.Find("p2State").GetComponent<Text>();
+
         cycleP1 = 0;
         cycleP2 = 0;
         xEnd = gridManager.theGrid.getDimX() - 1;
@@ -227,9 +239,12 @@ public class inputController : MonoBehaviour {
             else if (Input.GetButtonDown("move_2")) move(Player.PlayerTwo, cursorP2.state);
             else if (Input.GetButtonDown("remove_2")) remove(Player.PlayerTwo, cursorP2.state);
 
-            // Update Cursor Appearance P1
-            if (cursorP1.state == State.placeBase) cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite;
-            else if (cursorP1.state == State.placeLaser || cursorP1.state == State.placingLaser) cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
+            // Update Cursor/UI Appearance P1
+            if (cursorP1.state == State.placeBase) { cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; p1UI.State.text = "Place base on the current column \nPress [e] to place base"; }
+            else if (cursorP1.state == State.placeLaser || cursorP1.state == State.placingLaser) {
+                cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
+                p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+            }
             else if (cursorP1.state == State.placing) // in here change the sprite while choosing direction
             {
                 float scale = 1f;
@@ -244,7 +259,8 @@ public class inputController : MonoBehaviour {
                 cursorObjP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
                 cursorObjP1.transform.localScale = new Vector3(scale, scale, scale);
             }
-            else {
+            else
+            {
                 float scale = 1f;
                 switch (cursorP1.selection)
                 {
@@ -258,9 +274,12 @@ public class inputController : MonoBehaviour {
                 cursorObjP1.transform.localScale = new Vector3(scale, scale, scale);
             }
 
-            // Update Cursor Appearance P2
-            if (cursorP2.state == State.placeBase) cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite;
-            else if (cursorP2.state == State.placeLaser || cursorP2.state == State.placingLaser) cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
+            // Update Cursor/UI Appearance P2
+            if (cursorP2.state == State.placeBase) { cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; p2UI.State.text = "Place base on the current column \nPress [o] to place base"; }
+            else if (cursorP2.state == State.placeLaser || cursorP2.state == State.placingLaser) {
+                cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
+                p2UI.State.text = "Press [o] to place laser \nPress [i] or [k] for direction \n[o] to confirm";
+            }
             else if (cursorP2.state == State.placing) // in here change the sprite while choosing direction
             {
                 float scale = 1f;
@@ -316,7 +335,8 @@ public class inputController : MonoBehaviour {
             {
                 LaserArrowP1.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
-            }else
+            }
+            else
             {
                 LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
                 indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
@@ -391,10 +411,12 @@ public class inputController : MonoBehaviour {
             }
         } else if (currentState == State.placingLaser) {
             if (player == Player.PlayerOne) {
+                p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
                 if (cursorP1.direction == Direction.Up) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else if (cursorP1.direction == Direction.Down) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else print("Press the up or down direction keys to place laser");
             } else {
+                p2UI.State.text = "Press [o] to place creatures \nPress IJKL for direction \n[o] to confirm";
                 if (cursorP2.direction == Direction.Up) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else if (cursorP2.direction == Direction.Down) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else print("Press the up or down direction keys to place laser");
@@ -427,10 +449,12 @@ public class inputController : MonoBehaviour {
     {
         if (currentState == State.moving) {
             if (player == Player.PlayerOne) {
+                p1UI.State.text = "Press [u] to place creature \nPress WASD for direction \n[u] to confirm";
                 if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty && !new XY(cursorP1.x, cursorP1.y).Equals(cursorP1.moveOrigin)) print("You can not move to here, selection is not empty");
                 else if (gridManager.theGrid.getCost(cursorP1.moveBuilding, cursorP1.x, Player.PlayerOne, true) < gridManager.theGrid.getResourcesP1()) cursorP1.state = State.placingMove;
                 else print("Not enough resources to move.");
             } else {
+                p2UI.State.text = "Press [u] to place creatures \nPress IJKL for direction \n[u] to confirm";
                 if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty && !new XY(cursorP2.x, cursorP2.y).Equals(cursorP2.moveOrigin)) print("You can not move to here, selection is not empty");
                 else if (gridManager.theGrid.getCost(cursorP2.moveBuilding, cursorP2.x, Player.PlayerTwo, true) < gridManager.theGrid.getResourcesP2()) cursorP2.state = State.placingMove;
                 else print("Not enough resources to move.");

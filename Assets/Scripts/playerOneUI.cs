@@ -7,6 +7,7 @@ public class playerOneUI : MonoBehaviour {
     public Text playerState;
     public Text playerHealth;
     public Text currentResource;
+    public Text State;
 
     public Image p1ResourceBackground;
     public Image p1BlockBackground;

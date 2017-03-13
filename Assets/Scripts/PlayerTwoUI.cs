@@ -7,6 +7,7 @@ public class playerTwoUI : MonoBehaviour {
     public Text playerState;
     public Text playerHealth;
     public Text currentResource;
+    public Text State;
 
     public Image p2ResourceBackground;
     public Image p2BlockBackground;
