@@ -22,6 +22,7 @@ public class laserLogic : MonoBehaviour
     public Material laserMaterialP2;
     public Material laserMaterialCombined;
     public GameObject hitEffect;
+    public GameObject resourceEffect;
 
     // Can change laser heading like this:
     // laserLogic.laserHeadingP1 = Direction.SE;  or  laserLogic.laserHeadingP2 = Direction.SW;

@@ -2890,7 +2890,7 @@ ParticleSystem:
   m_GameObject: {fileID: 367682182}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -5530,7 +5530,7 @@ Transform:
   m_LocalScale: {x: 0.37, y: 0.37, z: 0.37}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!1 &371869883
 GameObject:
@@ -8066,7 +8066,7 @@ ParticleSystem:
   m_GameObject: {fileID: 691219462}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -8113,7 +8113,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -33505687
+  randomSeed: -882930041
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10634,7 +10634,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &704203153
 GameObject:
@@ -10977,7 +10977,7 @@ ParticleSystem:
   m_GameObject: {fileID: 749703399}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -13804,7 +13804,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4065751881215984, guid: e2ef9aa91ce56ee439c3062738162649, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114909061589226258, guid: e2ef9aa91ce56ee439c3062738162649,
         type: 2}
@@ -14397,7 +14397,7 @@ Transform:
   m_GameObject: {fileID: 869729620}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -6.5, y: 0.01, z: -3.5}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 455511570}
   - {fileID: 1866769082}
@@ -15540,7 +15540,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4544371242310278, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
@@ -20472,7 +20472,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1630470809}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -24421,7 +24421,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1879519083}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -24468,7 +24468,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1213887991
+  randomSeed: 5450334
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -28321,6 +28321,8 @@ MonoBehaviour:
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
     type: 2}
   hitEffect: {fileID: 1298907687621598, guid: 9579064596fbff54e8b756c71df0a708, type: 2}
+  resourceEffect: {fileID: 1285733120507736, guid: c469784edbcc3d14d878583dc57ad147,
+    type: 2}
 --- !u!114 &2040606550
 MonoBehaviour:
   m_ObjectHideFlags: 0
