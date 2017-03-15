@@ -54,6 +54,8 @@ public class inputController : MonoBehaviour {
 	//List of Sounds
 	public Audios[] setSounds;
 	public static Audios[] Sounds;
+	public Audios[] setUISounds;
+	public static Audios[] UISounds;
 
     //Vars for UI
     public static playerOneUI p1UI;
@@ -101,6 +103,7 @@ public class inputController : MonoBehaviour {
 
     void Start () {
 		Sounds = setSounds;
+		UISounds = setUISounds;
         //default values for Player 1 UI  
         p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.State = GameObject.Find("p1State").GetComponent<Text>();
@@ -127,42 +130,46 @@ public class inputController : MonoBehaviour {
         // Check that the game isn't paused
         if (PauseMenu.activeInHierarchy == false)
         {
-            // Cursor Selection P1
-            if (Input.GetKeyDown("1")) cursorP1.selection = Building.Blocking;
-            else if (Input.GetKeyDown("2")) cursorP1.selection = Building.Reflecting;
-            else if (Input.GetKeyDown("3")) cursorP1.selection = Building.Refracting;
-            else if (Input.GetKeyDown("4")) cursorP1.selection = Building.Redirecting;
-            else if (Input.GetKeyDown("5")) cursorP1.selection = Building.Resource;
-            // Cycle P1
-            if (Input.GetButtonDown("cycleR_1"))
-            {
-                if (cursorP1.selection == Building.Redirecting) cursorP1.selection = Building.Blocking;
-                else cursorP1.selection += 1;
-            }
-            else if (Input.GetButtonDown("cycleL_1"))
-            {
-                if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Redirecting;
-                else cursorP1.selection -= 1;
-            }
+			// Cursor Selection P1
+			if (Input.GetKeyDown ("1")) {cursorP1.selection = Building.Blocking;SoundManager.PlaySound (UISounds [0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);} 
+			else if (Input.GetKeyDown ("2")) {cursorP1.selection = Building.Reflecting; SoundManager.PlaySound (UISounds [0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);}
+			else if (Input.GetKeyDown("3")){ cursorP1.selection = Building.Refracting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+			else if (Input.GetKeyDown("4")) {cursorP1.selection = Building.Redirecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+			else if (Input.GetKeyDown("5")){ cursorP1.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+			// Cycle P1
 
-            // Cursor Selection P2
-            if (Input.GetKeyDown("7")) cursorP2.selection = Building.Blocking;
-            else if (Input.GetKeyDown("8")) cursorP2.selection = Building.Reflecting;
-            else if (Input.GetKeyDown("9")) cursorP2.selection = Building.Refracting;
-            else if (Input.GetKeyDown("0")) cursorP2.selection = Building.Redirecting;
-            else if (Input.GetKeyDown("-")) cursorP2.selection = Building.Resource;
-            // Cycle P2
-            if (Input.GetButtonDown("cycleR_2"))
-            {
-                if (cursorP2.selection == Building.Redirecting) cursorP2.selection = Building.Blocking;
-                else cursorP2.selection += 1;
-            }
-            else if (Input.GetButtonDown("cycleL_2"))
-            {
-                if (cursorP2.selection == Building.Blocking) cursorP2.selection = Building.Redirecting;
-                else cursorP2.selection -= 1;
-            }
+			if (Input.GetButtonDown("cycleR_1"))
+			{
+				if (cursorP1.selection == Building.Redirecting) cursorP1.selection = Building.Blocking;
+				else cursorP1.selection += 1;
+				cursorP1.selection = Building.Reflecting;SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
+			}
+			else if (Input.GetButtonDown("cycleL_1"))
+			{
+				if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Redirecting;
+				else cursorP1.selection -= 1;
+				cursorP1.selection = Building.Reflecting;SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
+			}
 
+			// Cursor Selection P2
+			if (Input.GetKeyDown("7")){ cursorP2.selection = Building.Blocking; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+			else if (Input.GetKeyDown("8")){ cursorP2.selection = Building.Reflecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+			else if (Input.GetKeyDown("9")){ cursorP2.selection = Building.Refracting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+			else if (Input.GetKeyDown("0")){ cursorP2.selection = Building.Redirecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+			else if (Input.GetKeyDown("-")){ cursorP2.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+			// Cycle P2
+			if (Input.GetButtonDown("cycleR_2"))
+			{
+				if (cursorP2.selection == Building.Redirecting) cursorP2.selection = Building.Blocking;
+				else cursorP2.selection += 1;
+				SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
+			}
+			else if (Input.GetButtonDown("cycleL_2"))
+			{
+				if (cursorP2.selection == Building.Blocking) cursorP2.selection = Building.Redirecting;
+				else cursorP2.selection -= 1;
+				SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
+			}
             if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove)
             {
                 // Cursor Movement P1
@@ -423,6 +430,7 @@ public class inputController : MonoBehaviour {
                     cursorP2.state = State.placeLaser; p2HasPlacedBase = true;
                 }
             }
+			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         } else if (currentState == State.placeLaser && p1HasPlacedBase && p2HasPlacedBase) {
             if (player == Player.PlayerOne) {
                 if (cursorP1.x > 0) print("Laser must be placed on the edge of the board");
@@ -437,6 +445,7 @@ public class inputController : MonoBehaviour {
                     else cursorP2.state = State.placingLaser;
                 }
             }
+			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         } else if (currentState == State.placingLaser) {
             if (player == Player.PlayerOne) {
                 p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
@@ -450,6 +459,7 @@ public class inputController : MonoBehaviour {
                 else print("Press the up or down direction keys to place laser");
             }
         } else if (currentState == State.placing) {
+			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
             if (player == Player.PlayerOne) {
                 if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty) print("You can not place here, selection is no longer empty");
                 else { if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, cursorP1.selection, Player.PlayerOne, cursorP1.direction)) print("Placing failed."); cursorP1.state = State.idle; }
@@ -512,7 +522,7 @@ public class inputController : MonoBehaviour {
 
     private void remove(Player player, State currentState)
     {
-        if (currentState == State.idle) {
+        if (currentState == State.idle) {	
             if (player == Player.PlayerOne) {
                 if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Empty) print("Nothing to remove here.");
                 else if (gridManager.theGrid.getCellInfo(cursorP1.x, cursorP1.y).owner != Player.PlayerOne) print("You can not remove a building that you do not own.");
@@ -524,6 +534,7 @@ public class inputController : MonoBehaviour {
                 else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser) print("Cannot remove this building.");
                 else { if (!gridManager.theGrid.removeBuilding(cursorP2.x, cursorP2.y, Player.PlayerTwo)) print("Removing failed."); }
             }
+			SoundManager.PlaySound(Sounds[3].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         } else {
             print("Can not remove, busy with some other action.");
         }
