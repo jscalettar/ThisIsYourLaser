@@ -139,11 +139,12 @@ MonoBehaviour:
   health: 1
   cost: 2
   sprites:
-  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
-  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
-  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
-  - {fileID: 21300000, guid: 76ecd22feb358eb468bacfa1d548aa91, type: 3}
+  - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
+  - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
+  - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
+  - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   scale: 0.15
   placementTime: 1
   removalTime: 1
   destructionTime: 0.5
+  buildingType: 8
