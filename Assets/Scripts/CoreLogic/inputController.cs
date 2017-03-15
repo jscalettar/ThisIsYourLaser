@@ -230,7 +230,7 @@ public class inputController : MonoBehaviour {
             }
 
             // Cursor Functions P1
-            if (Input.GetButtonDown("place_1") && !notNow1) place(Player.PlayerOne, cursorP1.state);
+            if ((Input.GetButtonDown("place_1")) && !notNow1) place(Player.PlayerOne, cursorP1.state);
             else if (Input.GetButtonDown("move_1")) move(Player.PlayerOne, cursorP1.state);
             else if (Input.GetButtonDown("remove_1")) remove(Player.PlayerOne, cursorP1.state);
 
