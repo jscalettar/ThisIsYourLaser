@@ -157,6 +157,7 @@ public class SoundManager : MonoBehaviour {
 			// If music not playing remove
 			if (!audio.playing && !audio.paused){
 				Destroy(audio.audioSource);
+				musicAudio.Remove (key);
 				//emove(key);
 			}
 		}
@@ -170,6 +171,7 @@ public class SoundManager : MonoBehaviour {
 			if (!audio.playing && !audio.paused)
 			{
 				Destroy(audio.audioSource);
+				soundsAudio.Remove(key);
 				//.Remove(key);
 			}
 		}
@@ -182,6 +184,7 @@ public class SoundManager : MonoBehaviour {
 			// Remove all UI sound fx clips that are not playing
 			if (!audio.playing && !audio.paused){
 				Destroy(audio.audioSource);
+				UISoundsAudio.Remove(key);
 			}
 		}
 	}
@@ -340,18 +343,22 @@ public class SoundManager : MonoBehaviour {
 	}
 	//Sound clip playing	
 	public static int PlaySound(AudioClip clip){
-		return PlaySound(clip, 1f, false, null);
+		return PlaySound(clip, 1f, false, null, false, 1, 1);
 	}
 	//Overload sound with volume
 	public static int PlaySound(AudioClip clip, float volume){
-		return PlaySound(clip, volume, false, null);
+		return PlaySound(clip, volume, false, null, false, 1, 1);
+	}
+	//Overload sound with volume + random pitch between two values
+	public static int PlaySound(AudioClip clip, float volume, bool randpitch, float pitchLow, float pitchHigh){
+		return PlaySound(clip, volume, false, null, randpitch, pitchLow, pitchHigh);
 	}
 	//overload sound with loop boolean
 	public static int PlaySound(AudioClip clip, bool loop){
-		return PlaySound(clip, 1f, loop, null);
+		return PlaySound(clip, 1f, loop, null, false, 1, 1);
 	}
 
-	public static int PlaySound(AudioClip clip, float volume, bool loop, Transform sourceTransform){
+	public static int PlaySound(AudioClip clip, float volume, bool loop, Transform sourceTransform, bool randPitch, float pitchLow, float pitchHigh){
 		if (clip == null){
 			Debug.LogError("No Sound", clip);
 		}
@@ -367,7 +374,7 @@ public class SoundManager : MonoBehaviour {
 
 		instance.Init();
 		AudioSource audioSource = instance.gameObject.AddComponent<AudioSource>() as AudioSource;
-		Audio audio = new Audio(Audio.AudioType.Sound, clip, loop, false, volume, 0f, 0f, sourceTransform);
+		Audio audio = new Audio(Audio.AudioType.Sound, clip, loop, false, volume, 0f, 0f, sourceTransform, randPitch, pitchLow, pitchHigh);
 		soundsAudio.Add(audio.audioID, audio);
 
 		return audio.audioID;
@@ -393,12 +400,11 @@ public class SoundManager : MonoBehaviour {
 		}
 
 		instance.Init();
-		Audio audio = new Audio(Audio.AudioType.UISound, clip, false, false, volume, 0f, 0f, null);
+		Audio audio = new Audio(Audio.AudioType.UISound, clip, false, false, volume, 0f, 0f, null, false, 1, 1);
 		UISoundsAudio.Add(audio.audioID, audio);
 
 		return audio.audioID;
 	}
-
 }
 public class Audio
 {
@@ -466,7 +472,14 @@ public class Audio
 		get; 
 		private set; 
 	}        
-
+	public float pitchLowRange { 
+		get; 
+		private set; 
+	}  
+	public float pitchHighRange {
+		get;
+		private set;
+	}
 	public bool activated {
 		get; 
 		private set; 
@@ -476,7 +489,7 @@ public class Audio
 		Music, Sound, UISound
 	}
 
-	public Audio(AudioType audioType, AudioClip clip, bool loop, bool persist, float volume, float fadeInValue, float fadeOutValue, Transform sourceTransform){
+	public Audio(AudioType audioType, AudioClip clip, bool loop, bool persist, float volume, float fadeInValue, float fadeOutValue, Transform sourceTransform, bool randPitch, float pitchLow, float pitchHigh){
 		if (sourceTransform == null){
 			this.sourceTransform = SoundManager.gameobject.transform;
 		}
@@ -497,21 +510,25 @@ public class Audio
 		this.volume = 0f;
 		this.fadeInSeconds = fadeInValue;
 		this.fadeOutSeconds = fadeOutValue;
-
+		this.pitchLowRange = pitchLow;
+		this.pitchHighRange = pitchHigh;
 		this.playing = false;
 		this.paused = false;
 		this.activated = false;
 
-		CreateAudiosource(clip, loop);
+		CreateAudiosource(clip, loop, randPitch);
 		Play();
 	}
 
-	void CreateAudiosource(AudioClip clip, bool loop){
+	void CreateAudiosource(AudioClip clip, bool loop, bool randPitch){
 		audioSource = sourceTransform.gameObject.AddComponent<AudioSource>() as AudioSource;
 
 		audioSource.clip = clip;
 		audioSource.loop = loop;
 		audioSource.volume = 0f;
+		if (randPitch) {
+			audioSource.pitch = Random.Range (pitchLowRange, pitchHighRange);
+		}
 		if (sourceTransform != SoundManager.gameobject.transform)
 		{
 			audioSource.spatialBlend = 1;
@@ -525,7 +542,7 @@ public class Audio
 	public void Play(float volume){
 		if(audioSource == null)
 		{
-			CreateAudiosource(initClip, loop);
+			CreateAudiosource(initClip, loop, false);
 		}
 
 		audioSource.Play();
@@ -624,4 +641,9 @@ public class Audio
 			playing = audioSource.isPlaying;
 		}
 	}
+} 	[System.Serializable]
+public struct Audios
+{
+	public AudioClip audioclip;
+	public Audio audio;
 }

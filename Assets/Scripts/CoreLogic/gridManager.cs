@@ -180,6 +180,7 @@ public struct Grid
         baseP1 = null;
         baseP2 = null;
         needsUpdate = false;
+
     }
 
     private bool validateInput(int x, int y)
@@ -286,6 +287,7 @@ public struct Grid
     public bool updateLaser() { return needsUpdate; }
     public void updateFinished() { needsUpdate = false; }
     public void queueUpdate() { needsUpdate = true; }
+
     public GameObject getBuildingContainer() { return buildingContainer; }
     public Vector3 coordsToWorld(float x, float y, float yOffset = 0f) // Use this to easily convert coords from grid space to world space
     {
@@ -374,10 +376,11 @@ public struct Grid
 
     public bool destroyBuilding(int x, int y)
     {
+		SoundManager.PlaySound(inputController.Sounds[1].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
-
+			//SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume, true, .5f, 1.5f);
             //Building temp = grid[y, x].building;
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             grid[y, x].isEmpty = true;
@@ -523,7 +526,7 @@ public class gridManager : MonoBehaviour
 
     public GameObject empty;
     public GameObject placementTimerObj;
-    
+
     private GameObject buildingContainer;
     private int[] deletions = new int[100];
     private int deletionCount = 0;
@@ -578,6 +581,7 @@ public class gridManager : MonoBehaviour
                 theGrid.prefabDictionary.Remove(new XY(x, y));
                 theGrid.queueUpdate();
                 deletions[deletionCount++] = i;
+
             }
         }
         for (int i = 0; i < deletionCount; i++) {

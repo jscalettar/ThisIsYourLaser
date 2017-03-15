@@ -52,7 +52,8 @@ public class inputController : MonoBehaviour {
     private bool vertMovingP2 = false;
     private bool horMovingP2 = false;
 	//List of Sounds
-	public Audios[] Sounds;
+	public Audios[] setSounds;
+	public static Audios[] Sounds;
 
     //Vars for UI
     public static playerOneUI p1UI;
@@ -99,6 +100,7 @@ public class inputController : MonoBehaviour {
     private Queue<XY> moveQueueP2 = new Queue<XY>();
 
     void Start () {
+		Sounds = setSounds;
         //default values for Player 1 UI  
         p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.State = GameObject.Find("p1State").GetComponent<Text>();
@@ -360,10 +362,8 @@ public class inputController : MonoBehaviour {
             // Cursor sound effect
             if ((Input.GetButtonDown("up_1") || Input.GetButtonDown("down_1") || Input.GetButtonDown("right_1") || Input.GetButtonDown("left_1") && moveQueueP1.Count > 0) ||
                 (Input.GetButtonDown("up_2") || Input.GetButtonDown("down_2") || Input.GetButtonDown("right_2") || Input.GetButtonDown("left_2") && moveQueueP2.Count > 0)) {
-                /////////////////////////////////////////////////
-                SoundManager.PlaySound(Sounds[0].audioclip, SoundManager.globalSoundsVolume);
-                //Debug.Log ("Sound Playing");
-                //////////////////////////////////////////////
+				SoundManager.PlaySound(Sounds[0].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+
             }
         }
     }
@@ -500,10 +500,4 @@ public class inputController : MonoBehaviour {
             print("Can not remove, busy with some other action.");
         }
     }
-}
-[System.Serializable]
-public struct Audios
-{
-	public AudioClip audioclip;
-	public Audio audio;
 }
