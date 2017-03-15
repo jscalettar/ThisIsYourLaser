@@ -261,6 +261,20 @@ public class inputController : MonoBehaviour {
                 cursorObjP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
                 cursorObjP1.transform.localScale = new Vector3(scale, scale, scale);
             }
+            else if (cursorP1.state == State.placingMove) // in here change the sprite while choosing direction
+            {
+                float scale = 1f;
+                switch (cursorP1.moveBuilding)
+                {
+                    case Building.Blocking: cursorObjP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
+                    case Building.Reflecting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .17f; break;
+                    case Building.Refracting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[2][0]; scale = .15f; break;
+                    case Building.Redirecting: cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; break;//change for otter
+                    case Building.Resource: cursorObjP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
+                }
+                cursorObjP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
+                cursorObjP1.transform.localScale = new Vector3(scale, scale, scale);
+            }
             else
             {
                 float scale = 1f;
@@ -286,6 +300,20 @@ public class inputController : MonoBehaviour {
             {
                 float scale = 1f;
                 switch (cursorP2.selection)
+                {
+                    case Building.Blocking: cursorObjP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
+                    case Building.Reflecting: cursorObjP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .17f; break;
+                    case Building.Refracting: cursorObjP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[2][0]; scale = .15f; break;
+                    case Building.Redirecting: cursorObjP2.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; break;//change for otter
+                    case Building.Resource: cursorObjP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
+                }
+                cursorObjP2.GetComponent<Renderer>().material.color = new Vector4(0.7f, 1f, 0.7f, .5f);
+                cursorObjP2.transform.localScale = new Vector3(scale, scale, scale);
+            }
+            else if (cursorP2.state == State.placingMove) // in here change the sprite while choosing direction
+            {
+                float scale = 1f;
+                switch (cursorP2.moveBuilding)
                 {
                     case Building.Blocking: cursorObjP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
                     case Building.Reflecting: cursorObjP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .17f; break;
