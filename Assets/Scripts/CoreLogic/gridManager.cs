@@ -259,7 +259,17 @@ public struct Grid
         if (building == Building.Empty) return 0f;
         float cost = buildingPrefabs[(int)building].GetComponent<buildingParameters>().cost;
         if (x == -1) return cost;
-        if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2) cost *= 2f;
+        if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2 + 5) cost *= 10f;
+        else if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2 + 4) cost *= 4f;
+        else if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2 + 3) cost *= 3.5f;
+        else if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2 + 2) cost *= 3f;
+        else if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2 + 1) cost *= 2.5f;
+        else if (player == Player.PlayerOne && x >= gridManager.theGrid.getDimX() / 2) cost *= 2f;
+        else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2 - 5) cost *= 10f;
+        else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2 - 4) cost *= 4f;
+        else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2 - 3) cost *= 3.5f;
+        else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2 - 2) cost *= 3f;
+        else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2 - 1) cost *= 2.5f;
         else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2) cost *= 2f;
         if (moving || removing) cost /= 2f;
         else if (swaping) cost /= 4f;
