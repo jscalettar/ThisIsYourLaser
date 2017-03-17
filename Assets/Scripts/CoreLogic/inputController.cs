@@ -242,13 +242,13 @@ public class inputController : MonoBehaviour {
             if ((Input.GetButtonDown("place_1")) && !notNow1) place(Player.PlayerOne, cursorP1.state);
             else if (Input.GetButtonDown("move_1")) move(Player.PlayerOne, cursorP1.state);
             else if (Input.GetButtonDown("remove_1")) remove(Player.PlayerOne, cursorP1.state);
-            else if (Input.GetButtonDown("cancel_1")) cursorP1.state = State.idle;
+            else if (Input.GetButtonDown("cancel_1") && cursorP1.state != State.placeBase && cursorP1.state != State.placeLaser) cursorP1.state = cursorP1.state == State.placingLaser ? State.placeLaser : State.idle;
 
             // Cursor Functions P2
             if (Input.GetButtonDown("place_2") && !notNow2) place(Player.PlayerTwo, cursorP2.state);
             else if (Input.GetButtonDown("move_2")) move(Player.PlayerTwo, cursorP2.state);
             else if (Input.GetButtonDown("remove_2")) remove(Player.PlayerTwo, cursorP2.state);
-            else if (Input.GetButtonDown("cancel_2")) cursorP2.state = State.idle;
+            else if (Input.GetButtonDown("cancel_2") && cursorP2.state != State.placeBase && cursorP2.state != State.placeLaser) cursorP2.state = cursorP2.state == State.placingLaser ? State.placeLaser : State.idle;
 
             // Update Cursor/UI Appearance P1
             if (cursorP1.state == State.placeBase) { cursorObjP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; p1UI.State.text = "Place base on the current column \nPress [e] to place base"; }
