@@ -10,4 +10,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/main.unity
   - enabled: 1
-    path: Assets/GameOver.unity
+    path: Assets/P1Win.unity
+  - enabled: 1
+    path: Assets/P2Win.unity

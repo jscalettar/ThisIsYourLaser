@@ -312,7 +312,8 @@ public struct Grid
             prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
             floatingNumbers.floatingNumbersStruct.checkDamage(new XY(x, y), grid[y, x].health, prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().health, grid[y, x].building, grid[y, x].owner);
             if (grid[y, x].health <= 0f) {
-                if (getBuilding(x, y) == Building.Base) SceneManager.LoadScene("GameOver", LoadSceneMode.Single); // Add player specific win screen in future
+                if (getBuilding(x, y) == Building.Base && baseHealthP2() <= 0f) SceneManager.LoadScene("P1Win", LoadSceneMode.Single);
+                else if (getBuilding(x, y) == Building.Base && baseHealthP1() <= 0f) SceneManager.LoadScene("P2Win", LoadSceneMode.Single);
                 else destroyBuilding(x, y);
             }
         } else return false;
