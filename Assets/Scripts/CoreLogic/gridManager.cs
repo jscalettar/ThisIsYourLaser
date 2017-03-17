@@ -339,6 +339,13 @@ public struct Grid
                 building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f);
                 float scale = building.GetComponent<buildingParameters>().scale;
                 building.transform.localScale = new Vector3(scale, scale, scale);
+            }else if(newBuilding == Building.Laser)
+            {
+                building.AddComponent<SpriteRenderer>();
+                building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)-2];
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f);
+                float scale = building.GetComponent<buildingParameters>().scale;
+                building.transform.localScale = new Vector3(scale, scale, scale);
             }
             else building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f); // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);

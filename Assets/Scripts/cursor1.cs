@@ -28,6 +28,7 @@ public class cursor1 : MonoBehaviour
     public Sprite[] Refract;
     public Sprite[] Redirect;
     public Sprite[] Resource;
+    public Sprite[] Laser;
     public Sprite[][] Sprites;
 
     // Use this for initialization
@@ -45,7 +46,7 @@ public class cursor1 : MonoBehaviour
         //dimZ = gridManager.theGrid.getDimY() / 2;
 		//PauseMenu = GameObject.Find("Pause Menu");
 
-        Sprites = new Sprite[][] { Block, Reflect, Refract, Redirect, Resource };
+        Sprites = new Sprite[][] { Block, Reflect, Refract, Redirect, Resource, Laser };
 
 		//transform.position = new Vector3 (-(dimX-0.5f), 0.01f, -(dimZ-0.5f));
     }

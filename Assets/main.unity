@@ -1494,10 +1494,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dbe9387d05931e240a3ec726f0c8bce3, type: 3}
   - {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
   Reflect:
-  - {fileID: 21300000, guid: 469969743306a7041b42e9d4f4c21a8e, type: 3}
-  - {fileID: 21300000, guid: 009e2cb95441ad446bcdd76c7bd3e914, type: 3}
-  - {fileID: 21300000, guid: 44191b574eba633459749b1bf6cc1f5f, type: 3}
-  - {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
+  - {fileID: 21300000, guid: 102b6273ee2256c45bdd43e2f80957db, type: 3}
+  - {fileID: 21300000, guid: 29b5fc8cac708b24b9c6ea826588952c, type: 3}
+  - {fileID: 21300000, guid: 8eef596f7501b184faa7963eada894fe, type: 3}
+  - {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
   Refract:
   - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   Redirect:
@@ -1507,6 +1507,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4011fc6d61eea984fad6238576735451, type: 3}
   - {fileID: 21300000, guid: cb50162039f5730498d8289e4c6b9b9a, type: 3}
   - {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
+  Laser:
+  - {fileID: 21300000, guid: b360656cef06f974189e0978f22cb684, type: 3}
+  - {fileID: 21300000, guid: d3aa964996dcac8418c4c2df3ef9e9c7, type: 3}
 --- !u!212 &174806834
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14341,10 +14344,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dbe9387d05931e240a3ec726f0c8bce3, type: 3}
   - {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
   Reflect:
-  - {fileID: 21300000, guid: 469969743306a7041b42e9d4f4c21a8e, type: 3}
-  - {fileID: 21300000, guid: 009e2cb95441ad446bcdd76c7bd3e914, type: 3}
-  - {fileID: 21300000, guid: 44191b574eba633459749b1bf6cc1f5f, type: 3}
-  - {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
+  - {fileID: 21300000, guid: 102b6273ee2256c45bdd43e2f80957db, type: 3}
+  - {fileID: 21300000, guid: 29b5fc8cac708b24b9c6ea826588952c, type: 3}
+  - {fileID: 21300000, guid: 8eef596f7501b184faa7963eada894fe, type: 3}
+  - {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
   Refract:
   - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   Redirect:
@@ -14354,6 +14357,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4011fc6d61eea984fad6238576735451, type: 3}
   - {fileID: 21300000, guid: cb50162039f5730498d8289e4c6b9b9a, type: 3}
   - {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
+  Laser:
+  - {fileID: 21300000, guid: e1400e1d9a06606448ceeccb6ea9f127, type: 3}
+  - {fileID: 21300000, guid: 1ee82eeccd1265b4288c06c4788818ee, type: 3}
 --- !u!212 &869729622
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -28376,14 +28382,14 @@ MonoBehaviour:
   P1BaseSprite: {fileID: 21300000, guid: a37c63a641e9a024a8ac6237221d236d, type: 3}
   P1BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
   P1LaserSprite: {fileID: 21300000, guid: e1400e1d9a06606448ceeccb6ea9f127, type: 3}
-  P1ReflectSprite: {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
+  P1ReflectSprite: {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
   P1RefractSprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   P1RedirectSprite: {fileID: 21300000, guid: 879d00434a609cb40a351f63eb43052a, type: 3}
   P1ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
   P2BaseSprite: {fileID: 21300000, guid: e1ed60fdd53e6594a811828f577f4696, type: 3}
   P2BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
   P2LaserSprite: {fileID: 21300000, guid: b360656cef06f974189e0978f22cb684, type: 3}
-  P2ReflectSprite: {fileID: 21300000, guid: deaf4930e0f8b12419c4bcf47e12a662, type: 3}
+  P2ReflectSprite: {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
   P2RefractSprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   P2RedirectSprite: {fileID: 21300000, guid: d7ae165998a4708469bad176d67a84ea, type: 3}
   P2ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
