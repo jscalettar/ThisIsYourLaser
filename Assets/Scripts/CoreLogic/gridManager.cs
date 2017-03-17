@@ -218,9 +218,8 @@ public struct Grid
         if (structure == Building.Refracting) return false;
         // Buildings with all weak sides
         else if (structure == Building.Base || structure == Building.Laser) return true;
-        else if (structure == Building.Blocking || structure == Building.Reflecting) {
-            return getDirection(x, y) == dir;
-        } else if (structure == Building.Resource) return getDirection(x, y) == dir;
+        else if (structure == Building.Blocking || structure == Building.Reflecting) return getDirection(x, y) == dir;
+        else if (structure == Building.Resource) return getDirection(x, y) == dir;
         else if (structure == Building.Redirecting) {
             if (getDirection(x, y) == Direction.Up || getDirection(x, y) == Direction.Down) { if (dir == Direction.Right || dir == Direction.Left) return true; }
             else { if (dir == Direction.Up || dir == Direction.Down) return true; }
@@ -230,13 +229,13 @@ public struct Grid
     // Used for determining if the building you are placing has a weakside that will intersect with existing buildings
     private bool isWeakSide(Direction dir, Direction placeDir, Building structure)
     {
+        if (dir == Direction.None) return false;
         // Buildings with no weak sides
         if (structure == Building.Refracting) return false;
         // Buildings with all weak sides
         else if (structure == Building.Base || structure == Building.Laser) return true;
-        else if (structure == Building.Blocking || structure == Building.Reflecting) {
-            return placeDir == dir;
-        } else if (structure == Building.Resource) return placeDir == dir;
+        else if (structure == Building.Blocking || structure == Building.Reflecting) return placeDir == dir;
+        else if (structure == Building.Resource) return placeDir == dir;
         else if (structure == Building.Redirecting) {
             if (placeDir == Direction.Up || placeDir == Direction.Down) { if (dir == Direction.Right || dir == Direction.Left) return true; } else { if (dir == Direction.Up || dir == Direction.Down) return true; }
         }
@@ -420,7 +419,6 @@ public struct Grid
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
         if (!grid[y, x].isEmpty && probeGrid(xNew, yNew, facing, grid[y, x].building) && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
-            if (prefabDictionary.ContainsKey(new XY(xNew, yNew))) return false;
             // Subtract some resources for move
             GridItem temp = grid[y, x];
             if (playerID == Player.PlayerOne) resourcesP1 -= getCost(grid[y, x].building, xNew, playerID, true);
