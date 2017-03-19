@@ -28384,14 +28384,14 @@ MonoBehaviour:
   P1LaserSprite: {fileID: 21300000, guid: e1400e1d9a06606448ceeccb6ea9f127, type: 3}
   P1ReflectSprite: {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
   P1RefractSprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
-  P1RedirectSprite: {fileID: 21300000, guid: 879d00434a609cb40a351f63eb43052a, type: 3}
+  P1RedirectSprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
   P1ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
   P2BaseSprite: {fileID: 21300000, guid: e1ed60fdd53e6594a811828f577f4696, type: 3}
   P2BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
   P2LaserSprite: {fileID: 21300000, guid: b360656cef06f974189e0978f22cb684, type: 3}
   P2ReflectSprite: {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
   P2RefractSprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
-  P2RedirectSprite: {fileID: 21300000, guid: d7ae165998a4708469bad176d67a84ea, type: 3}
+  P2RedirectSprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
   P2ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
   setSounds:
   - audioclip: {fileID: 8300000, guid: 432074b7d7cd93b4a9aae9fae87a1fb4, type: 3}
