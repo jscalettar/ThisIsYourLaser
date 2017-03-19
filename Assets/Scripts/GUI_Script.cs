@@ -54,7 +54,7 @@ public class GUI_Script : MonoBehaviour {
                 case Building.Blocking: p1UI.p1BlockBackground.color = new Color(1f, 0.8f, 0.8f); break;
                 case Building.Reflecting: p1UI.p1ReflectBackground.color = new Color(1f, 0.8f, 0.8f); break;
                 case Building.Refracting: p1UI.p1RefractBackground.color = new Color(1f, 0.8f, 0.8f); break;
-                case Building.Redirecting: p1UI.p1RedirectBackground.color = Color.red; break;
+                case Building.Redirecting: p1UI.p1RedirectBackground.color = new Color(1f, 0.8f, 0.8f); break;
                 case Building.Resource: p1UI.p1ResourceBackground.color = new Color(1f, 0.8f, 0.8f); break;
             }
 
@@ -63,7 +63,7 @@ public class GUI_Script : MonoBehaviour {
                 case Building.Blocking: p2UI.p2BlockBackground.color = new Color(0.8f, 1f, 0.8f); break;
                 case Building.Reflecting: p2UI.p2ReflectBackground.color = new Color(0.8f, 1f, 0.8f); break;
                 case Building.Refracting: p2UI.p2RefractBackground.color = new Color(0.8f, 1f, 0.8f); break;
-                case Building.Redirecting: p2UI.p2RedirectBackground.color = Color.green; break;
+                case Building.Redirecting: p2UI.p2RedirectBackground.color = new Color(0.8f, 1f, 0.8f); break;
                 case Building.Resource: p2UI.p2ResourceBackground.color = new Color(0.8f, 1f, 0.8f); break;
             }
 
