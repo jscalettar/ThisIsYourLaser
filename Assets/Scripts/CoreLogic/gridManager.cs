@@ -215,10 +215,10 @@ public struct Grid
     private bool isWeakSide(int x, int y, Direction dir, Building structure)
     {
         // Buildings with no weak sides
-        if (structure == Building.Refracting) return false;
+        if (structure == Building.Blocking) return false;
         // Buildings with all weak sides
-        else if (structure == Building.Base || structure == Building.Laser) return true;
-        else if (structure == Building.Blocking || structure == Building.Reflecting) return getDirection(x, y) == dir;
+        else if (structure == Building.Base || structure == Building.Laser || structure == Building.Refracting) return true;
+        else if (structure == Building.Reflecting) return getDirection(x, y) == dir;
         else if (structure == Building.Resource) return getDirection(x, y) == dir;
         else if (structure == Building.Redirecting) {
             if (getDirection(x, y) == Direction.Up || getDirection(x, y) == Direction.Down) { if (dir == Direction.Right || dir == Direction.Left) return true; }
@@ -231,10 +231,10 @@ public struct Grid
     {
         if (dir == Direction.None) return false;
         // Buildings with no weak sides
-        if (structure == Building.Refracting) return false;
+        if (structure == Building.Blocking) return false;
         // Buildings with all weak sides
-        else if (structure == Building.Base || structure == Building.Laser) return true;
-        else if (structure == Building.Blocking || structure == Building.Reflecting) return placeDir == dir;
+        else if (structure == Building.Base || structure == Building.Laser || structure == Building.Refracting) return true;
+        else if (structure == Building.Reflecting) return placeDir == dir;
         else if (structure == Building.Resource) return placeDir == dir;
         else if (structure == Building.Redirecting) {
             if (placeDir == Direction.Up || placeDir == Direction.Down) { if (dir == Direction.Right || dir == Direction.Left) return true; } else { if (dir == Direction.Up || dir == Direction.Down) return true; }
@@ -246,10 +246,10 @@ public struct Grid
     public bool probeGrid(int x, int y, Direction placeDir, Building structure)
     {
         if (!validateInput(x, y)) return false;
-        if (getBuilding(x, y-1) != Building.Empty && (isWeakSide(x, y-1, Direction.Up, getBuilding(x, y-1)) || isWeakSide(Direction.Down, placeDir, structure))) return false;
-        if (getBuilding(x, y+1) != Building.Empty && (isWeakSide(x, y+1, Direction.Down, getBuilding(x, y+1)) || isWeakSide(Direction.Up, placeDir, structure))) return false;
-        if (getBuilding(x-1, y) != Building.Empty && (isWeakSide(x-1, y, Direction.Right, getBuilding(x-1, y)) || isWeakSide(Direction.Left, placeDir, structure))) return false;
-        if (getBuilding(x+1, y) != Building.Empty && (isWeakSide(x+1, y, Direction.Left, getBuilding(x+1, y)) || isWeakSide(Direction.Right, placeDir, structure))) return false;
+        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y-1)) || getBuilding(x, y-1) != Building.Empty) && (isWeakSide(x, y-1, Direction.Up, getBuilding(x, y-1)) || isWeakSide(Direction.Down, placeDir, structure))) return false;
+        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y+1)) || getBuilding(x, y+1) != Building.Empty) && (isWeakSide(x, y+1, Direction.Down, getBuilding(x, y+1)) || isWeakSide(Direction.Up, placeDir, structure))) return false;
+        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x-1, y)) || getBuilding(x-1, y) != Building.Empty) && (isWeakSide(x-1, y, Direction.Right, getBuilding(x-1, y)) || isWeakSide(Direction.Left, placeDir, structure))) return false;
+        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x+1, y)) || getBuilding(x+1, y) != Building.Empty) && (isWeakSide(x+1, y, Direction.Left, getBuilding(x+1, y)) || isWeakSide(Direction.Right, placeDir, structure))) return false;
         return true;
     }
 
@@ -363,7 +363,7 @@ public struct Grid
             placementTimerObject.transform.localPosition = coordsToWorld(x, y, 1f);
             placementTimerObject.GetComponent<placementTimer>().init(building.GetComponent<buildingParameters>().placementTime, playerID);
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            needsUpdate = true;
+            //needsUpdate = true;
         } else return false;
         return true;
     }
@@ -386,7 +386,7 @@ public struct Grid
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            needsUpdate = true;
+            //needsUpdate = true;
         } else return false;
         return true;
     }
@@ -409,7 +409,7 @@ public struct Grid
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
-            needsUpdate = true;
+            //needsUpdate = true;
 
         } else return false;
         return true;
@@ -589,8 +589,10 @@ public class gridManager : MonoBehaviour
                 theGrid.grid[y, x].level = 0;
                 theGrid.grid[y, x].health = 0;
                 theGrid.grid[y, x].markedForDeath = false;
-                DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
-                theGrid.prefabDictionary.Remove(new XY(x, y));
+                if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
+                    DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
+                    theGrid.prefabDictionary.Remove(new XY(x, y));
+                }
                 theGrid.queueUpdate();
                 deletions[deletionCount++] = i;
 
@@ -611,9 +613,11 @@ public class gridManager : MonoBehaviour
                 theGrid.grid[y, x].level = 0;
                 theGrid.grid[y, x].health = 0;
                 theGrid.grid[y, x].markedForDeath = false;*/
-                DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
-                theGrid.prefabDictionary.Remove(new XY(x, y));
-                //theGrid.queueUpdate();
+                if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
+                    DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
+                    theGrid.prefabDictionary.Remove(new XY(x, y));
+                }
+                theGrid.queueUpdate();
                 deletions[deletionCount++] = i;
             }
         }

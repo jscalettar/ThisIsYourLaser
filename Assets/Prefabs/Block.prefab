@@ -55,8 +55,8 @@ MonoBehaviour:
   y: -1
   owner: 0
   currentHP: 0
-  health: 13
-  cost: 1
+  health: 25
+  cost: 10
   sprites:
   - {fileID: 21300000, guid: 31dab7f1106c1c04b9220614587c9259, type: 3}
   - {fileID: 21300000, guid: 4821043a645c15542b20b9079832290d, type: 3}
