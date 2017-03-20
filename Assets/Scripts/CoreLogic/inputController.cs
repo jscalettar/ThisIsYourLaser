@@ -140,15 +140,17 @@ public class inputController : MonoBehaviour {
             // Cycle P1
 			if (Input.GetButtonDown("cycleR_1"))
 			{
-				if (cursorP1.selection == Building.Redirecting) cursorP1.selection = Building.Blocking;
+				if (cursorP1.selection == Building.Resource) cursorP1.selection = Building.Blocking;
 				else cursorP1.selection += 1;
-				cursorP1.selection = Building.Reflecting;SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
+				
+                SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
 			else if (Input.GetButtonDown("cycleL_1"))
 			{
 				if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Redirecting;
 				else cursorP1.selection -= 1;
-				cursorP1.selection = Building.Reflecting;SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
+				
+                SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
 
 			// Cursor Selection P2
@@ -161,15 +163,17 @@ public class inputController : MonoBehaviour {
             // Cycle P2
 			if (Input.GetButtonDown("cycleR_2"))
 			{
-				if (cursorP2.selection == Building.Redirecting) cursorP2.selection = Building.Blocking;
+				if (cursorP2.selection == Building.Resource) cursorP2.selection = Building.Blocking;
 				else cursorP2.selection += 1;
-				SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
+                
+                SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
 			else if (Input.GetButtonDown("cycleL_2"))
 			{
 				if (cursorP2.selection == Building.Blocking) cursorP2.selection = Building.Redirecting;
 				else cursorP2.selection -= 1;
-				SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
+                
+                SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
             if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove)
             {
@@ -325,7 +329,7 @@ public class inputController : MonoBehaviour {
                     case Direction.Down: cursorObjP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; break;
                 }
 
-                p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
             }
             else if (cursorP2.state == State.placing) // in here change the sprite while choosing direction
             {
