@@ -187,7 +187,7 @@ public class inputController : MonoBehaviour {
                 if (Input.GetAxis("xboxLeftHor") != 0) { horDelayP1 = delayFactor; if (!flagHP1) { horCounterP1 = 1f / cursorSpeed; flagHP1 = true; } } else { flagHP1 = false; }
 
                 if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftVert") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) {vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; print("TEST"); moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
+                else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftVert") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) {vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
                 else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
                 else if (Input.GetButton("down_1") || Input.GetAxis("xboxLeftVert") == -1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
                 else { vertCounterP1 = 0f; vertDelayP1 = 0f; vertMovingP1 = false; }
@@ -456,7 +456,7 @@ public class inputController : MonoBehaviour {
 
     private void place(Player player, State currentState)
     {
-        print(gridManager.theGrid.placementList.Count);
+        //print(gridManager.theGrid.placementList.Count);
         // Instant placement for refracting and blocking blocks (bypass rotation state)
         if (currentState == State.idle && ((player == Player.PlayerOne ? cursorP1.selection == Building.Refracting : cursorP2.selection == Building.Refracting) || (player == Player.PlayerOne ? cursorP1.selection == Building.Blocking : cursorP2.selection == Building.Blocking))) {
             currentState = State.placing;

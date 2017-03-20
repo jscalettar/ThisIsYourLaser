@@ -648,7 +648,7 @@ public class laserLogic : MonoBehaviour
     }
 
     // DEBUG LASER    
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         if (lasers != null) {
             float dimX = gridManager.theGrid.getDimX();
@@ -662,6 +662,6 @@ public class laserLogic : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
     
 }
