@@ -151,6 +151,7 @@ public class inputController : MonoBehaviour {
 				else cursorP1.selection += 1;
 
                 while(gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+                    if (cursorP1.selection == Building.Resource) return;
                     cursorP1.selection += 1;
                 }
 
@@ -163,6 +164,7 @@ public class inputController : MonoBehaviour {
 				else cursorP1.selection -= 1;
 
                 while (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+                    if (cursorP1.selection == Building.Blocking) return;
                     cursorP1.selection -= 1;
                 }
 
@@ -183,6 +185,7 @@ public class inputController : MonoBehaviour {
 				else cursorP2.selection += 1;
 
                 while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+                    if (cursorP2.selection == Building.Resource) return;
                     cursorP2.selection += 1;
                 }
 
@@ -194,6 +197,7 @@ public class inputController : MonoBehaviour {
 				else cursorP2.selection -= 1;
 
                 while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+                    if (cursorP2.selection == Building.Blocking) return;
                     cursorP2.selection -= 1;
                 }
 
