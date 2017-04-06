@@ -289,6 +289,7 @@ public class laserLogic : MonoBehaviour
                 gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * Time.deltaTime);
             }
         }
+        gridManager.theGrid.addResources(Time.deltaTime * resourceRate/2, Time.deltaTime * resourceRate/2);
     }
 
     private void drawLaser(laserNode start, laserNode end)
