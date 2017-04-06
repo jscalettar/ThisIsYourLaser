@@ -44,7 +44,7 @@ public class GUI_Script : MonoBehaviour {
         p1UI.currentResource.text = "Resources: " + (Mathf.Round(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
         p2UI.currentResource.text = "Resources: " + (Mathf.Round(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
 
-        p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
+        p1UI.p1ResourceBackground.color = Color.red; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
         p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white;
         p2UI.p2ResourceBackground.color = Color.white; p2UI.p2BlockBackground.color = Color.white; p2UI.p2ReflectBackground.color = Color.white;
         p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.white;

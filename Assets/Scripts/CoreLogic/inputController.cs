@@ -149,14 +149,23 @@ public class inputController : MonoBehaviour {
 			{
 				if (cursorP1.selection == Building.Resource) cursorP1.selection = Building.Blocking;
 				else cursorP1.selection += 1;
-				
+
+                while(gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+                    cursorP1.selection += 1;
+                }
+
+
                 SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
 			else if (Input.GetButtonDown("cycleL_1"))
 			{
 				if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Resource;
 				else cursorP1.selection -= 1;
-				
+
+                while (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+                    cursorP1.selection -= 1;
+                }
+
                 SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
 
@@ -172,14 +181,22 @@ public class inputController : MonoBehaviour {
 			{
 				if (cursorP2.selection == Building.Resource) cursorP2.selection = Building.Blocking;
 				else cursorP2.selection += 1;
-                
+
+                while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+                    cursorP2.selection += 1;
+                }
+
                 SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
 			else if (Input.GetButtonDown("cycleL_2"))
 			{
 				if (cursorP2.selection == Building.Blocking) cursorP2.selection = Building.Redirecting;
 				else cursorP2.selection -= 1;
-                
+
+                while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+                    cursorP2.selection -= 1;
+                }
+
                 SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
             if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove)
