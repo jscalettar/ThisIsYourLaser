@@ -292,7 +292,7 @@ public struct Grid
     public float getResourcesP2() { return resourcesP2; }
     public float baseHealthP1() { return baseP1 != null ? baseP1.GetComponent<buildingParameters>().currentHP : 0f; }
     public float baseHealthP2() { return baseP2 != null ? baseP2.GetComponent<buildingParameters>().currentHP : 0f; }
-    public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; }
+    public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; if (resourcesP1 >= 150) resourcesP1 = 150; if (resourcesP2 >= 150) resourcesP2 = 150; }
     public bool updateLaser() { return needsUpdate; }
     public void updateFinished() { needsUpdate = false; }
     public void queueUpdate() { needsUpdate = true; }
@@ -381,6 +381,8 @@ public struct Grid
             // Give some resources back to player
             if (playerID == Player.PlayerOne) resourcesP1 += getCost(grid[y, x].building, x, playerID, false, true);
             else resourcesP2 += getCost(grid[y, x].building, x, playerID, false, true);
+            if (resourcesP1 >= 150) resourcesP1 = 150;
+            if (resourcesP2 >= 150) resourcesP2 = 150;
             if (grid[y, x].building != Building.Base && grid[y, x].building != Building.Laser && grid[y, x].building != Building.Redirecting)
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
