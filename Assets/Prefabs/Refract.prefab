@@ -138,15 +138,15 @@ MonoBehaviour:
   y: -1
   owner: 0
   currentHP: 0
-  health: 3
-  cost: 6
+  health: 10
+  cost: 4
   sprites:
   - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   scale: 0.2
-  placementTime: 1
+  placementTime: 5
   removalTime: 1
   destructionTime: 0.5
   buildingType: 8

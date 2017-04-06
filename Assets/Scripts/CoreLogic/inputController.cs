@@ -152,7 +152,7 @@ public class inputController : MonoBehaviour {
 			}
 			else if (Input.GetButtonDown("cycleL_1"))
 			{
-				if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Redirecting;
+				if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Resource;
 				else cursorP1.selection -= 1;
 				
                 SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
@@ -458,11 +458,6 @@ public class inputController : MonoBehaviour {
     {
         //print(gridManager.theGrid.placementList.Count);
         // Instant placement for refracting and blocking blocks (bypass rotation state)
-        if (currentState == State.idle && ((player == Player.PlayerOne ? cursorP1.selection == Building.Refracting : cursorP2.selection == Building.Refracting) || (player == Player.PlayerOne ? cursorP1.selection == Building.Blocking : cursorP2.selection == Building.Blocking))) {
-            currentState = State.placing;
-            if (player == Player.PlayerOne) cursorP1.direction = Direction.Down;
-            else cursorP2.direction = Direction.Down;
-        }
         if (currentState == State.placeBase) {
             if (player == Player.PlayerOne) {
                 if (cursorP1.x > 0) print("Base must be placed on the edge of the board");
@@ -517,11 +512,23 @@ public class inputController : MonoBehaviour {
         } else if (currentState == State.idle) {
             if (player == Player.PlayerOne) {
                 if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.selection)) print("You can not place here, selection is not valid");
-                else if (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) <= gridManager.theGrid.getResourcesP1()) cursorP1.state = State.placing;
+                else if (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) <= gridManager.theGrid.getResourcesP1()){
+                	cursorP1.state = State.placing;
+                	if(cursorP1.selection == Building.Refracting || cursorP1.selection == Building.Blocking){
+                		cursorP1.direction = Direction.Down;
+                		place(Player.PlayerOne, cursorP1.state);
+                	}
+                }
                 else print("Not enough resources to place.");
             } else {
                 if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.selection)) print("You can not place here, selection is not valid");
-                else if (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) <= gridManager.theGrid.getResourcesP2()) cursorP2.state = State.placing;
+                else if (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) <= gridManager.theGrid.getResourcesP2()){
+                	cursorP2.state = State.placing;
+                	if(cursorP2.selection == Building.Refracting || cursorP2.selection == Building.Blocking){
+                		cursorP2.direction = Direction.Down;
+                		place(Player.PlayerTwo, cursorP2.state);
+                	}
+                }
                 else print("Not enough resources to place.");
             }
         } else {

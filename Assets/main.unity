@@ -28323,11 +28323,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f771067c1038644c9c6c5fc61be283c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserDecay: 0.025
+  laserDecay: 0
   laserWidth: 0.05
   laserVisualHeight: 0.5
   laserIntensity: 0.5
-  resourceRate: 0.4
+  resourceRate: 0.2
   laserMaterialP1: {fileID: 2100000, guid: 0c7a4a17bc51ce34abbe492260b42caf, type: 2}
   laserMaterialP2: {fileID: 2100000, guid: 5881a0a8f7395b54e8e5f711a120a7ba, type: 2}
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,

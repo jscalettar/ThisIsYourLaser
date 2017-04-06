@@ -58,7 +58,7 @@ MonoBehaviour:
   y: -1
   owner: 0
   currentHP: 0
-  health: 20
+  health: 100
   cost: 0
   sprites: []
   scale: 1
