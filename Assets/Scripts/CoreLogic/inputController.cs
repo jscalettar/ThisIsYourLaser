@@ -95,7 +95,9 @@ public class inputController : MonoBehaviour {
         return value;
     }
 
-    private bool isValid(int value, int min, int max) {
+    private bool isValid(State state, int value, int min, int max) {
+        if (state == State.placeBase)
+            return value < max && value > min;
         return value <= max && value >= min;
     }
 
@@ -120,8 +122,8 @@ public class inputController : MonoBehaviour {
         cycleP2 = 0;
         xEnd = gridManager.theGrid.getDimX() - 1;
         yEnd = gridManager.theGrid.getDimY() - 1;
-        cursorP1 = new Cursor(0, 0, Direction.Right, Building.Blocking, State.placeBase);
-        cursorP2 = new Cursor(xEnd, yEnd, Direction.Left, Building.Blocking, State.placeBase);
+        cursorP1 = new Cursor(0, 1, Direction.Right, Building.Blocking, State.placeBase);
+        cursorP2 = new Cursor(xEnd, yEnd-1, Direction.Left, Building.Blocking, State.placeBase);
         PauseMenu = GameObject.Find("Pause Menu");
         // Set initial cursor positions
         cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
@@ -186,16 +188,16 @@ public class inputController : MonoBehaviour {
                 if (Input.GetAxis("xboxLeftVert") != 0) { vertDelayP1 = delayFactor; if (!flagVP1) { vertCounterP1 = 1f / cursorSpeed; flagVP1 = true; } } else { flagVP1 = false; }
                 if (Input.GetAxis("xboxLeftHor") != 0) { horDelayP1 = delayFactor; if (!flagHP1) { horCounterP1 = 1f / cursorSpeed; flagHP1 = true; } } else { flagHP1 = false; }
 
-                if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftVert") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) {vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
-                else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if (Input.GetButton("down_1") || Input.GetAxis("xboxLeftVert") == -1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
+                if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
+                else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftVert") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) {vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
+                else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
+                else if (Input.GetButton("down_1") || Input.GetAxis("xboxLeftVert") == -1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
                 else { vertCounterP1 = 0f; vertDelayP1 = 0f; vertMovingP1 = false; }
 
-                if ((Input.GetButtonDown("right_1")) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { if (isValid(cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if ((Input.GetButton("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { horMovingP1 = true; horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } }
-                else if (Input.GetButtonDown("left_1")) { if (isValid(cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if (Input.GetButton("left_1") || Input.GetAxis("xboxLeftHor") == -1) { horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horMovingP1 = true; horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } }
+                if ((Input.GetButtonDown("right_1")) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
+                else if ((Input.GetButton("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { horMovingP1 = true; horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } }
+                else if (Input.GetButtonDown("left_1")) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
+                else if (Input.GetButton("left_1") || Input.GetAxis("xboxLeftHor") == -1) { horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horMovingP1 = true; horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } }
                 else { horCounterP1 = 0f; horDelayP1 = 0f; horMovingP1 = false; }
             }
             else
@@ -220,16 +222,16 @@ public class inputController : MonoBehaviour {
                 if (Input.GetAxis("xboxLeftVert2") != 0) { vertDelayP2 = delayFactor; if (!flagVP2) { vertCounterP2 = 1f / cursorSpeed; flagVP2 = true; } } else { flagVP2 = false; }
                 if (Input.GetAxis("xboxLeftHor2") != 0) { horDelayP2 = delayFactor; if (!flagHP2) { horCounterP2 = 1f / cursorSpeed; flagHP2 = true; } } else { flagHP2 = false; }
 
-                if (Input.GetButtonDown("up_2")) { if (isValid(cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
-                else if (Input.GetButton("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } }
-                else if (Input.GetButtonDown("down_2")) { if (isValid(cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
-                else if (Input.GetButton("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } }
+                if (Input.GetButtonDown("up_2")) { if (isValid(cursorP2.state, cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
+                else if (Input.GetButton("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } }
+                else if (Input.GetButtonDown("down_2")) { if (isValid(cursorP2.state, cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
+                else if (Input.GetButton("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } }
                 else { vertCounterP2 = 0f; vertDelayP2 = 0f; vertMovingP2 = false; }
 
-                if (Input.GetButtonDown("right_2")) { if (isValid(cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
-                else if (Input.GetButton("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { horMovingP2 = true; horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } }
-                else if (Input.GetButtonDown("left_2") && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { if (isValid(cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
-                else if ((Input.GetButton("left_2") || Input.GetAxis("xboxLeftHor2") == -1) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horMovingP2 = true; horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } }
+                if (Input.GetButtonDown("right_2")) { if (isValid(cursorP2.state, cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
+                else if (Input.GetButton("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { horMovingP2 = true; horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } }
+                else if (Input.GetButtonDown("left_2") && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { if (isValid(cursorP2.state, cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
+                else if ((Input.GetButton("left_2") || Input.GetAxis("xboxLeftHor2") == -1) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horMovingP2 = true; horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } }
                 else { horCounterP2 = 0f; horDelayP2 = 0f; horMovingP2 = false; }
             }
             else
@@ -466,12 +468,15 @@ public class inputController : MonoBehaviour {
         if (currentState == State.placeBase) {
             if (player == Player.PlayerOne) {
                 if (cursorP1.x > 0) print("Base must be placed on the edge of the board");
-                else {
+                else if (cursorP1.y == 0 || cursorP1.y == yEnd) print("Base cannot be placed in corners");
+                else
+                {
                     gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Base, Player.PlayerOne);
                     cursorP1.state = State.placeLaser; p1HasPlacedBase = true;
                 }
             } else {
                 if (cursorP2.x < xEnd) print("Base must be placed on the edge of the board");
+                else if (cursorP2.y == 0 || cursorP2.y == yEnd) print("Base cannot be placed in corners");
                 else {
                     gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Base, Player.PlayerTwo);
                     cursorP2.state = State.placeLaser; p2HasPlacedBase = true;

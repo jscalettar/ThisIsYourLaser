@@ -633,7 +633,7 @@ public class gridManager : MonoBehaviour
 
     // Debug building placements
     // Comment out to hide gizmos
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         // Note: one grid cell = 1x1 meter in unity
         int dimX = theGrid.getDimX();
@@ -649,6 +649,6 @@ public class gridManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
 }
