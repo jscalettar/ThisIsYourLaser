@@ -120,6 +120,7 @@ public struct Grid
     private GameObject buildingContainer;
     private GameObject[] buildingPrefabs;
     public Dictionary<XY, GameObject> prefabDictionary;
+    public float resourceLimit;
     private int dimX;
     private int dimY;
     private float resourcesP1;
@@ -131,7 +132,7 @@ public struct Grid
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder, GameObject placementTimerObj)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, GameObject emptyHolder, GameObject placementTimerObj, float limit)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
@@ -180,6 +181,7 @@ public struct Grid
         baseP1 = null;
         baseP2 = null;
         needsUpdate = false;
+        resourceLimit = limit;
 
     }
 
@@ -292,7 +294,7 @@ public struct Grid
     public float getResourcesP2() { return resourcesP2; }
     public float baseHealthP1() { return baseP1 != null ? baseP1.GetComponent<buildingParameters>().currentHP : 0f; }
     public float baseHealthP2() { return baseP2 != null ? baseP2.GetComponent<buildingParameters>().currentHP : 0f; }
-    public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; if (resourcesP1 >= 150) resourcesP1 = 150; if (resourcesP2 >= 150) resourcesP2 = 150; }
+    public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; if (resourcesP1 >= resourceLimit) resourcesP1 = resourceLimit; if (resourcesP2 >= resourceLimit) resourcesP2 = resourceLimit; }
     public bool updateLaser() { return needsUpdate; }
     public void updateFinished() { needsUpdate = false; }
     public void queueUpdate() { needsUpdate = true; }
@@ -381,8 +383,8 @@ public struct Grid
             // Give some resources back to player
             if (playerID == Player.PlayerOne) resourcesP1 += getCost(grid[y, x].building, x, playerID, false, true);
             else resourcesP2 += getCost(grid[y, x].building, x, playerID, false, true);
-            if (resourcesP1 >= 150) resourcesP1 = 150;
-            if (resourcesP2 >= 150) resourcesP2 = 150;
+            if (resourcesP1 >= resourceLimit) resourcesP1 = resourceLimit;
+            if (resourcesP2 >= resourceLimit) resourcesP2 = resourceLimit;
             if (grid[y, x].building != Building.Base && grid[y, x].building != Building.Laser && grid[y, x].building != Building.Redirecting)
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
@@ -541,6 +543,7 @@ public class gridManager : MonoBehaviour
     public GameObject Resource2;
     public GameObject Portal;
     public GameObject Portal2;
+    public float limit;
 
     public GameObject empty;
     public GameObject placementTimerObj;
@@ -554,7 +557,7 @@ public class gridManager : MonoBehaviour
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, empty, placementTimerObj);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, empty, placementTimerObj, limit);
     }
     
     void LateUpdate()
