@@ -120,7 +120,7 @@ public struct Grid
     private GameObject buildingContainer;
     private GameObject[] buildingPrefabs;
     public Dictionary<XY, GameObject> prefabDictionary;
-    public float resourceLimit;
+    private float resourceLimit;
     private int dimX;
     private int dimY;
     private float resourcesP1;

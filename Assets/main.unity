@@ -6244,8 +6244,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 21d6971b8fc43db4ebffbdf61c3477a2, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.391}
+  m_Sprite: {fileID: 21300000, guid: b183800589157e0488d1c25685702fe3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.391}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &456822933
@@ -28349,6 +28349,7 @@ MonoBehaviour:
   boardWidth: 12
   boardHeight: 8
   startingResources: 15
+  startingBuildingNum: 0
   Base: {fileID: 1718999871870560, guid: 483fe14c380132f4c8767aac5e65e87c, type: 2}
   Base2: {fileID: 1906582796008646, guid: f080cb7e91bf8614a84907449966fef9, type: 2}
   Laser: {fileID: 1857337499070074, guid: e8b4216f3f61fd04787f914a67bb57de, type: 2}
