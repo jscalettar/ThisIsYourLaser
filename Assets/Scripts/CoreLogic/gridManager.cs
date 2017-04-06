@@ -120,6 +120,7 @@ public struct Grid
     private GameObject buildingContainer;
     private GameObject[] buildingPrefabs;
     public Dictionary<XY, GameObject> prefabDictionary;
+    public float resourceLimit;
     private int dimX;
     private int dimY;
     private float resourcesP1;
@@ -133,7 +134,7 @@ public struct Grid
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder, GameObject placementTimerObj)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder, GameObject placementTimerObj, float limit)
     {
         grid = new GridItem[y, x];
         for (int row = 0; row < y; row++) {
@@ -184,6 +185,7 @@ public struct Grid
         baseP1 = null;
         baseP2 = null;
         needsUpdate = false;
+        resourceLimit = limit;
 
     }
 
@@ -296,7 +298,7 @@ public struct Grid
     public float getResourcesP2() { return resourcesP2; }
     public float baseHealthP1() { return baseP1 != null ? baseP1.GetComponent<buildingParameters>().currentHP : 0f; }
     public float baseHealthP2() { return baseP2 != null ? baseP2.GetComponent<buildingParameters>().currentHP : 0f; }
-    public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; }
+    public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; if (resourcesP1 >= resourceLimit) resourcesP1 = resourceLimit; if (resourcesP2 >= resourceLimit) resourcesP2 = resourceLimit; }
     public bool updateLaser() { return needsUpdate; }
     public void updateFinished() { needsUpdate = false; }
     public void queueUpdate() { needsUpdate = true; }
@@ -381,19 +383,13 @@ public struct Grid
     // removeBuilding, unlike destroyBuilding, restores half of a building's cost
     public bool removeBuilding (int x, int y, Player playerID)
 	{
-		if (!validateInput (x, y))
-			return false;
+		if (!validateInput (x, y)) return false;
 		if (!grid [y, x].isEmpty && (playerID == grid [y, x].owner || playerID == Player.World) && !grid [y, x].markedForDeath) {
 			removalList.Add (new buildingRequest (new XY (x, y), buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters> ().removalTime, grid [y, x].building, playerID));
 			grid [y, x].markedForDeath = true;
 
-			//Building temp = grid[y, x].building;
-			if (grid [y, x].building == Building.Base) {
-				if (grid [y, x].owner == Player.PlayerOne)
-					baseP1 = null;
-				else
-					baseP2 = null;
-			}  // Remove Base Reference
+            //Building temp = grid[y, x].building;
+            if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             // Give some resources back to player -> half of placement cost * percentage remaining health
             if (playerID == Player.PlayerOne) {
 				resourcesP1 += (getCost (grid [y, x].building, x, playerID, false, true) / 2) * (grid[y, x].health / buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters> ().health);
@@ -402,6 +398,8 @@ public struct Grid
 				resourcesP2 += (getCost (grid [y, x].building, x, playerID, false, true) / 2) * (grid[y, x].health / buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters> ().health);
 				buildingNumP2--;
 			}
+            if (resourcesP1 >= resourceLimit) resourcesP1 = resourceLimit;
+            if (resourcesP2 >= resourceLimit) resourcesP2 = resourceLimit;
             if (grid[y, x].building != Building.Base && grid[y, x].building != Building.Laser && grid[y, x].building != Building.Redirecting)
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
@@ -567,6 +565,7 @@ public class gridManager : MonoBehaviour
     public GameObject Resource2;
     public GameObject Portal;
     public GameObject Portal2;
+    public float limit;
 
     public GameObject empty;
     public GameObject placementTimerObj;
@@ -580,7 +579,7 @@ public class gridManager : MonoBehaviour
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, startingBuildingNum, empty, placementTimerObj);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, startingBuildingNum, empty, placementTimerObj, limit);
     }
     
     void LateUpdate()
@@ -656,7 +655,7 @@ public class gridManager : MonoBehaviour
 
     // Debug building placements
     // Comment out to hide gizmos
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         // Note: one grid cell = 1x1 meter in unity
         int dimX = theGrid.getDimX();
@@ -672,6 +671,6 @@ public class gridManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
 }
