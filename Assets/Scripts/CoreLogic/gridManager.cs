@@ -256,6 +256,8 @@ public struct Grid
         if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y+1)) || getBuilding(x, y+1) != Building.Empty) && (isWeakSide(x, y+1, Direction.Down, getBuilding(x, y+1)) || isWeakSide(Direction.Up, placeDir, structure))) return false;
         if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x-1, y)) || getBuilding(x-1, y) != Building.Empty) && (isWeakSide(x-1, y, Direction.Right, getBuilding(x-1, y)) || isWeakSide(Direction.Left, placeDir, structure))) return false;
         if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x+1, y)) || getBuilding(x+1, y) != Building.Empty) && (isWeakSide(x+1, y, Direction.Left, getBuilding(x+1, y)) || isWeakSide(Direction.Right, placeDir, structure))) return false;
+        if (structure == Building.Laser && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y - 2)) || getBuilding(x, y - 2) != Building.Empty) && (getBuilding(x, y - 2) == Building.Base)) return false;
+        if (structure == Building.Laser && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y + 2)) || getBuilding(x, y + 2) != Building.Empty) && (getBuilding(x, y + 2) == Building.Base)) return false;
         return true;
     }
 
