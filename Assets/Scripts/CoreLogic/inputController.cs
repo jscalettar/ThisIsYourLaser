@@ -97,7 +97,7 @@ public class inputController : MonoBehaviour {
 
     private bool isValid(State state, int value, int min, int max) {
         if (state == State.placeBase)
-            return value < max && value > min;
+            return value < max -1 && value > min+1;
         return value <= max && value >= min;
     }
 
@@ -122,8 +122,8 @@ public class inputController : MonoBehaviour {
         cycleP2 = 0;
         xEnd = gridManager.theGrid.getDimX() - 1;
         yEnd = gridManager.theGrid.getDimY() - 1;
-        cursorP1 = new Cursor(0, 1, Direction.Right, Building.Blocking, State.placeBase);
-        cursorP2 = new Cursor(xEnd, yEnd-1, Direction.Left, Building.Blocking, State.placeBase);
+        cursorP1 = new Cursor(0, 2, Direction.Right, Building.Blocking, State.placeBase);
+        cursorP2 = new Cursor(xEnd, yEnd-2, Direction.Left, Building.Blocking, State.placeBase);
         PauseMenu = GameObject.Find("Pause Menu");
         // Set initial cursor positions
         cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
