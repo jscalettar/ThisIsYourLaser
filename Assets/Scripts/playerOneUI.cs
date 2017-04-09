@@ -15,4 +15,20 @@ public class playerOneUI : MonoBehaviour {
     public Image p1RefractBackground;
     public Image p1RedirectBackground;
 
+    public Text p1ResourcePlaceCost;
+    public Text p1ResourceMoveCost;
+    public Text p1ResourceRemoveCost;
+    public Text p1BlockPlaceCost;
+    public Text p1BlockMoveCost;
+    public Text p1BlockRemoveCost;
+    public Text p1ReflectPlaceCost;
+    public Text p1ReflectMoveCost;
+    public Text p1ReflectRemoveCost;
+    public Text p1RefractPlaceCost;
+    public Text p1RefractMoveCost;
+    public Text p1RefractRemoveCost;
+    public Text p1RedirectPlaceCost;
+    public Text p1RedirectMoveCost;
+    public Text p1RedirectRemoveCost;
+
 }
