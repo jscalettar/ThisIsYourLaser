@@ -145,6 +145,9 @@ public class inputController : MonoBehaviour {
 			else if (Input.GetKeyDown("5")){ cursorP1.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
 			
             // Cycle P1
+            if(gridManager.theGrid.getResourcesP1() < 4) {
+                cursorP1.selection = Building.Resource;
+            }
 			if (Input.GetButtonDown("cycleR_1"))
 			{
 				if (cursorP1.selection == Building.Resource) cursorP1.selection = Building.Blocking;
@@ -164,7 +167,10 @@ public class inputController : MonoBehaviour {
 				else cursorP1.selection -= 1;
 
                 while (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-                    if (cursorP1.selection == Building.Blocking) return;
+                    if (cursorP1.selection == Building.Blocking) {
+                        cursorP1.selection = Building.Resource;
+                        return;
+                    }
                     cursorP1.selection -= 1;
                 }
 
