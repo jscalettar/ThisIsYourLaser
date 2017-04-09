@@ -145,9 +145,12 @@ public class inputController : MonoBehaviour {
 			else if (Input.GetKeyDown("5")){ cursorP1.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
 			
             // Cycle P1
+            
+            // Defualts selection to resource
             if(gridManager.theGrid.getResourcesP1() < 4) {
                 cursorP1.selection = Building.Resource;
             }
+                
 			if (Input.GetButtonDown("cycleR_1"))
 			{
 				if (cursorP1.selection == Building.Resource) cursorP1.selection = Building.Blocking;
@@ -183,9 +186,14 @@ public class inputController : MonoBehaviour {
 			else if (Input.GetKeyDown("9")){ cursorP2.selection = Building.Refracting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
 			else if (Input.GetKeyDown("0")){ cursorP2.selection = Building.Redirecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
 			else if (Input.GetKeyDown("-")){ cursorP2.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
-			
+
             // Cycle P2
-			if (Input.GetButtonDown("cycleR_2"))
+
+            // Defualts selection to resource
+            if (gridManager.theGrid.getResourcesP2() < 4) {
+                cursorP2.selection = Building.Resource;
+            }
+            if (Input.GetButtonDown("cycleR_2"))
 			{
 				if (cursorP2.selection == Building.Resource) cursorP2.selection = Building.Blocking;
 				else cursorP2.selection += 1;
@@ -203,7 +211,10 @@ public class inputController : MonoBehaviour {
 				else cursorP2.selection -= 1;
 
                 while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-                    if (cursorP2.selection == Building.Blocking) return;
+                    if (cursorP2.selection == Building.Blocking) {
+                        cursorP2.selection = Building.Resource;
+                        return;
+                    }
                     cursorP2.selection -= 1;
                 }
 
