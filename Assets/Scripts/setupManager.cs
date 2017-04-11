@@ -220,21 +220,11 @@ public class setupManager : MonoBehaviour
         if (basePhase == laserPhase)//pick a building that you want to place
         {
             //Player 1 selection controls
-			if (Input.GetKeyDown("1")) { selection1 = Building.Blocking; i1 = 2; print ("Blocking Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite= P1BlockSprite;
-                p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.red; p1UI.p1ReflectBackground.color = Color.white;
-                p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white; }
-            if (Input.GetKeyDown("2")) { selection1 = Building.Reflecting; i1 = 3; print("Reflecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite;
-                p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.red;
-                p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white; }
-            if (Input.GetKeyDown("3")) { selection1 = Building.Refracting; i1 = 4; print("Refracting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RefractSprite;
-                p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
-                p1UI.p1RefractBackground.color = Color.red; p1UI.p1RedirectBackground.color = Color.white; }
-            if (Input.GetKeyDown("4")) { selection1 = Building.Redirecting; i1 = 5; print("Redirecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite;
-                p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
-                p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.red; }
-            if (Input.GetKeyDown("5")) { selection1 = Building.Resource; i1 = 6; print("Resource Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite;
-                p1UI.p1ResourceBackground.color = Color.red; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
-                p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white; }
+			if (Input.GetKeyDown("1")) { selection1 = Building.Blocking; i1 = 2; print ("Blocking Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite= P1BlockSprite; }
+            if (Input.GetKeyDown("2")) { selection1 = Building.Reflecting; i1 = 3; print("Reflecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; }
+            if (Input.GetKeyDown("3")) { selection1 = Building.Refracting; i1 = 4; print("Refracting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; }
+            if (Input.GetKeyDown("4")) { selection1 = Building.Redirecting; i1 = 5; print("Redirecting Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; }
+            if (Input.GetKeyDown("5")) { selection1 = Building.Resource; i1 = 6; print("Resource Selected"); P1Cursor.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite; }
 
         if (Input.GetButtonDown("xboxRightBumper")) {
                 if (selection1 == Building.Redirecting) { selection1 = Building.Blocking; }
@@ -248,21 +238,11 @@ public class setupManager : MonoBehaviour
                
             }
             //Player 2 selection controls
-            if (Input.GetKeyDown("7")) { selection2 = Building.Blocking; i2 = 2; print("Blocking Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2BlockSprite;
-                p2UI.p2ResourceBackground.color = Color.white; p2UI.p2BlockBackground.color = Color.green; p2UI.p2ReflectBackground.color = Color.white;
-                p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.white; }
-            if (Input.GetKeyDown("8")) { selection2 = Building.Reflecting; i2 = 3; print("Reflecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite;
-                p2UI.p2ResourceBackground.color = Color.white; p2UI.p2BlockBackground.color = Color.white; p2UI.p2ReflectBackground.color = Color.green;
-                p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.white; }
-            if (Input.GetKeyDown("9")) { selection2 = Building.Refracting; i2 = 4; print("Refracting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2RefractSprite;
-                p2UI.p2ResourceBackground.color = Color.white; p2UI.p2BlockBackground.color = Color.white; p2UI.p2ReflectBackground.color = Color.white;
-                p2UI.p2RefractBackground.color = Color.green; p2UI.p2RedirectBackground.color = Color.white; }
-            if (Input.GetKeyDown("0")) { selection2 = Building.Redirecting; i2 = 5; print("Redirecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite;
-                p2UI.p2ResourceBackground.color = Color.white; p2UI.p2BlockBackground.color = Color.white; p2UI.p2ReflectBackground.color = Color.white;
-                p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.green; }
-            if (Input.GetKeyDown("-")) { selection2= Building.Resource; i1 = 6; print("Resource Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2ResourceSprite;
-                p2UI.p2ResourceBackground.color = Color.green; p2UI.p2BlockBackground.color = Color.white; p2UI.p2ReflectBackground.color = Color.white;
-                p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.white; }
+            if (Input.GetKeyDown("7")) { selection2 = Building.Blocking; i2 = 2; print("Blocking Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2BlockSprite; }
+            if (Input.GetKeyDown("8")) { selection2 = Building.Reflecting; i2 = 3; print("Reflecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; }
+            if (Input.GetKeyDown("9")) { selection2 = Building.Refracting; i2 = 4; print("Refracting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2RefractSprite; }
+            if (Input.GetKeyDown("0")) { selection2 = Building.Redirecting; i2 = 5; print("Redirecting Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; }
+            if (Input.GetKeyDown("-")) { selection2= Building.Resource; i1 = 6; print("Resource Selected"); P2Cursor.GetComponent<SpriteRenderer>().sprite = P2ResourceSprite; }
 
 			if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("xboxA")) && selection1 != Building.Empty)
             {

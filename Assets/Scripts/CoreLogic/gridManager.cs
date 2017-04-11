@@ -225,9 +225,14 @@ public struct Grid
         if (structure == Building.Blocking) return false;
         // Buildings with all weak sides
         else if (structure == Building.Base || structure == Building.Laser || structure == Building.Refracting) return true;
-        else if (structure == Building.Reflecting) return getDirection(x, y) == dir;
+        else if (structure == Building.Reflecting)
+        {
+            if (getDirection(x, y) == Direction.Up || getDirection(x, y) == Direction.Down) { if (dir == Direction.Up || dir == Direction.Down) return true; }
+            else { if (dir == Direction.Left || dir == Direction.Right) return true; }
+        }
         else if (structure == Building.Resource) return getDirection(x, y) == dir;
-        else if (structure == Building.Redirecting) {
+        else if (structure == Building.Redirecting)
+        {
             if (getDirection(x, y) == Direction.Up || getDirection(x, y) == Direction.Down) { if (dir == Direction.Right || dir == Direction.Left) return true; }
             else { if (dir == Direction.Up || dir == Direction.Down) return true; }
         }

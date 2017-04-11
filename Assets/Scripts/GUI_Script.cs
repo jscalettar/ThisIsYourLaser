@@ -100,9 +100,39 @@ public class GUI_Script : MonoBehaviour {
                 case Building.Resource: p2UI.p2ResourceBackground.color = new Color(0.8f, 1f, 0.8f); break;
             }
 
-    
+        //PLAYER 1--------
+        // Set all backgrounds to white
+        p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
+        p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white;
+        // Highlight selection
+        if (inputController.cursorP1.selection == Building.Blocking) p1UI.p1BlockBackground.color = Color.red;
+        if (inputController.cursorP1.selection == Building.Reflecting) p1UI.p1ReflectBackground.color = Color.red;
+        if (inputController.cursorP1.selection == Building.Refracting) p1UI.p1RefractBackground.color = Color.red;
+        if (inputController.cursorP1.selection == Building.Redirecting) p1UI.p1RedirectBackground.color = Color.red;
+        if (inputController.cursorP1.selection == Building.Resource) p1UI.p1ResourceBackground.color = Color.red;
+        // Grey-out resources player can't afford
+        if (gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) p1UI.p1BlockBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) p1UI.p1ReflectBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) p1UI.p1RefractBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) p1UI.p1RedirectBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) p1UI.p1ResourceBackground.color = Color.grey;
 
-
+        //PLAYER 2--------
+        // Set all backgrounds to white
+        p2UI.p2ResourceBackground.color = Color.white; p2UI.p2BlockBackground.color = Color.white; p2UI.p2ReflectBackground.color = Color.white;
+        p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.white;
+        // Highlight selection
+        if (inputController.cursorP2.selection == Building.Blocking) p2UI.p2BlockBackground.color = Color.green;
+        if (inputController.cursorP2.selection == Building.Reflecting) p2UI.p2ReflectBackground.color = Color.green;
+        if (inputController.cursorP2.selection == Building.Refracting) p2UI.p2RefractBackground.color = Color.green;
+        if (inputController.cursorP2.selection == Building.Redirecting) p2UI.p2RedirectBackground.color = Color.green;
+        if (inputController.cursorP2.selection == Building.Resource) p2UI.p2ResourceBackground.color = Color.green;
+        // Grey-out resources player can't afford
+        if (gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2BlockBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2ReflectBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2RefractBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2RedirectBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2ResourceBackground.color = Color.grey;
 
         Text[] elements = p1UI.p1BlockBackground.GetComponentsInChildren<Text>();
         int counter = 0;
