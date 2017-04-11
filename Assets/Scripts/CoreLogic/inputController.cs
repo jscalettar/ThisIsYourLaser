@@ -320,8 +320,9 @@ public class inputController : MonoBehaviour {
             else if(cursorP1.state == State.placingLaser) {
                 switch (cursorP1.direction)
                 {
-                    case Direction.Up: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][1]; break;
-                    case Direction.Down: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][0];  break;
+                    case Direction.Up: if (cursorP1.y != yEnd) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][1]; } break;
+                    case Direction.Down: if(cursorP1.y != 0) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][0];}  break;
+                    default: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorP1.y == 0 ? cursorObjP1.GetComponent<cursor1>().Sprites[5][1] : cursorObjP1.GetComponent<cursor1>().Sprites[5][0]; break;
                 }
                 
                 p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
@@ -381,8 +382,9 @@ public class inputController : MonoBehaviour {
             {
                 switch (cursorP2.direction)
                 {
-                    case Direction.Up: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][1]; break;
-                    case Direction.Down: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; break;
+                    case Direction.Up: if(cursorP2.y != yEnd) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][1]; } break;
+                    case Direction.Down: if(cursorP2.y != 0) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; } break;
+                    default: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorP2.y == 0 ? cursorObjP2.GetComponent<cursor1>().Sprites[5][1] : cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; break;
                 }
 
                 p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
@@ -568,6 +570,8 @@ public class inputController : MonoBehaviour {
                 p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
                 if (cursorP1.direction == Direction.Up && cursorP1.y != yEnd) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else if (cursorP1.direction == Direction.Down && cursorP1.y != 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
+                else if (cursorP1.y != 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
+                else if (cursorP1.y == 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else print("Press the up or down direction keys to place laser");
             } else {
                 p2UI.State.text = "Press [o] to place creatures \nPress IJKL for direction \n[o] to confirm";
