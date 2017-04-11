@@ -607,6 +607,9 @@ public class gridManager : MonoBehaviour
                 
                 theGrid.queueUpdate();
                 deletions[deletionCount++] = i;
+
+                ghostLaser.ghostUpdateNeeded = true;
+                print("TEST");
             }
         }
         for (int i = 0; i < deletionCount; i++) {
@@ -631,6 +634,7 @@ public class gridManager : MonoBehaviour
                 theGrid.queueUpdate();
                 deletions[deletionCount++] = i;
 
+                ghostLaser.ghostUpdateNeeded = true;
             }
         }
         for (int i = 0; i < deletionCount; i++) {
@@ -654,6 +658,8 @@ public class gridManager : MonoBehaviour
                 }
                 theGrid.queueUpdate();
                 deletions[deletionCount++] = i;
+
+                ghostLaser.ghostUpdateNeeded = true;
             }
         }
         for (int i = 0; i < deletionCount; i++) {

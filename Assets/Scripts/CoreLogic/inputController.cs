@@ -89,6 +89,12 @@ public class inputController : MonoBehaviour {
             moveOrigin = new XY(-1, -1);
             moveBuilding = Building.Empty;
         }
+
+        public override int GetHashCode()
+        {
+            int value = x + (y * 8) + ((int)selection * 69) + ((int)direction * 1337);
+            return value.GetHashCode();
+        }
     }
 
     private int clamp(int value, int min, int max) {
@@ -103,7 +109,7 @@ public class inputController : MonoBehaviour {
         return value <= max && value >= min;
     }
 
-    public static Cursor cursorP1, cursorP2;
+    public static Cursor cursorP1, cursorP2, cursorP1Last, cursorP2Last;
     private int xEnd, yEnd;
     private int cycleP1, cycleP2;
     private bool p1HasPlacedBase = false, p2HasPlacedBase = false;
@@ -111,7 +117,7 @@ public class inputController : MonoBehaviour {
     private Queue<XY> moveQueueP2 = new Queue<XY>();
 
     void Start () {
-		Sounds = setSounds;
+        Sounds = setSounds;
 		UISounds = setUISounds;
         //default values for Player 1 UI  
         p1UI = gameObject.AddComponent<playerOneUI>();
@@ -126,6 +132,8 @@ public class inputController : MonoBehaviour {
         yEnd = gridManager.theGrid.getDimY() - 1;
         cursorP1 = new Cursor(0, 2, Direction.Right, Building.Blocking, State.placeBase);
         cursorP2 = new Cursor(xEnd, yEnd-2, Direction.Left, Building.Blocking, State.placeBase);
+        cursorP1Last = cursorP1;
+        cursorP2Last = cursorP2;
         PauseMenu = GameObject.Find("Pause Menu");
         // Set initial cursor positions
         cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
@@ -491,6 +499,12 @@ public class inputController : MonoBehaviour {
 				SoundManager.PlaySound(Sounds[0].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
 
             }
+
+            // Check if ghost laser update needed
+            if (!cursorP1.Equals(cursorP1Last)) ghostLaser.ghostUpdateNeeded = true;
+            else if (!cursorP2.Equals(cursorP2Last)) ghostLaser.ghostUpdateNeeded = true;
+            cursorP1Last = cursorP1;
+            cursorP2Last = cursorP2;
         }
     }
 
@@ -505,7 +519,7 @@ public class inputController : MonoBehaviour {
         return Building.Resource;
     }
 
-    private bool validPlacement(int x, int y, Direction direction, Building building)
+    public static bool validPlacement(int x, int y, Direction direction, Building building)
     {
         if (gridManager.theGrid.getBuilding(x, y) != Building.Empty || !gridManager.theGrid.probeGrid(x, y, direction, building)) return false;
         if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return false;

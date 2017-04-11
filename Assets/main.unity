@@ -28399,6 +28399,7 @@ GameObject:
   - component: {fileID: 2040606553}
   - component: {fileID: 2040606548}
   - component: {fileID: 2040606552}
+  - component: {fileID: 2040606554}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -28580,6 +28581,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 2061673243}
+--- !u!114 &2040606554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040606545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b39ae5249231764ab414853f8b73d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserWidth: 0.02
+  laserVisualHeight: 0.5
+  laserTransparency: 0.3
+  laserMaterialGhost: {fileID: 2100000, guid: 4cb50df1a13e2e14e8dcfba4a0504f7f, type: 2}
 --- !u!1 &2053190675
 GameObject:
   m_ObjectHideFlags: 0
