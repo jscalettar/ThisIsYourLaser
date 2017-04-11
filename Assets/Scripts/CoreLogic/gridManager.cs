@@ -400,10 +400,10 @@ public struct Grid
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             // Give some resources back to player -> half of placement cost * percentage remaining health
             if (playerID == Player.PlayerOne) {
-				resourcesP1 += (getCost (grid [y, x].building, x, playerID, false, true) / 2) * (grid[y, x].health / buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters> ().health);
+				resourcesP1 += (getCost (grid [y, x].building, x, playerID, false, true)) * (grid[y, x].health / buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters> ().health);
 				buildingNumP1--;
 			} else {
-				resourcesP2 += (getCost (grid [y, x].building, x, playerID, false, true) / 2) * (grid[y, x].health / buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters> ().health);
+				resourcesP2 += (getCost (grid [y, x].building, x, playerID, false, true)) * (grid[y, x].health / buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters> ().health);
 				buildingNumP2--;
 			}
             if (resourcesP1 >= resourceLimit) resourcesP1 = resourceLimit;
