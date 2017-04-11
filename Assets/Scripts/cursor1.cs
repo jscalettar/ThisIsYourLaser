@@ -31,6 +31,8 @@ public class cursor1 : MonoBehaviour
     public Sprite[] Laser;
     public Sprite[][] Sprites;
 
+    public Sprite[] UISprites;
+
     // Use this for initialization
 
     void Start()

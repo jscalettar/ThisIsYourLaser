@@ -143,13 +143,13 @@ public struct Grid
                 grid[row, col] = new GridItem(true, Building.Empty, Player.World, Direction.None, 0);
                 GameObject empty = MonoBehaviour.Instantiate(emptyHolder);    //makes transparent planes on each grid square
                 empty.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, -0.1f, (-y / 2) + row + 0.5f);
-                Color gridColor;
-                if (col < (x/2)) {
-                    gridColor = Color.red;
-                }
-                else {
-                    gridColor = Color.green;
-                }
+                Color gridColor = Color.white;
+                //if (col < (x/2)) {
+                //    gridColor = Color.red;
+                //}
+                //else {
+                //    gridColor = Color.green;
+                //}
                 gridColor.a = 0.20f;
                 empty.GetComponent<Renderer>().material.color = gridColor;
             }
