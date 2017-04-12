@@ -609,7 +609,6 @@ public class gridManager : MonoBehaviour
                 deletions[deletionCount++] = i;
 
                 ghostLaser.ghostUpdateNeeded = true;
-                print("TEST");
             }
         }
         for (int i = 0; i < deletionCount; i++) {

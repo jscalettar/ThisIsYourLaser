@@ -28462,7 +28462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f771067c1038644c9c6c5fc61be283c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserDecay: 0
   laserWidth: 0.05
   laserVisualHeight: 0.5
   laserIntensity: 0.5
@@ -28592,10 +28591,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b39ae5249231764ab414853f8b73d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserWidth: 0.02
+  laserWidth: 0.05
   laserVisualHeight: 0.5
   laserTransparency: 0.3
-  laserMaterialGhost: {fileID: 2100000, guid: 4cb50df1a13e2e14e8dcfba4a0504f7f, type: 2}
+  laserMaterialGhostP1: {fileID: 2100000, guid: 4cb50df1a13e2e14e8dcfba4a0504f7f,
+    type: 2}
+  laserMaterialGhostP2: {fileID: 2100000, guid: 873bff06a20158843bc8b9d4acf95efb,
+    type: 2}
 --- !u!1 &2053190675
 GameObject:
   m_ObjectHideFlags: 0

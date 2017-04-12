@@ -10,7 +10,8 @@ public class ghostLaser : MonoBehaviour {
     public float laserWidth = 0.05f;
     public float laserVisualHeight = 0.5f;
     public float laserTransparency = 0.5f;
-    public Material laserMaterialGhost;
+    public Material laserMaterialGhostP1;
+    public Material laserMaterialGhostP2;
 
     private int iterationLimit = 300;
     private int iterationCount = 0;
@@ -49,10 +50,10 @@ public class ghostLaser : MonoBehaviour {
             laserSubIndex = subIndex;
         }
 
-        private Building getBuilding(int x, int y)
+        private Building getBuilding(int x, int y, Player player = Player.World)
         {
-            if (inputController.cursorP1.x == x && inputController.cursorP1.y == y) return inputController.cursorP1.selection;
-            if (inputController.cursorP2.x == x && inputController.cursorP2.y == y) return inputController.cursorP2.selection;
+            if (player == Player.PlayerOne && inputController.cursorP1.x == x && inputController.cursorP1.y == y && validCursorBuilding(Player.PlayerOne)) return getCursorBuilding(Player.PlayerOne);
+            if (player == Player.PlayerTwo && inputController.cursorP2.x == x && inputController.cursorP2.y == y && validCursorBuilding(Player.PlayerTwo)) return getCursorBuilding(Player.PlayerTwo);
             return gridManager.theGrid.getBuilding(x, y);
         }
 
@@ -65,7 +66,7 @@ public class ghostLaser : MonoBehaviour {
         public Direction getHeading() { return laserHeading; }
         public Direction getMarchDir() { return marchDirection; }
         public Player getOwner() { return owner; }
-        public bool onRedirect() { return getBuilding(X, Y) == Building.Redirecting; }
+        public bool onRedirect(Player player) { return getBuilding(X, Y, player) == Building.Redirecting; }
         // Set
         public void combineLasers(float str, Player laserOwner)
         {
@@ -77,6 +78,21 @@ public class ghostLaser : MonoBehaviour {
         {
             return "Coords: (" + X + ", " + Y + ")  |  Strength: " + strength + "  |  Heading: " + laserHeading + "  |  MarchDirection: " + marchDirection + "  |  Owner: " + owner;
         }
+    }
+
+    public static Direction opposite(Direction dir)
+    {
+        switch (dir) {
+            case Direction.NW: return Direction.SE;
+            case Direction.NE: return Direction.SW;
+            case Direction.SW: return Direction.NE;
+            case Direction.SE: return Direction.NW;
+            case Direction.Up: return Direction.Down;
+            case Direction.Down: return Direction.Up;
+            case Direction.Left: return Direction.Right;
+            case Direction.Right: return Direction.Left;
+        }
+        return Direction.None;
     }
 
     private struct laserGrid
@@ -103,20 +119,6 @@ public class ghostLaser : MonoBehaviour {
             return true;
         }
 
-        private Direction opposite(Direction dir)
-        {
-            switch (dir) {
-                case Direction.NW: return Direction.SE;
-                case Direction.NE: return Direction.SW;
-                case Direction.SW: return Direction.NE;
-                case Direction.SE: return Direction.NW;
-                case Direction.Up: return Direction.Down;
-                case Direction.Down: return Direction.Up;
-                case Direction.Left: return Direction.Right;
-                case Direction.Right: return Direction.Left;
-            }
-            return Direction.None;
-        }
 
         public bool insertNode(int x, int y, float str, Direction heading, Direction marchDir, Player laserOwner, int indx, int subIndx)
         {
@@ -246,7 +248,7 @@ public class ghostLaser : MonoBehaviour {
             line.startWidth = laserWidth;
             line.endWidth = laserWidth;
             line.numCapVertices = 5;
-            line.material = laserMaterialGhost;
+            line.material = laserMaterialGhostP1;
             line.enabled = false;
         }
     }
@@ -259,13 +261,25 @@ public class ghostLaser : MonoBehaviour {
     private void drawLaser(laserNode start, laserNode end)
     {
         Vector3 startPos = coordToPos(start.getX(), start.getY(), start.getHeading(), start.getMarchDir(), true);
+
+        if (((start.getOwner() == Player.PlayerOne && start.getX() == inputController.cursorP1.x && start.getY() == inputController.cursorP1.y && getCursorBuilding(Player.PlayerOne) == Building.Redirecting) || (start.getOwner() == Player.PlayerTwo && start.getX() == inputController.cursorP2.x && start.getY() == inputController.cursorP2.y && getCursorBuilding(Player.PlayerTwo) == Building.Redirecting))) {
+            Direction dir = Direction.Up;
+            switch (start.getMarchDir()) {
+                case Direction.Down: dir = start.getHeading() == Direction.SE ? Direction.Right : Direction.Left; break;
+                case Direction.Up: dir = start.getHeading() == Direction.NE ? Direction.Right : Direction.Left; break;
+                case Direction.Left: dir = start.getHeading() == Direction.NW ? Direction.Up : Direction.Down; break;
+                case Direction.Right: dir = start.getHeading() == Direction.NE ? Direction.Up : Direction.Down; break;
+            }
+
+            startPos = coordToPos(start.getX(), start.getY(), start.getHeading(), dir, true);
+        }
         Vector3 endPos = coordToPos(end.getX(), end.getY(), end.getHeading(), end.getMarchDir(), false);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(0, startPos);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(1, endPos);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().enabled = true;
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().material = start.getOwner() == Player.PlayerOne ? laserMaterialGhostP1 : laserMaterialGhostP2;
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().startColor = new Color(1, 1, 1, laserTransparency);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().endColor = new Color(1, 1, 1, laserTransparency);
-        //laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().material = laserMaterialGhost;
         laserCounter++;
     }
 
@@ -336,10 +350,13 @@ public class ghostLaser : MonoBehaviour {
         refractHits.Clear();
 
         // Check p1 cursor if ghost laser simulation is necessary
-        if ((inputController.cursorP1.selection == Building.Reflecting || inputController.cursorP1.selection == Building.Refracting) && inputController.validPlacement(inputController.cursorP1.x, inputController.cursorP1.y, inputController.cursorP1.direction, inputController.cursorP1.selection))
+        if (validCursorBuilding(Player.PlayerOne) && inputController.validPlacement(inputController.cursorP1.x, inputController.cursorP1.y, inputController.cursorP1.direction, getCursorBuilding(Player.PlayerOne)))
             for (int i = 0; i < laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x].Count; i++) {
-                if (laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getSubIndex() > 0)
-                    laserReflect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
+                if (laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getSubIndex() > 0) {
+                    if (getCursorBuilding(Player.PlayerOne) == Building.Redirecting)
+                        laserRedirect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
+                    else laserReflect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
+                }
                 //laserQueue.Add(new laserNode(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.x, inputController.cursorP1.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.x, inputController.cursorP1.y][i].getMarchDir(), Player.PlayerOne, ++laserIndex, 0));
                 // Loop through the simulation
                 while (laserQueue.Count > 0) {
@@ -348,11 +365,16 @@ public class ghostLaser : MonoBehaviour {
                 }
             }
 
+        ghostLaserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
+
         // Check p2 cursor if ghost laser simulation is necessary
-        if ((inputController.cursorP2.selection == Building.Reflecting || inputController.cursorP2.selection == Building.Refracting) && inputController.validPlacement(inputController.cursorP2.x, inputController.cursorP2.y, inputController.cursorP2.direction, inputController.cursorP2.selection))
+        if (validCursorBuilding(Player.PlayerTwo) && inputController.validPlacement(inputController.cursorP2.x, inputController.cursorP2.y, inputController.cursorP2.direction, getCursorBuilding(Player.PlayerTwo)))
             for (int i = 0; i < laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x].Count; i++) {
-                if (laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getSubIndex() > 0)
-                    laserReflect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
+                if (laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getSubIndex() > 0) {
+                    if (getCursorBuilding(Player.PlayerTwo) == Building.Redirecting)
+                        laserRedirect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
+                    else laserReflect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
+                }
                 //laserQueue.Add(new laserNode(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getMarchDir(), Player.PlayerTwo, ++laserIndex, 0));
                 // Loop through the simulation
                 while (laserQueue.Count > 0) {
@@ -499,7 +521,7 @@ public class ghostLaser : MonoBehaviour {
     private void addLaserToQueue(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, bool isNew)
     {
         if (!isNew)
-            if (lasers.Count > indx && lasers[indx].Count > 0 && subIndx == 0 && lasers[indx][0].onRedirect()) isNew = true;
+            if (lasers.Count > indx && lasers[indx].Count > 0 && subIndx == 0 && lasers[indx][0].onRedirect(player)) isNew = true;
         // Add laser node to queue
         if (isNew) laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, ++laserIndex, 0));
         else laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, indx, subIndx + 1));
@@ -564,8 +586,8 @@ public class ghostLaser : MonoBehaviour {
         // damage hit if side hit
         bool damageHit = false;
         Direction dir = Direction.Up;
-        if (inputController.cursorP1.x == x && inputController.cursorP1.y == y) dir = inputController.cursorP1.direction;
-        else if (inputController.cursorP2.x == x && inputController.cursorP2.y == y) dir = inputController.cursorP2.direction;
+        if (player == Player.PlayerOne && inputController.cursorP1.x == x && inputController.cursorP1.y == y && validCursorBuilding(Player.PlayerOne)) dir = inputController.cursorP1.state == State.idle ? Direction.Up : inputController.cursorP1.direction;
+        else if (player == Player.PlayerTwo && inputController.cursorP2.x == x && inputController.cursorP2.y == y && validCursorBuilding(Player.PlayerTwo)) dir = inputController.cursorP2.state == State.idle ? Direction.Up : inputController.cursorP2.direction;
         else dir = gridManager.theGrid.getDirection(x, y);
         if (dir == Direction.Up || dir == Direction.Down) { if (direction == Direction.Right || direction == Direction.Left) damageHit = true; } else { if (direction == Direction.Up || direction == Direction.Down) damageHit = true; }
 
@@ -582,8 +604,35 @@ public class ghostLaser : MonoBehaviour {
     // Returns ghost building or gridmanager building
     private Building getBuilding(int x, int y, Player player = Player.World)
     {
-        if (player == Player.PlayerOne && inputController.cursorP1.x == x && inputController.cursorP1.y == y) return inputController.cursorP1.selection;
-        if (player == Player.PlayerTwo && inputController.cursorP2.x == x && inputController.cursorP2.y == y) return inputController.cursorP2.selection;
+        if (player == Player.PlayerOne && inputController.cursorP1.x == x && inputController.cursorP1.y == y && validCursorBuilding(Player.PlayerOne)) return getCursorBuilding(Player.PlayerOne);
+        if (player == Player.PlayerTwo && inputController.cursorP2.x == x && inputController.cursorP2.y == y && validCursorBuilding(Player.PlayerTwo)) return getCursorBuilding(Player.PlayerTwo);
         return gridManager.theGrid.getBuilding(x, y);
     }
+
+    // Check if current selected building is supported by the ghost laser
+    public static bool validCursorBuilding(Player player = Player.World)
+    {
+        if (player == Player.PlayerOne) {
+            if ((inputController.cursorP1.state == State.idle || inputController.cursorP1.state == State.placing) && (inputController.cursorP1.selection == Building.Reflecting || inputController.cursorP1.selection == Building.Refracting || inputController.cursorP1.selection == Building.Redirecting)) return true;
+            if ((inputController.cursorP1.state == State.moving || inputController.cursorP1.state == State.placingMove) && (inputController.cursorP1.moveBuilding == Building.Reflecting || inputController.cursorP1.moveBuilding == Building.Refracting || inputController.cursorP1.moveBuilding == Building.Redirecting)) return true;
+        } else if (player == Player.PlayerTwo) {
+            if ((inputController.cursorP2.state == State.idle || inputController.cursorP2.state == State.placing) && (inputController.cursorP2.selection == Building.Reflecting || inputController.cursorP2.selection == Building.Refracting || inputController.cursorP2.selection == Building.Redirecting)) return true;
+            if ((inputController.cursorP2.state == State.moving || inputController.cursorP2.state == State.placingMove) && (inputController.cursorP2.moveBuilding == Building.Reflecting || inputController.cursorP2.moveBuilding == Building.Refracting || inputController.cursorP2.moveBuilding == Building.Redirecting)) return true;
+        }
+        return false;
+    }
+
+    // Return the proper building for use with the ghost laser depending on player and state
+    public static Building getCursorBuilding(Player player = Player.World)
+    {
+        if (player == Player.PlayerOne) {
+            if (inputController.cursorP1.state == State.idle || inputController.cursorP1.state == State.placing) return inputController.cursorP1.selection;
+            if (inputController.cursorP1.state == State.moving || inputController.cursorP1.state == State.placingMove) return inputController.cursorP1.moveBuilding;
+        } else if (player == Player.PlayerTwo) {
+            if (inputController.cursorP2.state == State.idle || inputController.cursorP2.state == State.placing) return inputController.cursorP2.selection;
+            if (inputController.cursorP2.state == State.moving || inputController.cursorP2.state == State.placingMove) return inputController.cursorP2.moveBuilding;
+        }
+        return Building.Empty;
+    }
+
 }
