@@ -282,7 +282,9 @@ public class laserLogic : MonoBehaviour
                 gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * Time.deltaTime);
             }
         }
-        gridManager.theGrid.addResources(Time.deltaTime * resourceRate/2, Time.deltaTime * resourceRate/2);
+        //setupManager smanager = new setupManager();
+        // Generate Resources passively
+        if (gridManager.theGrid.baseHealthP1() > 0f && gridManager.theGrid.baseHealthP2() > 0f) gridManager.theGrid.addResources(Time.deltaTime * resourceRate/2, Time.deltaTime * resourceRate/2);
 
         if (ghostLaser.ghostUpdateNeeded) { ghostLaser.updateGhostLaser = true; ghostLaser.ghostUpdateNeeded = false; }
     }

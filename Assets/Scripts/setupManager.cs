@@ -412,6 +412,8 @@ public class setupManager : MonoBehaviour
         }
         return false;
     }
+
+    public bool getPhase() { if (basePhase == true) return true; else return false; }
 }
 
 
