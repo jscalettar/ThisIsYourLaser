@@ -584,15 +584,15 @@ public class inputController : MonoBehaviour {
         } else if (currentState == State.placing) {
 			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
             if (player == Player.PlayerOne) {
-                if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP1.state = State.idle; }
-                else { if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, cursorP1.selection, Player.PlayerOne, cursorP1.direction)) print("Placing failed."); cursorP1.state = State.idle; }
+				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP1.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else { if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, cursorP1.selection, Player.PlayerOne, cursorP1.direction)) print("Placing failed."); cursorP1.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
             } else {
-                if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP2.state = State.idle; }
-                else { if (!gridManager.theGrid.placeBuilding(cursorP2.x, cursorP2.y, cursorP2.selection, Player.PlayerTwo, cursorP2.direction)) print("Placing failed."); cursorP2.state = State.idle; }
+				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP2.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else { if (!gridManager.theGrid.placeBuilding(cursorP2.x, cursorP2.y, cursorP2.selection, Player.PlayerTwo, cursorP2.direction)) print("Placing failed."); cursorP2.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
             }
         } else if (currentState == State.idle) {
             if (player == Player.PlayerOne) {
-                if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.selection)) print("You can not place here, selection is not valid");
+				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.selection)){print("You can not place here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume / 25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) <= gridManager.theGrid.getResourcesP1()){
                 	cursorP1.state = State.placing;
                 	if(cursorP1.selection == Building.Refracting || cursorP1.selection == Building.Blocking){
@@ -604,7 +604,7 @@ public class inputController : MonoBehaviour {
                         place(Player.PlayerOne, cursorP1.state);
                     }
                  }
-                else print("Not enough resources to place.");
+				else {print("Not enough resources to place."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
             } else {
                 if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.selection)) print("You can not place here, selection is not valid");
                 else if (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) <= gridManager.theGrid.getResourcesP2()){
@@ -618,10 +618,10 @@ public class inputController : MonoBehaviour {
                         place(Player.PlayerTwo, cursorP2.state);
                     }
                 }
-                else print("Not enough resources to place.");
+				else{ print("Not enough resources to place."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
             }
         } else {
-            print("Can not place, busy with some other action.");
+			print("Can not place, busy with some other action."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         }
 
     }
@@ -631,35 +631,35 @@ public class inputController : MonoBehaviour {
         if (currentState == State.moving) {
             if (player == Player.PlayerOne) {
                 p1UI.State.text = "Press [u] to place creature \nPress WASD for direction \n[u] to confirm";
-                if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.moveBuilding) && !new XY(cursorP1.x, cursorP1.y).Equals(cursorP1.moveOrigin)) print("You can not move to here, selection is not valid");
+				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.moveBuilding) && !new XY(cursorP1.x, cursorP1.y).Equals(cursorP1.moveOrigin)){ print("You can not move to here, selection is not valid");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP1.moveBuilding, cursorP1.x, Player.PlayerOne, true) < gridManager.theGrid.getResourcesP1()) cursorP1.state = State.placingMove;
                 else print("Not enough resources to move.");
             } else {
                 p2UI.State.text = "Press [u] to place creatures \nPress IJKL for direction \n[u] to confirm";
-                if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.moveBuilding) && !new XY(cursorP2.x, cursorP2.y).Equals(cursorP2.moveOrigin)) print("You can not move to here, selection is not valid");
+				if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.moveBuilding) && !new XY(cursorP2.x, cursorP2.y).Equals(cursorP2.moveOrigin)){ print("You can not move to here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP2.moveBuilding, cursorP2.x, Player.PlayerTwo, true) < gridManager.theGrid.getResourcesP2()) cursorP2.state = State.placingMove;
-                else print("Not enough resources to move.");
+				else {print("Not enough resources to move."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);} 
             }
         } else if (currentState == State.placingMove) {
             if (player == Player.PlayerOne) {
-                if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty && !cursorP1.moveOrigin.Equals(new XY(cursorP1.x, cursorP1.y))) { print("You can not move here, selection is no longer empty"); cursorP1.state = State.idle; }
-                else { if (!gridManager.theGrid.moveBuilding(cursorP1.moveOrigin.x, cursorP1.moveOrigin.y, cursorP1.x, cursorP1.y, Player.PlayerOne, cursorP1.direction)) print("Moving failed."); cursorP1.state = State.idle; }
+				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty && !cursorP1.moveOrigin.Equals(new XY(cursorP1.x, cursorP1.y))) { print("You can not move here, selection is no longer empty"); cursorP1.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f); }
+				else { if (!gridManager.theGrid.moveBuilding(cursorP1.moveOrigin.x, cursorP1.moveOrigin.y, cursorP1.x, cursorP1.y, Player.PlayerOne, cursorP1.direction)) print("Moving failed."); cursorP1.state = State.idle;SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f); }
             } else {
-                if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty && !cursorP2.moveOrigin.Equals(new XY(cursorP2.x, cursorP2.y))) { print("You can not move here, selection is no longer empty"); cursorP2.state = State.idle; }
-                else { if (!gridManager.theGrid.moveBuilding(cursorP2.moveOrigin.x, cursorP2.moveOrigin.y, cursorP2.x, cursorP2.y, Player.PlayerTwo, cursorP2.direction)) print("Moving failed."); cursorP2.state = State.idle; }
+				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty && !cursorP2.moveOrigin.Equals(new XY(cursorP2.x, cursorP2.y))) { print("You can not move here, selection is no longer empty"); cursorP2.state = State.idle;SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f); }
+				else { if (!gridManager.theGrid.moveBuilding(cursorP2.moveOrigin.x, cursorP2.moveOrigin.y, cursorP2.x, cursorP2.y, Player.PlayerTwo, cursorP2.direction)) print("Moving failed."); cursorP2.state = State.idle;SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f); }
             }
         } else if (currentState == State.idle) {
             if (player == Player.PlayerOne) {
-                if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Empty || gridManager.theGrid.getCellInfo(cursorP1.x, cursorP1.y).owner != Player.PlayerOne) print("Invalid move target.");
-                else if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Laser) print("Cannot move this building.");
+				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Empty || gridManager.theGrid.getCellInfo(cursorP1.x, cursorP1.y).owner != Player.PlayerOne) {print("Invalid move target.");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Laser) {print("Cannot move this building.");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else { cursorP1.moveOrigin = new XY(cursorP1.x, cursorP1.y); cursorP1.moveBuilding = gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y); cursorP1.state = State.moving; }
             } else {
-                if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Empty || gridManager.theGrid.getCellInfo(cursorP2.x, cursorP2.y).owner != Player.PlayerTwo) print("Invalid move target.");
-                else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser) print("Cannot move this building.");
+				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Empty || gridManager.theGrid.getCellInfo(cursorP2.x, cursorP2.y).owner != Player.PlayerTwo){ print("Invalid move target.");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser) {print("Cannot move this building.");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else { cursorP2.moveOrigin = new XY(cursorP2.x, cursorP2.y); cursorP2.moveBuilding = gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y); cursorP2.state = State.moving; }
             }
         } else {
-            print("Can not move, busy with some other action.");
+			print("Can not move, busy with some other action.");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         }
     }
 
@@ -667,19 +667,20 @@ public class inputController : MonoBehaviour {
     {
         if (currentState == State.idle) {	
             if (player == Player.PlayerOne) {
-                if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Empty) print("Nothing to remove here.");
-                else if (gridManager.theGrid.getCellInfo(cursorP1.x, cursorP1.y).owner != Player.PlayerOne) print("You can not remove a building that you do not own.");
+				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Empty){ print("Nothing to remove here.");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else if (gridManager.theGrid.getCellInfo(cursorP1.x, cursorP1.y).owner != Player.PlayerOne){ print("You can not remove a building that you do not own."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Laser) print("Cannot remove this building.");
-                else { if (!gridManager.theGrid.removeBuilding(cursorP1.x, cursorP1.y, Player.PlayerOne)) print("Removing failed."); }
+				else { if (!gridManager.theGrid.removeBuilding(cursorP1.x, cursorP1.y, Player.PlayerOne)) print("Removing failed."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
             } else {
-                if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Empty) print("Nothing to remove here.");
-                else if (gridManager.theGrid.getCellInfo(cursorP2.x, cursorP2.y).owner != Player.PlayerTwo) print("You can not remove a building that you do not own.");
-                else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser) print("Cannot remove this building.");
-                else { if (!gridManager.theGrid.removeBuilding(cursorP2.x, cursorP2.y, Player.PlayerTwo)) print("Removing failed."); }
+				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Empty){ print("Nothing to remove here."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else if (gridManager.theGrid.getCellInfo(cursorP2.x, cursorP2.y).owner != Player.PlayerTwo){ print("You can not remove a building that you do not own."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser){ print("Cannot remove this building."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else { if (!gridManager.theGrid.removeBuilding(cursorP2.x, cursorP2.y, Player.PlayerTwo)){ print("Removing failed.");  SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}}
             }
 			SoundManager.PlaySound(Sounds[3].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         } else {
             print("Can not remove, busy with some other action.");
+			SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         }
     }
 }
