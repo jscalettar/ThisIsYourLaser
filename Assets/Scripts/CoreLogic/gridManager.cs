@@ -223,6 +223,85 @@ public struct Grid
         return 2;
     }
 
+    private void removeSquares(int xpos, int ypos, Building structure, Direction dir)
+    {
+        int xAdd1 = 0;
+        int yAdd1 = 0;
+        int xAdd2 = 0;
+        int yAdd2 = 0;
+        switch (dir)
+        {
+            case Direction.Up: xAdd1 = 0; yAdd1 = 1; xAdd2 = 0; yAdd2 = -1; break;
+            case Direction.Down: xAdd1 = 0; yAdd1 = -1; xAdd2 = 0; yAdd2 = 1; break;
+            case Direction.Left: xAdd1 = -1; yAdd1 = 0; xAdd2 = 1; yAdd2 = 0; break;
+            case Direction.Right: xAdd1 = 1; yAdd1 = 0; xAdd2 = -1; yAdd2 = 0; break;
+        }
+        //place where block is
+        squareRemoveList.Add(new buildingRequest(new XY(xpos, ypos), 0));
+        //all sides
+        if(structure == Building.Laser || structure == Building.Base || structure == Building.Refracting)
+        {
+            squareRemoveList.Add(new buildingRequest(new XY(xpos+1, ypos), 0));
+            squareRemoveList.Add(new buildingRequest(new XY(xpos-1, ypos), 0));
+            squareRemoveList.Add(new buildingRequest(new XY(xpos, ypos+1), 0));
+            squareRemoveList.Add(new buildingRequest(new XY(xpos, ypos-1), 0));
+        }
+        else if(structure == Building.Redirecting)
+        {
+            squareRemoveList.Add(new buildingRequest(new XY(xpos+ yAdd1, ypos + xAdd1), 0));
+            squareRemoveList.Add(new buildingRequest(new XY(xpos + yAdd2, ypos + xAdd2), 0));
+        }
+        else if(structure == Building.Reflecting)
+        {
+            squareRemoveList.Add(new buildingRequest(new XY(xpos + xAdd1, ypos + yAdd1), 0));
+            squareRemoveList.Add(new buildingRequest(new XY(xpos + xAdd2, ypos + yAdd2), 0));
+        }
+        //resource block
+        else if(structure == Building.Resource)
+        {
+            squareRemoveList.Add(new buildingRequest(new XY(xpos + xAdd1, ypos + yAdd1), 0));
+        }
+    }
+    private void addSquares(int xpos, int ypos, Building structure, Direction dir)
+    {
+        int xAdd1 = 0;
+        int yAdd1 = 0;
+        int xAdd2 = 0;
+        int yAdd2 = 0;
+        switch (dir)
+        {
+            case Direction.Up: xAdd1 = 0; yAdd1 = 1; xAdd2 = 0; yAdd2 = -1; break;
+            case Direction.Down: xAdd1 = 0; yAdd1 = -1; xAdd2 = 0; yAdd2 = 1; break;
+            case Direction.Left: xAdd1 = -1; yAdd1 = 0; xAdd2 = 1; yAdd2 = 0; break;
+            case Direction.Right: xAdd1 = 1; yAdd1 = 0; xAdd2 = -1; yAdd2 = 0; break;
+        }
+        //place where block is
+        squarePlaceList.Add(new buildingRequest(new XY(xpos, ypos), 0));
+        //all sides
+        if (structure == Building.Refracting)
+        {
+            squarePlaceList.Add(new buildingRequest(new XY(xpos + 1, ypos), 0));
+            squarePlaceList.Add(new buildingRequest(new XY(xpos - 1, ypos), 0));
+            squarePlaceList.Add(new buildingRequest(new XY(xpos, ypos + 1), 0));
+            squarePlaceList.Add(new buildingRequest(new XY(xpos, ypos - 1), 0));
+        }
+        else if (structure == Building.Redirecting)
+        {
+            squarePlaceList.Add(new buildingRequest(new XY(xpos + yAdd1, ypos + xAdd1), 0));
+            squarePlaceList.Add(new buildingRequest(new XY(xpos + yAdd2, ypos + xAdd2), 0));
+        }
+        else if (structure == Building.Reflecting)
+        {
+            squarePlaceList.Add(new buildingRequest(new XY(xpos + xAdd1, ypos + yAdd1), 0));
+            squarePlaceList.Add(new buildingRequest(new XY(xpos + xAdd2, ypos + yAdd2), 0));
+        }
+        //resource block
+        else if (structure == Building.Resource)
+        {
+            squarePlaceList.Add(new buildingRequest(new XY(xpos + xAdd1, ypos + yAdd1), 0));
+        }
+    }
+
     // Determine if other buildings have weaksides that should block your building's placement
     // Modify this and the below function if you want to change weaksides for structure placement.
     // Note weak sides for laser logic are handled seperatly in their respective laser logic functions.
@@ -265,10 +344,10 @@ public struct Grid
     public bool probeGrid(int x, int y, Direction placeDir, Building structure)
     {
         if (!validateInput(x, y)) return false;
-        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y - 1)) || getBuilding(x, y - 1) != Building.Empty) && (isWeakSide(x, y - 1, Direction.Up, getBuilding(x, y - 1)) || isWeakSide(Direction.Down, placeDir, structure))) { squareRemoveList.Add(new buildingRequest(new XY(x, y), 0)); return false; }
-        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y+1)) || getBuilding(x, y+1) != Building.Empty) && (isWeakSide(x, y+1, Direction.Down, getBuilding(x, y+1)) || isWeakSide(Direction.Up, placeDir, structure))) { squareRemoveList.Add(new buildingRequest(new XY(x, y), 0)); return false; }
-        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x-1, y)) || getBuilding(x-1, y) != Building.Empty) && (isWeakSide(x-1, y, Direction.Right, getBuilding(x-1, y)) || isWeakSide(Direction.Left, placeDir, structure))) { squareRemoveList.Add(new buildingRequest(new XY(x, y), 0)); return false; }
-        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x+1, y)) || getBuilding(x+1, y) != Building.Empty) && (isWeakSide(x+1, y, Direction.Left, getBuilding(x+1, y)) || isWeakSide(Direction.Right, placeDir, structure))) { squareRemoveList.Add(new buildingRequest(new XY(x, y), 0)); return false; }
+        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y - 1)) || getBuilding(x, y - 1) != Building.Empty) && (isWeakSide(x, y - 1, Direction.Up, getBuilding(x, y - 1)) || isWeakSide(Direction.Down, placeDir, structure))) return false; 
+        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y+1)) || getBuilding(x, y+1) != Building.Empty) && (isWeakSide(x, y+1, Direction.Down, getBuilding(x, y+1)) || isWeakSide(Direction.Up, placeDir, structure))) return false; 
+        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x-1, y)) || getBuilding(x-1, y) != Building.Empty) && (isWeakSide(x-1, y, Direction.Right, getBuilding(x-1, y)) || isWeakSide(Direction.Left, placeDir, structure))) return false; 
+        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x+1, y)) || getBuilding(x+1, y) != Building.Empty) && (isWeakSide(x+1, y, Direction.Left, getBuilding(x+1, y)) || isWeakSide(Direction.Right, placeDir, structure))) return false; 
         if (structure == Building.Laser && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y + 2)) || getBuilding(x, y + 2) != Building.Empty) && (getBuilding(x, y + 2) == Building.Base)) { squareRemoveList.Add(new buildingRequest(new XY(x, y), 0)); return false; }
         if (structure == Building.Laser && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y - 2)) || getBuilding(x, y - 2) != Building.Empty) && (getBuilding(x, y - 2) == Building.Base)) { squareRemoveList.Add(new buildingRequest(new XY(x, y), 0)); return false; }
         return true;
@@ -373,7 +452,8 @@ public struct Grid
 			building.transform.localPosition = coordsToWorld (x, y);
 			building.transform.localEulerAngles = new Vector3 (90, 0, 0);
 			prefabDictionary.Add (new XY (x, y), building);
-            squareRemoveList.Add(new buildingRequest(new XY(x, y), 0));
+            //removing grid squares
+            removeSquares(x, y, newBuilding, facing);
             // Subtract Cost From Resources
             if (playerID == Player.PlayerOne) {
 				resourcesP1 -= getCost (newBuilding, x, playerID);
@@ -402,7 +482,7 @@ public struct Grid
 		if (!validateInput (x, y)) return false;
 		if (!grid [y, x].isEmpty && (playerID == grid [y, x].owner || playerID == Player.World) && !grid [y, x].markedForDeath) {
 			removalList.Add (new buildingRequest (new XY (x, y), buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters> ().removalTime, grid [y, x].building, playerID));
-            squarePlaceList.Add(new buildingRequest(new XY(x, y), 0));
+            addSquares(x, y, grid[y, x].building, grid[y, x].direction);
             grid [y, x].markedForDeath = true;
 
             //Building temp = grid[y, x].building;
@@ -433,7 +513,7 @@ public struct Grid
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
-            squarePlaceList.Add(new buildingRequest(new XY(x, y), 0));
+            addSquares(x, y, grid[y, x].building, grid[y, x].direction);
 			//SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume, true, .5f, 1.5f);
             //Building temp = grid[y, x].building;
 			//MonoBehaviour.print("owner: " + grid [y, x].owner);
@@ -487,8 +567,9 @@ public struct Grid
                 prefabDictionary.Remove(new XY(x, y));
                 prefabDictionary.Add(new XY(xNew, yNew), building);
             }
-            squarePlaceList.Add(new buildingRequest(new XY(x, y), 0));
-            squareRemoveList.Add(new buildingRequest(new XY(xNew, yNew), 0));
+            addSquares(x, y, grid[yNew, xNew].building, grid[y, x].direction);
+            //removing grid squares
+            removeSquares(xNew, yNew, grid[yNew, xNew].building, facing);
             grid[yNew, xNew].direction = facing;
             // Rotate
             if(canRotate(grid[yNew, xNew].building)) building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
@@ -605,6 +686,7 @@ public class gridManager : MonoBehaviour
     void LateUpdate()
     {
         deletionCount = 0;
+        //remove grid squares
         for(int i = 0; i< theGrid.squareRemoveList.Count; i++)
         {
             int x = theGrid.squareRemoveList[i].coords.x;
@@ -622,6 +704,7 @@ public class gridManager : MonoBehaviour
             theGrid.squareRemoveList.RemoveAt(deletions[i]);
         }
         deletionCount = 0;
+        //add back grid squares
         for (int i = 0; i < theGrid.squarePlaceList.Count; i++)
         {
             int x = theGrid.squarePlaceList[i].coords.x;
@@ -629,13 +712,14 @@ public class gridManager : MonoBehaviour
 
             if (!theGrid.gridSquares.ContainsKey(new XY(y, x)))
             {
-                GameObject temp = MonoBehaviour.Instantiate(empty);    //makes transparent planes on each grid square
-                theGrid.gridSquares[new XY(y, x)] = temp;
-                temp.transform.localPosition = new Vector3((-boardWidth / 2) + x + 0.5f, -0.1f, ( -boardHeight/ 2) + y + 0.5f);
-                Color gridColor = Color.white;
-                gridColor.a = 0.20f;
-                temp.GetComponent<Renderer>().material.color = gridColor;
-
+                //if (theGrid.probeGrid(y, x, theGrid.getCellInfo(y, x).direction, theGrid.getBuilding(y, x))) { 
+                    GameObject temp = MonoBehaviour.Instantiate(empty);    //makes transparent planes on each grid square
+                    theGrid.gridSquares[new XY(y, x)] = temp;
+                    temp.transform.localPosition = new Vector3((-boardWidth / 2) + x + 0.5f, -0.1f, ( -boardHeight/ 2) + y + 0.5f);
+                    Color gridColor = Color.white;
+                    gridColor.a = 0.20f;
+                    temp.GetComponent<Renderer>().material.color = gridColor;
+                //}
             }
             deletions[deletionCount++] = i;
         }
