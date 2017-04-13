@@ -577,6 +577,8 @@ public class inputController : MonoBehaviour {
                 p2UI.State.text = "Press [o] to place creatures \nPress IJKL for direction \n[o] to confirm";
                 if (cursorP2.direction == Direction.Up && cursorP2.y != yEnd) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else if (cursorP2.direction == Direction.Down && cursorP2.y != 0) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
+                else if (cursorP2.y != 0) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
+                else if (cursorP2.y == 0) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else print("Press the up or down direction keys to place laser");
             }
         } else if (currentState == State.placing) {
