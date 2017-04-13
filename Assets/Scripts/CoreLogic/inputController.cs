@@ -145,8 +145,8 @@ public class inputController : MonoBehaviour {
         bool notNow1 = false;
         bool notNow2 = false;
         // Check that the game isn't paused
-        if (PauseMenu.activeInHierarchy == false)
-        {
+        //if (PauseMenu.activeInHierarchy == false)
+        //{
 			// Cursor Selection P1
 			if (Input.GetKeyDown ("1")) {cursorP1.selection = Building.Blocking; SoundManager.PlaySound (UISounds [0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);} 
 			else if (Input.GetKeyDown ("2")) {cursorP1.selection = Building.Reflecting; SoundManager.PlaySound (UISounds [0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);}
@@ -507,7 +507,7 @@ public class inputController : MonoBehaviour {
             else if (!cursorP2.Equals(cursorP2Last)) ghostLaser.ghostUpdateNeeded = true;
             cursorP1Last = cursorP1;
             cursorP2Last = cursorP2;
-        }
+        //}
     }
 
     private Building cycleToBuilding(int index)
