@@ -73,8 +73,8 @@ public class GUI_Script : MonoBehaviour {
 	void Update () {
         p1UI.playerHealth.text = "Base HP: " + (Mathf.Round(gridManager.theGrid.baseHealthP1() * 2) / 2f).ToString("F1");
         p2UI.playerHealth.text = "Base HP: " + (Mathf.Round(gridManager.theGrid.baseHealthP2() * 2) / 2f).ToString("F1");
-        p1UI.currentResource.text = "Resources: " + (Mathf.Round(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
-        p2UI.currentResource.text = "Resources: " + (Mathf.Round(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
+        p1UI.currentResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
+        p2UI.currentResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
 
         p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
         p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white;
