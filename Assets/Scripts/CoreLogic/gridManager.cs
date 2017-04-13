@@ -114,6 +114,7 @@ public struct GridItem
 public struct Grid
 {
     public GridItem[,] grid;
+    public GridItem[,] gridDots;
     public List<buildingRequest> placementList;
     public List<buildingRequest> removalList;
     public List<buildingRequest> destructionList;
@@ -138,7 +139,7 @@ public struct Grid
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder, GameObject placementTimerObj, float limit)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder, GameObject Dots, GameObject placementTimerObj, float limit)
     {
         grid = new GridItem[y, x];
         gridSquares = new Dictionary<XY, GameObject>(y*x);
@@ -159,6 +160,21 @@ public struct Grid
                 empty.GetComponent<Renderer>().material.color = gridColor;
             }
         }
+
+        gridDots = new GridItem[y, x];
+        for (int row = 0; row < y; row++) {
+            for (int col = 0; col < x-1; col++) {
+                GameObject dot = MonoBehaviour.Instantiate(Dots);
+                dot.transform.localPosition = new Vector3((-x / 2) + col + 1f, -0.1f, (-y / 2) + row + 0.5f);
+            }
+        }
+        for (int row = 0; row < y-1; row++) {
+            for (int col = 0; col < x; col++) {
+                GameObject dot = MonoBehaviour.Instantiate(Dots);
+                dot.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, -0.1f, (-y / 2) + row + 1f);
+            }
+        }
+
         dimX = x;
         dimY = y;
         buildingContainer = container;
@@ -588,6 +604,7 @@ public class gridManager : MonoBehaviour
     public float limit;
 
     public GameObject empty;
+    public GameObject dot;
     public GameObject placementTimerObj;
 
     private GameObject buildingContainer;
@@ -599,7 +616,7 @@ public class gridManager : MonoBehaviour
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, startingBuildingNum, empty, placementTimerObj, limit);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, startingBuildingNum, empty, dot, placementTimerObj, limit);
     }
     
     void LateUpdate()
