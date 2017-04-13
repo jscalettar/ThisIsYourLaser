@@ -599,7 +599,11 @@ public class inputController : MonoBehaviour {
                 		cursorP1.direction = Direction.Down;
                 		place(Player.PlayerOne, cursorP1.state);
                 	}
-                }
+                    if (cursorP1.selection == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
+                        cursorP1.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
+                        place(Player.PlayerOne, cursorP1.state);
+                    }
+                 }
                 else print("Not enough resources to place.");
             } else {
                 if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.selection)) print("You can not place here, selection is not valid");
@@ -609,6 +613,10 @@ public class inputController : MonoBehaviour {
                 		cursorP2.direction = Direction.Down;
                 		place(Player.PlayerTwo, cursorP2.state);
                 	}
+                    if (cursorP2.selection == Building.Resource && laserLogic.laserData.grid[cursorP2.y, cursorP2.x].Count > 0) {
+                        cursorP2.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP2.y, cursorP2.x][0].getMarchDir());
+                        place(Player.PlayerTwo, cursorP2.state);
+                    }
                 }
                 else print("Not enough resources to place.");
             }
