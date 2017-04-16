@@ -65,7 +65,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cb50162039f5730498d8289e4c6b9b9a, type: 3}
   - {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
   scale: 0.3
-  placementTime: 5
+  placementTime: 1.5
   removalTime: 1
   destructionTime: 0.5
   buildingType: 8

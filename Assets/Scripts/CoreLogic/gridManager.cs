@@ -450,6 +450,11 @@ public struct Grid
 			building.GetComponent<buildingParameters> ().y = y;
 			building.GetComponent<buildingParameters> ().owner = playerID;
 			building.GetComponent<buildingParameters> ().currentHP = building.GetComponent<buildingParameters> ().health;
+            if(newBuilding == Building.Base)
+            {
+                squareRemoveList.Add(new buildingRequest(new XY(x, y+2), 0));
+                squareRemoveList.Add(new buildingRequest(new XY(x, y-2), 0));
+            }
 			if (newBuilding != Building.Laser && newBuilding != Building.Base) {// || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
 				building.AddComponent<SpriteRenderer> ();
 				building.GetComponent<SpriteRenderer> ().sprite = building.GetComponent<buildingParameters> ().sprites [directionToIndex (facing)];
@@ -703,24 +708,6 @@ public class gridManager : MonoBehaviour
     void LateUpdate()
     {
         deletionCount = 0;
-        //remove grid squares
-        for(int i = 0; i< theGrid.squareRemoveList.Count; i++)
-        {
-            int x = theGrid.squareRemoveList[i].coords.x;
-            int y = theGrid.squareRemoveList[i].coords.y; 
-
-            if (theGrid.gridSquares.ContainsKey(new XY(y, x)))
-            {
-                DestroyImmediate(theGrid.gridSquares[new XY(y, x)]);
-                theGrid.gridSquares.Remove(new XY(y, x));
-            }
-            deletions[deletionCount++] = i;
-        }
-        for (int i = 0; i < deletionCount; i++)
-        {
-            theGrid.squareRemoveList.RemoveAt(deletions[i]);
-        }
-        deletionCount = 0;
         //add back grid squares
         for (int i = 0; i < theGrid.squarePlaceList.Count; i++)
         {
@@ -745,7 +732,24 @@ public class gridManager : MonoBehaviour
             theGrid.squarePlaceList.RemoveAt(deletions[i]);
         }
         deletionCount = 0;
+        //remove grid squares
+        for(int i = 0; i< theGrid.squareRemoveList.Count; i++)
+        {
+            int x = theGrid.squareRemoveList[i].coords.x;
+            int y = theGrid.squareRemoveList[i].coords.y; 
 
+            if (theGrid.gridSquares.ContainsKey(new XY(y, x)))
+            {
+                DestroyImmediate(theGrid.gridSquares[new XY(y, x)]);
+                theGrid.gridSquares.Remove(new XY(y, x));
+            }
+            deletions[deletionCount++] = i;
+        }
+        for (int i = 0; i < deletionCount; i++)
+        {
+            theGrid.squareRemoveList.RemoveAt(deletions[i]);
+        }
+        deletionCount = 0;
         // Place buildings
         for (int i = 0; i < theGrid.placementList.Count; i++) {
             if (theGrid.placementList[i].updateTime(Time.deltaTime) <= 0f) {
