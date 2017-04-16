@@ -312,7 +312,7 @@ public struct Grid
     }
 
     public GridItem getCellInfo(int x, int y) { return validateInput(x, y) ? grid[y, x] : new GridItem(true, Building.Empty, Player.World, Direction.None, 0); }
-    public Building getBuilding(int x, int y) { return validateInput(x, y) ? grid[y, x].building : Building.Empty; }
+    public Building getBuilding(int x, int y) { if (!validateInput(x, y)) return Building.Empty; if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return gridManager.theGrid.prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().buildingType; return grid[y, x].building; }
     public Player getOwner(int x, int y) { return validateInput(x, y) ? grid[y, x].owner : Player.World; }
     public Direction getDirection(int x, int y) { if (!validateInput(x, y)) return Direction.None; if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return gridManager.theGrid.prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().direction; return grid[y, x].direction; }
     public int getDimX() { return dimX; }
@@ -373,6 +373,7 @@ public struct Grid
 			building.GetComponent<buildingParameters>().y = y;
 			building.GetComponent<buildingParameters>().owner = playerID;
 			building.GetComponent<buildingParameters>().direction = facing;
+			building.GetComponent<buildingParameters>().buildingType = newBuilding;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
 			if (newBuilding != Building.Laser && newBuilding != Building.Base) {// || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
 				building.AddComponent<SpriteRenderer> ();
