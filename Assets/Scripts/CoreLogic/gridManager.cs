@@ -381,7 +381,7 @@ public struct Grid
 				float scale = building.GetComponent<buildingParameters>().scale;
 				building.transform.localScale = new Vector3 (scale, scale, scale);
 			} else if (newBuilding == Building.Laser) {
-				building.AddComponent<SpriteRenderer>();
+				//building.AddComponent<SpriteRenderer>();
 				building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites [directionToIndex (facing) - 2];
 				building.GetComponent<Renderer> ().material.color = playerID == Player.PlayerOne ? new Vector4 (1f, 0.7f, 0.7f, .3f) : new Vector4 (0.7f, 1, 0.7f, .3f);
 				float scale = building.GetComponent<buildingParameters>().scale;
@@ -609,7 +609,6 @@ public class gridManager : MonoBehaviour
     public GameObject placementTimerObj;
 
     private GameObject buildingContainer;
-    private int[] deletions = new int[100];
     private int deletionCount = 0;
 
 
@@ -636,14 +635,14 @@ public class gridManager : MonoBehaviour
                 theGrid.prefabDictionary[new XY(x,y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, 1f) : new Vector4(.7f, 1f, .7f, 1f);
                 
                 theGrid.queueUpdate();
-                deletions[deletionCount++] = i;
+                deletionCount++;
 
                 ghostLaser.ghostUpdateNeeded = true;
                 theGrid.updateSquares();
             }
         }
         for (int i = 0; i < deletionCount; i++) {
-            theGrid.placementList.RemoveAt(deletions[i]);
+			theGrid.placementList.RemoveAt(0);
         }
         deletionCount = 0;
         // Remove buildings
@@ -662,14 +661,14 @@ public class gridManager : MonoBehaviour
                     theGrid.prefabDictionary.Remove(new XY(x, y));
                 }
                 theGrid.queueUpdate();
-                deletions[deletionCount++] = i;
+                deletionCount++;
 
                 ghostLaser.ghostUpdateNeeded = true;
                 theGrid.updateSquares();
             }
         }
         for (int i = 0; i < deletionCount; i++) {
-            theGrid.removalList.RemoveAt(deletions[i]);
+            theGrid.removalList.RemoveAt(0);
         }
         deletionCount = 0;
         // Destroy buildings
@@ -688,14 +687,14 @@ public class gridManager : MonoBehaviour
                     theGrid.prefabDictionary.Remove(new XY(x, y));
                 }
                 theGrid.queueUpdate();
-                deletions[deletionCount++] = i;
+                deletionCount++;
 
                 ghostLaser.ghostUpdateNeeded = true;
                 theGrid.updateSquares();
             }
         }
         for (int i = 0; i < deletionCount; i++) {
-            theGrid.destructionList.RemoveAt(deletions[i]);
+			theGrid.destructionList.RemoveAt(0);
         }
     }
 
