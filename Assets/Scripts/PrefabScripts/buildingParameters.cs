@@ -11,6 +11,8 @@ public class buildingParameters : MonoBehaviour {
     public Player owner = Player.World;
     [HideInInspector]
     public float currentHP = 0;
+    [HideInInspector]
+    public Direction direction = Direction.None;
 
     public float health = 5f;
     public float cost = 2f;

@@ -524,7 +524,7 @@ public class inputController : MonoBehaviour {
     public static bool validPlacement(int x, int y, Direction direction, Building building)
     {
         if (gridManager.theGrid.getBuilding(x, y) != Building.Empty || !gridManager.theGrid.probeGrid(x, y, direction, building)) return false;
-        if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return false;
+        //if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return false;
         return true;
     }
 
