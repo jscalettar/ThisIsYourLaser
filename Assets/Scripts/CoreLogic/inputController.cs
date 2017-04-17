@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum State { placeBase, placeLaser, placingLaser, placing, moving, placingMove, idle };
+public enum State { placeBase, placeLaser, placingLaser, placing, moving, placingMove, removing, idle };
 
 public class inputController : MonoBehaviour {
 	
@@ -230,7 +230,7 @@ public class inputController : MonoBehaviour {
 
                 SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
 			}
-            if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove)
+            if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove && cursorP1.state != State.removing)
             {
                 // Cursor Movement P1
                 if (Input.GetAxis("xboxLeftVert") != 0) { vertDelayP1 = delayFactor; if (!flagVP1) { vertCounterP1 = 1f / cursorSpeed; flagVP1 = true; } } else { flagVP1 = false; }
@@ -252,7 +252,8 @@ public class inputController : MonoBehaviour {
             {
                 // Cursor Rotation P1
                 bool selectionMade = false;
-                if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; }
+                if(cursorP1.selection == Building.Blocking || cursorP1.selection == Building.Refracting) { cursorP1.direction = Direction.Down; }
+                else if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; }
                 else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.direction = Direction.Down; }
                 else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.direction = Direction.Right; }
                 else if ((Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1)) { cursorP1.direction = Direction.Left; }
@@ -264,7 +265,7 @@ public class inputController : MonoBehaviour {
                 }
             }
 
-            if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove)
+            if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove && cursorP2.state != State.removing)
             {
                 // Cursor Movement P2
                 if (Input.GetAxis("xboxLeftVert2") != 0) { vertDelayP2 = delayFactor; if (!flagVP2) { vertCounterP2 = 1f / cursorSpeed; flagVP2 = true; } } else { flagVP2 = false; }
@@ -286,7 +287,8 @@ public class inputController : MonoBehaviour {
             {
                 // Cursor Rotation P2
                 bool selectionMade = false;
-                if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; }
+                if (cursorP2.selection == Building.Blocking || cursorP2.selection == Building.Refracting) { cursorP2.direction = Direction.Down; }
+                else if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; }
                 else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.direction = Direction.Down; }
                 else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.direction = Direction.Right; }
                 else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.direction = Direction.Left; }
@@ -467,6 +469,12 @@ public class inputController : MonoBehaviour {
                 indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[2];
                 LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
             }
+            else if (cursorP1.state == State.removing)
+            {
+                indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
+                indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[1];
+                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+            }
             else
             {
                 LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
@@ -488,8 +496,14 @@ public class inputController : MonoBehaviour {
                 indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[2];
                 LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
+             }
+            else if (cursorP2.state == State.removing)
+            {
+                indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
+                indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[1];
+                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
             }
-            else
+        else
             {
                 LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
                 indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
@@ -595,10 +609,10 @@ public class inputController : MonoBehaviour {
 				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.selection)){print("You can not place here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume / 25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) <= gridManager.theGrid.getResourcesP1()){
                 	cursorP1.state = State.placing;
-                	if(cursorP1.selection == Building.Refracting || cursorP1.selection == Building.Blocking){
-                		cursorP1.direction = Direction.Down;
-                		place(Player.PlayerOne, cursorP1.state);
-                	}
+                	//if(cursorP1.selection == Building.Refracting || cursorP1.selection == Building.Blocking){
+                		//cursorP1.direction = Direction.Down;
+                		//place(Player.PlayerOne, cursorP1.state);
+                	//}
                     if (cursorP1.selection == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
                         cursorP1.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
                         place(Player.PlayerOne, cursorP1.state);
@@ -609,10 +623,10 @@ public class inputController : MonoBehaviour {
                 if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.selection)) print("You can not place here, selection is not valid");
                 else if (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) <= gridManager.theGrid.getResourcesP2()){
                 	cursorP2.state = State.placing;
-                	if(cursorP2.selection == Building.Refracting || cursorP2.selection == Building.Blocking){
-                		cursorP2.direction = Direction.Down;
-                		place(Player.PlayerTwo, cursorP2.state);
-                	}
+                	//if(cursorP2.selection == Building.Refracting || cursorP2.selection == Building.Blocking){
+                		//cursorP2.direction = Direction.Down;
+                		//place(Player.PlayerTwo, cursorP2.state);
+                	//}
                     if (cursorP2.selection == Building.Resource && laserLogic.laserData.grid[cursorP2.y, cursorP2.x].Count > 0) {
                         cursorP2.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP2.y, cursorP2.x][0].getMarchDir());
                         place(Player.PlayerTwo, cursorP2.state);
@@ -665,17 +679,30 @@ public class inputController : MonoBehaviour {
 
     private void remove(Player player, State currentState)
     {
-        if (currentState == State.idle) {	
+        if(currentState == State.removing)
+        {
+            if (player == Player.PlayerOne)
+            {
+                if (!gridManager.theGrid.removeBuilding(cursorP1.x, cursorP1.y, Player.PlayerOne)) { print("Removing failed."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);  }
+                cursorP1.state = State.idle;
+            }
+            else
+            {
+                if (!gridManager.theGrid.removeBuilding(cursorP2.x, cursorP2.y, Player.PlayerTwo)){ print("Removing failed.");  SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);  }
+                cursorP2.state = State.idle;
+            }
+        }
+        else if (currentState == State.idle) {	
             if (player == Player.PlayerOne) {
 				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Empty){ print("Nothing to remove here.");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
 				else if (gridManager.theGrid.getCellInfo(cursorP1.x, cursorP1.y).owner != Player.PlayerOne){ print("You can not remove a building that you do not own."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Laser) print("Cannot remove this building.");
-				else { if (!gridManager.theGrid.removeBuilding(cursorP1.x, cursorP1.y, Player.PlayerOne)) print("Removing failed."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else { cursorP1.state = State.removing; }
             } else {
 				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Empty){ print("Nothing to remove here."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
 				else if (gridManager.theGrid.getCellInfo(cursorP2.x, cursorP2.y).owner != Player.PlayerTwo){ print("You can not remove a building that you do not own."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
 				else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser){ print("Cannot remove this building."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
-				else { if (!gridManager.theGrid.removeBuilding(cursorP2.x, cursorP2.y, Player.PlayerTwo)){ print("Removing failed.");  SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}}
+				else { cursorP2.state = State.removing; }
             }
 			SoundManager.PlaySound(Sounds[3].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         } else {
