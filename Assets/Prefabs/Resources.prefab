@@ -57,7 +57,9 @@ MonoBehaviour:
   y: -1
   owner: 0
   currentHP: 0
-  health: 10
+  direction: 0
+  buildingType: 8
+  health: 5
   cost: 4
   sprites:
   - {fileID: 21300000, guid: 354281af9e3149d4bacaf99d405736c0, type: 3}
@@ -68,7 +70,6 @@ MonoBehaviour:
   placementTime: 1.5
   removalTime: 1
   destructionTime: 0.5
-  buildingType: 8
 --- !u!198 &198737218201324714
 ParticleSystem:
   m_ObjectHideFlags: 1

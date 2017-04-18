@@ -59,7 +59,7 @@ MonoBehaviour:
   currentHP: 0
   direction: 0
   buildingType: 8
-  health: 20
+  health: 10
   cost: 6
   sprites:
   - {fileID: 21300000, guid: 102b6273ee2256c45bdd43e2f80957db, type: 3}
