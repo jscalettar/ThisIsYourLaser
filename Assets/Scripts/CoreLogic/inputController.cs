@@ -335,7 +335,7 @@ public class inputController : MonoBehaviour {
                 switch (cursorP1.selection)
                 {
                     case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .35f; break;
+                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .375f; break;
                     case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
                     case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .25f; break;
                     case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
@@ -350,7 +350,7 @@ public class inputController : MonoBehaviour {
                 switch (cursorP1.moveBuilding)
                 {
                     case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .35f; break;
+                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .375f; break;
                     case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
                     case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .25f; break;
                     case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
@@ -364,7 +364,7 @@ public class inputController : MonoBehaviour {
                 switch (cursorP1.selection)
                 {
                     case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BlockSprite; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; scale = .35f; break;
+                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; scale = .375f; break;
                     case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; scale = .2f; break;
                     case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; scale = .25f;  break;
                     case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite; scale = .3f; break;
@@ -397,7 +397,7 @@ public class inputController : MonoBehaviour {
                 switch (cursorP2.selection)
                 {
                     case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .35f; break;
+                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .375f; break;
                     case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[2][0]; scale = .25f; break;
                     case Building.Redirecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .25f; break;
                     case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
@@ -412,7 +412,7 @@ public class inputController : MonoBehaviour {
                 switch (cursorP2.moveBuilding)
                 {
                     case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .35f; break;
+                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .375f; break;
                     case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
                     case Building.Redirecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .25f; break;
                     case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
@@ -426,7 +426,7 @@ public class inputController : MonoBehaviour {
                 switch (cursorP2.selection)
                 {
                     case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BlockSprite; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; scale = .35f; break;
+                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; scale = .375f; break;
                     case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2RefractSprite; scale = .2f; break;
                     case Building.Redirecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; scale = .25f; break;
                     case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ResourceSprite; scale = .3f; break;

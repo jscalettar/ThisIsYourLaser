@@ -391,6 +391,10 @@ public struct Grid
 				building.GetComponent<Renderer> ().material.color = playerID == Player.PlayerOne ? new Vector4 (1f, 0.7f, 0.7f, .3f) : new Vector4 (0.7f, 1, 0.7f, .3f); // Used for debugging, not necessary with final art
 			building.transform.SetParent (buildingContainer.transform);
 			building.transform.localPosition = coordsToWorld (x, y);
+            if(newBuilding == Building.Reflecting)
+            {
+                building.transform.localPosition = coordsToWorld(x, y-0.135f);
+            }
 			building.transform.localEulerAngles = new Vector3 (90, 0, 0);
 			prefabDictionary.Add (new XY (x, y), building);
             // Subtract Cost From Resources
