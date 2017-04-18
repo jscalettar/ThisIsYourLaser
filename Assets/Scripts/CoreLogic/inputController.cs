@@ -451,61 +451,67 @@ public class inputController : MonoBehaviour {
                 if (Vector2.Distance(new Vector2(cursorObjP2.transform.position.x, cursorObjP2.transform.position.z), new Vector2(moveQueueP2.Peek().x + xOff, moveQueueP2.Peek().y + yOff)) == 0f) moveQueueP2.Dequeue();
             }
 
-            // Update Cursor Indicator
+            // Update Cursor Indicator---------------------------------
             if (cursorP1.state == State.placing)
             {
                 indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[0];
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+                //LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+                floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.placing, gridManager.theGrid.getCost(cursorP1.selection,cursorP1.x,Player.PlayerOne), Player.PlayerOne);
             }
             else if (cursorP1.state == State.placingLaser)
             {
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = true;
+                //LaserArrowP1.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
             }
             else if (cursorP1.state == State.placingMove || cursorP1.state == State.moving)
             {
                 indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[2];
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+                //LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+                floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.moving, gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne), Player.PlayerOne);
             }
             else if (cursorP1.state == State.removing)
             {
                 indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[1];
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+                //LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+                floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.removing, gridManager.theGrid.getCost(gridManager.theGrid.getBuilding(cursorP1.x,cursorP1.y), cursorP1.x, Player.PlayerOne), Player.PlayerOne);
             }
             else
             {
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
+                //LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
                 indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
             }
             if (cursorP2.state == State.placing)
             {
                 indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[0];
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
+                //LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
+                floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
             }
             else if (cursorP2.state == State.placingLaser)
             {
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = true;
+                //LaserArrowP2.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
             }
-            else if (cursorP2.state == State.placingMove)
+            else if (cursorP2.state == State.placingMove || cursorP2.state == State.moving)
             {
                 indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[2];
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
-             }
+                //LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
+                floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
+            }
             else if (cursorP2.state == State.removing)
             {
                 indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
                 indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[1];
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
+                //LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
+                floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(gridManager.theGrid.getBuilding(cursorP2.x,cursorP2.y), cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
             }
-        else
+            else
             {
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
+                //LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
                 indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
             }
 
