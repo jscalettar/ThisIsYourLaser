@@ -2901,7 +2901,7 @@ ParticleSystem:
   m_GameObject: {fileID: 367682182}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -8141,7 +8141,7 @@ ParticleSystem:
   m_GameObject: {fileID: 691219462}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -11052,7 +11052,7 @@ ParticleSystem:
   m_GameObject: {fileID: 749703399}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -20605,7 +20605,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1630470809}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -24618,7 +24618,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1879519083}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  speed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -28578,14 +28578,14 @@ MonoBehaviour:
   LaserArrowP2: {fileID: 876953167}
   P1BaseSprite: {fileID: 21300000, guid: a37c63a641e9a024a8ac6237221d236d, type: 3}
   P1BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
-  P1LaserSprite: {fileID: 21300000, guid: e1400e1d9a06606448ceeccb6ea9f127, type: 3}
+  P1LaserSprite: {fileID: 21300000, guid: 576f41ecda5525643a45ea2c506296fa, type: 3}
   P1ReflectSprite: {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
   P1RefractSprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   P1RedirectSprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
   P1ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
   P2BaseSprite: {fileID: 21300000, guid: e1ed60fdd53e6594a811828f577f4696, type: 3}
   P2BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
-  P2LaserSprite: {fileID: 21300000, guid: b360656cef06f974189e0978f22cb684, type: 3}
+  P2LaserSprite: {fileID: 21300000, guid: 10a42876459d14148baee6e2e9010d00, type: 3}
   P2ReflectSprite: {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
   P2RefractSprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   P2RedirectSprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}

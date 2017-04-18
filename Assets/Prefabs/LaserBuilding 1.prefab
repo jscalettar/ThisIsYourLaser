@@ -152,16 +152,17 @@ MonoBehaviour:
   y: -1
   owner: 0
   currentHP: 0
+  direction: 0
+  buildingType: 1
   health: 100
   cost: 0
   sprites:
   - {fileID: 21300000, guid: d3aa964996dcac8418c4c2df3ef9e9c7, type: 3}
-  - {fileID: 21300000, guid: b360656cef06f974189e0978f22cb684, type: 3}
+  - {fileID: 21300000, guid: 10a42876459d14148baee6e2e9010d00, type: 3}
   scale: 0.3
   placementTime: 1
   removalTime: 1
   destructionTime: 0.5
-  buildingType: 1
 --- !u!198 &198179875304400038
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -2831,7 +2832,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: b360656cef06f974189e0978f22cb684, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
