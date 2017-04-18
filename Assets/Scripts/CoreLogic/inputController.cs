@@ -65,8 +65,8 @@ public class inputController : MonoBehaviour {
 	public static Audios[] UISounds;
 
     //Vars for UI
-    public static playerOneUI p1UI;
-    public static playerTwoUI p2UI;
+    //public static playerOneUI p1UI;
+    //public static playerTwoUI p2UI;
 
     // Pause menu
     public GameObject PauseMenu;
@@ -120,11 +120,11 @@ public class inputController : MonoBehaviour {
         Sounds = setSounds;
 		UISounds = setUISounds;
         //default values for Player 1 UI  
-        p1UI = gameObject.AddComponent<playerOneUI>();
+        /*p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.State = GameObject.Find("p1State").GetComponent<Text>();
         //default values for Player 2 UI  
         p2UI = gameObject.AddComponent<playerTwoUI>();
-        p2UI.State = GameObject.Find("p2State").GetComponent<Text>();
+        p2UI.State = GameObject.Find("p2State").GetComponent<Text>();*/
 
         cycleP1 = 0;
         cycleP2 = 0;
@@ -313,11 +313,11 @@ public class inputController : MonoBehaviour {
             else if (Input.GetButtonDown("cancel_2") && cursorP2.state != State.placeBase && cursorP2.state != State.placeLaser) cursorP2.state = cursorP2.state == State.placingLaser ? State.placeLaser : State.idle;
 
             // Update Cursor/UI Appearance P1
-            if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; p1UI.State.text = "Place base on the current column \nPress [e] to place base"; }
+            if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; /*p1UI.State.text = "Place base on the current column \nPress [e] to place base";*/ }
             else if (cursorP1.state == State.placeLaser)
             {
                 cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
-                p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                //p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
             }
             else if(cursorP1.state == State.placingLaser) {
                 switch (cursorP1.direction)
@@ -327,7 +327,7 @@ public class inputController : MonoBehaviour {
                     default: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorP1.y == 0 ? cursorObjP1.GetComponent<cursor1>().Sprites[5][1] : cursorObjP1.GetComponent<cursor1>().Sprites[5][0]; break;
                 }
                 
-                p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                //p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
             }
             else if (cursorP1.state == State.placing) // in here change the sprite while choosing direction
             {
@@ -374,11 +374,11 @@ public class inputController : MonoBehaviour {
             }
 
             // Update Cursor/UI Appearance P2
-            if (cursorP2.state == State.placeBase) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; p2UI.State.text = "Place base on the current column \nPress [o] to place base"; }
+            if (cursorP2.state == State.placeBase) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; /*p2UI.State.text = "Place base on the current column \nPress [o] to place base";*/ }
             else if (cursorP2.state == State.placeLaser)
             {
                 cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
-                p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                //p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
             }
             else if (cursorP2.state == State.placingLaser)
             {
@@ -389,7 +389,7 @@ public class inputController : MonoBehaviour {
                     default: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorP2.y == 0 ? cursorObjP2.GetComponent<cursor1>().Sprites[5][1] : cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; break;
                 }
 
-                p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                //p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
             }
             else if (cursorP2.state == State.placing) // in here change the sprite while choosing direction
             {
@@ -581,14 +581,14 @@ public class inputController : MonoBehaviour {
 			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         } else if (currentState == State.placingLaser) {
             if (player == Player.PlayerOne) {
-                p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
+                //p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
                 if (cursorP1.direction == Direction.Up && cursorP1.y != yEnd) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else if (cursorP1.direction == Direction.Down && cursorP1.y != 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else if (cursorP1.y != 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else if (cursorP1.y == 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else print("Press the up or down direction keys to place laser");
             } else {
-                p2UI.State.text = "Press [o] to place creatures \nPress IJKL for direction \n[o] to confirm";
+                //p2UI.State.text = "Press [o] to place creatures \nPress IJKL for direction \n[o] to confirm";
                 if (cursorP2.direction == Direction.Up && cursorP2.y != yEnd) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else if (cursorP2.direction == Direction.Down && cursorP2.y != 0) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else if (cursorP2.y != 0) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
@@ -644,12 +644,12 @@ public class inputController : MonoBehaviour {
     {
         if (currentState == State.moving) {
             if (player == Player.PlayerOne) {
-                p1UI.State.text = "Press [u] to place creature \nPress WASD for direction \n[u] to confirm";
+                //p1UI.State.text = "Press [u] to place creature \nPress WASD for direction \n[u] to confirm";
 				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.moveBuilding, cursorP1.moveOrigin.x, cursorP1.moveOrigin.y) && !new XY(cursorP1.x, cursorP1.y).Equals(cursorP1.moveOrigin)){ print("You can not move to here, selection is not valid");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP1.moveBuilding, cursorP1.x, Player.PlayerOne, true) < gridManager.theGrid.getResourcesP1()) cursorP1.state = State.placingMove;
                 else print("Not enough resources to move.");
             } else {
-                p2UI.State.text = "Press [u] to place creatures \nPress IJKL for direction \n[u] to confirm";
+                //p2UI.State.text = "Press [u] to place creatures \nPress IJKL for direction \n[u] to confirm";
 				if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.moveBuilding, cursorP2.moveOrigin.x, cursorP2.moveOrigin.y) && !new XY(cursorP2.x, cursorP2.y).Equals(cursorP2.moveOrigin)){ print("You can not move to here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP2.moveBuilding, cursorP2.x, Player.PlayerTwo, true) < gridManager.theGrid.getResourcesP2()) cursorP2.state = State.placingMove;
 				else {print("Not enough resources to move."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);} 
