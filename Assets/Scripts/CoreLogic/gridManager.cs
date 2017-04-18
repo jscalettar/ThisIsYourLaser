@@ -269,14 +269,14 @@ public struct Grid
     }
 
     // Checks if your placement is valid and does not intersect with other weaksides
-    public bool probeGrid(int x, int y, Direction placeDir, Building structure)
+    public bool probeGrid(int x, int y, Direction placeDir, Building structure, int originX = -1, int originY = -1)
     {
         if (!validateInput(x, y)) return false;
-        if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return false;
-        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y - 1)) || getBuilding(x, y - 1) != Building.Empty) && (isWeakSide(x, y - 1, Direction.Up, getBuilding(x, y - 1)) || isWeakSide(Direction.Down, placeDir, structure))) return false;
-        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y + 1)) || getBuilding(x, y + 1) != Building.Empty) && (isWeakSide(x, y + 1, Direction.Down, getBuilding(x, y + 1)) || isWeakSide(Direction.Up, placeDir, structure))) return false;
-        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x - 1, y)) || getBuilding(x - 1, y) != Building.Empty) && (isWeakSide(x - 1, y, Direction.Right, getBuilding(x - 1, y)) || isWeakSide(Direction.Left, placeDir, structure))) return false;
-        if ((gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x + 1, y)) || getBuilding(x + 1, y) != Building.Empty) && (isWeakSide(x + 1, y, Direction.Left, getBuilding(x + 1, y)) || isWeakSide(Direction.Right, placeDir, structure))) return false;
+        if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y)) && (x != originX && y != originY)) return false;
+        if (!(x == originX && y - 1 == originY) && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y - 1)) || getBuilding(x, y - 1) != Building.Empty) && (isWeakSide(x, y - 1, Direction.Up, getBuilding(x, y - 1)) || isWeakSide(Direction.Down, placeDir, structure))) return false;
+        if (!(x == originX && y + 1 == originY) && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y + 1)) || getBuilding(x, y + 1) != Building.Empty) && (isWeakSide(x, y + 1, Direction.Down, getBuilding(x, y + 1)) || isWeakSide(Direction.Up, placeDir, structure))) return false;
+        if (!(x - 1 == originX && y == originY) && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x - 1, y)) || getBuilding(x - 1, y) != Building.Empty) && (isWeakSide(x - 1, y, Direction.Right, getBuilding(x - 1, y)) || isWeakSide(Direction.Left, placeDir, structure))) return false;
+        if (!(x + 1 == originX && y == originY) && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x + 1, y)) || getBuilding(x + 1, y) != Building.Empty) && (isWeakSide(x + 1, y, Direction.Left, getBuilding(x + 1, y)) || isWeakSide(Direction.Right, placeDir, structure))) return false;
         if (structure == Building.Laser && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y - 2)) || getBuilding(x, y - 2) != Building.Empty) && (getBuilding(x, y - 2) == Building.Base)) return false;
         if (structure == Building.Laser && (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y + 2)) || getBuilding(x, y + 2) != Building.Empty) && (getBuilding(x, y + 2) == Building.Base)) return false;
         return true;
@@ -480,7 +480,7 @@ public struct Grid
     public bool moveBuilding(int x, int y, int xNew, int yNew, Player playerID, Direction facing = Direction.Up) // need to add rotation?
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
-        if (!grid[y, x].isEmpty && probeGrid(xNew, yNew, facing, grid[y, x].building) && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
+        if (!grid[y, x].isEmpty && probeGrid(xNew, yNew, facing, grid[y, x].building, x, y) && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
             // Subtract some resources for move
             GridItem temp = grid[y, x];
             if (playerID == Player.PlayerOne) resourcesP1 -= getCost(grid[y, x].building, xNew, playerID, true);

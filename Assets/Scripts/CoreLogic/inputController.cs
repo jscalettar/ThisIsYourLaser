@@ -535,9 +535,9 @@ public class inputController : MonoBehaviour {
         return Building.Resource;
     }
 
-    public static bool validPlacement(int x, int y, Direction direction, Building building)
+    public static bool validPlacement(int x, int y, Direction direction, Building building, int originX = -1, int originY = -1)
     {
-        if (gridManager.theGrid.getBuilding(x, y) != Building.Empty || !gridManager.theGrid.probeGrid(x, y, direction, building)) return false;
+        if (gridManager.theGrid.getBuilding(x, y) != Building.Empty || !gridManager.theGrid.probeGrid(x, y, direction, building, originX, originY)) return false;
         //if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return false;
         return true;
     }
@@ -645,12 +645,12 @@ public class inputController : MonoBehaviour {
         if (currentState == State.moving) {
             if (player == Player.PlayerOne) {
                 p1UI.State.text = "Press [u] to place creature \nPress WASD for direction \n[u] to confirm";
-				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.moveBuilding) && !new XY(cursorP1.x, cursorP1.y).Equals(cursorP1.moveOrigin)){ print("You can not move to here, selection is not valid");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.moveBuilding, cursorP1.moveOrigin.x, cursorP1.moveOrigin.y) && !new XY(cursorP1.x, cursorP1.y).Equals(cursorP1.moveOrigin)){ print("You can not move to here, selection is not valid");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP1.moveBuilding, cursorP1.x, Player.PlayerOne, true) < gridManager.theGrid.getResourcesP1()) cursorP1.state = State.placingMove;
                 else print("Not enough resources to move.");
             } else {
                 p2UI.State.text = "Press [u] to place creatures \nPress IJKL for direction \n[u] to confirm";
-				if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.moveBuilding) && !new XY(cursorP2.x, cursorP2.y).Equals(cursorP2.moveOrigin)){ print("You can not move to here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.moveBuilding, cursorP2.moveOrigin.x, cursorP2.moveOrigin.y) && !new XY(cursorP2.x, cursorP2.y).Equals(cursorP2.moveOrigin)){ print("You can not move to here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP2.moveBuilding, cursorP2.x, Player.PlayerTwo, true) < gridManager.theGrid.getResourcesP2()) cursorP2.state = State.placingMove;
 				else {print("Not enough resources to move."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);} 
             }
