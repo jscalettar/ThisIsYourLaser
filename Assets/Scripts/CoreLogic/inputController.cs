@@ -130,8 +130,8 @@ public class inputController : MonoBehaviour {
         cycleP2 = 0;
         xEnd = gridManager.theGrid.getDimX() - 1;
         yEnd = gridManager.theGrid.getDimY() - 1;
-        cursorP1 = new Cursor(0, 2, Direction.Right, Building.Blocking, State.placeBase);
-        cursorP2 = new Cursor(xEnd, yEnd-2, Direction.Left, Building.Blocking, State.placeBase);
+        cursorP1 = new Cursor(0, 2, Direction.Right, Building.Resource, State.placeBase);
+        cursorP2 = new Cursor(xEnd, yEnd-2, Direction.Left, Building.Resource, State.placeBase);
         cursorP1Last = cursorP1;
         cursorP2Last = cursorP2;
         PauseMenu = GameObject.Find("Pause Menu");
