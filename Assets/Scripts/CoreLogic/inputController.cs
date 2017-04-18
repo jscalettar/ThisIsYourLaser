@@ -560,6 +560,7 @@ public class inputController : MonoBehaviour {
                 {
                     gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Base, Player.PlayerOne);
                     cursorP1.state = State.placeLaser; p1HasPlacedBase = true;
+                    SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                 }
             } else {
                 if (cursorP2.x < xEnd) print("Base must be placed on the edge of the board");
@@ -567,24 +568,25 @@ public class inputController : MonoBehaviour {
                 else {
                     gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Base, Player.PlayerTwo);
                     cursorP2.state = State.placeLaser; p2HasPlacedBase = true;
+                    SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                 }
             }
-			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+			
         } else if (currentState == State.placeLaser && p1HasPlacedBase && p2HasPlacedBase) {
             if (player == Player.PlayerOne) {
                 if (cursorP1.x > 0) print("Laser must be placed on the edge of the board");
                 else {
-                    if (!validPlacement(cursorP1.x, cursorP1.y, Direction.Right, Building.Laser)) print("Laser can not be placed that close to the base.");
-                    else cursorP1.state = State.placingLaser;
+                    if (!validPlacement(cursorP1.x, cursorP1.y, Direction.Right, Building.Laser)){ print("Laser can not be placed that close to the base."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+                    else{ cursorP1.state = State.placingLaser; SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 }
             } else {
                 if (cursorP2.x < xEnd) print("Laser must be placed on the edge of the board");
                 else {
-                    if (!validPlacement(cursorP2.x, cursorP2.y, Direction.Left, Building.Laser)) print("Laser can not be placed that close to the base.");
-                    else cursorP2.state = State.placingLaser;
+                    if (!validPlacement(cursorP2.x, cursorP2.y, Direction.Left, Building.Laser)){ print("Laser can not be placed that close to the base."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+                    else{ cursorP2.state = State.placingLaser; SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 }
             }
-			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+			
         } else if (currentState == State.placingLaser) {
             if (player == Player.PlayerOne) {
                 p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
@@ -602,7 +604,7 @@ public class inputController : MonoBehaviour {
                 else print("Press the up or down direction keys to place laser");
             }
         } else if (currentState == State.placing) {
-			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+			
             if (player == Player.PlayerOne) {
 				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP1.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
 				else { if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, cursorP1.selection, Player.PlayerOne, cursorP1.direction)) print("Placing failed."); cursorP1.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
@@ -615,6 +617,7 @@ public class inputController : MonoBehaviour {
 				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.selection)){print("You can not place here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume / 25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) <= gridManager.theGrid.getResourcesP1()){
                 	cursorP1.state = State.placing;
+                    SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                 	//if(cursorP1.selection == Building.Refracting || cursorP1.selection == Building.Blocking){
                 		//cursorP1.direction = Direction.Down;
                 		//place(Player.PlayerOne, cursorP1.state);
@@ -622,6 +625,7 @@ public class inputController : MonoBehaviour {
                     if (cursorP1.selection == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
                         cursorP1.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
                         place(Player.PlayerOne, cursorP1.state);
+                        SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                     }
                  }
 				else {print("Not enough resources to place."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
@@ -636,6 +640,7 @@ public class inputController : MonoBehaviour {
                     if (cursorP2.selection == Building.Resource && laserLogic.laserData.grid[cursorP2.y, cursorP2.x].Count > 0) {
                         cursorP2.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP2.y, cursorP2.x][0].getMarchDir());
                         place(Player.PlayerTwo, cursorP2.state);
+                        SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                     }
                 }
 				else{ print("Not enough resources to place."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
@@ -710,7 +715,7 @@ public class inputController : MonoBehaviour {
 				else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser){ print("Cannot remove this building."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
 				else { cursorP2.state = State.removing; }
             }
-			SoundManager.PlaySound(Sounds[3].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+			
         } else {
             print("Can not remove, busy with some other action.");
 			SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);

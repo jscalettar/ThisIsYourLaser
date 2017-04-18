@@ -347,6 +347,12 @@ public struct Grid
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
             grid[y, x].health -= damage;
+            /*float tmp = (float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1);
+            if(tmp > .01f)
+                tmp = .01f;*/
+            
+            SoundManager.PlaySound(inputController.Sounds[5].audioclip,SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
+            //MonoBehaviour.print(tmp);
             prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
             floatingNumbers.floatingNumbersStruct.checkDamage(new XY(x, y), grid[y, x].health, prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().health, grid[y, x].building, grid[y, x].owner);
             if (grid[y, x].health <= 0f) {
