@@ -288,7 +288,7 @@ public class inputController : MonoBehaviour {
                 // Cursor Rotation P2
                 bool selectionMade = false;
                 if (cursorP2.selection == Building.Blocking || cursorP2.selection == Building.Refracting) { cursorP2.direction = Direction.Down; }
-                else if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") < 1) { cursorP2.direction = Direction.Up; }
+                else if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; }
                 else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.direction = Direction.Down; }
                 else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.direction = Direction.Right; }
                 else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.direction = Direction.Left; }
