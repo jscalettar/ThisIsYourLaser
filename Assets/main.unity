@@ -28513,6 +28513,9 @@ MonoBehaviour:
   laserWidth: 0.24
   laserVisualHeight: 0.5
   laserIntensity: 0.5
+  intervalInMinutes1: 3
+  intervalInMinutes2: 7
+  intervalInMinutes3: 10
   resourceRate: 0.2
   laserMaterialP1: {fileID: 2100000, guid: 0c7a4a17bc51ce34abbe492260b42caf, type: 2}
   laserMaterialP2: {fileID: 2100000, guid: 5881a0a8f7395b54e8e5f711a120a7ba, type: 2}
