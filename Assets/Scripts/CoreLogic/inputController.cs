@@ -35,6 +35,11 @@ public class inputController : MonoBehaviour {
     public Sprite P2RedirectSprite;
     public Sprite P2ResourceSprite;
 
+    public Sprite RedirectUp;
+    public Sprite RedirectDown;
+    public Sprite RedirectLeft;
+    public Sprite RedirectRight;
+
     // Cursor movement speed
     private const float cursorSpeed = 8f;
     private float delayFactor = 1f / cursorSpeed;
@@ -337,7 +342,20 @@ public class inputController : MonoBehaviour {
                     case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
                     case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .375f; break;
                     case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
-                    case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .25f; break;
+                    case Building.Redirecting: /*cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)];*/ scale = .25f;
+                    if (cursorP1.direction == Direction.Up)
+                    {
+                        cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectUp;
+                    }else if(cursorP1.direction == Direction.Down){
+                        cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectDown;
+                    }else if(cursorP1.direction == Direction.Left)
+                    {
+                        cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectLeft;
+                    }else if (cursorP1.direction == Direction.Right)
+                    {
+                        cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectRight;
+                    }
+                    break;
                     case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
                 }
                 cursorSpriteP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
