@@ -10,6 +10,9 @@ public class laserLogic : MonoBehaviour
     public float laserWidth = 0.05f;
     public float laserVisualHeight = 0.5f;
     public float laserIntensity = 0.5f;
+    public float intervalInMinutes1;
+    public float intervalInMinutes2;
+    public float intervalInMinutes3;
     public float resourceRate = 0.1f;
     public Material laserMaterialP1;
     public Material laserMaterialP2;
@@ -25,6 +28,10 @@ public class laserLogic : MonoBehaviour
     // Private Variables
     private int laserStartP1 = 0;
     private int laserStartP2 = 0;
+    private float laserPowerMultiplier = 1.0f;
+    private float intervalInSeconds1;
+    private float intervalInSeconds2;
+    private float intervalInSeconds3;
     //private int laserIndex = 0;
     private int iterationLimit = 300;
     private int iterationCount = 0;
@@ -238,6 +245,11 @@ public class laserLogic : MonoBehaviour
 
     void Awake()
     {
+        // Conversion to seconds
+        float intervalInSeconds1 = 60 / intervalInMinutes1;
+        float intervalInSeconds2 = 60 / intervalInMinutes2;
+        float intervalInSeconds3 = 60 / intervalInMinutes3;
+
         laserIndex = -1;
         lasers = new List<List<laserNode>>();
         laserQueue = new List<laserNode>();
@@ -269,7 +281,16 @@ public class laserLogic : MonoBehaviour
 
     void LateUpdate()
     {
-        if (gridManager.theGrid.updateLaser()) simulateLasers(); // Update laser if needed
+        if (Time.realtimeSinceStartup >= intervalInSeconds1) {
+            laserPowerMultiplier = 2;
+        }
+        else if (Time.realtimeSinceStartup >= intervalInSeconds2) {
+            laserPowerMultiplier = 3;
+        }
+        else if (Time.realtimeSinceStartup >= intervalInSeconds3) {
+            laserPowerMultiplier = 4;
+        }
+       if (gridManager.theGrid.updateLaser()) simulateLasers(); // Update laser if needed
 
         // Generate Resources, apply damage
         foreach (laserHit hit in laserHits) {
@@ -279,7 +300,7 @@ public class laserLogic : MonoBehaviour
                 else if (hit.buildingOwner == Player.PlayerTwo) gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate);
             } else if (hit.weakSideHit) {
                 // Apply Damage
-                gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * Time.deltaTime);
+                gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * laserPowerMultiplier * Time.deltaTime);
             }
         }
         //setupManager smanager = new setupManager();
@@ -456,7 +477,7 @@ public class laserLogic : MonoBehaviour
         // Determine next laser step
         int newX; int newY; Direction newDir;
 
-        //float newStrength = strength - laserDecay;
+        float newStrength = strength;
 
         switch (heading) {
             case Direction.NE:
@@ -469,8 +490,8 @@ public class laserLogic : MonoBehaviour
                         newX = x + 1; newY = y;
                     }
 
-                    //laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
-                    laserSolver(newX, newY, strength, heading, newDir, player, indx, subIndx);
+                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
+                    
                     break;
                 }
             case Direction.NW:
@@ -483,8 +504,7 @@ public class laserLogic : MonoBehaviour
                         newX = x - 1; newY = y;
                     }
 
-                    //laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
-                    laserSolver(newX, newY, strength, heading, newDir, player, indx, subIndx);
+                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
                     break;
                 }
             case Direction.SE:
@@ -497,8 +517,7 @@ public class laserLogic : MonoBehaviour
                         newX = x + 1; newY = y;
                     }
 
-                    //laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
-                    laserSolver(newX, newY, strength, heading, newDir, player, indx, subIndx);
+                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
                     break;
                 }
             case Direction.SW:
@@ -511,8 +530,7 @@ public class laserLogic : MonoBehaviour
                         newX = x - 1; newY = y;
                     }
 
-                    //laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
-                    laserSolver(newX, newY, strength, heading, newDir, player, indx, subIndx);
+                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
                     break;
                 }
         }
@@ -541,6 +559,10 @@ public class laserLogic : MonoBehaviour
         return 0.15f + laserDecay; // WIP
     }
     */
+
+    private float multiplyPower(float curStrength, float powerLevel) {
+        return curStrength * powerLevel;
+    }
 
     // Adds laser node to queue
     private void addLaserToQueue(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, bool isNew)
