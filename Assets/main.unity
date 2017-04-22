@@ -28967,6 +28967,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 2061673243}
+  limicator: {fileID: 1685753832448580, guid: f7ebe83dec062a34280f39bbf75fa83c, type: 2}
+  p1StonesPlaced: 0
+  p2StonesPlaced: 0
 --- !u!114 &2040606554
 MonoBehaviour:
   m_ObjectHideFlags: 0
