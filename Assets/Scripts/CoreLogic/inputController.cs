@@ -73,8 +73,9 @@ public class inputController : MonoBehaviour {
     public static playerOneUI p1UI;
     public static playerTwoUI p2UI;
 
-    // Pause menu
+    // Pause menu and win screen
     public GameObject PauseMenu;
+    public GameObject Win;
 
     public struct Cursor
     {
@@ -139,7 +140,7 @@ public class inputController : MonoBehaviour {
         cursorP2 = new Cursor(xEnd, yEnd-2, Direction.Left, Building.Resource, State.placeBase);
         cursorP1Last = cursorP1;
         cursorP2Last = cursorP2;
-        PauseMenu = GameObject.Find("Pause Menu");
+        //PauseMenu = GameObject.Find("Pause Menu");
         // Set initial cursor positions
         cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
         cursorObjP2.transform.position = new Vector3(cursorP2.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP2.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
@@ -150,8 +151,8 @@ public class inputController : MonoBehaviour {
         bool notNow1 = false;
         bool notNow2 = false;
         // Check that the game isn't paused
-        //if (PauseMenu.activeInHierarchy == false)
-        //{
+        if (PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false)
+        {
 			// Cursor Selection P1
 			if (Input.GetKeyDown ("1")) {cursorP1.selection = Building.Blocking; SoundManager.PlaySound (UISounds [0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);} 
 			else if (Input.GetKeyDown ("2")) {cursorP1.selection = Building.Reflecting; SoundManager.PlaySound (UISounds [0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);}
@@ -561,7 +562,7 @@ public class inputController : MonoBehaviour {
             else if (!cursorP2.Equals(cursorP2Last)) ghostLaser.ghostUpdateNeeded = true;
             cursorP1Last = cursorP1;
             cursorP2Last = cursorP2;
-        //}
+        }
     }
 
     private Building cycleToBuilding(int index)

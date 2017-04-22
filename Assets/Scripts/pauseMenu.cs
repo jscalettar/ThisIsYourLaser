@@ -11,6 +11,7 @@ public class pauseMenu : MonoBehaviour
     public GameObject OptionMenu;
     public GameObject InstructMenu;
     public GameObject StructureMenu;
+    public GameObject Win;
 
     // Vars for menu buttons
     public Button Pause;
@@ -18,6 +19,13 @@ public class pauseMenu : MonoBehaviour
     public Button Instructions;
     public Button Options;
     public Button End;
+
+    // Vars for win screen buttons
+    public Button Restart;
+    public Button MainMenu;
+
+    // Vars for win screen text
+    public Text winText;
 
     // Vars for other buttons
     public Button Back;
@@ -44,6 +52,7 @@ public class pauseMenu : MonoBehaviour
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
         StructureMenu.SetActive(false);
+        Win.SetActive(false);
 
         // Set pause menu buttons to active
         Pause.interactable = true;
@@ -126,11 +135,12 @@ public class pauseMenu : MonoBehaviour
     public void endGame()
     {
         // Resets the time scale so the game doesn't freeze when restarted
-        SceneManager.LoadScene("TitleScreen");
+        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
         Time.timeScale = 1F;
         PauseMenu.SetActive(false);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        Win.SetActive(false);
     }
 
     public void goBack()
@@ -145,6 +155,30 @@ public class pauseMenu : MonoBehaviour
         Instructions.interactable = true;
         Options.interactable = true;
         End.interactable = true;
+    }
+
+    // Call winGame in gridManager in applyDamage and input "P1" or "P2"
+    public void winGame(string winner)
+    {
+        // Stops Update functions, essentially pausing the game
+        Time.timeScale = 0F;
+
+        // Take the in winner value and display correct winner text
+        if (winner == "P1") { winText.text = "Player 1 Wins!"; }
+        else if (winner == "P2") { winText.text = "Player 2 Wins!"; }
+        Win.SetActive(true);
+    }
+
+    // Function for the "Play Again" button
+    public void restartGame()
+    {
+        // Resets the time scale so the game doesn't freeze when restarted
+        SceneManager.LoadScene("main", LoadSceneMode.Single);
+        Time.timeScale = 1F;
+        PauseMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        Win.SetActive(false);
     }
 
     // ------------------------------------------------------- //
