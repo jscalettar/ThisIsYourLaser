@@ -376,57 +376,57 @@ public struct Grid
 	{
 		if (!validateInput (x, y))
 			return false;
-		if (grid [y, x].isEmpty && probeGrid (x, y, facing, newBuilding) && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost (newBuilding) && (playerID == Player.PlayerOne ? buildingNumP1 : buildingNumP2) <= 11) { //10 buildings per player
-			if (prefabDictionary.ContainsKey (new XY (x, y)))
-				return false;
+        if (grid[y, x].isEmpty && probeGrid(x, y, facing, newBuilding) && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost(newBuilding) && (playerID == Player.PlayerOne ? buildingNumP1 : buildingNumP2) <= 11) { //10 buildings per player
+            if (prefabDictionary.ContainsKey(new XY(x, y)))
+                return false;
 
-			// Place Building Prefab
-			GameObject building = MonoBehaviour.Instantiate(buildingPrefabs [(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
-			if (instant) placementList.Add (new buildingRequest(new XY (x, y), 0f, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
-			else placementList.Add (new buildingRequest(new XY (x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
-			building.GetComponent<buildingParameters>().x = x;
-			building.GetComponent<buildingParameters>().y = y;
-			building.GetComponent<buildingParameters>().owner = playerID;
-			building.GetComponent<buildingParameters>().direction = facing;
-			building.GetComponent<buildingParameters>().buildingType = newBuilding;
+            // Place Building Prefab
+            GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
+            if (instant) placementList.Add(new buildingRequest(new XY(x, y), 0f, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
+            else placementList.Add(new buildingRequest(new XY(x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
+            building.GetComponent<buildingParameters>().x = x;
+            building.GetComponent<buildingParameters>().y = y;
+            building.GetComponent<buildingParameters>().owner = playerID;
+            building.GetComponent<buildingParameters>().direction = facing;
+            building.GetComponent<buildingParameters>().buildingType = newBuilding;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
-			if (newBuilding != Building.Laser && newBuilding != Building.Base) {// || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
-				building.AddComponent<SpriteRenderer> ();
-				building.GetComponent<SpriteRenderer> ().sprite = building.GetComponent<buildingParameters>().sprites [directionToIndex (facing)];
-				building.GetComponent<Renderer> ().material.color = playerID == Player.PlayerOne ? new Vector4 (1f, 0.7f, 0.7f, .3f) : new Vector4 (0.7f, 1, 0.7f, .3f);
-				float scale = building.GetComponent<buildingParameters>().scale;
-				building.transform.localScale = new Vector3 (scale, scale, scale);
-			} else if (newBuilding == Building.Laser) {
-				//building.AddComponent<SpriteRenderer>();
-				building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites [directionToIndex (facing) - 2];
-				building.GetComponent<Renderer> ().material.color = playerID == Player.PlayerOne ? new Vector4 (1f, 0.7f, 0.7f, .3f) : new Vector4 (0.7f, 1, 0.7f, .3f);
-				float scale = building.GetComponent<buildingParameters>().scale;
-				building.transform.localScale = new Vector3 (scale, scale, scale);
-			} else
-				building.GetComponent<Renderer> ().material.color = playerID == Player.PlayerOne ? new Vector4 (1f, 0.7f, 0.7f, .3f) : new Vector4 (0.7f, 1, 0.7f, .3f); // Used for debugging, not necessary with final art
-			building.transform.SetParent (buildingContainer.transform);
-			building.transform.localPosition = coordsToWorld (x, y);
-            if(newBuilding == Building.Laser && building.GetComponent<buildingParameters>().direction == Direction.Down)
+            if (newBuilding != Building.Laser && newBuilding != Building.Base) {// || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
+                building.AddComponent<SpriteRenderer>();
+                building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f);
+                float scale = building.GetComponent<buildingParameters>().scale;
+                building.transform.localScale = new Vector3(scale, scale, scale);
+            } else if (newBuilding == Building.Laser) {
+                //building.AddComponent<SpriteRenderer>();
+                building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing) - 2];
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f);
+                float scale = building.GetComponent<buildingParameters>().scale;
+                building.transform.localScale = new Vector3(scale, scale, scale);
+            } else
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f); // Used for debugging, not necessary with final art
+            building.transform.SetParent(buildingContainer.transform);
+            building.transform.localPosition = coordsToWorld(x, y);
+            if (newBuilding == Building.Laser && building.GetComponent<buildingParameters>().direction == Direction.Down)
             {
                 building.transform.localPosition = coordsToWorld(x, y - 0.7f);
-            }else if(newBuilding == Building.Laser && building.GetComponent<buildingParameters>().direction == Direction.Up)
+            } else if (newBuilding == Building.Laser && building.GetComponent<buildingParameters>().direction == Direction.Up)
             {
                 building.transform.localPosition = coordsToWorld(x, y + 0.45f);
             }
-            if(newBuilding == Building.Reflecting)
+            if (newBuilding == Building.Reflecting)
             {
-                building.transform.localPosition = coordsToWorld(x, y-0.135f);
+                building.transform.localPosition = coordsToWorld(x, y - 0.135f);
             }
-			building.transform.localEulerAngles = new Vector3 (90, 0, 0);
-			prefabDictionary.Add (new XY (x, y), building);
+            building.transform.localEulerAngles = new Vector3(90, 0, 0);
+            prefabDictionary.Add(new XY(x, y), building);
             // Subtract Cost From Resources
             if (playerID == Player.PlayerOne) {
-				resourcesP1 -= getCost (newBuilding, x, playerID);
-				buildingNumP1++;
-			} else {
-				resourcesP2 -= getCost (newBuilding, x, playerID);
-				buildingNumP2++;
-			}
+                resourcesP1 -= getCost(newBuilding, x, playerID);
+                buildingNumP1++;
+            } else {
+                resourcesP2 -= getCost(newBuilding, x, playerID);
+                buildingNumP2++;
+            }
             // Set base references for getting health later
             if (newBuilding == Building.Base) { if (playerID == Player.PlayerOne) baseP1 = building; else baseP2 = building; }
             // Placement Timer
@@ -440,6 +440,9 @@ public struct Grid
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
             updateSquares();
+            if (newBuilding != Building.Base && newBuilding != Building.Laser) { 
+                Limicator.limicatorObj.changeStones(playerID == Player.PlayerOne ? 0 : 1, State.placing);
+            }
         } else return false;
         return true;
     }
@@ -471,6 +474,7 @@ public struct Grid
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
             updateSquares();
+            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing);
         } else return false;
         return true;
     }
@@ -510,6 +514,7 @@ public struct Grid
             }
             //needsUpdate = true;
             updateSquares();
+            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing);
         } else return false;
         return true;
     }

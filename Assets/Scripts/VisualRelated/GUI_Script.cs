@@ -89,7 +89,7 @@ public class GUI_Script : MonoBehaviour {
         p2UI.p2RefractRemoveCost = GameObject.Find("p2RefractRemoveCost").GetComponent<Text>();
         p2UI.p2RedirectPlaceCost = GameObject.Find("p2RedirectPlaceCost").GetComponent<Text>();
         p2UI.p2RedirectMoveCost = GameObject.Find("p2RedirectMoveCost").GetComponent<Text>();
-        p2UI.p2RedirectRemoveCost = GameObject.Find("p2RedirectRemoveCost").GetComponent<Text>();*/
+        p2UI.p2RedirectRemoveCost = GameObject.Find("p2RedirectRemoveCost").GetComponent<Text>();
 
         stones = new GameObject[2, 10];
         if (limicator != null) {
@@ -104,7 +104,7 @@ public class GUI_Script : MonoBehaviour {
             }
         }
         p1StonesPlaced = 0;
-        p2StonesPlaced = 0;
+        p2StonesPlaced = 0;*/
     }
 	
 	// Update is called once per frame
@@ -535,32 +535,5 @@ public class GUI_Script : MonoBehaviour {
 
     }
 
-    public void changeLimicator(int i, State state)
-    {
-        int stonesPlaced = i == 0 ? p1StonesPlaced : p2StonesPlaced;
-        if(state == State.placing)
-        {
-            if(i == 0)
-            {
-                stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = limicator.GetComponent<Limicator>().sprites[1];
-                p1StonesPlaced += 1;
-            }else
-            {
-                stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = limicator.GetComponent<Limicator>().sprites[1];
-                p2StonesPlaced += 1;
-            }
-        }else if(state == State.removing)
-        {
-            if (i == 0)
-            {
-                p1StonesPlaced -= 1;
-                stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = limicator.GetComponent<Limicator>().sprites[0];
-            }
-            else
-            {
-                p2StonesPlaced -= 1;
-                stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = limicator.GetComponent<Limicator>().sprites[0];
-            }
-        }
-    }
+   
 }
