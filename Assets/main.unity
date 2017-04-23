@@ -6065,7 +6065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.999939, y: -220.00005}
+  m_AnchoredPosition: {x: -6, y: -220.00005}
   m_SizeDelta: {x: 10, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &386143572
@@ -17869,7 +17869,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1166739909}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -20546,7 +20546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5.999939, y: -220.00002}
+  m_AnchoredPosition: {x: 6, y: -220.00002}
   m_SizeDelta: {x: 10, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1492824878
@@ -29604,6 +29604,7 @@ GameObject:
   - component: {fileID: 2040606548}
   - component: {fileID: 2040606552}
   - component: {fileID: 2040606554}
+  - component: {fileID: 2040606555}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -29670,9 +29671,9 @@ MonoBehaviour:
   laserWidth: 0.24
   laserVisualHeight: 0.5
   laserIntensity: 0.5
-  intervalInMinutes1: 3
-  intervalInMinutes2: 7
-  intervalInMinutes3: 10
+  intervalInMinutes1: 0
+  intervalInMinutes2: 0
+  intervalInMinutes3: 0
   resourceRate: 0.2
   laserMaterialP1: {fileID: 2100000, guid: 0c7a4a17bc51ce34abbe492260b42caf, type: 2}
   laserMaterialP2: {fileID: 2100000, guid: 5881a0a8f7395b54e8e5f711a120a7ba, type: 2}
@@ -29713,6 +29714,7 @@ MonoBehaviour:
   Portal: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   Portal2: {fileID: 1723901412078198, guid: ffa5dffd9f25f7345a7b3f84a0dcee38, type: 2}
   limit: 150
+  tutorialObject: {fileID: 0}
   empty: {fileID: 1016938011168578, guid: 192d36f0c8e49bd4ea7e9eb222de6dac, type: 2}
   dot: {fileID: 1449414074059240, guid: a7c42696188cab14c93e4756790b5f42, type: 2}
   placementTimerObj: {fileID: 1212582469528822, guid: dd8945e57707bcd4590911d4ec55ea6e,
@@ -29750,10 +29752,10 @@ MonoBehaviour:
   P2RefractSprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
   P2RedirectSprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
   P2ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
-  RedirectUp: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
-  RedirectDown: {fileID: 21300000, guid: 13e5e22d25d7d5b468d0c1fdcd8ba5a3, type: 3}
-  RedirectLeft: {fileID: 21300000, guid: e949e6d334f555e46b797ee7f42ebd93, type: 3}
-  RedirectRight: {fileID: 21300000, guid: 075c271c538371a4d831327f4d576ce2, type: 3}
+  RedirectUp: {fileID: 0}
+  RedirectDown: {fileID: 0}
+  RedirectLeft: {fileID: 0}
+  RedirectRight: {fileID: 0}
   setSounds:
   - audioclip: {fileID: 8300000, guid: 432074b7d7cd93b4a9aae9fae87a1fb4, type: 3}
   - audioclip: {fileID: 8300000, guid: 851c09a6a27aa5540ae4ff174174676a, type: 3}
@@ -29796,7 +29798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 2061673243}
-  limicator: {fileID: 1685753832448580, guid: f7ebe83dec062a34280f39bbf75fa83c, type: 2}
+  limicator: {fileID: 0}
   p1StonesPlaced: 0
   p2StonesPlaced: 0
 --- !u!114 &2040606554
@@ -29813,10 +29815,21 @@ MonoBehaviour:
   laserWidth: 0.05
   laserVisualHeight: 0.5
   laserTransparency: 0.3
-  laserMaterialGhostP1: {fileID: 2100000, guid: 4cb50df1a13e2e14e8dcfba4a0504f7f,
-    type: 2}
-  laserMaterialGhostP2: {fileID: 2100000, guid: 873bff06a20158843bc8b9d4acf95efb,
-    type: 2}
+  laserMaterialGhostP1: {fileID: 0}
+  laserMaterialGhostP2: {fileID: 0}
+--- !u!114 &2040606555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040606545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb673361cad723641af9baf1466b3579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splash: {fileID: 153116, guid: 5caa4c4c9994a554d84ae18bb8941791, type: 2}
+  explosion: {fileID: 120184, guid: c4483c3fbe6fa8848a70e2a377130971, type: 2}
 --- !u!1 &2053190675
 GameObject:
   m_ObjectHideFlags: 0
@@ -30286,7 +30299,7 @@ RectTransform:
   - {fileID: 481002456}
   - {fileID: 1409918979}
   m_Father: {fileID: 2061673247}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

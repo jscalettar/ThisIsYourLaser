@@ -380,6 +380,9 @@ public struct Grid
 			if (prefabDictionary.ContainsKey (new XY (x, y)))
 				return false;
 
+            // Emit Placement Particle
+            emitParticles.genericParticle.emitParticle(x, y, particleType.place);
+
 			// Place Building Prefab
 			GameObject building = MonoBehaviour.Instantiate(buildingPrefabs [(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
 			if (instant) placementList.Add (new buildingRequest(new XY (x, y), 0f, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
@@ -480,6 +483,9 @@ public struct Grid
 		SoundManager.PlaySound(inputController.Sounds[1].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
+            // Emit Destruction Particle
+            emitParticles.genericParticle.emitParticle(x, y, particleType.destroy);
+
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
 			//SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume, true, .5f, 1.5f);
             //Building temp = grid[y, x].building;
