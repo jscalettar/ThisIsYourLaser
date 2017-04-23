@@ -19,6 +19,7 @@ public class laserLogic : MonoBehaviour
     public Material laserMaterialCombined;
     public GameObject hitEffect;
     public GameObject resourceEffect;
+    public static float laserPowerMultiplier = 1.0f;
 
     // Can change laser heading like this:
     // laserLogic.laserHeadingP1 = Direction.SE;  or  laserLogic.laserHeadingP2 = Direction.SW;
@@ -28,7 +29,7 @@ public class laserLogic : MonoBehaviour
     // Private Variables
     private int laserStartP1 = 0;
     private int laserStartP2 = 0;
-    private float laserPowerMultiplier = 1.0f;
+    
     private float intervalInSeconds1;
     private float intervalInSeconds2;
     private float intervalInSeconds3;

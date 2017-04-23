@@ -490,6 +490,15 @@ public struct Grid
 				buildingNumP2--;
 			}
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
+            if (grid[y, x].building == Building.Blocking) {
+                if (grid[y, x].owner == Player.PlayerOne) {
+                     resourcesP1 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier;
+                } else if (grid[y, x].owner == Player.PlayerTwo) {
+                    resourcesP2 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier;
+                }
+            }
+
+
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
