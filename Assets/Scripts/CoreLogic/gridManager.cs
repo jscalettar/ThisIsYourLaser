@@ -142,10 +142,12 @@ public struct Grid
     private GameObject baseP2;
     private GameObject placementTimer;
     public GameObject[,] gridSquares;
+    public int blockScale;
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder, GameObject Dots, GameObject placementTimerObj, GameObject tutorial, float limit)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder,
+        GameObject Dots, GameObject placementTimerObj, GameObject tutorial, float limit, int blockResourceScale)
     {
         grid = new GridItem[y, x];
         gridSquares = new GameObject[y, x];
@@ -215,6 +217,7 @@ public struct Grid
         needsUpdate = false;
         resourceLimit = limit;
         tutorialObject = tutorial;
+        blockScale = blockResourceScale;
     }
 
     private bool validateInput(int x, int y)
@@ -502,9 +505,9 @@ public struct Grid
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             if (grid[y, x].building == Building.Blocking) {
                 if (grid[y, x].owner == Player.PlayerOne) {
-                     resourcesP1 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier;
+                     resourcesP1 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier*blockScale;
                 } else if (grid[y, x].owner == Player.PlayerTwo) {
-                    resourcesP2 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier;
+                    resourcesP2 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier*blockScale;
                 }
             }
 
@@ -657,7 +660,7 @@ public class gridManager : MonoBehaviour
     public GameObject empty;
     public GameObject dot;
     public GameObject placementTimerObj;
-
+    public int blockResourceScale;
     private GameObject buildingContainer;
     private int deletionCount = 0;
 
@@ -666,7 +669,8 @@ public class gridManager : MonoBehaviour
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, startingBuildingNum, empty, dot, placementTimerObj, tutorialObject, limit);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources,
+            startingBuildingNum, empty, dot, placementTimerObj, tutorialObject, limit, blockResourceScale);
     }
     
     void LateUpdate()
