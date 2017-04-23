@@ -274,9 +274,9 @@ public class inputController : MonoBehaviour {
                 else if (Input.GetButtonDown("cancel_2") && cursorP2.state != State.placeBase && cursorP2.state != State.placeLaser) cursorP2.state = cursorP2.state == State.placingLaser ? State.placeLaser : State.idle;
 
                 // Update Cursor/UI Appearance P1
-                if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; p1UI.State.text = "Place base on the current column \nPress [e] to place base"; } else if (cursorP1.state == State.placeLaser) {
+                if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; /*p1UI.State.text = "Place base on the current column \nPress [e] to place base";*/ } else if (cursorP1.state == State.placeLaser) {
                     cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
-                    p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                    //p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
                 } else if (cursorP1.state == State.placingLaser) {
                     switch (cursorP1.direction) {
                         case Direction.Up: if (cursorP1.y != yEnd) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][1]; } break;
@@ -284,7 +284,7 @@ public class inputController : MonoBehaviour {
                         default: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorP1.y == 0 ? cursorObjP1.GetComponent<cursor1>().Sprites[5][1] : cursorObjP1.GetComponent<cursor1>().Sprites[5][0]; break;
                     }
 
-                    p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                    //p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
                 } else if (cursorP1.state == State.placing) // in here change the sprite while choosing direction
                   {
                     float scale = 1f;
@@ -335,9 +335,9 @@ public class inputController : MonoBehaviour {
                 }
 
                 // Update Cursor/UI Appearance P2
-                if (cursorP2.state == State.placeBase) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; p2UI.State.text = "Place base on the current column \nPress [o] to place base"; } else if (cursorP2.state == State.placeLaser) {
+                if (cursorP2.state == State.placeBase) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; /*p2UI.State.text = "Place base on the current column \nPress [o] to place base";*/ } else if (cursorP2.state == State.placeLaser) {
                     cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
-                    p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                    //p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
                 } else if (cursorP2.state == State.placingLaser) {
                     switch (cursorP2.direction) {
                         case Direction.Up: if (cursorP2.y != yEnd) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][1]; } break;
@@ -345,7 +345,7 @@ public class inputController : MonoBehaviour {
                         default: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorP2.y == 0 ? cursorObjP2.GetComponent<cursor1>().Sprites[5][1] : cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; break;
                     }
 
-                    p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                    //p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
                 } else if (cursorP2.state == State.placing) // in here change the sprite while choosing direction
                   {
                     float scale = 1f;
