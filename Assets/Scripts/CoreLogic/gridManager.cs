@@ -511,6 +511,8 @@ public struct Grid
                 }
             }
 
+            // Limicator stuff
+            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing);
 
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
@@ -523,7 +525,6 @@ public struct Grid
             }
             //needsUpdate = true;
             updateSquares();
-            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing);
         } else return false;
         return true;
     }

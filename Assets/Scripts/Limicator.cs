@@ -57,24 +57,24 @@ public class Limicator : MonoBehaviour
                 if (i == 0)
                 {
                     stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[1];
-                    p1StonesPlaced += 1;
+                    p1StonesPlaced = Mathf.Min(9, p1StonesPlaced + 1);
                 }
                 else
                 {
                     stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[1];
-                    p2StonesPlaced += 1;
+                    p2StonesPlaced = Mathf.Min(9, p2StonesPlaced + 1);
                 }
             }
             else if (state == State.removing)
             {
                 if (i == 0)
                 {
-                    p1StonesPlaced -= 1;
+                    p1StonesPlaced = Mathf.Max(0, p1StonesPlaced - 1);
                     stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[0];
                 }
                 else
                 {
-                    p2StonesPlaced -= 1;
+                    p2StonesPlaced = Mathf.Max(0, p2StonesPlaced - 1);
                     stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[0];
                 }
             }
