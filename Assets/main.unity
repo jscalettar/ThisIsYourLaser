@@ -29605,6 +29605,7 @@ GameObject:
   - component: {fileID: 2040606552}
   - component: {fileID: 2040606554}
   - component: {fileID: 2040606555}
+  - component: {fileID: 2040606556}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -29834,6 +29835,19 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: b10c217176c182c4eaa998e478d8094f, type: 3}
   - {fileID: 21300000, guid: a666fff7b6c2dae4194678189dbdf27b, type: 3}
+--- !u!114 &2040606556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040606545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb673361cad723641af9baf1466b3579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splash: {fileID: 153116, guid: 5caa4c4c9994a554d84ae18bb8941791, type: 2}
+  explosion: {fileID: 120184, guid: c4483c3fbe6fa8848a70e2a377130971, type: 2}
 --- !u!1 &2053190675
 GameObject:
   m_ObjectHideFlags: 0
