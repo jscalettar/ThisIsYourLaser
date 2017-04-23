@@ -74,14 +74,15 @@ public class GUI_Script : MonoBehaviour {
         p2UI.p2RedirectRemoveCost = GameObject.Find("p2RedirectRemoveCost").GetComponent<Text>();
 
         stones = new GameObject[2, 10];
-        for (int i = 0; i < 2; i++) { 
-            for (int j = 0; j < 10; j++)
-            {
-                GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid square
-                limit.transform.localPosition = i == 0 ? new Vector3(-6.3f, 0f, 3.3f - j * (.75f)) : new Vector3(6.3f, 0f, 3.3f - j * (.75f));
-                limit.transform.Rotate(90, 0, 0);
-                limit.transform.localScale = new Vector3(.1f, .1f, .1f);
-                stones[i, j] = limit;
+        if (limicator != null) {
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 10; j++) {
+                    GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid square
+                    limit.transform.localPosition = i == 0 ? new Vector3(-6.3f, 0f, 3.3f - j * (.75f)) : new Vector3(6.3f, 0f, 3.3f - j * (.75f));
+                    limit.transform.Rotate(90, 0, 0);
+                    limit.transform.localScale = new Vector3(.1f, .1f, .1f);
+                    stones[i, j] = limit;
+                }
             }
         }
         p1StonesPlaced = 0;
