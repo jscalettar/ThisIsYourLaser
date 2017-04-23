@@ -376,19 +376,22 @@ public struct Grid
 	{
 		if (!validateInput (x, y))
 			return false;
-        if (grid[y, x].isEmpty && probeGrid(x, y, facing, newBuilding) && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost(newBuilding) && (playerID == Player.PlayerOne ? buildingNumP1 : buildingNumP2) <= 11) { //10 buildings per player
-            if (prefabDictionary.ContainsKey(new XY(x, y)))
-                return false;
+		if (grid [y, x].isEmpty && probeGrid (x, y, facing, newBuilding) && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost (newBuilding) && (playerID == Player.PlayerOne ? buildingNumP1 : buildingNumP2) <= 11) { //10 buildings per player
+			if (prefabDictionary.ContainsKey (new XY (x, y)))
+				return false;
 
-            // Place Building Prefab
-            GameObject building = MonoBehaviour.Instantiate(buildingPrefabs[(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
-            if (instant) placementList.Add(new buildingRequest(new XY(x, y), 0f, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
-            else placementList.Add(new buildingRequest(new XY(x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
-            building.GetComponent<buildingParameters>().x = x;
-            building.GetComponent<buildingParameters>().y = y;
-            building.GetComponent<buildingParameters>().owner = playerID;
-            building.GetComponent<buildingParameters>().direction = facing;
-            building.GetComponent<buildingParameters>().buildingType = newBuilding;
+            // Emit Placement Particle
+            emitParticles.genericParticle.emitParticle(x, y, particleType.place);
+
+			// Place Building Prefab
+			GameObject building = MonoBehaviour.Instantiate(buildingPrefabs [(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
+			if (instant) placementList.Add (new buildingRequest(new XY (x, y), 0f, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
+			else placementList.Add (new buildingRequest(new XY (x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
+			building.GetComponent<buildingParameters>().x = x;
+			building.GetComponent<buildingParameters>().y = y;
+			building.GetComponent<buildingParameters>().owner = playerID;
+			building.GetComponent<buildingParameters>().direction = facing;
+			building.GetComponent<buildingParameters>().buildingType = newBuilding;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
             if (newBuilding != Building.Laser && newBuilding != Building.Base) {// || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
                 building.AddComponent<SpriteRenderer>();
@@ -484,6 +487,9 @@ public struct Grid
 		SoundManager.PlaySound(inputController.Sounds[1].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
+            // Emit Destruction Particle
+            emitParticles.genericParticle.emitParticle(x, y, particleType.destroy);
+
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
 			//SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume, true, .5f, 1.5f);
             //Building temp = grid[y, x].building;
