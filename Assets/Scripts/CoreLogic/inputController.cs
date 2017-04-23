@@ -70,8 +70,8 @@ public class inputController : MonoBehaviour {
 	public static Audios[] UISounds;
 
     //Vars for UI
-    public static playerOneUI p1UI;
-    public static playerTwoUI p2UI;
+    //public static playerOneUI p1UI;
+    //public static playerTwoUI p2UI;
 
     // Pause menu and win screen
     public GameObject PauseMenu;
@@ -126,11 +126,11 @@ public class inputController : MonoBehaviour {
         Sounds = setSounds;
 		UISounds = setUISounds;
         //default values for Player 1 UI  
-        p1UI = gameObject.AddComponent<playerOneUI>();
+        /*p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.State = GameObject.Find("p1State").GetComponent<Text>();
         //default values for Player 2 UI  
         p2UI = gameObject.AddComponent<playerTwoUI>();
-        p2UI.State = GameObject.Find("p2State").GetComponent<Text>();
+        p2UI.State = GameObject.Find("p2State").GetComponent<Text>();*/
 
         cycleP1 = 0;
         cycleP2 = 0;
@@ -191,6 +191,7 @@ public class inputController : MonoBehaviour {
 
                 // Cursor Selection P2
                 if (Input.GetKeyDown("7")) { cursorP2.selection = Building.Blocking; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("8")) { cursorP2.selection = Building.Reflecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("9")) { cursorP2.selection = Building.Refracting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("0")) { cursorP2.selection = Building.Redirecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("-")) { cursorP2.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); }
+
 
                 // Cycle P2
 
@@ -526,14 +527,14 @@ public class inputController : MonoBehaviour {
 			
         } else if (currentState == State.placingLaser) {
             if (player == Player.PlayerOne) {
-                p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
+                //p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
                 if (cursorP1.direction == Direction.Up && cursorP1.y != yEnd) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else if (cursorP1.direction == Direction.Down && cursorP1.y != 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else if (cursorP1.y != 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else if (cursorP1.y == 0) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
                 else print("Press the up or down direction keys to place laser");
             } else {
-                p2UI.State.text = "Press [o] to place creatures \nPress IJKL for direction \n[o] to confirm";
+                //p2UI.State.text = "Press [o] to place creatures \nPress IJKL for direction \n[o] to confirm";
                 if (cursorP2.direction == Direction.Up && cursorP2.y != yEnd) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else if (cursorP2.direction == Direction.Down && cursorP2.y != 0) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
                 else if (cursorP2.y != 0) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
@@ -592,12 +593,12 @@ public class inputController : MonoBehaviour {
     {
         if (currentState == State.moving) {
             if (player == Player.PlayerOne) {
-                p1UI.State.text = "Press [u] to place creature \nPress WASD for direction \n[u] to confirm";
+                //p1UI.State.text = "Press [u] to place creature \nPress WASD for direction \n[u] to confirm";
 				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.moveBuilding, cursorP1.moveOrigin.x, cursorP1.moveOrigin.y) && !new XY(cursorP1.x, cursorP1.y).Equals(cursorP1.moveOrigin)){ print("You can not move to here, selection is not valid");SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP1.moveBuilding, cursorP1.x, Player.PlayerOne, true) < gridManager.theGrid.getResourcesP1()) cursorP1.state = State.placingMove;
                 else print("Not enough resources to move.");
             } else {
-                p2UI.State.text = "Press [u] to place creatures \nPress IJKL for direction \n[u] to confirm";
+                //p2UI.State.text = "Press [u] to place creatures \nPress IJKL for direction \n[u] to confirm";
 				if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.moveBuilding, cursorP2.moveOrigin.x, cursorP2.moveOrigin.y) && !new XY(cursorP2.x, cursorP2.y).Equals(cursorP2.moveOrigin)){ print("You can not move to here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP2.moveBuilding, cursorP2.x, Player.PlayerTwo, true) < gridManager.theGrid.getResourcesP2()) cursorP2.state = State.placingMove;
 				else {print("Not enough resources to move."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);} 

@@ -9,17 +9,35 @@ public class GUI_Script : MonoBehaviour {
     public GameObject canvas;
     public static playerOneUI p1UI;
     public static playerTwoUI p2UI;
+    public static UIScript UI;
 
     public GameObject limicator;
     public GameObject[,] stones;
     public int p1StonesPlaced;
     public int p2StonesPlaced;
     // Use this for initialization
-    void Start()
-    {
+
+    void Start () {
+        //define UI
+        UI = gameObject.AddComponent<UIScript>();
+        UI.BlockingImage = GameObject.Find("BlockingImage").GetComponent<Image>();
+        UI.ReflectingImage = GameObject.Find("ReflectingImage").GetComponent<Image>();
+        UI.RefractingImage = GameObject.Find("RefractingImage").GetComponent<Image>();
+        UI.RedirectingImage = GameObject.Find("RedirectingImage").GetComponent<Image>();
+        UI.ResourceImage = GameObject.Find("ResourceImage").GetComponent<Image>();
+
+        UI.ResourcePlaceCost = GameObject.Find("ResourcePlaceCost").GetComponent<Text>();
+        UI.BlockPlaceCost = GameObject.Find("BlockPlaceCost").GetComponent<Text>();
+        UI.ReflectPlaceCost = GameObject.Find("ReflectPlaceCost").GetComponent<Text>();
+        UI.RefractPlaceCost = GameObject.Find("RefractPlaceCost").GetComponent<Text>();
+        UI.RedirectPlaceCost = GameObject.Find("RedirectPlaceCost").GetComponent<Text>();
+
+        UI.playerOneResource = GameObject.Find("playerOneResource").GetComponent<Text>();
+        UI.playerTwoResource = GameObject.Find("playerTwoResource").GetComponent<Text>();
+
         //default values for Player 1 UI  
-        p1UI = gameObject.AddComponent<playerOneUI>();
-        p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
+        /*p1UI = gameObject.AddComponent<playerOneUI>();
+        //p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
         p1UI.playerHealth = GameObject.Find("playerOneHealth").GetComponent<Text>();
         p1UI.currentResource = GameObject.Find("playerOneResource").GetComponent<Text>();
         //p1UI.playerState.text = "Placing";
@@ -43,11 +61,11 @@ public class GUI_Script : MonoBehaviour {
         p1UI.p1RefractRemoveCost = GameObject.Find("p1RefractRemoveCost").GetComponent<Text>();
         p1UI.p1RedirectPlaceCost = GameObject.Find("p1RedirectPlaceCost").GetComponent<Text>();
         p1UI.p1RedirectMoveCost = GameObject.Find("p1RedirectMoveCost").GetComponent<Text>();
-        p1UI.p1RedirectRemoveCost = GameObject.Find("p1RedirectRemoveCost").GetComponent<Text>();
+        p1UI.p1RedirectRemoveCost = GameObject.Find("p1RedirectRemoveCost").GetComponent<Text>();*/
 
         //default values for Player 2 UI  
-        p2UI = gameObject.AddComponent<playerTwoUI>();
-        p2UI.playerState = GameObject.Find("playerTwoState").GetComponent<Text>();
+        /*p2UI = gameObject.AddComponent<playerTwoUI>();
+        //p2UI.playerState = GameObject.Find("playerTwoState").GetComponent<Text>();
         p2UI.playerHealth = GameObject.Find("playerTwoHealth").GetComponent<Text>();
         p2UI.currentResource = GameObject.Find("playerTwoResource").GetComponent<Text>();
         //p2UI.playerState.text = "Placing";
@@ -71,7 +89,7 @@ public class GUI_Script : MonoBehaviour {
         p2UI.p2RefractRemoveCost = GameObject.Find("p2RefractRemoveCost").GetComponent<Text>();
         p2UI.p2RedirectPlaceCost = GameObject.Find("p2RedirectPlaceCost").GetComponent<Text>();
         p2UI.p2RedirectMoveCost = GameObject.Find("p2RedirectMoveCost").GetComponent<Text>();
-        p2UI.p2RedirectRemoveCost = GameObject.Find("p2RedirectRemoveCost").GetComponent<Text>();
+        p2UI.p2RedirectRemoveCost = GameObject.Find("p2RedirectRemoveCost").GetComponent<Text>();*/
 
         stones = new GameObject[2, 10];
         if (limicator != null) {
@@ -91,18 +109,21 @@ public class GUI_Script : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        p1UI.playerHealth.text = "Base HP: " + (Mathf.Round(gridManager.theGrid.baseHealthP1() * 2) / 2f).ToString("F1");
+        /*p1UI.playerHealth.text = "Base HP: " + (Mathf.Round(gridManager.theGrid.baseHealthP1() * 2) / 2f).ToString("F1");
         p2UI.playerHealth.text = "Base HP: " + (Mathf.Round(gridManager.theGrid.baseHealthP2() * 2) / 2f).ToString("F1");
         p1UI.currentResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
-        p2UI.currentResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
+        p2UI.currentResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");*/
 
-        p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
+        UI.playerOneResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
+        UI.playerTwoResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
+
+        /*p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
         p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white;
         p2UI.p2ResourceBackground.color = Color.white; p2UI.p2BlockBackground.color = Color.white; p2UI.p2ReflectBackground.color = Color.white;
-        p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.white;
+        p2UI.p2RefractBackground.color = Color.white; p2UI.p2RedirectBackground.color = Color.white;*/
 
 
-        if (inputController.cursorP1.state != State.placeBase && inputController.cursorP1.state != State.placeLaser && inputController.cursorP1.state != State.placingLaser)
+        /*if (inputController.cursorP1.state != State.placeBase && inputController.cursorP1.state != State.placeLaser && inputController.cursorP1.state != State.placingLaser)
             switch (inputController.cursorP1.selection) {
                 case Building.Blocking: p1UI.p1BlockBackground.color = new Color(1f, 0.8f, 0.8f); break;
                 case Building.Reflecting: p1UI.p1ReflectBackground.color = new Color(1f, 0.8f, 0.8f); break;
@@ -118,11 +139,11 @@ public class GUI_Script : MonoBehaviour {
                 case Building.Refracting: p2UI.p2RefractBackground.color = new Color(0.8f, 1f, 0.8f); break;
                 case Building.Redirecting: p2UI.p2RedirectBackground.color = new Color(0.8f, 1f, 0.8f); break;
                 case Building.Resource: p2UI.p2ResourceBackground.color = new Color(0.8f, 1f, 0.8f); break;
-            }
+            }*/
 
         //PLAYER 1--------
         // Set all backgrounds to white
-        p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
+        /*p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
         p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white;
         // Highlight selection
         if (inputController.cursorP1.selection == Building.Blocking) p1UI.p1BlockBackground.color = Color.red;
@@ -152,9 +173,15 @@ public class GUI_Script : MonoBehaviour {
         if (gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2ReflectBackground.color = Color.grey;
         if (gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2RefractBackground.color = Color.grey;
         if (gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2RedirectBackground.color = Color.grey;
-        if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2ResourceBackground.color = Color.grey;
+        if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2ResourceBackground.color = Color.grey; */
 
-        Text[] elements = p1UI.p1BlockBackground.GetComponentsInChildren<Text>();
+        UI.BlockPlaceCost.text = gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP1.x, Player.PlayerOne).ToString();
+        UI.ReflectPlaceCost.text = gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP1.x, Player.PlayerOne).ToString();
+        UI.RefractPlaceCost.text = gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP1.x, Player.PlayerOne).ToString();
+        UI.RedirectPlaceCost.text = gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP1.x, Player.PlayerOne).ToString();
+        UI.ResourcePlaceCost.text = gridManager.theGrid.getCost(Building.Resource, inputController.cursorP1.x, Player.PlayerOne).ToString();
+
+        /*Text[] elements = p1UI.p1BlockBackground.GetComponentsInChildren<Text>();
         int counter = 0;
         foreach (Text text in elements) {
             if (text.name.Contains("Cost")) {
@@ -494,7 +521,7 @@ public class GUI_Script : MonoBehaviour {
                 }
                 counter++;
             }
-        }
+        }*/
 
 
 
