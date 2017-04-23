@@ -35,6 +35,11 @@ public class inputController : MonoBehaviour {
     public Sprite P2RedirectSprite;
     public Sprite P2ResourceSprite;
 
+    public Sprite RedirectUp;
+    public Sprite RedirectDown;
+    public Sprite RedirectLeft;
+    public Sprite RedirectRight;
+
     // Cursor movement speed
     private const float cursorSpeed = 8f;
     private float delayFactor = 1f / cursorSpeed;
@@ -68,8 +73,9 @@ public class inputController : MonoBehaviour {
     //public static playerOneUI p1UI;
     //public static playerTwoUI p2UI;
 
-    // Pause menu
+    // Pause menu and win screen
     public GameObject PauseMenu;
+    public GameObject Win;
 
     public struct Cursor
     {
@@ -134,7 +140,7 @@ public class inputController : MonoBehaviour {
         cursorP2 = new Cursor(xEnd, yEnd-2, Direction.Left, Building.Resource, State.placeBase);
         cursorP1Last = cursorP1;
         cursorP2Last = cursorP2;
-        PauseMenu = GameObject.Find("Pause Menu");
+        //PauseMenu = GameObject.Find("Pause Menu");
         // Set initial cursor positions
         cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
         cursorObjP2.transform.position = new Vector3(cursorP2.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP2.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
@@ -144,384 +150,322 @@ public class inputController : MonoBehaviour {
     {
         bool notNow1 = false;
         bool notNow2 = false;
-        // Check that the game isn't paused
-        //if (PauseMenu.activeInHierarchy == false)
-        //{
-			// Cursor Selection P1
-			if (Input.GetKeyDown ("1")) {cursorP1.selection = Building.Blocking; SoundManager.PlaySound (UISounds [0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);} 
-			else if (Input.GetKeyDown ("2")) {cursorP1.selection = Building.Reflecting; SoundManager.PlaySound (UISounds [0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);}
-			else if (Input.GetKeyDown("3")){ cursorP1.selection = Building.Refracting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
-			else if (Input.GetKeyDown("4")) {cursorP1.selection = Building.Redirecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
-			else if (Input.GetKeyDown("5")){ cursorP1.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
-			
-            // Cycle P1
-            
-            // Defualts selection to resource
-            if(gridManager.theGrid.getResourcesP1() < 4) {
-                cursorP1.selection = Building.Resource;
-            }
-                
-			if (Input.GetButtonDown("cycleR_1"))
-			{
-				if (cursorP1.selection == Building.Resource) cursorP1.selection = Building.Blocking;
-				else cursorP1.selection += 1;
+        if (Time.timeScale != 0) {
+            // Check that the game isn't paused
+            if (PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false) {
+                // Cursor Selection P1
+                if (Input.GetKeyDown("1")) { cursorP1.selection = Building.Blocking; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("2")) { cursorP1.selection = Building.Reflecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("3")) { cursorP1.selection = Building.Refracting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("4")) { cursorP1.selection = Building.Redirecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("5")) { cursorP1.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); }
 
-                while(gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-                    if (cursorP1.selection == Building.Resource) return;
-                    cursorP1.selection += 1;
+                // Cycle P1
+
+                // Defualts selection to resource
+                if (gridManager.theGrid.getResourcesP1() < 4) {
+                    cursorP1.selection = Building.Resource;
                 }
 
+                if (Input.GetButtonDown("cycleR_1")) {
+                    if (cursorP1.selection == Building.Resource) cursorP1.selection = Building.Blocking;
+                    else cursorP1.selection += 1;
 
-                SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
-			}
-			else if (Input.GetButtonDown("cycleL_1"))
-			{
-				if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Resource;
-				else cursorP1.selection -= 1;
-
-                while (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-                    if (cursorP1.selection == Building.Blocking) {
-                        cursorP1.selection = Building.Resource;
-                        return;
+                    while (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+                        if (cursorP1.selection == Building.Resource) return;
+                        cursorP1.selection += 1;
                     }
-                    cursorP1.selection -= 1;
-                }
 
-                SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
-			}
 
-			// Cursor Selection P2
-			if (Input.GetKeyDown("7")){ cursorP2.selection = Building.Blocking; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
-			else if (Input.GetKeyDown("8")){ cursorP2.selection = Building.Reflecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
-			else if (Input.GetKeyDown("9")){ cursorP2.selection = Building.Refracting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
-			else if (Input.GetKeyDown("0")){ cursorP2.selection = Building.Redirecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
-			else if (Input.GetKeyDown("-")){ cursorP2.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);}
+                    SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);
+                } else if (Input.GetButtonDown("cycleL_1")) {
+                    if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Resource;
+                    else cursorP1.selection -= 1;
 
-            // Cycle P2
-
-            // Defualts selection to resource
-            if (gridManager.theGrid.getResourcesP2() < 4) {
-                cursorP2.selection = Building.Resource;
-            }
-            if (Input.GetButtonDown("cycleR_2"))
-			{
-				if (cursorP2.selection == Building.Resource) cursorP2.selection = Building.Blocking;
-				else cursorP2.selection += 1;
-
-                while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-                    if (cursorP2.selection == Building.Resource) return;
-                    cursorP2.selection += 1;
-                }
-
-                SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
-			}
-			else if (Input.GetButtonDown("cycleL_2"))
-			{
-				if (cursorP2.selection == Building.Blocking) cursorP2.selection = Building.Redirecting;
-				else cursorP2.selection -= 1;
-
-                while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-                    if (cursorP2.selection == Building.Blocking) {
-                        cursorP2.selection = Building.Resource;
-                        return;
+                    while (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+                        if (cursorP1.selection == Building.Blocking) {
+                            cursorP1.selection = Building.Resource;
+                            return;
+                        }
+                        cursorP1.selection -= 1;
                     }
-                    cursorP2.selection -= 1;
+
+                    SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);
                 }
 
-                SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume/25, true, .95f, 1.05f);
-			}
-            if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove && cursorP1.state != State.removing)
-            {
-                // Cursor Movement P1
-                if (Input.GetAxis("xboxLeftVert") != 0) { vertDelayP1 = delayFactor; if (!flagVP1) { vertCounterP1 = 1f / cursorSpeed; flagVP1 = true; } } else { flagVP1 = false; }
-                if (Input.GetAxis("xboxLeftHor") != 0) { horDelayP1 = delayFactor; if (!flagHP1) { horCounterP1 = 1f / cursorSpeed; flagHP1 = true; } } else { flagHP1 = false; }
+                // Cursor Selection P2
+                if (Input.GetKeyDown("7")) { cursorP2.selection = Building.Blocking; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("8")) { cursorP2.selection = Building.Reflecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("9")) { cursorP2.selection = Building.Refracting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("0")) { cursorP2.selection = Building.Redirecting; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); } else if (Input.GetKeyDown("-")) { cursorP2.selection = Building.Resource; SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f); }
 
-                if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftVert") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) {vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
-                else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if (Input.GetButton("down_1") || Input.GetAxis("xboxLeftVert") == -1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } }
-                else { vertCounterP1 = 0f; vertDelayP1 = 0f; vertMovingP1 = false; }
 
-                if ((Input.GetButtonDown("right_1")) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if ((Input.GetButton("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { horMovingP1 = true; horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } }
-                else if (Input.GetButtonDown("left_1")) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } }
-                else if (Input.GetButton("left_1") || Input.GetAxis("xboxLeftHor") == -1) { horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horMovingP1 = true; horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } }
-                else { horCounterP1 = 0f; horDelayP1 = 0f; horMovingP1 = false; }
-            }
-            else
-            {
-                // Cursor Rotation P1
-                bool selectionMade = false;
-                if(cursorP1.selection == Building.Blocking || cursorP1.selection == Building.Refracting) { cursorP1.direction = Direction.Down; }
-                else if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; }
-                else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.direction = Direction.Down; }
-                else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.direction = Direction.Right; }
-                else if ((Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1)) { cursorP1.direction = Direction.Left; }
-                if (Input.GetButtonDown("place_1")) { selectionMade = true; notNow1 = true; }
-                if (selectionMade)
-                { // If placing or moving, finalize action
-                    if (cursorP1.state == State.placingMove) move(Player.PlayerOne, cursorP1.state);
-                    else place(Player.PlayerOne, cursorP1.state);
+                // Cycle P2
+
+                // Defualts selection to resource
+                if (gridManager.theGrid.getResourcesP2() < 4) {
+                    cursorP2.selection = Building.Resource;
                 }
-            }
+                if (Input.GetButtonDown("cycleR_2")) {
+                    if (cursorP2.selection == Building.Resource) cursorP2.selection = Building.Blocking;
+                    else cursorP2.selection += 1;
 
-            if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove && cursorP2.state != State.removing)
-            {
-                // Cursor Movement P2
-                if (Input.GetAxis("xboxLeftVert2") != 0) { vertDelayP2 = delayFactor; if (!flagVP2) { vertCounterP2 = 1f / cursorSpeed; flagVP2 = true; } } else { flagVP2 = false; }
-                if (Input.GetAxis("xboxLeftHor2") != 0) { horDelayP2 = delayFactor; if (!flagHP2) { horCounterP2 = 1f / cursorSpeed; flagHP2 = true; } } else { flagHP2 = false; }
+                    while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+                        if (cursorP2.selection == Building.Resource) return;
+                        cursorP2.selection += 1;
+                    }
 
-                if (Input.GetButtonDown("up_2")) { if (isValid(cursorP2.state, cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
-                else if (Input.GetButton("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } }
-                else if (Input.GetButtonDown("down_2")) { if (isValid(cursorP2.state, cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
-                else if (Input.GetButton("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } }
-                else { vertCounterP2 = 0f; vertDelayP2 = 0f; vertMovingP2 = false; }
+                    SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);
+                } else if (Input.GetButtonDown("cycleL_2")) {
+                    if (cursorP2.selection == Building.Blocking) cursorP2.selection = Building.Redirecting;
+                    else cursorP2.selection -= 1;
 
-                if (Input.GetButtonDown("right_2")) { if (isValid(cursorP2.state, cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
-                else if (Input.GetButton("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { horMovingP2 = true; horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } }
-                else if (Input.GetButtonDown("left_2") && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { if (isValid(cursorP2.state, cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } }
-                else if ((Input.GetButton("left_2") || Input.GetAxis("xboxLeftHor2") == -1) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horMovingP2 = true; horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } }
-                else { horCounterP2 = 0f; horDelayP2 = 0f; horMovingP2 = false; }
-            }
-            else
-            {
-                // Cursor Rotation P2
-                bool selectionMade = false;
-                if (cursorP2.selection == Building.Blocking || cursorP2.selection == Building.Refracting) { cursorP2.direction = Direction.Down; }
-                else if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; }
-                else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.direction = Direction.Down; }
-                else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.direction = Direction.Right; }
-                else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.direction = Direction.Left; }
-                if (Input.GetButtonDown("place_2")) { selectionMade = true; notNow2 = true; }
-                if (selectionMade)
-                { // If placing or moving, finalize action
-                    if (cursorP2.state == State.placingMove) move(Player.PlayerTwo, cursorP2.state);
-                    else place(Player.PlayerTwo, cursorP2.state);
+                    while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+                        if (cursorP2.selection == Building.Blocking) {
+                            cursorP2.selection = Building.Resource;
+                            return;
+                        }
+                        cursorP2.selection -= 1;
+                    }
+
+                    SoundManager.PlaySound(UISounds[0].audioclip, SoundManager.globalUISoundsVolume / 25, true, .95f, 1.05f);
                 }
-            }
+                if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove && cursorP1.state != State.removing) {
+                    // Cursor Movement P1
+                    if (Input.GetAxis("xboxLeftVert") != 0) { vertDelayP1 = delayFactor; if (!flagVP1) { vertCounterP1 = 1f / cursorSpeed; flagVP1 = true; } } else { flagVP1 = false; }
+                    if (Input.GetAxis("xboxLeftHor") != 0) { horDelayP1 = delayFactor; if (!flagHP1) { horCounterP1 = 1f / cursorSpeed; flagHP1 = true; } } else { flagHP1 = false; }
 
-            // Cursor Functions P1
-            if ((Input.GetButtonDown("place_1")) && !notNow1) place(Player.PlayerOne, cursorP1.state);
-            else if (Input.GetButtonDown("move_1")) move(Player.PlayerOne, cursorP1.state);
-            else if (Input.GetButtonDown("remove_1")) remove(Player.PlayerOne, cursorP1.state);
-            else if (Input.GetButtonDown("cancel_1") && cursorP1.state != State.placeBase && cursorP1.state != State.placeLaser) cursorP1.state = cursorP1.state == State.placingLaser ? State.placeLaser : State.idle;
+                    if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } } else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftVert") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } } else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } } else if (Input.GetButton("down_1") || Input.GetAxis("xboxLeftVert") == -1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } vertCounterP1 = 0f; } } } else { vertCounterP1 = 0f; vertDelayP1 = 0f; vertMovingP1 = false; }
 
-            // Cursor Functions P2
-            if (Input.GetButtonDown("place_2") && !notNow2) place(Player.PlayerTwo, cursorP2.state);
-            else if (Input.GetButtonDown("move_2")) move(Player.PlayerTwo, cursorP2.state);
-            else if (Input.GetButtonDown("remove_2")) remove(Player.PlayerTwo, cursorP2.state);
-            else if (Input.GetButtonDown("cancel_2") && cursorP2.state != State.placeBase && cursorP2.state != State.placeLaser) cursorP2.state = cursorP2.state == State.placingLaser ? State.placeLaser : State.idle;
-
-            // Update Cursor/UI Appearance P1
-            if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; /*p1UI.State.text = "Place base on the current column \nPress [e] to place base";*/ }
-            else if (cursorP1.state == State.placeLaser)
-            {
-                cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
-                //p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
-            }
-            else if(cursorP1.state == State.placingLaser) {
-                switch (cursorP1.direction)
-                {
-                    case Direction.Up: if (cursorP1.y != yEnd) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][1]; } break;
-                    case Direction.Down: if(cursorP1.y != 0) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][0];}  break;
-                    default: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorP1.y == 0 ? cursorObjP1.GetComponent<cursor1>().Sprites[5][1] : cursorObjP1.GetComponent<cursor1>().Sprites[5][0]; break;
-                }
-                
-                //p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
-            }
-            else if (cursorP1.state == State.placing) // in here change the sprite while choosing direction
-            {
-                float scale = 1f;
-                switch (cursorP1.selection)
-                {
-                    case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .35f; break;
-                    case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
-                    case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .25f; break;
-                    case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
-                }
-                cursorSpriteP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
-                cursorSpriteP1.transform.localScale = new Vector3(scale*3.4f, scale*3.4f, scale*3.4f);
-                indicatorP1.transform.localScale = new Vector3(2f, 2f, 2f);
-            }
-            else if (cursorP1.state == State.placingMove || cursorP1.state == State.moving) // in here change the sprite while choosing direction
-            {
-                float scale = 1f;
-                switch (cursorP1.moveBuilding)
-                {
-                    case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .35f; break;
-                    case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
-                    case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .25f; break;
-                    case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
-                }
-                cursorSpriteP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
-                cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
-            }
-            else
-            {
-                float scale = 1f;
-                switch (cursorP1.selection)
-                {
-                    case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BlockSprite; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; scale = .35f; break;
-                    case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; scale = .2f; break;
-                    case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; scale = .25f;  break;
-                    case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite; scale = .3f; break;
-                }
-                cursorSpriteP1.GetComponent<SpriteRenderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
-                cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
-            }
-
-            // Update Cursor/UI Appearance P2
-            if (cursorP2.state == State.placeBase) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; /*p2UI.State.text = "Place base on the current column \nPress [o] to place base";*/ }
-            else if (cursorP2.state == State.placeLaser)
-            {
-                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
-                //p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
-            }
-            else if (cursorP2.state == State.placingLaser)
-            {
-                switch (cursorP2.direction)
-                {
-                    case Direction.Up: if(cursorP2.y != yEnd) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][1]; } break;
-                    case Direction.Down: if(cursorP2.y != 0) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; } break;
-                    default: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorP2.y == 0 ? cursorObjP2.GetComponent<cursor1>().Sprites[5][1] : cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; break;
+                    if ((Input.GetButtonDown("right_1")) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } } else if ((Input.GetButton("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { horMovingP1 = true; horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } } else if (Input.GetButtonDown("left_1")) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } } else if (Input.GetButton("left_1") || Input.GetAxis("xboxLeftHor") == -1) { horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horMovingP1 = true; horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); } horCounterP1 = 0f; } } } else { horCounterP1 = 0f; horDelayP1 = 0f; horMovingP1 = false; }
+                } else {
+                    // Cursor Rotation P1
+                    bool selectionMade = false;
+                    if (cursorP1.selection == Building.Blocking || cursorP1.selection == Building.Refracting) { cursorP1.direction = Direction.Down; } else if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; } else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.direction = Direction.Down; } else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.direction = Direction.Right; } else if ((Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1)) { cursorP1.direction = Direction.Left; }
+                    if (Input.GetButtonDown("place_1")) { selectionMade = true; notNow1 = true; }
+                    if (selectionMade) { // If placing or moving, finalize action
+                        if (cursorP1.state == State.placingMove) move(Player.PlayerOne, cursorP1.state);
+                        else place(Player.PlayerOne, cursorP1.state);
+                    }
                 }
 
-                //p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
-            }
-            else if (cursorP2.state == State.placing) // in here change the sprite while choosing direction
-            {
-                float scale = 1f;
-                switch (cursorP2.selection)
-                {
-                    case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .35f; break;
-                    case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[2][0]; scale = .25f; break;
-                    case Building.Redirecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .25f; break;
-                    case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
+                if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove && cursorP2.state != State.removing) {
+                    // Cursor Movement P2
+                    if (Input.GetAxis("xboxLeftVert2") != 0) { vertDelayP2 = delayFactor; if (!flagVP2) { vertCounterP2 = 1f / cursorSpeed; flagVP2 = true; } } else { flagVP2 = false; }
+                    if (Input.GetAxis("xboxLeftHor2") != 0) { horDelayP2 = delayFactor; if (!flagHP2) { horCounterP2 = 1f / cursorSpeed; flagHP2 = true; } } else { flagHP2 = false; }
+
+                    if (Input.GetButtonDown("up_2")) { if (isValid(cursorP2.state, cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } } else if (Input.GetButton("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } } else if (Input.GetButtonDown("down_2")) { if (isValid(cursorP2.state, cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } } else if (Input.GetButton("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; } } } else { vertCounterP2 = 0f; vertDelayP2 = 0f; vertMovingP2 = false; }
+
+                    if (Input.GetButtonDown("right_2")) { if (isValid(cursorP2.state, cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } } else if (Input.GetButton("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { horMovingP2 = true; horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } } else if (Input.GetButtonDown("left_2") && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { if (isValid(cursorP2.state, cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } } else if ((Input.GetButton("left_2") || Input.GetAxis("xboxLeftHor2") == -1) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horMovingP2 = true; horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; } } } else { horCounterP2 = 0f; horDelayP2 = 0f; horMovingP2 = false; }
+                } else {
+                    // Cursor Rotation P2
+                    bool selectionMade = false;
+                    if (cursorP2.selection == Building.Blocking || cursorP2.selection == Building.Refracting) { cursorP2.direction = Direction.Down; } else if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; } else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.direction = Direction.Down; } else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.direction = Direction.Right; } else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.direction = Direction.Left; }
+                    if (Input.GetButtonDown("place_2")) { selectionMade = true; notNow2 = true; }
+                    if (selectionMade) { // If placing or moving, finalize action
+                        if (cursorP2.state == State.placingMove) move(Player.PlayerTwo, cursorP2.state);
+                        else place(Player.PlayerTwo, cursorP2.state);
+                    }
                 }
-                cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(0.7f, 1f, 0.7f, .5f);
-                cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
-                indicatorP2.transform.localScale = new Vector3(2f, 2f, 2f);
-            }
-            else if (cursorP2.state == State.placingMove || cursorP2.state == State.moving) // in here change the sprite while choosing direction
-            {
-                float scale = 1f;
-                switch (cursorP2.moveBuilding)
-                {
-                    case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .35f; break;
-                    case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
-                    case Building.Redirecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .25f; break;
-                    case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
+
+                // Cursor Functions P1
+                if ((Input.GetButtonDown("place_1")) && !notNow1) place(Player.PlayerOne, cursorP1.state);
+                else if (Input.GetButtonDown("move_1")) move(Player.PlayerOne, cursorP1.state);
+                else if (Input.GetButtonDown("remove_1")) remove(Player.PlayerOne, cursorP1.state);
+                else if (Input.GetButtonDown("cancel_1") && cursorP1.state != State.placeBase && cursorP1.state != State.placeLaser) cursorP1.state = cursorP1.state == State.placingLaser ? State.placeLaser : State.idle;
+
+                // Cursor Functions P2
+                if (Input.GetButtonDown("place_2") && !notNow2) place(Player.PlayerTwo, cursorP2.state);
+                else if (Input.GetButtonDown("move_2")) move(Player.PlayerTwo, cursorP2.state);
+                else if (Input.GetButtonDown("remove_2")) remove(Player.PlayerTwo, cursorP2.state);
+                else if (Input.GetButtonDown("cancel_2") && cursorP2.state != State.placeBase && cursorP2.state != State.placeLaser) cursorP2.state = cursorP2.state == State.placingLaser ? State.placeLaser : State.idle;
+
+                // Update Cursor/UI Appearance P1
+                if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; p1UI.State.text = "Place base on the current column \nPress [e] to place base"; } else if (cursorP1.state == State.placeLaser) {
+                    cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
+                    p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                } else if (cursorP1.state == State.placingLaser) {
+                    switch (cursorP1.direction) {
+                        case Direction.Up: if (cursorP1.y != yEnd) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][1]; } break;
+                        case Direction.Down: if (cursorP1.y != 0) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[5][0]; } break;
+                        default: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorP1.y == 0 ? cursorObjP1.GetComponent<cursor1>().Sprites[5][1] : cursorObjP1.GetComponent<cursor1>().Sprites[5][0]; break;
+                    }
+
+                    p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                } else if (cursorP1.state == State.placing) // in here change the sprite while choosing direction
+                  {
+                    float scale = 1f;
+                    switch (cursorP1.selection) {
+                        case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
+                        case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .375f; break;
+                        case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
+                        case Building.Redirecting: /*cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)];*/
+                            scale = .25f;
+                            if (cursorP1.direction == Direction.Up) {
+                                cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectUp;
+                            } else if (cursorP1.direction == Direction.Down) {
+                                cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectDown;
+                            } else if (cursorP1.direction == Direction.Left) {
+                                cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectLeft;
+                            } else if (cursorP1.direction == Direction.Right) {
+                                cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectRight;
+                            }
+                            break;
+                        case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
+                    }
+                    cursorSpriteP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
+                    cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
+                    indicatorP1.transform.localScale = new Vector3(2f, 2f, 2f);
+                } else if (cursorP1.state == State.placingMove || cursorP1.state == State.moving) // in here change the sprite while choosing direction
+                  {
+                    float scale = 1f;
+                    switch (cursorP1.moveBuilding) {
+                        case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
+                        case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .375f; break;
+                        case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
+                        case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .25f; break;
+                        case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
+                    }
+                    cursorSpriteP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
+                    cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
+                } else {
+                    float scale = 1f;
+                    switch (cursorP1.selection) {
+                        case Building.Blocking: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BlockSprite; scale = .15f; break;
+                        case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; scale = .375f; break;
+                        case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; scale = .2f; break;
+                        case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; scale = .25f; break;
+                        case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite; scale = .3f; break;
+                    }
+                    cursorSpriteP1.GetComponent<SpriteRenderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
+                    cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
                 }
-                cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
-                cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
-            }
-            else
-            {
-                float scale = 1f;
-                switch (cursorP2.selection)
-                {
-                    case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BlockSprite; scale = .15f; break;
-                    case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; scale = .35f; break;
-                    case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2RefractSprite; scale = .2f; break;
-                    case Building.Redirecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; scale = .25f; break;
-                    case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ResourceSprite; scale = .3f; break;
+
+                // Update Cursor/UI Appearance P2
+                if (cursorP2.state == State.placeBase) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; p2UI.State.text = "Place base on the current column \nPress [o] to place base"; } else if (cursorP2.state == State.placeLaser) {
+                    cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
+                    p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                } else if (cursorP2.state == State.placingLaser) {
+                    switch (cursorP2.direction) {
+                        case Direction.Up: if (cursorP2.y != yEnd) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][1]; } break;
+                        case Direction.Down: if (cursorP2.y != 0) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; } break;
+                        default: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorP2.y == 0 ? cursorObjP2.GetComponent<cursor1>().Sprites[5][1] : cursorObjP2.GetComponent<cursor1>().Sprites[5][0]; break;
+                    }
+
+                    p2UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                } else if (cursorP2.state == State.placing) // in here change the sprite while choosing direction
+                  {
+                    float scale = 1f;
+                    switch (cursorP2.selection) {
+                        case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
+                        case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .375f; break;
+                        case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[2][0]; scale = .25f; break;
+                        case Building.Redirecting: /*cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)];*/
+                            if (cursorP2.direction == Direction.Up) {
+                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectUp;
+                            } else if (cursorP2.direction == Direction.Down) {
+                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectDown;
+                            } else if (cursorP2.direction == Direction.Left) {
+                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectLeft;
+                            } else if (cursorP2.direction == Direction.Right) {
+                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectRight;
+                            }
+                            scale = .25f; break;
+                        case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
+                    }
+                    cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(0.7f, 1f, 0.7f, .5f);
+                    cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
+                    indicatorP2.transform.localScale = new Vector3(2f, 2f, 2f);
+                } else if (cursorP2.state == State.placingMove || cursorP2.state == State.moving) // in here change the sprite while choosing direction
+                  {
+                    float scale = 1f;
+                    switch (cursorP2.moveBuilding) {
+                        case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
+                        case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .375f; break;
+                        case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[2][0]; scale = .2f; break;
+                        case Building.Redirecting:
+                            cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)];
+                            scale = .25f; break;
+                        case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
+                    }
+                    cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
+                    cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
+                } else {
+                    float scale = 1f;
+                    switch (cursorP2.selection) {
+                        case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BlockSprite; scale = .15f; break;
+                        case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; scale = .375f; break;
+                        case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2RefractSprite; scale = .2f; break;
+                        case Building.Redirecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; scale = .25f; break;
+                        case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ResourceSprite; scale = .3f; break;
+                    }
+                    cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(0.7f, 1, 0.7f, .5f);
+                    cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
                 }
-                cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(0.7f, 1, 0.7f, .5f);
-                cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
-            }
 
-            float xOff = -gridManager.theGrid.getDimX() / 2f + 0.5f;
-            float yOff = -gridManager.theGrid.getDimY() / 2f + 0.5f;
+                float xOff = -gridManager.theGrid.getDimX() / 2f + 0.5f;
+                float yOff = -gridManager.theGrid.getDimY() / 2f + 0.5f;
 
-            // Update Cursor Position P1
-            if (moveQueueP1.Count > 0)
-            {
-                cursorObjP1.transform.position = Vector3.MoveTowards(cursorObjP1.transform.position, new Vector3(moveQueueP1.Peek().x + xOff, 0.01f, moveQueueP1.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP1.Count, 1.5f) * 0.2f));
-                if (Vector2.Distance(new Vector2(cursorObjP1.transform.position.x, cursorObjP1.transform.position.z), new Vector2(moveQueueP1.Peek().x + xOff, moveQueueP1.Peek().y + yOff)) == 0f) moveQueueP1.Dequeue();
-            }
-            // Update Cursor Position P2
-            if (moveQueueP2.Count > 0)
-            {
-                cursorObjP2.transform.position = Vector3.MoveTowards(cursorObjP2.transform.position, new Vector3(moveQueueP2.Peek().x + xOff, 0.01f, moveQueueP2.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP2.Count, 1.5f) * 0.2f));
-                if (Vector2.Distance(new Vector2(cursorObjP2.transform.position.x, cursorObjP2.transform.position.z), new Vector2(moveQueueP2.Peek().x + xOff, moveQueueP2.Peek().y + yOff)) == 0f) moveQueueP2.Dequeue();
-            }
+                // Update Cursor Position P1
+                if (moveQueueP1.Count > 0) {
+                    cursorObjP1.transform.position = Vector3.MoveTowards(cursorObjP1.transform.position, new Vector3(moveQueueP1.Peek().x + xOff, 0.01f, moveQueueP1.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP1.Count, 1.5f) * 0.2f));
+                    if (Vector2.Distance(new Vector2(cursorObjP1.transform.position.x, cursorObjP1.transform.position.z), new Vector2(moveQueueP1.Peek().x + xOff, moveQueueP1.Peek().y + yOff)) == 0f) moveQueueP1.Dequeue();
+                }
+                // Update Cursor Position P2
+                if (moveQueueP2.Count > 0) {
+                    cursorObjP2.transform.position = Vector3.MoveTowards(cursorObjP2.transform.position, new Vector3(moveQueueP2.Peek().x + xOff, 0.01f, moveQueueP2.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP2.Count, 1.5f) * 0.2f));
+                    if (Vector2.Distance(new Vector2(cursorObjP2.transform.position.x, cursorObjP2.transform.position.z), new Vector2(moveQueueP2.Peek().x + xOff, moveQueueP2.Peek().y + yOff)) == 0f) moveQueueP2.Dequeue();
+                }
 
-            // Update Cursor Indicator
-            if (cursorP1.state == State.placing)
-            {
-                indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
-                indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[0];
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            else if (cursorP1.state == State.placingLaser)
-            {
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = true;
-                indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            else if (cursorP1.state == State.placingMove || cursorP1.state == State.moving)
-            {
-                indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
-                indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[2];
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            else if (cursorP1.state == State.removing)
-            {
-                indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
-                indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[1];
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            else
-            {
-                LaserArrowP1.GetComponent<SpriteRenderer>().enabled = false;
-                indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            if (cursorP2.state == State.placing)
-            {
-                indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
-                indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[0];
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            else if (cursorP2.state == State.placingLaser)
-            {
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = true;
-                indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            else if (cursorP2.state == State.placingMove)
-            {
-                indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
-                indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[2];
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
-             }
-            else if (cursorP2.state == State.removing)
-            {
-                indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
-                indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[1];
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
-            }
-        else
-            {
-                LaserArrowP2.GetComponent<SpriteRenderer>().enabled = false;
-                indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
-            }
+                // Update Cursor Indicator---------------------------------
+                if (cursorP1.state == State.placing) {
+                    indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
+                    indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[0];
+                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.placing, gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne), Player.PlayerOne);
+                } else if (cursorP1.state == State.placingLaser) {
+                    indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
+                } else if (cursorP1.state == State.placingMove || cursorP1.state == State.moving) {
+                    indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
+                    indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[2];
+                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.moving, gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne), Player.PlayerOne);
+                } else if (cursorP1.state == State.removing) {
+                    indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
+                    indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[1];
+                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.removing, gridManager.theGrid.getCost(gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y), cursorP1.x, Player.PlayerOne), Player.PlayerOne);
+                } else {
+                    indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
+                    if (cursorP1.state != State.placeBase && cursorP1.state != State.placeLaser) {
+                        floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.placing, gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne), Player.PlayerOne);
+                    }
+                }
+                if (cursorP2.state == State.placing) {
+                    indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
+                    indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[0];
+                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
+                } else if (cursorP2.state == State.placingLaser) {
+                    indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
+                } else if (cursorP2.state == State.placingMove || cursorP2.state == State.moving) {
+                    indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
+                    indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[2];
+                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
+                } else if (cursorP2.state == State.removing) {
+                    indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
+                    indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[1];
+                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y), cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
+                } else {
+                    indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
+                    if (cursorP2.state != State.placeBase && cursorP2.state != State.placeLaser) {
+                        floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
+                    }
+                }
 
-            // Cursor sound effect
-            if ((Input.GetButtonDown("up_1") || Input.GetButtonDown("down_1") || Input.GetButtonDown("right_1") || Input.GetButtonDown("left_1") && moveQueueP1.Count > 0) ||
-                (Input.GetButtonDown("up_2") || Input.GetButtonDown("down_2") || Input.GetButtonDown("right_2") || Input.GetButtonDown("left_2") && moveQueueP2.Count > 0)) {
-				SoundManager.PlaySound(Sounds[0].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+                // Cursor sound effect
+                if ((Input.GetButtonDown("up_1") || Input.GetButtonDown("down_1") || Input.GetButtonDown("right_1") || Input.GetButtonDown("left_1") && moveQueueP1.Count > 0) ||
+                    (Input.GetButtonDown("up_2") || Input.GetButtonDown("down_2") || Input.GetButtonDown("right_2") || Input.GetButtonDown("left_2") && moveQueueP2.Count > 0)) {
+                    SoundManager.PlaySound(Sounds[0].audioclip, SoundManager.globalSoundsVolume / 25, true, .95f, 1.05f);
 
+                }
+
+                // Check if ghost laser update needed
+                if (!cursorP1.Equals(cursorP1Last)) ghostLaser.ghostUpdateNeeded = true;
+                else if (!cursorP2.Equals(cursorP2Last)) ghostLaser.ghostUpdateNeeded = true;
+                cursorP1Last = cursorP1;
+                cursorP2Last = cursorP2;
             }
-
-            // Check if ghost laser update needed
-            if (!cursorP1.Equals(cursorP1Last)) ghostLaser.ghostUpdateNeeded = true;
-            else if (!cursorP2.Equals(cursorP2Last)) ghostLaser.ghostUpdateNeeded = true;
-            cursorP1Last = cursorP1;
-            cursorP2Last = cursorP2;
-        //}
+        }
     }
 
     private Building cycleToBuilding(int index)
@@ -554,6 +498,7 @@ public class inputController : MonoBehaviour {
                 {
                     gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Base, Player.PlayerOne);
                     cursorP1.state = State.placeLaser; p1HasPlacedBase = true;
+                    SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                 }
             } else {
                 if (cursorP2.x < xEnd) print("Base must be placed on the edge of the board");
@@ -561,24 +506,25 @@ public class inputController : MonoBehaviour {
                 else {
                     gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Base, Player.PlayerTwo);
                     cursorP2.state = State.placeLaser; p2HasPlacedBase = true;
+                    SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                 }
             }
-			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+			
         } else if (currentState == State.placeLaser && p1HasPlacedBase && p2HasPlacedBase) {
             if (player == Player.PlayerOne) {
                 if (cursorP1.x > 0) print("Laser must be placed on the edge of the board");
                 else {
-                    if (!validPlacement(cursorP1.x, cursorP1.y, Direction.Right, Building.Laser)) print("Laser can not be placed that close to the base.");
-                    else cursorP1.state = State.placingLaser;
+                    if (!validPlacement(cursorP1.x, cursorP1.y, Direction.Right, Building.Laser)){ print("Laser can not be placed that close to the base."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+                    else{ cursorP1.state = State.placingLaser; SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 }
             } else {
                 if (cursorP2.x < xEnd) print("Laser must be placed on the edge of the board");
                 else {
-                    if (!validPlacement(cursorP2.x, cursorP2.y, Direction.Left, Building.Laser)) print("Laser can not be placed that close to the base.");
-                    else cursorP2.state = State.placingLaser;
+                    if (!validPlacement(cursorP2.x, cursorP2.y, Direction.Left, Building.Laser)){ print("Laser can not be placed that close to the base."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+                    else{ cursorP2.state = State.placingLaser; SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
                 }
             }
-			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+			
         } else if (currentState == State.placingLaser) {
             if (player == Player.PlayerOne) {
                 //p1UI.State.text = "Press [e] to place creatures \nPress WASD for direction \n[e] to confirm";
@@ -596,19 +542,20 @@ public class inputController : MonoBehaviour {
                 else print("Press the up or down direction keys to place laser");
             }
         } else if (currentState == State.placing) {
-			SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+			
             if (player == Player.PlayerOne) {
 				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP1.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
-				else { if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, cursorP1.selection, Player.PlayerOne, cursorP1.direction)) print("Placing failed."); cursorP1.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else { if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, cursorP1.selection, Player.PlayerOne, cursorP1.direction)) print("Placing failed."); else GetComponent<GUI_Script>().changeLimicator(0, State.placing); cursorP1.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
             } else {
 				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP2.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
-				else { if (!gridManager.theGrid.placeBuilding(cursorP2.x, cursorP2.y, cursorP2.selection, Player.PlayerTwo, cursorP2.direction)) print("Placing failed."); cursorP2.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
+				else { if (!gridManager.theGrid.placeBuilding(cursorP2.x, cursorP2.y, cursorP2.selection, Player.PlayerTwo, cursorP2.direction)) print("Placing failed."); else GetComponent<GUI_Script>().changeLimicator(1, State.placing); cursorP2.state = State.idle; SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
             }
         } else if (currentState == State.idle) {
             if (player == Player.PlayerOne) {
 				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.selection)){print("You can not place here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume / 25, true, .95f, 1.05f);}
                 else if (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) <= gridManager.theGrid.getResourcesP1()){
                 	cursorP1.state = State.placing;
+                    SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                 	//if(cursorP1.selection == Building.Refracting || cursorP1.selection == Building.Blocking){
                 		//cursorP1.direction = Direction.Down;
                 		//place(Player.PlayerOne, cursorP1.state);
@@ -616,6 +563,7 @@ public class inputController : MonoBehaviour {
                     if (cursorP1.selection == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
                         cursorP1.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
                         place(Player.PlayerOne, cursorP1.state);
+                        SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                     }
                  }
 				else {print("Not enough resources to place."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
@@ -630,6 +578,7 @@ public class inputController : MonoBehaviour {
                     if (cursorP2.selection == Building.Resource && laserLogic.laserData.grid[cursorP2.y, cursorP2.x].Count > 0) {
                         cursorP2.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP2.y, cursorP2.x][0].getMarchDir());
                         place(Player.PlayerTwo, cursorP2.state);
+                        SoundManager.PlaySound(Sounds[2].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
                     }
                 }
 				else{ print("Not enough resources to place."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
@@ -684,11 +633,13 @@ public class inputController : MonoBehaviour {
             if (player == Player.PlayerOne)
             {
                 if (!gridManager.theGrid.removeBuilding(cursorP1.x, cursorP1.y, Player.PlayerOne)) { print("Removing failed."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);  }
+                else GetComponent<GUI_Script>().changeLimicator(0, State.removing);
                 cursorP1.state = State.idle;
             }
             else
             {
                 if (!gridManager.theGrid.removeBuilding(cursorP2.x, cursorP2.y, Player.PlayerTwo)){ print("Removing failed.");  SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);  }
+                else GetComponent<GUI_Script>().changeLimicator(1, State.removing);
                 cursorP2.state = State.idle;
             }
         }
@@ -704,7 +655,7 @@ public class inputController : MonoBehaviour {
 				else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser){ print("Cannot remove this building."); SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);}
 				else { cursorP2.state = State.removing; }
             }
-			SoundManager.PlaySound(Sounds[3].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+			
         } else {
             print("Can not remove, busy with some other action.");
 			SoundManager.PlaySound(Sounds[4].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);

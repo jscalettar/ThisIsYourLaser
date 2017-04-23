@@ -20,7 +20,7 @@ public class buildingHealthBars : MonoBehaviour {
     void OnGUI()
     {
         Vector3 v1 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(0, 0));
-        Vector3 v2 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(gridManager.theGrid.getDimX() - 1, gridManager.theGrid.getDimY() - 1));
+        Vector3 v2 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(11, 7));
         float scale = (v2.x - v1.x) * 0.08f;
 
         foreach (KeyValuePair<XY, GameObject> pair in gridManager.theGrid.prefabDictionary) {

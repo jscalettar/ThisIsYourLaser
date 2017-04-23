@@ -41,6 +41,7 @@ public enum Building { Base, Laser, Blocking, Reflecting, Refracting, Redirectin
 public enum Player { World, PlayerOne, PlayerTwo, Shared }; // World Refers to neutral spaces owned by neither player
 public enum Direction { None, NE, NW, SE, SW, Left, Right, Up, Down };
 
+[Serializable]
 public struct XY
 {
     public int x, y;
@@ -52,6 +53,13 @@ public struct XY
     public bool Equals(XY other)
     {
         return x == other.x && y == other.y;
+    }
+    public static bool operator ==(XY a, XY b) {
+        return a.Equals(b);
+    }
+    public static bool operator !=(XY a, XY b)
+    {
+        return !(a == b);
     }
 }
 
@@ -129,6 +137,7 @@ public struct Grid
     private float buildingNumP1;
     private float buildingNumP2;
     private bool needsUpdate;
+    private GameObject tutorialObject;
     private GameObject baseP1;
     private GameObject baseP2;
     private GameObject placementTimer;
@@ -136,7 +145,7 @@ public struct Grid
 
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
-        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder, GameObject Dots, GameObject placementTimerObj, float limit)
+        GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder, GameObject Dots, GameObject placementTimerObj, GameObject tutorial, float limit)
     {
         grid = new GridItem[y, x];
         gridSquares = new GameObject[y, x];
@@ -205,7 +214,7 @@ public struct Grid
         baseP2 = null;
         needsUpdate = false;
         resourceLimit = limit;
-
+        tutorialObject = tutorial;
     }
 
     private bool validateInput(int x, int y)
@@ -347,18 +356,23 @@ public struct Grid
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
             grid[y, x].health -= damage;
+            //MonoBehaviour.print(tmp);
             prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
             floatingNumbers.floatingNumbersStruct.checkDamage(new XY(x, y), grid[y, x].health, prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().health, grid[y, x].building, grid[y, x].owner);
             if (grid[y, x].health <= 0f) {
-                if (getBuilding(x, y) == Building.Base && baseHealthP2() <= 0f) SceneManager.LoadScene("P1Win", LoadSceneMode.Single);
-                else if (getBuilding(x, y) == Building.Base && baseHealthP1() <= 0f) SceneManager.LoadScene("P2Win", LoadSceneMode.Single);
-                else destroyBuilding(x, y);
+                if (tutorialObject != null && TutorialFramework.tutorialActive) {
+                    tutorialObject.GetComponent<TutorialFramework>().buildingDestructionEvent(new XY(x, y), grid[y, x].building);
+                } else {
+                    if (getBuilding(x, y) == Building.Base && baseHealthP2() <= 0f) SceneManager.LoadScene("P1Win", LoadSceneMode.Single);
+                    else if (getBuilding(x, y) == Building.Base && baseHealthP1() <= 0f) SceneManager.LoadScene("P2Win", LoadSceneMode.Single);
+                }
+                destroyBuilding(x, y);
             }
         } else return false;
         return true;
     }
 
-    public bool placeBuilding (int x, int y, Building newBuilding, Player playerID, Direction facing = Direction.Up)
+    public bool placeBuilding (int x, int y, Building newBuilding, Player playerID, Direction facing = Direction.Up, bool instant = false)
 	{
 		if (!validateInput (x, y))
 			return false;
@@ -368,7 +382,8 @@ public struct Grid
 
 			// Place Building Prefab
 			GameObject building = MonoBehaviour.Instantiate(buildingPrefabs [(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
-			placementList.Add (new buildingRequest(new XY (x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
+			if (instant) placementList.Add (new buildingRequest(new XY (x, y), 0f, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
+			else placementList.Add (new buildingRequest(new XY (x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
 			building.GetComponent<buildingParameters>().x = x;
 			building.GetComponent<buildingParameters>().y = y;
 			building.GetComponent<buildingParameters>().owner = playerID;
@@ -391,6 +406,17 @@ public struct Grid
 				building.GetComponent<Renderer> ().material.color = playerID == Player.PlayerOne ? new Vector4 (1f, 0.7f, 0.7f, .3f) : new Vector4 (0.7f, 1, 0.7f, .3f); // Used for debugging, not necessary with final art
 			building.transform.SetParent (buildingContainer.transform);
 			building.transform.localPosition = coordsToWorld (x, y);
+            if(newBuilding == Building.Laser && building.GetComponent<buildingParameters>().direction == Direction.Down)
+            {
+                building.transform.localPosition = coordsToWorld(x, y - 0.7f);
+            }else if(newBuilding == Building.Laser && building.GetComponent<buildingParameters>().direction == Direction.Up)
+            {
+                building.transform.localPosition = coordsToWorld(x, y + 0.45f);
+            }
+            if(newBuilding == Building.Reflecting)
+            {
+                building.transform.localPosition = coordsToWorld(x, y-0.135f);
+            }
 			building.transform.localEulerAngles = new Vector3 (90, 0, 0);
 			prefabDictionary.Add (new XY (x, y), building);
             // Subtract Cost From Resources
@@ -404,11 +430,13 @@ public struct Grid
             // Set base references for getting health later
             if (newBuilding == Building.Base) { if (playerID == Player.PlayerOne) baseP1 = building; else baseP2 = building; }
             // Placement Timer
-            GameObject placementTimerObject = MonoBehaviour.Instantiate(placementTimer);
-            placementTimerObject.transform.parent = buildingContainer.transform.parent.transform;
-            placementTimerObject.transform.localEulerAngles = new Vector3(90f, 0, 0);
-            placementTimerObject.transform.localPosition = coordsToWorld(x, y, 1f);
-            placementTimerObject.GetComponent<placementTimer>().init(building.GetComponent<buildingParameters>().placementTime, playerID);
+            if (!instant) {
+                GameObject placementTimerObject = MonoBehaviour.Instantiate(placementTimer);
+                placementTimerObject.transform.parent = buildingContainer.transform.parent.transform;
+                placementTimerObject.transform.localEulerAngles = new Vector3(90f, 0, 0);
+                placementTimerObject.transform.localPosition = coordsToWorld(x, y, 1f);
+                placementTimerObject.GetComponent<placementTimer>().init(building.GetComponent<buildingParameters>().placementTime, playerID);
+            }
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
             updateSquares();
@@ -605,6 +633,7 @@ public class gridManager : MonoBehaviour
     public GameObject Portal2;
     public float limit;
 
+    public GameObject tutorialObject;
     public GameObject empty;
     public GameObject dot;
     public GameObject placementTimerObj;
@@ -617,7 +646,7 @@ public class gridManager : MonoBehaviour
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, startingBuildingNum, empty, dot, placementTimerObj, limit);
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources, startingBuildingNum, empty, dot, placementTimerObj, tutorialObject, limit);
     }
     
     void LateUpdate()

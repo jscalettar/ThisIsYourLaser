@@ -9,72 +9,58 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1514336581799410}
+  m_RootGameObject: {fileID: 1685753832448580}
   m_IsPrefabParent: 1
---- !u!1 &1514336581799410
+--- !u!1 &1685753832448580
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4802106297814914}
-  - component: {fileID: 114118978213347328}
-  - component: {fileID: 212160785449125804}
+  - component: {fileID: 4382252015079478}
+  - component: {fileID: 212405677139326374}
+  - component: {fileID: 114053346580556702}
   m_Layer: 0
-  m_Name: Redirect
+  m_Name: Limicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4802106297814914
+--- !u!4 &4382252015079478
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1514336581799410}
-  m_LocalRotation: {x: -0, y: -0, z: 0.15898807, w: 0.98728055}
+  m_GameObject: {fileID: 1685753832448580}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 18.296001}
---- !u!114 &114118978213347328
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114053346580556702
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1514336581799410}
+  m_GameObject: {fileID: 1685753832448580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36633ddff7853944782cdec310a8ef13, type: 3}
+  m_Script: {fileID: 11500000, guid: abfb55a6e6a8a7a459968423192c3fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: -1
-  y: -1
-  owner: 0
-  currentHP: 0
-  direction: 0
-  buildingType: 8
-  health: 10
-  cost: 6
   sprites:
-  - {fileID: 21300000, guid: 075c271c538371a4d831327f4d576ce2, type: 3}
-  - {fileID: 21300000, guid: e949e6d334f555e46b797ee7f42ebd93, type: 3}
-  - {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
-  - {fileID: 21300000, guid: 13e5e22d25d7d5b468d0c1fdcd8ba5a3, type: 3}
-  scale: 0.25
-  placementTime: 1.5
-  removalTime: 1
-  destructionTime: 0.5
---- !u!212 &212160785449125804
+  - {fileID: 21300000, guid: b10c217176c182c4eaa998e478d8094f, type: 3}
+  - {fileID: 21300000, guid: a666fff7b6c2dae4194678189dbdf27b, type: 3}
+--- !u!212 &212405677139326374
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1514336581799410}
+  m_GameObject: {fileID: 1685753832448580}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -99,8 +85,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: b10c217176c182c4eaa998e478d8094f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
