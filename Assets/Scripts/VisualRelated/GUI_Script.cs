@@ -10,11 +10,7 @@ public class GUI_Script : MonoBehaviour {
     public static playerOneUI p1UI;
     public static playerTwoUI p2UI;
     public static UIScript UI;
-
-    public GameObject limicator;
-    public GameObject[,] stones;
-    public int p1StonesPlaced;
-    public int p2StonesPlaced;
+    
     // Use this for initialization
 
     void Start () {
@@ -89,22 +85,7 @@ public class GUI_Script : MonoBehaviour {
         p2UI.p2RefractRemoveCost = GameObject.Find("p2RefractRemoveCost").GetComponent<Text>();
         p2UI.p2RedirectPlaceCost = GameObject.Find("p2RedirectPlaceCost").GetComponent<Text>();
         p2UI.p2RedirectMoveCost = GameObject.Find("p2RedirectMoveCost").GetComponent<Text>();
-        p2UI.p2RedirectRemoveCost = GameObject.Find("p2RedirectRemoveCost").GetComponent<Text>();
-
-        stones = new GameObject[2, 10];
-        if (limicator != null) {
-            for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < 10; j++) {
-                    GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid square
-                    limit.transform.localPosition = i == 0 ? new Vector3(-6.3f, 0f, 3.3f - j * (.75f)) : new Vector3(6.3f, 0f, 3.3f - j * (.75f));
-                    limit.transform.Rotate(90, 0, 0);
-                    limit.transform.localScale = new Vector3(.1f, .1f, .1f);
-                    stones[i, j] = limit;
-                }
-            }
-        }
-        p1StonesPlaced = 0;
-        p2StonesPlaced = 0;*/
+        p2UI.p2RedirectRemoveCost = GameObject.Find("p2RedirectRemoveCost").GetComponent<Text>();*/
     }
 	
 	// Update is called once per frame

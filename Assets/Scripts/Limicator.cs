@@ -7,11 +7,12 @@ public class Limicator : MonoBehaviour
     public static LimicatorObject limicatorObj;
     public GameObject limicator;
     public Sprite[] sprites;
+    public float scale;
 
     // Use this for initialization
     void Start()
     {
-        limicatorObj = new LimicatorObject(limicator, sprites);
+        limicatorObj = new LimicatorObject(limicator, sprites, scale);
     }
 
     // Update is called once per frame
@@ -27,20 +28,22 @@ public class Limicator : MonoBehaviour
         public int p1StonesPlaced;
         //[HideInInspector]
         public int p2StonesPlaced;
+        public float scale;
         public Sprite[] sprites;
         public GameObject limicator;
 
-        public LimicatorObject(GameObject limiter, Sprite[] sprits)
+        public LimicatorObject(GameObject limiter, Sprite[] sprits, float scal)
         {
             limicator = limiter;
             sprites = sprits;
+            scale = scal;
             for(int i = 0; i< 2; i++){
                 for (int j = 0; j< 10; j++)
                 {
                     GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid square
-                    limit.transform.localPosition = i == 0 ? new Vector3(-6.3f, 0f, 3.3f - j* (.75f)) : new Vector3(6.3f, 0f, 3.3f - j* (.75f));
+                    limit.transform.localPosition = i == 0 ? new Vector3(-6.3f, 0f, -3.45f + j* (.75f)) : new Vector3(6.3f, 0f, -3.45f + j* (.75f));
                     limit.transform.Rotate(90, 0, 0);
-                    limit.transform.localScale = new Vector3(.1f, .1f, .1f);
+                    limit.transform.localScale = new Vector3(scale, scale, scale);
                     stones[i, j] = limit;
                 }
             }
@@ -57,12 +60,12 @@ public class Limicator : MonoBehaviour
                 if (i == 0)
                 {
                     stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[1];
-                    p1StonesPlaced = Mathf.Min(9, p1StonesPlaced + 1);
+                    p1StonesPlaced = Mathf.Min(10, p1StonesPlaced + 1);
                 }
                 else
                 {
                     stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[1];
-                    p2StonesPlaced = Mathf.Min(9, p2StonesPlaced + 1);
+                    p2StonesPlaced = Mathf.Min(10, p2StonesPlaced + 1);
                 }
             }
             else if (state == State.removing)
