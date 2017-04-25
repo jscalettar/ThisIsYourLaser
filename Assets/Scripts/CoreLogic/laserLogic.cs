@@ -18,7 +18,6 @@ public class laserLogic : MonoBehaviour
     public Material laserMaterialP2;
     public Material laserMaterialCombined;
     public GameObject hitEffect;
-    public GameObject resourceEffect;
     public static float laserPowerMultiplier = 1.0f;
 
     // Can change laser heading like this:
@@ -48,6 +47,7 @@ public class laserLogic : MonoBehaviour
     private Dictionary<XY, List<dirHeadPlayer>> particleHits;    // Particle collision dictionary
     private GameObject laserContainer;
     private GameObject particleContainer;
+    public float timer = .5f;
 
     public struct laserNode
     {
@@ -297,6 +297,13 @@ public class laserLogic : MonoBehaviour
         foreach (laserHit hit in laserHits) {
             if (hit.buildingHit == Building.Resource && !hit.weakSideHit) {
                 // Add Resources
+                timer -= Time.deltaTime*5;
+                if(timer < 0)
+                {
+                    emitParticles.genericParticle.emitParticle(hit.X, hit.Y, particleType.generate);
+                    timer = .7f;
+                }
+               
                 if (hit.buildingOwner == Player.PlayerOne) gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0);
                 else if (hit.buildingOwner == Player.PlayerTwo) gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate);
             } else if (hit.weakSideHit) {
