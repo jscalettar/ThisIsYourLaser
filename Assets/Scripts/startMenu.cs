@@ -20,7 +20,12 @@ public class startMenu : MonoBehaviour {
     public GameObject StartMenu;
     public GameObject OptionMenu;
     public GameObject InstructMenu;
-    public GameObject StructuresMenu;
+    public GameObject CreatureMenu;
+    public GameObject ResourcePage;
+    public GameObject RefractPage;
+    public GameObject ReflectPage;
+    public GameObject BlockPage;
+    public GameObject RedirectPage;
 
     //Vars for buttons/toggles/sliders
     public Button Play;
@@ -55,7 +60,12 @@ public class startMenu : MonoBehaviour {
         StartMenu.SetActive(true);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
-        StructuresMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
     }
 
     public void OptionsMenu()
@@ -63,7 +73,12 @@ public class startMenu : MonoBehaviour {
         StartMenu.SetActive(false);
         OptionMenu.SetActive(true);
         InstructMenu.SetActive(false);
-        StructuresMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
     }
 
     public void InstructionsMenu()
@@ -71,15 +86,95 @@ public class startMenu : MonoBehaviour {
         StartMenu.SetActive(false);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(true);
-        StructuresMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
     }
 
-    public void StructureMenu()
+    public void CreautureMenu()
     {
         StartMenu.SetActive(false);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
-        StructuresMenu.SetActive(true);
+        CreatureMenu.SetActive(true);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
+    }
+
+    public void Resource()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        ResourcePage.SetActive(true);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
+    }
+
+    public void Refract()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(true);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
+    }
+
+    public void Reflect()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(true);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
+    }
+
+    public void Block()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(true);
+        RedirectPage.SetActive(false);
+    }
+
+    public void Redirect()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(true);
     }
 
     public void setMaster(float vol) 
