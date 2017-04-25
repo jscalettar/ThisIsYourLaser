@@ -303,9 +303,9 @@ public class laserLogic : MonoBehaviour
                     emitParticles.genericParticle.emitParticle(hit.X, hit.Y, particleType.generate);
                     timer = .7f;
                 }
-               
-                if (hit.buildingOwner == Player.PlayerOne) gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0);
-                else if (hit.buildingOwner == Player.PlayerTwo) gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate);
+
+                if (hit.buildingOwner == Player.PlayerOne) { gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0); floatingNumbers.floatingNumbersStruct.checkResource(new XY(hit.X,hit.Y), gridManager.theGrid.getResourcesP1(), Player.PlayerOne); }
+                else if (hit.buildingOwner == Player.PlayerTwo) { gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate); floatingNumbers.floatingNumbersStruct.checkResource(new XY(hit.X, hit.Y), gridManager.theGrid.getResourcesP2(), Player.PlayerTwo); }
             } else if (hit.weakSideHit) {
                 // Apply Damage
                 gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * laserPowerMultiplier * Time.deltaTime);
