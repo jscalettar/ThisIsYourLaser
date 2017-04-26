@@ -41,7 +41,7 @@ public class Limicator : MonoBehaviour
                 for (int j = 0; j< 10; j++)
                 {
                     GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid square
-                    limit.transform.localPosition = i == 0 ? new Vector3(-6.3f, 0f, -3.45f + j* (.75f)) : new Vector3(6.3f, 0f, -3.45f + j* (.75f));
+                    limit.transform.localPosition = i == 0 ? new Vector3(-6.6f, 0f, -3.45f + j* (.75f)) : new Vector3(6.8f, 0f, -3.45f + j* (.75f));
                     limit.transform.Rotate(90, 0, 0);
                     limit.transform.localScale = new Vector3(scale, scale, scale);
                     stones[i, j] = limit;
