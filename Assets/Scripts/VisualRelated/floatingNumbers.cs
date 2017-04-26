@@ -122,10 +122,64 @@ public struct damageResourceGrid
     }
     public void checkResource(XY pos, float currResource, Player buildingOwner, State state)
     {
-        resourceBuilding value = new resourceBuilding();
-        if (!gridR.TryGetValue(pos, out value)) gridR.Add(pos, new resourceBuilding(currResource, emissionRate)); // Add to gridInfo if not already there
-        else if (currResource<value.lastResource  ) gridR[pos] = new resourceBuilding(currResource, emissionRate); // Reset if building has changed
-        else if (value.time <= 0f || state == State.placing)
+        if (state != State.placing)
+        {
+            resourceBuilding value = new resourceBuilding();
+            if (!gridR.TryGetValue(pos, out value)) gridR.Add(pos, new resourceBuilding(currResource, emissionRate)); // Add to gridInfo if not already there
+            else if (currResource < value.lastResource) gridR[pos] = new resourceBuilding(currResource, emissionRate); // Reset if building has changed
+            else if (value.time <= 0f)
+            {
+                // Emit damage number
+                GameObject child = new GameObject();
+                child.transform.parent = gameObject.transform;
+                child.transform.localEulerAngles = new Vector3(90f, 0, 0);
+                child.transform.localPosition = gridManager.theGrid.coordsToWorld(pos.x, pos.y + 0.5f, 1f);
+                child.AddComponent<Rigidbody>();
+                Rigidbody rigidBody = child.GetComponent<Rigidbody>();
+
+                rigidBody.useGravity = false;
+                rigidBody.velocity = Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.up) * Vector3.forward * textSpeed;
+
+
+                child.AddComponent<TextMesh>();
+                TextMesh textMesh = child.GetComponent<TextMesh>();
+
+                textMesh.fontSize = 64;
+                textMesh.characterSize = textSize;
+                textMesh.anchor = TextAnchor.MiddleCenter;
+                textMesh.color = buildingOwner == Player.PlayerOne ? Color.red : Color.green;
+                textMesh.fontStyle = FontStyle.Bold;
+                textMesh.font = font;
+                textMesh.text = ((currResource - value.lastResource)).ToString("F1");
+
+
+                GameObject child2 = new GameObject();
+                child2.AddComponent<SpriteRenderer>();
+                child2.GetComponent<SpriteRenderer>().sprite = buildingOwner == Player.PlayerOne ? laserite[0] : laserite[1];
+                child2.transform.parent = gameObject.transform;
+                child2.transform.localEulerAngles = new Vector3(90f, 0, 0);
+                child2.transform.localPosition = gridManager.theGrid.coordsToWorld(pos.x - 0.5f, pos.y + 0.5f, 1f);
+                child2.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
+                child2.AddComponent<Rigidbody>();
+                Rigidbody rigidBody2 = child2.GetComponent<Rigidbody>();
+
+                rigidBody2.useGravity = false;
+                rigidBody2.velocity = Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.up) * Vector3.forward * textSpeed;
+
+                MonoBehaviour.Destroy(child, textLifetime);
+                MonoBehaviour.Destroy(child2, textLifetime);
+
+                // Update damageGrid data
+                value.time = emissionRate;
+                value.lastResource = currResource;
+                gridR[pos] = value;
+            }
+            else
+            {
+                gridR[pos] = new resourceBuilding(value.lastResource, value.time - Time.deltaTime);
+            }
+        }
+        else
         {
             // Emit damage number
             GameObject child = new GameObject();
@@ -136,7 +190,7 @@ public struct damageResourceGrid
             Rigidbody rigidBody = child.GetComponent<Rigidbody>();
 
             rigidBody.useGravity = false;
-            rigidBody.velocity = Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.up) * Vector3.forward * textSpeed;
+            rigidBody.velocity = Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.down) * Vector3.back * textSpeed;
 
 
             child.AddComponent<TextMesh>();
@@ -148,7 +202,7 @@ public struct damageResourceGrid
             textMesh.color = buildingOwner == Player.PlayerOne ? Color.red : Color.green;
             textMesh.fontStyle = FontStyle.Bold;
             textMesh.font = font;
-            textMesh.text = ((currResource - value.lastResource )).ToString("F1");
+            textMesh.text = "-" + (currResource).ToString("F1");
 
 
             GameObject child2 = new GameObject();
@@ -162,23 +216,14 @@ public struct damageResourceGrid
             Rigidbody rigidBody2 = child2.GetComponent<Rigidbody>();
 
             rigidBody2.useGravity = false;
-            rigidBody2.velocity = Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.up) * Vector3.forward * textSpeed;
+            rigidBody2.velocity = Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.down) * Vector3.back * textSpeed;
 
             MonoBehaviour.Destroy(child, textLifetime);
             MonoBehaviour.Destroy(child2, textLifetime);
-
-            // Update damageGrid data
-            value.time = emissionRate;
-            value.lastResource = currResource;
-            gridR[pos] = value;
-        }
-        else
-        {
-            gridR[pos] = new resourceBuilding(value.lastResource, value.time - Time.deltaTime);
         }
     }
 
-    }
+}
 
 
 public class floatingNumbers : MonoBehaviour {
