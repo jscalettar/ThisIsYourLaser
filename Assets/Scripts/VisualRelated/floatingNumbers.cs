@@ -60,27 +60,6 @@ public struct damageResourceGrid
         laserite = laser;
     }
 
-    public void showCost(XY pos, State currState, float cost, Player buildingOwner)
-    {
-        GameObject child = new GameObject();
-        child.transform.parent = gameObject.transform;
-        child.transform.localEulerAngles = new Vector3(90f, 0, 0);
-        child.transform.localPosition = gridManager.theGrid.coordsToWorld(pos.x+0.7f, pos.y - 0.5f, 1f);
-        
-        child.AddComponent<TextMesh>();
-        TextMesh textMesh = child.GetComponent<TextMesh>();
-
-        textMesh.fontSize = 64;
-        textMesh.characterSize = textSize;
-        textMesh.anchor = TextAnchor.MiddleCenter;
-        textMesh.color = buildingOwner == Player.PlayerOne ? p1DamageColor : p2DamageColor;
-        textMesh.fontStyle = FontStyle.Bold;
-        textMesh.font = font;
-        textMesh.text = currState == State.placing ?(cost).ToString("F1"):(cost / 2).ToString("F1");
-
-        MonoBehaviour.Destroy(child, .05f);
-    }
-
     public void checkDamage(XY pos, float currHP, float maxHP, Building building, Player buildingOwner)
     {
         healthBuilding value = new healthBuilding();

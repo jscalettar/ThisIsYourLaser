@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class cursor2 : MonoBehaviour
 {
-    // Public Vars
-    public Text playerState;
     //Should be changed to be a list of all possible buildings
     setupManager noP2Direction;
 
@@ -27,12 +25,16 @@ public class cursor2 : MonoBehaviour
     public Sprite[] Refract;
     public Sprite[] Redirect;
     public Sprite[] Resource;
+    public Sprite[] Laser;
     public Sprite[][] Sprites;
 
+    public Sprite[] UISprites;
+
     // Use this for initialization
+
     void Start()
     {
-        Sprites = new Sprite[][] { Block, Reflect, Refract, Redirect, Resource };
+        Sprites = new Sprite[][] { Block, Reflect, Refract, Redirect, Resource, Laser };
     }
     
 }

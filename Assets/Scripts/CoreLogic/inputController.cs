@@ -414,42 +414,30 @@ public class inputController : MonoBehaviour {
                 if (cursorP1.state == State.placing) {
                     indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
                     indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[0];
-                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.placing, gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne), Player.PlayerOne);
                 } else if (cursorP1.state == State.placingLaser) {
                     indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
                 } else if (cursorP1.state == State.placingMove || cursorP1.state == State.moving) {
                     indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
                     indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[2];
-                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.moving, gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne), Player.PlayerOne);
                 } else if (cursorP1.state == State.removing) {
                     indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
                     indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor1>().UISprites[1];
-                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.removing, gridManager.theGrid.getCost(gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y), cursorP1.x, Player.PlayerOne), Player.PlayerOne);
                 } else {
                     indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
-                    if (cursorP1.state != State.placeBase && cursorP1.state != State.placeLaser) {
-                        floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP1.x, cursorP1.y), State.placing, gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne), Player.PlayerOne);
-                    }
                 }
                 if (cursorP2.state == State.placing) {
                     indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
                     indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[0];
-                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
                 } else if (cursorP2.state == State.placingLaser) {
                     indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
                 } else if (cursorP2.state == State.placingMove || cursorP2.state == State.moving) {
                     indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
                     indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[2];
-                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
                 } else if (cursorP2.state == State.removing) {
                     indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
                     indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().UISprites[1];
-                    floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y), cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
                 } else {
                     indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
-                    if (cursorP2.state != State.placeBase && cursorP2.state != State.placeLaser) {
-                        floatingNumbers.floatingNumbersStruct.showCost(new XY(cursorP2.x, cursorP2.y), State.placing, gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo), Player.PlayerTwo);
-                    }
                 }
 
                 // Cursor sound effect
