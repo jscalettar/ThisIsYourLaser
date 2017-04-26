@@ -29684,7 +29684,6 @@ MonoBehaviour:
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
     type: 2}
   hitEffect: {fileID: 1298907687621598, guid: 9579064596fbff54e8b756c71df0a708, type: 2}
-  timer: 0.5
 --- !u!114 &2040606550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29849,7 +29848,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splash: {fileID: 153116, guid: 5caa4c4c9994a554d84ae18bb8941791, type: 2}
   explosion: {fileID: 120184, guid: c4483c3fbe6fa8848a70e2a377130971, type: 2}
-  resource: {fileID: 1285733120507736, guid: c469784edbcc3d14d878583dc57ad147, type: 2}
 --- !u!1 &2053190675
 GameObject:
   m_ObjectHideFlags: 0
