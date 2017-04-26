@@ -446,6 +446,10 @@ public struct Grid
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
             updateSquares();
+            if(playerID == Player.PlayerOne)
+            {
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(x, y), gridManager.theGrid.getResourcesP1(), Player.PlayerOne, State.placing);
+            }
             if (newBuilding != Building.Base && newBuilding != Building.Laser) { 
                 Limicator.limicatorObj.changeStones(playerID == Player.PlayerOne ? 0 : 1, State.placing);
             }

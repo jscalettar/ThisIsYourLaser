@@ -30,7 +30,7 @@ public struct resourceBuilding
 
 public struct damageResourceGrid
 {
-    public Sprite laserite;
+    public Sprite[] laserite;
     Dictionary<XY, healthBuilding> grid;
     Dictionary<XY, resourceBuilding> gridR;
     private GameObject gameObject;
@@ -43,7 +43,7 @@ public struct damageResourceGrid
     private float textLifetime;
     private Font font;
 
-    public damageResourceGrid(Sprite laser, GameObject container, Color p1, Color p2, Font customFont, float rate = 1f, float randomAngle = 0f, float size = 1f, float speed = 1f, float life = 1f)
+    public damageResourceGrid(Sprite[] laser, GameObject container, Color p1, Color p2, Font customFont, float rate = 1f, float randomAngle = 0f, float size = 1f, float speed = 1f, float life = 1f)
     {
         gameObject = container;
         grid = new Dictionary<XY, healthBuilding>();
@@ -120,12 +120,12 @@ public struct damageResourceGrid
             grid[pos] = new healthBuilding(value.lastHP, value.time - Time.deltaTime, value.building);
         }
     }
-    public void checkResource(XY pos, float currResource, Player buildingOwner)
+    public void checkResource(XY pos, float currResource, Player buildingOwner, State state)
     {
         resourceBuilding value = new resourceBuilding();
         if (!gridR.TryGetValue(pos, out value)) gridR.Add(pos, new resourceBuilding(currResource, emissionRate)); // Add to gridInfo if not already there
         else if (currResource<value.lastResource  ) gridR[pos] = new resourceBuilding(currResource, emissionRate); // Reset if building has changed
-        else if (value.time <= 0f)
+        else if (value.time <= 0f || state == State.placing)
         {
             // Emit damage number
             GameObject child = new GameObject();
@@ -153,7 +153,7 @@ public struct damageResourceGrid
 
             GameObject child2 = new GameObject();
             child2.AddComponent<SpriteRenderer>();
-            child2.GetComponent<SpriteRenderer>().sprite = laserite;
+            child2.GetComponent<SpriteRenderer>().sprite = buildingOwner == Player.PlayerOne ? laserite[0] : laserite[1];
             child2.transform.parent = gameObject.transform;
             child2.transform.localEulerAngles = new Vector3(90f, 0, 0);
             child2.transform.localPosition = gridManager.theGrid.coordsToWorld(pos.x - 0.5f, pos.y + 0.5f, 1f);
@@ -195,7 +195,7 @@ public class floatingNumbers : MonoBehaviour {
     public float textLifetime = 1f;
     public Color p1DamageColor = Color.red;
     public Color p2DamageColor = Color.red;
-    public Sprite laserite;
+    public Sprite[] laserite;
     public Font font;
 
     public static damageResourceGrid floatingNumbersStruct;

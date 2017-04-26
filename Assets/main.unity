@@ -29657,7 +29657,9 @@ MonoBehaviour:
   textLifetime: 1
   p1DamageColor: {r: 1, g: 1, b: 0, a: 1}
   p2DamageColor: {r: 1, g: 0, b: 1, a: 1}
-  laserite: {fileID: 21300000, guid: af2167622b9468a47b3a7ce0fefaa4eb, type: 3}
+  laserite:
+  - {fileID: 21300000, guid: 3ab937dfd81267346bdbc6ee4c981d1c, type: 3}
+  - {fileID: 21300000, guid: ee371a75da8fb56488d181a69636e428, type: 3}
   font: {fileID: 0}
 --- !u!114 &2040606549
 MonoBehaviour:
