@@ -52,19 +52,31 @@ public class Limicator : MonoBehaviour
         }
         
 
-        public void changeStones(int i, State state)
+        public void changeStones(int i, State state, Building build)
         {
+            int animal = 0;
+            switch (build)
+            {
+                case Building.Blocking: animal = 1; break;
+                case Building.Reflecting: animal = 2; break;
+                case Building.Refracting: animal = 3; break;
+                case Building.Redirecting: animal = 4; break;
+                case Building.Resource: animal = 5; break;
+                default: animal = 0; break;
+            }
             int stonesPlaced = i == 0 ? p1StonesPlaced : p2StonesPlaced;
             if (state == State.placing)
             {
                 if (i == 0)
                 {
-                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[1];
+                    stones[i, p1StonesPlaced].transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
+                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
                     p1StonesPlaced = Mathf.Min(10, p1StonesPlaced + 1);
                 }
                 else
                 {
-                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[1];
+                    stones[i, p2StonesPlaced].transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
+                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
                     p2StonesPlaced = Mathf.Min(10, p2StonesPlaced + 1);
                 }
             }
@@ -73,12 +85,14 @@ public class Limicator : MonoBehaviour
                 if (i == 0)
                 {
                     p1StonesPlaced = Mathf.Max(0, p1StonesPlaced - 1);
-                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[0];
+                    stones[i, p1StonesPlaced].transform.localScale = new Vector3(scale, scale, scale);
+                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
                 }
                 else
                 {
                     p2StonesPlaced = Mathf.Max(0, p2StonesPlaced - 1);
-                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[0];
+                    stones[i, p2StonesPlaced].transform.localScale = new Vector3(scale, scale, scale);
+                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
                 }
             }
         }

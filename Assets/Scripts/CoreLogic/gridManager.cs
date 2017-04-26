@@ -448,7 +448,7 @@ public struct Grid
             updateSquares();
             
             if (newBuilding != Building.Base && newBuilding != Building.Laser) { 
-                Limicator.limicatorObj.changeStones(playerID == Player.PlayerOne ? 0 : 1, State.placing);
+                Limicator.limicatorObj.changeStones(playerID == Player.PlayerOne ? 0 : 1, State.placing, newBuilding);
                 if (playerID == Player.PlayerOne)
                 {
                     floatingNumbers.floatingNumbersStruct.checkResource(new XY(x, y), getCost(newBuilding, x, playerID), Player.PlayerOne, State.placing);
@@ -488,7 +488,7 @@ public struct Grid
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
             updateSquares();
-            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing);
+            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, Building.Base);
         } else return false;
         return true;
     }
@@ -520,7 +520,7 @@ public struct Grid
             }
 
             // Limicator stuff
-            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing);
+            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, Building.Base);
 
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
