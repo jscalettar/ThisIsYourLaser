@@ -132,6 +132,9 @@ public struct Grid
     private float resourcesP2;
     private float buildingNumP1;
     private float buildingNumP2;
+    private float timer;
+    private float hitTimer;
+    private float laserCeiling;
     private bool needsUpdate;
     public GameObject tutorialObject;
     private GameObject baseP1;
@@ -139,7 +142,7 @@ public struct Grid
     private GameObject placementTimer;
     public GameObject[,] gridSquares;
     public int blockScale;
-
+   
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
         GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder,
@@ -221,6 +224,9 @@ public struct Grid
         resourceLimit = limit;
         tutorialObject = tutorial;
         blockScale = blockResourceScale;
+        timer = .5f;
+        hitTimer = 4.5f;
+        laserCeiling = 1f;
     }
 
     private bool validateInput(int x, int y)
@@ -363,7 +369,27 @@ public struct Grid
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
             grid[y, x].health -= damage;
-            //MonoBehaviour.print(tmp);
+            timer -= Time.deltaTime*5;
+            hitTimer -= Time.deltaTime*5;
+            if(timer < 0 ){
+                if(((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)) < laserCeiling){
+
+                    SoundManager.PlaySound(inputController.Sounds[5].audioclip,SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
+                    timer = .7f;
+                    MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
+                }
+                else{
+                    SoundManager.PlaySound(inputController.Sounds[5].audioclip,SoundManager.globalSoundsVolume*laserCeiling/80); 
+                    timer = .7f;
+                    MonoBehaviour.print(SoundManager.globalSoundsVolume*laserCeiling/80);
+                }
+            }
+            if(hitTimer < 0 ){
+                SoundManager.PlaySound(inputController.Sounds[6].audioclip,SoundManager.globalSoundsVolume/60); 
+                hitTimer = 4.5f;
+            }
+
+            MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)));
             prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
             floatingNumbers.floatingNumbersStruct.checkDamage(new XY(x, y), grid[y, x].health, prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().health, grid[y, x].building, grid[y, x].owner);
             if (grid[y, x].health <= 0f) {

@@ -3243,7 +3243,7 @@ ParticleSystem:
   m_GameObject: {fileID: 367682182}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -8822,7 +8822,7 @@ ParticleSystem:
   m_GameObject: {fileID: 691219462}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -11733,7 +11733,7 @@ ParticleSystem:
   m_GameObject: {fileID: 749703399}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -21847,7 +21847,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1630470809}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -25878,7 +25878,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1879519083}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -29874,8 +29874,9 @@ MonoBehaviour:
   - audioclip: {fileID: 8300000, guid: e06029a9600b20e44b8768b1498714ee, type: 3}
   - audioclip: {fileID: 8300000, guid: 25f662ea0196e574e9c8da79532fec20, type: 3}
   - audioclip: {fileID: 8300000, guid: 19cef2db0fc37d1488df1c426742f173, type: 3}
+  - audioclip: {fileID: 8300000, guid: 72593b9a256f66f4fb8bf19971dff8e5, type: 3}
   setUISounds:
-  - audioclip: {fileID: 8300000, guid: 88ff972be695ef8438c3756582cc8082, type: 3}
+  - audioclip: {fileID: 8300000, guid: 18905e0693f4ef7429e396da0a4687af, type: 3}
   PauseMenu: {fileID: 1151074142}
   Win: {fileID: 2081024459}
 --- !u!114 &2040606552
