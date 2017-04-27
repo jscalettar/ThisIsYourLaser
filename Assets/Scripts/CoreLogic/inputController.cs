@@ -40,6 +40,11 @@ public class inputController : MonoBehaviour {
     public Sprite RedirectLeft;
     public Sprite RedirectRight;
 
+    public Sprite RedirectUp2;
+    public Sprite RedirectDown2;
+    public Sprite RedirectLeft2;
+    public Sprite RedirectRight2;
+
     // Cursor movement speed
     private const float cursorSpeed = 8f;
     private float delayFactor = 1f / cursorSpeed;
@@ -355,13 +360,13 @@ public class inputController : MonoBehaviour {
                         case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[2][0]; scale = .25f; break;
                         case Building.Redirecting: /*cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)];*/
                             if (cursorP2.direction == Direction.Up) {
-                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectUp;
+                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectUp2;
                             } else if (cursorP2.direction == Direction.Down) {
-                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectDown;
+                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectDown2;
                             } else if (cursorP2.direction == Direction.Left) {
-                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectLeft;
+                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectLeft2;
                             } else if (cursorP2.direction == Direction.Right) {
-                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectRight;
+                                cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectRight2;
                             }
                             scale = .25f; break;
                         case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor1>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
