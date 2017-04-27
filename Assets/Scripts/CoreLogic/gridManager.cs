@@ -425,17 +425,17 @@ public struct Grid
             if (newBuilding != Building.Laser && newBuilding != Building.Base) {// || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
-                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f);
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f);
                 float scale = building.GetComponent<buildingParameters>().scale;
                 building.transform.localScale = new Vector3(scale, scale, scale);
             } else if (newBuilding == Building.Laser) {
                 //building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing) - 2];
-                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f);
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f);
                 float scale = building.GetComponent<buildingParameters>().scale;
                 building.transform.localScale = new Vector3(scale, scale, scale);
             } else
-                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 0.7f, 0.7f, .3f) : new Vector4(0.7f, 1, 0.7f, .3f); // Used for debugging, not necessary with final art
+                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f); // Used for debugging, not necessary with final art
             building.transform.SetParent(buildingContainer.transform);
             building.transform.localPosition = coordsToWorld(x, y);
             if (newBuilding == Building.Laser && building.GetComponent<buildingParameters>().direction == Direction.Down)
@@ -728,7 +728,7 @@ public class gridManager : MonoBehaviour
                 theGrid.grid[y, x].owner = theGrid.placementList[i].owner;
                 theGrid.grid[y, x].direction = theGrid.placementList[i].direction;
                 theGrid.grid[y, x].health = theGrid.placementList[i].health;
-                theGrid.prefabDictionary[new XY(x,y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, 1f) : new Vector4(.7f, 1f, .7f, 1f);
+				theGrid.prefabDictionary[new XY(x,y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, 1f, 1f, 1f) : new Vector4(1f, 1f, 1f, 1f);
                 
                 theGrid.queueUpdate();
                 deletionCount++;
