@@ -18,16 +18,22 @@ public class TutorialModule : MonoBehaviour {
     public Sprite initialPopup3;                             // Another popup that appears when you first start the tutorial (optional)
     [Header("Destruction Popups")]
     public Sprite firstDestroyed;                            // Popup for first creature that is destroyed, leave it null if none
+    public bool endOnFirstDestroyed;
     public Sprite baseDestroyed;                             // Popup when base is destroyed
-    public List<specificDestructionPopup> specificDestroyed;    // Popups for when buildings at specific locations are destroyed
+    public bool endOnBaseDestruction;
+    public List<specificDestructionPopup> specificDestroyed; // Popups for when buildings at specific locations are destroyed
+    public bool endOnspecificDestroyed;
     [Header("Interaction Popups")]
     public Sprite firstPlacing;      
     public Sprite firstPlaced;       
+    public bool endOnPlaced;
     public Sprite firstMoving;       
     public Sprite firstMovingPlacing;
     public Sprite firstMoved; 
+    public bool endOnMoved;
     public Sprite firstRemoving;
     public Sprite firstRemoved;
+    public bool endOnRemoved;
     public List<tutorialTrigger> specificInteraction;           // Popups for when creatures at specific locations are moved/removed/placed
 
     [Serializable]

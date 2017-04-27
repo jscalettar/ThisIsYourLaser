@@ -10,7 +10,7 @@ public class Limicator : MonoBehaviour
     public float scale;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         limicatorObj = new LimicatorObject(limicator, sprites, scale);
     }

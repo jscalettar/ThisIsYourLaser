@@ -11,26 +11,40 @@ public class TutorialFramework : MonoBehaviour {
 
     public static bool tutorialActive = false;
     public GameObject Popup;    // Generic game object for displaying popups
+    public GameObject Board;    // Board with gridManager on it
 
     private TutorialModule activeTutorial;
+    private bool endFlag = false;
+
+    // -----------------------------------------------------------------------------------------------------------------------------------------------
 
     public void buildingDestructionEvent(XY pos, Building building)
     {
         if (activeTutorial.specificDestroyed.Count > 0) {
             for (int i = 0; i < activeTutorial.specificDestroyed.Count; i++) {
                 if (activeTutorial.specificDestroyed[i] != null && activeTutorial.specificDestroyed[i].pos == pos) {
-                    displayPopup(activeTutorial.specificDestroyed[i].popup, pos.x, pos.y); activeTutorial.specificDestroyed[i] = null; return;
+                    displayPopup(activeTutorial.specificDestroyed[i].popup, pos.x, pos.y); activeTutorial.specificDestroyed[i] = null;
+                    if (activeTutorial.endOnspecificDestroyed) endFlag = true; return;
                 }
             }
         }
         if (activeTutorial.baseDestroyed != null && building == Building.Base) {
-            displayPopup(activeTutorial.baseDestroyed); activeTutorial.baseDestroyed = null; return;
+            displayPopup(activeTutorial.baseDestroyed); activeTutorial.baseDestroyed = null;
+            if (activeTutorial.endOnBaseDestruction) endFlag = true; return;
         } else if (activeTutorial.firstDestroyed != null) {
-            displayPopup(activeTutorial.firstDestroyed); activeTutorial.firstDestroyed = null; return;
+            displayPopup(activeTutorial.firstDestroyed); activeTutorial.firstDestroyed = null;
+            if (activeTutorial.endOnFirstDestroyed) endFlag = true; return;
         }
     }
-        
-    private void displayPopup(Sprite tex, int x = -1, int y = -1)
+
+    public void moveEvent(inputController.Cursor cursor)
+    {
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------------------------------------
+
+    private void displayPopup(Sprite tex, int x = -1, int y = -1, bool destroy = false)
     {
         if (x > 0 && y > 0) Popup.transform.localPosition = gridManager.theGrid.coordsToWorld(x, y);
         else Popup.transform.localPosition = Vector3.zero;
@@ -43,18 +57,25 @@ public class TutorialFramework : MonoBehaviour {
 
     private void closePopup()
     {
-        // Add functionality for sequence of popups?
         Time.timeScale = 1;
         Popup.GetComponent<SpriteRenderer>().enabled = false;
+        if (endFlag) { endFlag = false; Invoke("nextTutorialLevel", 2); }
     }
 
-    private void nextTutorialLevel() // WIP
+    private void nextTutorialLevel()
     {
+        endFlag = false;
         if (activeTutorial.moduleOrderIndex + 1 >= transform.childCount) return;
-        activeTutorial = transform.GetChild(activeTutorial.moduleOrderIndex+1).GetComponent<TutorialModule>();
-        // board reset needs to go here
+        activeTutorial = transform.GetChild(activeTutorial.moduleOrderIndex + 1).GetComponent<TutorialModule>();
+        Transform toDelete = Board.transform.Find("ObjectHolder");
+        if (toDelete != null) Destroy(toDelete.gameObject);
+        foreach (var item in gridManager.theGrid.prefabDictionary) Destroy(item.Value);
+        Board.GetComponent<gridManager>().initGrid();
+        Board.GetComponent<inputController>().initCursors();
         spawnInitialCreatures();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------------------------------------
 
     private void spawnInitialCreatures()
     {
@@ -66,14 +87,29 @@ public class TutorialFramework : MonoBehaviour {
         }
     }
 
-	void Update () {
+    private void displayInitialPopups()
+    {
+        if (Popup.GetComponent<SpriteRenderer>().enabled == false) {
+            if (activeTutorial.initialPopup != null) { displayPopup(activeTutorial.initialPopup); activeTutorial.initialPopup = null; }
+            else if (activeTutorial.initialPopup2 != null) { displayPopup(activeTutorial.initialPopup2); activeTutorial.initialPopup2 = null; }
+            else if (activeTutorial.initialPopup3 != null) { displayPopup(activeTutorial.initialPopup3); activeTutorial.initialPopup3 = null; }
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------------------------------------
+
+    void Update () {
         // Check if popup is active, and close it if cancel pressed
         if (Time.timeScale == 0 && (Input.GetButtonDown("cancel_1") || Input.GetButtonDown("cancel_2"))) closePopup();
+
+        // Check if initial popups exist, and if so display them
+        if (activeTutorial.initialPopup != null || activeTutorial.initialPopup2 != null || activeTutorial.initialPopup3 != null) displayInitialPopups();
     }
 
     void Start ()
     {
         spawnInitialCreatures();
+        displayInitialPopups();
     }
 
     // Toggle Tutorial Game State

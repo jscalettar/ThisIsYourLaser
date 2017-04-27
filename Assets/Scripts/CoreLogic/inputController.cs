@@ -127,6 +127,22 @@ public class inputController : MonoBehaviour {
     private Queue<XY> moveQueueP1 = new Queue<XY>();
     private Queue<XY> moveQueueP2 = new Queue<XY>();
 
+    public void initCursors()
+    {
+        cycleP1 = 0;
+        cycleP2 = 0;
+        xEnd = gridManager.theGrid.getDimX() - 1;
+        yEnd = gridManager.theGrid.getDimY() - 1;
+        cursorP1 = new Cursor(0, 2, Direction.Right, Building.Resource, State.placeBase);
+        cursorP2 = new Cursor(xEnd, yEnd - 2, Direction.Left, Building.Resource, State.placeBase);
+        cursorP1Last = cursorP1;
+        cursorP2Last = cursorP2;
+        //PauseMenu = GameObject.Find("Pause Menu");
+        // Set initial cursor positions
+        cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
+        cursorObjP2.transform.position = new Vector3(cursorP2.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP2.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
+    }
+
     void Start () {
         Sounds = setSounds;
 		UISounds = setUISounds;
@@ -137,18 +153,7 @@ public class inputController : MonoBehaviour {
         p2UI = gameObject.AddComponent<playerTwoUI>();
         p2UI.State = GameObject.Find("p2State").GetComponent<Text>();*/
 
-        cycleP1 = 0;
-        cycleP2 = 0;
-        xEnd = gridManager.theGrid.getDimX() - 1;
-        yEnd = gridManager.theGrid.getDimY() - 1;
-        cursorP1 = new Cursor(0, 2, Direction.Right, Building.Resource, State.placeBase);
-        cursorP2 = new Cursor(xEnd, yEnd-2, Direction.Left, Building.Resource, State.placeBase);
-        cursorP1Last = cursorP1;
-        cursorP2Last = cursorP2;
-        //PauseMenu = GameObject.Find("Pause Menu");
-        // Set initial cursor positions
-        cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
-        cursorObjP2.transform.position = new Vector3(cursorP2.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP2.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
+        initCursors();
     }
 
     void Update()
@@ -453,8 +458,8 @@ public class inputController : MonoBehaviour {
                 }
 
                 // Check if ghost laser update needed
-                if (!cursorP1.Equals(cursorP1Last)) ghostLaser.ghostUpdateNeeded = true;
-                else if (!cursorP2.Equals(cursorP2Last)) ghostLaser.ghostUpdateNeeded = true;
+                if (!cursorP1.Equals(cursorP1Last)) { ghostLaser.ghostUpdateNeeded = true; if (TutorialFramework.tutorialActive && gridManager.theGrid.tutorialObject != null) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().moveEvent(cursorP1); }
+                else if (!cursorP2.Equals(cursorP2Last)) { ghostLaser.ghostUpdateNeeded = true; if (TutorialFramework.tutorialActive && gridManager.theGrid.tutorialObject != null) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().moveEvent(cursorP2); }
                 cursorP1Last = cursorP1;
                 cursorP2Last = cursorP2;
             }

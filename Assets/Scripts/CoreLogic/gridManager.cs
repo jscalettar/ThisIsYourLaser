@@ -94,11 +94,9 @@ public struct GridItem
     public Building building;   // Building type
     public Player owner;        // Who owns the block
     public Direction direction; // Used for laser block direction, other block rotations
-    //public int[] weakSides;     // {left, right, top, down} 1 for weak, 0 for not
     public byte level;          // Upgrade level
     public float health;
     public bool markedForDeath;
-    //public bool isWeak;
 
     public GridItem(bool emptyCell, Building structure, Player ownedBy, Direction facingDirection, float hitpoints, bool dying = false)
     {
@@ -107,10 +105,8 @@ public struct GridItem
         level = 0;
         owner = ownedBy;
         direction = facingDirection;
-        //weakSides = new int[4] { 0, 0, 0, 0 };
         health = hitpoints;
         markedForDeath = dying;
-        //isWeak = false;
     }
 
     public string toString()    // Convert GridItem to string for easy printing
@@ -137,7 +133,7 @@ public struct Grid
     private float buildingNumP1;
     private float buildingNumP2;
     private bool needsUpdate;
-    private GameObject tutorialObject;
+    public GameObject tutorialObject;
     private GameObject baseP1;
     private GameObject baseP2;
     private GameObject placementTimer;
@@ -150,11 +146,16 @@ public struct Grid
         GameObject Dots, GameObject placementTimerObj, GameObject tutorial, float limit, int blockResourceScale)
     {
         grid = new GridItem[y, x];
+        // Generate Object Holder
+        GameObject trashCompactor = new GameObject();
+        trashCompactor.name = "ObjectHolder";
+        trashCompactor.transform.SetParent(container.transform.parent.transform);
         gridSquares = new GameObject[y, x];
         for (int row = 0; row < y; row++) {
             for (int col = 0; col < x; col++) {
                 grid[row, col] = new GridItem(true, Building.Empty, Player.World, Direction.None, 0);
                 GameObject empty = MonoBehaviour.Instantiate(emptyHolder);    //makes transparent planes on each grid square
+                empty.transform.SetParent(trashCompactor.transform);
                 empty.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, -0.1f, (-y / 2) + row + 0.5f);
                 Color gridColor = Color.white;
                 //if (col < (x/2)) {
@@ -173,12 +174,14 @@ public struct Grid
         for (int row = 0; row < y; row++) {
             for (int col = 0; col < x-1; col++) {
                 GameObject dot = MonoBehaviour.Instantiate(Dots);
+                dot.transform.SetParent(trashCompactor.transform);
                 dot.transform.localPosition = new Vector3((-x / 2) + col + 1f, -0.1f, (-y / 2) + row + 0.5f);
             }
         }
         for (int row = 0; row < y-1; row++) {
             for (int col = 0; col < x; col++) {
                 GameObject dot = MonoBehaviour.Instantiate(Dots);
+                dot.transform.SetParent(trashCompactor.transform);
                 dot.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, -0.1f, (-y / 2) + row + 1f);
             }
         }
@@ -296,6 +299,7 @@ public struct Grid
 
     public float getCost(Building building, int x = -1, Player player = Player.World, bool moving = false, bool removing = false, bool swaping = false)
     {
+        if (TutorialFramework.tutorialActive) return 0f;
         if (building == Building.Empty) return 0f;
         float cost = buildingPrefabs[(int)building].GetComponent<buildingParameters>().cost;
         if (x == -1) return cost;
@@ -379,15 +383,11 @@ public struct Grid
 	{
 		if (!validateInput (x, y))
 			return false;
-		if (grid [y, x].isEmpty && probeGrid (x, y, facing, newBuilding) && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost (newBuilding) && (playerID == Player.PlayerOne ? buildingNumP1 : buildingNumP2) <= 11) { //10 buildings per player
+        if (grid [y, x].isEmpty && probeGrid (x, y, facing, newBuilding) && newBuilding != Building.Empty && (playerID == Player.PlayerOne ? resourcesP1 : resourcesP2) >= getCost (newBuilding) && (playerID == Player.PlayerOne ? buildingNumP1 : buildingNumP2) <= 11) { //10 buildings per player
 			if (prefabDictionary.ContainsKey (new XY (x, y)))
 				return false;
-
-            // Emit Placement Particle
-            emitParticles.genericParticle.emitParticle(x, y, particleType.place);
-
-			// Place Building Prefab
-			GameObject building = MonoBehaviour.Instantiate(buildingPrefabs [(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
+            // Place Building Prefab
+            GameObject building = MonoBehaviour.Instantiate(buildingPrefabs [(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
 			if (instant) placementList.Add (new buildingRequest(new XY (x, y), 0f, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
 			else placementList.Add (new buildingRequest(new XY (x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
 			building.GetComponent<buildingParameters>().x = x;
@@ -437,6 +437,9 @@ public struct Grid
             if (newBuilding == Building.Base) { if (playerID == Player.PlayerOne) baseP1 = building; else baseP2 = building; }
             // Placement Timer
             if (!instant) {
+                // Emit Placement Particle
+                emitParticles.genericParticle.emitParticle(x, y, particleType.place);
+
                 GameObject placementTimerObject = MonoBehaviour.Instantiate(placementTimer);
                 placementTimerObject.transform.parent = buildingContainer.transform.parent.transform;
                 placementTimerObject.transform.localEulerAngles = new Vector3(90f, 0, 0);
@@ -673,13 +676,17 @@ public class gridManager : MonoBehaviour
     private GameObject buildingContainer;
     private int deletionCount = 0;
 
+    public void initGrid()
+    {
+        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources,
+            startingBuildingNum, empty, dot, placementTimerObj, tutorialObject, limit, blockResourceScale);
+    }
 
     void Awake()
     {
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
-        theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources,
-            startingBuildingNum, empty, dot, placementTimerObj, tutorialObject, limit, blockResourceScale);
+        initGrid();
     }
     
     void LateUpdate()
