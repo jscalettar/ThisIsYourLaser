@@ -1684,14 +1684,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 31dab7f1106c1c04b9220614587c9259, type: 3}
   - {fileID: 21300000, guid: 4821043a645c15542b20b9079832290d, type: 3}
   - {fileID: 21300000, guid: dbe9387d05931e240a3ec726f0c8bce3, type: 3}
-  - {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
+  - {fileID: 21300000, guid: 89a5b54086407be4dad6126c140b5e7a, type: 3}
   Reflect:
   - {fileID: 21300000, guid: 865c5161b90546641823af71c50420c5, type: 3}
   - {fileID: 21300000, guid: 3741c4e5faa520143a0f4da027bc4326, type: 3}
   - {fileID: 21300000, guid: c39cf1bb27a430044a45eb092d49d277, type: 3}
   - {fileID: 21300000, guid: 7a15a8bc2f5900a45ad291d7205fba06, type: 3}
   Refract:
-  - {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
+  - {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
   Redirect:
   - {fileID: 21300000, guid: 342f74784aac9e24b98b90091d61f000, type: 3}
   - {fileID: 21300000, guid: 6c32c7dab3a602f47b778cb5e492754f, type: 3}
@@ -29745,11 +29745,11 @@ MonoBehaviour:
   Laser: {fileID: 1857337499070074, guid: e8b4216f3f61fd04787f914a67bb57de, type: 2}
   Laser2: {fileID: 1967906596791806, guid: bc474a4d601159b4aa500a408665f7bf, type: 2}
   Block: {fileID: 1737375806282318, guid: 5047ebc5d548d8f4fb2ceffa7b621528, type: 2}
-  Block2: {fileID: 1737375806282318, guid: 5047ebc5d548d8f4fb2ceffa7b621528, type: 2}
+  Block2: {fileID: 1081677609712062, guid: f0b9370630f5ab6499bf70b676c002ae, type: 2}
   Reflect: {fileID: 1883300556590216, guid: afce4c4c0b2087c4584f3330281538f5, type: 2}
   Reflect2: {fileID: 1813565523808972, guid: 88eb5ba0bd4b55a4db68588ea88e4d20, type: 2}
   Refract: {fileID: 1213130919227048, guid: e4fdf889a6a937f46bc4a18df79c26e7, type: 2}
-  Refract2: {fileID: 1213130919227048, guid: e4fdf889a6a937f46bc4a18df79c26e7, type: 2}
+  Refract2: {fileID: 1332573950128304, guid: b3213138e1061564dbcc99929a3f686d, type: 2}
   Redirect: {fileID: 1514336581799410, guid: 561cd42c486b95f44960551027dc8707, type: 2}
   Redirect2: {fileID: 1355155930051208, guid: 064f1325138a99d449047f5285014fd6, type: 2}
   Resource: {fileID: 1391260837703470, guid: 28e85a6912b3e95429f4b4e82bd0df66, type: 2}
@@ -29790,10 +29790,10 @@ MonoBehaviour:
   P1RedirectSprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
   P1ResourceSprite: {fileID: 21300000, guid: f36b9dade0bea4643920a9a58b67c188, type: 3}
   P2BaseSprite: {fileID: 21300000, guid: e1ed60fdd53e6594a811828f577f4696, type: 3}
-  P2BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
+  P2BlockSprite: {fileID: 21300000, guid: 89a5b54086407be4dad6126c140b5e7a, type: 3}
   P2LaserSprite: {fileID: 21300000, guid: 10a42876459d14148baee6e2e9010d00, type: 3}
   P2ReflectSprite: {fileID: 21300000, guid: 7a15a8bc2f5900a45ad291d7205fba06, type: 3}
-  P2RefractSprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
+  P2RefractSprite: {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
   P2RedirectSprite: {fileID: 21300000, guid: cfa8eca0464594440a6b5a3a5b4a7f5e, type: 3}
   P2ResourceSprite: {fileID: 21300000, guid: 8fbf10a19a34ce74795ea3a42cd1db27, type: 3}
   RedirectUp: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
