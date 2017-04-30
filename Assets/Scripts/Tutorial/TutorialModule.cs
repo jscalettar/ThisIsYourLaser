@@ -18,34 +18,34 @@ public class TutorialModule : MonoBehaviour {
     [Header("Initial Creature Spawnlist")]
     public List<SpawnItem> spawnList;
     [Header("Initial Popup(s)")]
-    public Sprite initialPopup;                              // Popup that appears when you first start the tutorial
-    public Sprite initialPopup2;                             // Another popup that appears when you first start the tutorial (optional)
-    public Sprite initialPopup3;                             // Another popup that appears when you first start the tutorial (optional)
+    public Texture2D initialPopup;                              // Popup that appears when you first start the tutorial
+    public Texture2D initialPopup2;                             // Another popup that appears when you first start the tutorial (optional)
+    public Texture2D initialPopup3;                             // Another popup that appears when you first start the tutorial (optional)
     [Header("Destruction Popups")]
-    public Sprite firstDestroyed;                            // Popup for first creature that is destroyed, leave it null if none
+    public Texture2D firstDestroyed;                            // Popup for first creature that is destroyed, leave it null if none
     public bool endOnFirstDestroyed;
-    public Sprite baseDestroyed;                             // Popup when base is destroyed
+    public Texture2D baseDestroyed;                             // Popup when base is destroyed
     public bool endOnBaseDestruction;
     public List<specificDestructionPopup> specificDestroyed; // Popups for when buildings at specific locations are destroyed
     [Header("Interaction Popups")]
-    public Sprite firstPlacing;      
-    public Sprite firstPlaced;       
+    public Texture2D firstPlacing;      
+    public Texture2D firstPlaced;       
     public bool endOnPlaced;
-    public Sprite firstMoving;       
-    public Sprite firstMovingPlacing;
-    public Sprite firstMoved; 
+    public Texture2D firstMoving;       
+    public Texture2D firstMovingPlacing;
+    public Texture2D firstMoved; 
     public bool endOnMoved;
-    public Sprite firstRemoving;
-    public Sprite firstRemoved;
+    public Texture2D firstRemoving;
+    public Texture2D firstRemoved;
     public bool endOnRemoved;
     public List<specificInteractionPopup> specificInteraction;           // Popups for when creatures at specific locations are moved/removed/placed
     [Header("Cursor Movement Popups")]
-    public Sprite movedLeft;
-    public Sprite movedRight;
-    public Sprite movedUp;
-    public Sprite movedDown;
+    public Texture2D movedLeft;
+    public Texture2D movedRight;
+    public Texture2D movedUp;
+    public Texture2D movedDown;
     public bool endOnAllDirectionsMoved;
-    public Sprite allDrectionsMovedPopup;
+    public Texture2D allDrectionsMovedPopup;
 
     [Serializable]
     public class SpawnItem
@@ -61,7 +61,7 @@ public class TutorialModule : MonoBehaviour {
     public class specificDestructionPopup
     {
         public XY pos;
-        public Sprite popup;
+        public Texture2D popup;
         public bool endTrigger;
     }
 
@@ -71,7 +71,7 @@ public class TutorialModule : MonoBehaviour {
         public XY pos;
         public Building building = Building.Any;
         public tutorialTrigger type;
-        public Sprite popup;
+        public Texture2D popup;
         public bool endTrigger;
     }
 }
