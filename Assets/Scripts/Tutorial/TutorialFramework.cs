@@ -24,7 +24,7 @@ public class TutorialFramework : MonoBehaviour {
             for (int i = 0; i < activeTutorial.specificDestroyed.Count; i++) {
                 if (activeTutorial.specificDestroyed[i] != null && activeTutorial.specificDestroyed[i].pos == pos) {
                     if (activeTutorial.specificDestroyed[i].endTrigger) endFlag = true;
-                    displayPopup(activeTutorial.specificDestroyed[i].popup, pos.x, pos.y);
+                    displayPopup(activeTutorial.specificDestroyed[i].popup);
                     activeTutorial.specificDestroyed[i] = null;
                     return;
                 }
@@ -41,17 +41,68 @@ public class TutorialFramework : MonoBehaviour {
 
     public void moveEvent(inputController.Cursor cursor, inputController.Cursor cursorLast) // cursor move event
     {
+        if (cursor.x > cursorLast.x)
+        {
+            if (activeTutorial.movedRight != null)
+                displayPopup(activeTutorial.movedRight); activeTutorial.movedRight = null;
+        } else if (cursor.x < cursorLast.x)
+        {
+            if (activeTutorial.movedLeft != null)
+                displayPopup(activeTutorial.movedLeft); activeTutorial.movedLeft = null;
+        } else if (cursor.y > cursorLast.y)
+        {
+            if (activeTutorial.movedUp != null)
+                displayPopup(activeTutorial.movedUp); activeTutorial.movedUp = null;
+        } else if (cursor.y < cursorLast.y)
+        {
+            if (activeTutorial.movedDown != null)
+                displayPopup(activeTutorial.movedDown); activeTutorial.movedDown = null;
+        }
+        if (activeTutorial.endOnAllDirectionsMoved && activeTutorial.movedRight == null && activeTutorial.movedLeft == null && activeTutorial.movedUp == null && activeTutorial.movedDown == null) endFlag = true;
 
     }
 
     public void placedEvent(XY pos, Building building)
     {
-
+        if (activeTutorial.specificInteraction.Count > 0)
+        {
+            for (int i = 0; i < activeTutorial.specificInteraction.Count; i++)
+            {
+                if (activeTutorial.specificInteraction[i] != null && activeTutorial.specificInteraction[i].type == tutorialTrigger.placed && (activeTutorial.specificInteraction[i].pos == pos || activeTutorial.specificInteraction[i].pos == new XY(-1, -1)))
+                {
+                    if (activeTutorial.specificInteraction[i].endTrigger) endFlag = true;
+                    displayPopup(activeTutorial.specificInteraction[i].popup);
+                    activeTutorial.specificInteraction[i] = null;
+                    return;
+                }
+            }
+        }
+        else if (activeTutorial.firstPlaced != null)
+        {
+            displayPopup(activeTutorial.firstPlaced); activeTutorial.firstPlaced = null;
+            if (activeTutorial.endOnPlaced) endFlag = true; return;
+        }
     }
 
     public void placingEvent(XY pos, Building building)
     {
-
+        if (activeTutorial.specificInteraction.Count > 0)
+        {
+            for (int i = 0; i < activeTutorial.specificInteraction.Count; i++)
+            {
+                if (activeTutorial.specificInteraction[i] != null && activeTutorial.specificInteraction[i].type == tutorialTrigger.placing && (activeTutorial.specificInteraction[i].pos == pos || activeTutorial.specificInteraction[i].pos == new XY(-1, -1)))
+                {
+                    if (activeTutorial.specificInteraction[i].endTrigger) endFlag = true;
+                    displayPopup(activeTutorial.specificInteraction[i].popup);
+                    activeTutorial.specificInteraction[i] = null;
+                    return;
+                }
+            }
+        }
+        else if (activeTutorial.firstPlacing != null)
+        {
+            displayPopup(activeTutorial.firstPlacing); activeTutorial.firstPlacing = null;
+        }
     }
 
     public void movedEvent(XY pos, Building building)
@@ -83,6 +134,8 @@ public class TutorialFramework : MonoBehaviour {
 
     private void displayPopup(Texture2D tex, int x = -1, int y = -1, bool destroy = false)
     {
+        if (tex == null) return;
+
         if (x > 0 && y > 0) Popup.transform.localPosition = gridManager.theGrid.coordsToWorld(x, y);
         else Popup.transform.localPosition = Vector3.zero;
 

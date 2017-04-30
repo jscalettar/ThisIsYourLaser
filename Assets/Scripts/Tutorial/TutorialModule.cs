@@ -68,7 +68,7 @@ public class TutorialModule : MonoBehaviour {
     [Serializable]
     public class specificInteractionPopup
     {
-        public XY pos;
+        public XY pos = new XY(-1, -1);
         public Building building = Building.Any;
         public tutorialTrigger type;
         public Texture2D popup;

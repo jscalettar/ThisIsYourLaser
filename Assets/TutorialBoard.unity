@@ -810,7 +810,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5d1730c5fe5a3d943bc0c4245e9c5a71, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3406,7 +3406,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5d1730c5fe5a3d943bc0c4245e9c5a71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a37c63a641e9a024a8ac6237221d236d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6111,7 +6111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleOrderIndex: 0
-  initialState: 0
+  initialState: 2
   initialSelection: 2
   spawnList:
   - x: 2
@@ -6124,19 +6124,14 @@ MonoBehaviour:
     building: 2
     player: 2
     direction: 8
-  initialPopup: {fileID: 21300000, guid: 3d3ecd202c115ee4ea85ea95724adb1a, type: 3}
-  initialPopup2: {fileID: 21300000, guid: b1bb2b67b437b5f498ba6179f1ccd0b8, type: 3}
-  initialPopup3: {fileID: 21300000, guid: 492a7a375f2cc5641a164c648362022a, type: 3}
-  firstDestroyed: {fileID: 21300000, guid: 3b7671bbcc73b724795008c65ae78b21, type: 3}
+  initialPopup: {fileID: 0}
+  initialPopup2: {fileID: 0}
+  initialPopup3: {fileID: 0}
+  firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
-  baseDestroyed: {fileID: 21300000, guid: 45c3dbc26fb994544964289ad8109513, type: 3}
+  baseDestroyed: {fileID: 0}
   endOnBaseDestruction: 0
-  specificDestroyed:
-  - pos:
-      x: 3
-      y: 3
-    popup: {fileID: 21300000, guid: d4167f815ad4ae542a59bb6cfe19a899, type: 3}
-    endTrigger: 1
+  specificDestroyed: []
   firstPlacing: {fileID: 0}
   firstPlaced: {fileID: 0}
   endOnPlaced: 0
@@ -7493,7 +7488,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5d1730c5fe5a3d943bc0c4245e9c5a71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1ed60fdd53e6594a811828f577f4696, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10594,8 +10589,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorObjP1: {fileID: 73391205}
   cursorObjP2: {fileID: 1908866096}
-  cursorSpriteP1: {fileID: 405071636}
-  cursorSpriteP2: {fileID: 864607378}
+  cursorSpriteP1: {fileID: 0}
+  cursorSpriteP2: {fileID: 0}
   indicatorP1: {fileID: 1681237123}
   indicatorP2: {fileID: 26559069}
   LaserArrowP1: {fileID: 635328137}
@@ -16435,7 +16430,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: deb4624d063151344abdf095853929b8, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
