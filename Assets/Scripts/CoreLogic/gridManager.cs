@@ -37,7 +37,7 @@ using UnityEngine;
 //                                                                                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public enum Building { Base, Laser, Blocking, Reflecting, Refracting, Redirecting, Resource, Portal, Empty };
+public enum Building { Base, Laser, Blocking, Reflecting, Refracting, Redirecting, Resource, Portal, Empty, Any };
 public enum Player { World, PlayerOne, PlayerTwo, Shared }; // World Refers to neutral spaces owned by neither player
 public enum Direction { None, NE, NW, SE, SW, Left, Right, Up, Down };
 
@@ -376,20 +376,20 @@ public struct Grid
 
                     SoundManager.PlaySound(inputController.Sounds[5].audioclip,SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
                     timer = .7f;
-                    MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
+                    //MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
                 }
                 else{
                     SoundManager.PlaySound(inputController.Sounds[5].audioclip,SoundManager.globalSoundsVolume*laserCeiling/80); 
                     timer = .7f;
-                    MonoBehaviour.print(SoundManager.globalSoundsVolume*laserCeiling/80);
+                    //MonoBehaviour.print(SoundManager.globalSoundsVolume*laserCeiling/80);
                 }
             }
             if(hitTimer < 0 ){
-                SoundManager.PlaySound(inputController.Sounds[6].audioclip,SoundManager.globalSoundsVolume/60); 
+                //SoundManager.PlaySound(inputController.Sounds[6].audioclip,SoundManager.globalSoundsVolume/60); // was causing error in tutorial scene, not sure why
                 hitTimer = 4.5f;
             }
 
-            MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)));
+            // MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))); // Print statements cause lag
             prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
             floatingNumbers.floatingNumbersStruct.checkDamage(new XY(x, y), grid[y, x].health, prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().health, grid[y, x].building, grid[y, x].owner);
             if (grid[y, x].health <= 0f) {
@@ -604,65 +604,6 @@ public struct Grid
         } else return false;
         return true;
     }
-
-    /*public bool swapBuilding(int x, int y, int xNew, int yNew, Player playerID) // Need to add rotation? // Never going to be used?
-    {
-        if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
-        if (!grid[y, x].isEmpty && !grid[yNew, xNew].isEmpty && playerID == grid[y, x].owner && playerID == grid[yNew, xNew].owner) {
-            Building tempBuild = grid[yNew, xNew].building;
-            Direction tempDir = grid[yNew, xNew].direction;
-            int[] tempWeakSides = grid[yNew, xNew].weakSides;
-            byte tempLevel = grid[yNew, xNew].level;
-            float tempHealth = grid[yNew, xNew].health;
-            grid[yNew, xNew].building = grid[y, x].building;
-            grid[yNew, xNew].direction = grid[y, x].direction;
-            grid[yNew, xNew].weakSides = grid[y, x].weakSides;
-            grid[yNew, xNew].level = grid[y, x].level;
-            grid[yNew, xNew].health = grid[y, x].health;
-            grid[y, x].building = tempBuild;
-            grid[y, x].direction = tempDir;
-            grid[y, x].weakSides = tempWeakSides;
-            grid[y, x].level = tempLevel;
-            grid[y, x].health = tempHealth;
-            // Swap Building Prefab
-            GameObject building = prefabDictionary[new XY(x, y)];
-            GameObject building2 = prefabDictionary[new XY(xNew, yNew)];
-            building.GetComponent<buildingParameters>().x = xNew;
-            building.GetComponent<buildingParameters>().y = yNew;
-            building2.GetComponent<buildingParameters>().x = x;
-            building2.GetComponent<buildingParameters>().y = y;
-            building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
-            building.transform.localPosition = new Vector3((-dimX / 2) + x + 0.5f, 0, (-dimY / 2) + y + 0.5f);
-            prefabDictionary.Remove(new XY(x, y));
-            prefabDictionary.Remove(new XY(xNew, yNew));
-            prefabDictionary.Add(new XY(xNew, yNew), building);
-            prefabDictionary.Add(new XY(x, y), building2);
-            // Subtract some resources for swapped buildings (equal to the cost to individually move each building / 2)
-            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, false, false, true);
-            else resourcesP2 -= getCost(building.GetComponent<buildingParameters>().building, xNew, playerID, false, false, true);
-            if (playerID == Player.PlayerOne) resourcesP1 -= getCost(building2.GetComponent<buildingParameters>().building, x, playerID, false, false, true);
-            else resourcesP2 -= getCost(building2.GetComponent<buildingParameters>().building, x, playerID, false, false, true);
-            // Specify that the board was updated and that laserLogic needs to run a simulation
-            needsUpdate = true;
-        } else return false;
-        return true;
-    }*/
-
-    /* Backlog
-    private bool canBeUpgraded(GridItem item)
-    {
-        // Add upgrade conditions here
-        return true;
-    }
-
-    public bool upgradeBuilding(int x, int y, Player playerID)
-    {
-        if (!validateInput(x, y)) return false;
-        if (!grid[y, x].isEmpty && playerID == grid[y, x].owner && canBeUpgraded(grid[y, x])) {
-            grid[y, x].level++;
-        } else return false;
-        return true;
-    }*/
 }
 
 public class gridManager : MonoBehaviour

@@ -23,8 +23,10 @@ public class TutorialFramework : MonoBehaviour {
         if (activeTutorial.specificDestroyed.Count > 0) {
             for (int i = 0; i < activeTutorial.specificDestroyed.Count; i++) {
                 if (activeTutorial.specificDestroyed[i] != null && activeTutorial.specificDestroyed[i].pos == pos) {
-                    displayPopup(activeTutorial.specificDestroyed[i].popup, pos.x, pos.y); activeTutorial.specificDestroyed[i] = null;
-                    if (activeTutorial.endOnspecificDestroyed) endFlag = true; return;
+                    if (activeTutorial.specificDestroyed[i].endTrigger) endFlag = true;
+                    displayPopup(activeTutorial.specificDestroyed[i].popup, pos.x, pos.y);
+                    activeTutorial.specificDestroyed[i] = null;
+                    return;
                 }
             }
         }
@@ -37,7 +39,42 @@ public class TutorialFramework : MonoBehaviour {
         }
     }
 
-    public void moveEvent(inputController.Cursor cursor)
+    public void moveEvent(inputController.Cursor cursor, inputController.Cursor cursorLast) // cursor move event
+    {
+
+    }
+
+    public void placedEvent(XY pos, Building building)
+    {
+
+    }
+
+    public void placingEvent(XY pos, Building building)
+    {
+
+    }
+
+    public void movedEvent(XY pos, Building building)
+    {
+
+    }
+
+    public void movingEvent(XY pos, Building building)
+    {
+
+    }
+
+    public void movingPlacingEvent(XY pos, Building building)
+    {
+
+    }
+
+    public void removedEvent(XY pos, Building building)
+    {
+
+    }
+
+    public void removingEvent(XY pos, Building building)
     {
 
     }
@@ -94,6 +131,18 @@ public class TutorialFramework : MonoBehaviour {
             else if (activeTutorial.initialPopup2 != null) { displayPopup(activeTutorial.initialPopup2); activeTutorial.initialPopup2 = null; }
             else if (activeTutorial.initialPopup3 != null) { displayPopup(activeTutorial.initialPopup3); activeTutorial.initialPopup3 = null; }
         }
+    }
+
+    public void setupCursorState()
+    {
+        inputController.p2HasPlacedBase = true;
+        switch (activeTutorial.initialState) {
+            case startState.placeBase: inputController.cursorP1.state = State.placeBase; break;
+            case startState.placeLaser: inputController.cursorP1.state = State.placeLaser; inputController.p1HasPlacedBase = true; break;
+            case startState.idle: inputController.cursorP1.state = State.idle; inputController.p1HasPlacedBase = true; break;
+        }
+        if ((inputController.cursorP1.state == State.placeBase || inputController.cursorP1.state == State.placeLaser) && (activeTutorial.initialSelection == Building.Base || activeTutorial.initialSelection == Building.Laser)) return;
+        inputController.cursorP1.selection = activeTutorial.initialSelection;
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------

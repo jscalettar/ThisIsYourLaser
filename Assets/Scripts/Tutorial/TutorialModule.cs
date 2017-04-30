@@ -3,12 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum tutorialTrigger { placed, moved, removed };
+public enum tutorialTrigger { placed, placing, moved, moving, removed, removing, cursorMovedTo };
+public enum startState { placeBase, placeLaser, idle };
 
 public class TutorialModule : MonoBehaviour {
     [Tooltip("For keeping track of the order of tutorial levels, used when cycling through levels")]
     [Header("Module Index")]
     public int moduleOrderIndex;
+    [Header("Starting State")]
+    public startState initialState;
+    [Header("Starting Building Selection")]
+    public Building initialSelection = Building.Blocking;
     [Tooltip("List of creatures to place into tutorial level")]
     [Header("Initial Creature Spawnlist")]
     public List<SpawnItem> spawnList;
@@ -22,7 +27,6 @@ public class TutorialModule : MonoBehaviour {
     public Sprite baseDestroyed;                             // Popup when base is destroyed
     public bool endOnBaseDestruction;
     public List<specificDestructionPopup> specificDestroyed; // Popups for when buildings at specific locations are destroyed
-    public bool endOnspecificDestroyed;
     [Header("Interaction Popups")]
     public Sprite firstPlacing;      
     public Sprite firstPlaced;       
@@ -34,7 +38,14 @@ public class TutorialModule : MonoBehaviour {
     public Sprite firstRemoving;
     public Sprite firstRemoved;
     public bool endOnRemoved;
-    public List<tutorialTrigger> specificInteraction;           // Popups for when creatures at specific locations are moved/removed/placed
+    public List<specificInteractionPopup> specificInteraction;           // Popups for when creatures at specific locations are moved/removed/placed
+    [Header("Cursor Movement Popups")]
+    public Sprite movedLeft;
+    public Sprite movedRight;
+    public Sprite movedUp;
+    public Sprite movedDown;
+    public bool endOnAllDirectionsMoved;
+    public Sprite allDrectionsMovedPopup;
 
     [Serializable]
     public class SpawnItem
@@ -51,13 +62,16 @@ public class TutorialModule : MonoBehaviour {
     {
         public XY pos;
         public Sprite popup;
+        public bool endTrigger;
     }
 
     [Serializable]
     public class specificInteractionPopup
     {
         public XY pos;
+        public Building building = Building.Any;
         public tutorialTrigger type;
         public Sprite popup;
+        public bool endTrigger;
     }
 }

@@ -6110,12 +6110,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleOrderIndex: 0
+  initialState: 0
+  initialSelection: 2
   spawnList:
   - x: 2
-    y: 3
-    building: 2
+    y: 4
+    building: 3
     player: 2
-    direction: 8
+    direction: 6
   - x: 3
     y: 3
     building: 2
@@ -6127,13 +6129,13 @@ MonoBehaviour:
   firstDestroyed: {fileID: 21300000, guid: 3b7671bbcc73b724795008c65ae78b21, type: 3}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 21300000, guid: 45c3dbc26fb994544964289ad8109513, type: 3}
-  endOnBaseDestruction: 1
+  endOnBaseDestruction: 0
   specificDestroyed:
   - pos:
       x: 3
       y: 3
     popup: {fileID: 21300000, guid: d4167f815ad4ae542a59bb6cfe19a899, type: 3}
-  endOnspecificDestroyed: 0
+    endTrigger: 1
   firstPlacing: {fileID: 0}
   firstPlaced: {fileID: 0}
   endOnPlaced: 0
@@ -6144,7 +6146,13 @@ MonoBehaviour:
   firstRemoving: {fileID: 0}
   firstRemoved: {fileID: 0}
   endOnRemoved: 0
-  specificInteraction: 
+  specificInteraction: []
+  movedLeft: {fileID: 0}
+  movedRight: {fileID: 0}
+  movedUp: {fileID: 0}
+  movedDown: {fileID: 0}
+  endOnAllDirectionsMoved: 0
+  allDrectionsMovedPopup: {fileID: 0}
 --- !u!1 &714450399
 GameObject:
   m_ObjectHideFlags: 0
@@ -7497,7 +7505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 865747136}
   - component: {fileID: 865747135}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Popup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10383,7 +10391,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splash: {fileID: 153116, guid: 5caa4c4c9994a554d84ae18bb8941791, type: 2}
   explosion: {fileID: 120184, guid: c4483c3fbe6fa8848a70e2a377130971, type: 2}
-  resource: {fileID: 1285733120507736, guid: c469784edbcc3d14d878583dc57ad147, type: 2}
 --- !u!114 &1158444978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10562,7 +10569,6 @@ MonoBehaviour:
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
     type: 2}
   hitEffect: {fileID: 1298907687621598, guid: 9579064596fbff54e8b756c71df0a708, type: 2}
-  timer: 0.5
 --- !u!114 &1158444986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15466,6 +15472,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleOrderIndex: 1
+  initialState: 0
+  initialSelection: 0
   spawnList:
   - x: 3
     y: 3
@@ -15484,7 +15492,7 @@ MonoBehaviour:
       x: 3
       y: 3
     popup: {fileID: 21300000, guid: d4167f815ad4ae542a59bb6cfe19a899, type: 3}
-  endOnspecificDestroyed: 0
+    endTrigger: 0
   firstPlacing: {fileID: 0}
   firstPlaced: {fileID: 0}
   endOnPlaced: 0
@@ -15495,7 +15503,20 @@ MonoBehaviour:
   firstRemoving: {fileID: 0}
   firstRemoved: {fileID: 0}
   endOnRemoved: 0
-  specificInteraction: 00000000
+  specificInteraction:
+  - pos:
+      x: 0
+      y: 0
+    building: 9
+    type: 0
+    popup: {fileID: 0}
+    endTrigger: 0
+  movedLeft: {fileID: 0}
+  movedRight: {fileID: 0}
+  movedUp: {fileID: 0}
+  movedDown: {fileID: 0}
+  endOnAllDirectionsMoved: 0
+  allDrectionsMovedPopup: {fileID: 0}
 --- !u!1 &1799660652
 GameObject:
   m_ObjectHideFlags: 0
@@ -16236,7 +16257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1908866097
 Transform:
   m_ObjectHideFlags: 0
