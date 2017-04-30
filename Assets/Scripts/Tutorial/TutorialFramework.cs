@@ -85,11 +85,11 @@ public class TutorialFramework : MonoBehaviour {
     {
         if (x > 0 && y > 0) Popup.transform.localPosition = gridManager.theGrid.coordsToWorld(x, y);
         else Popup.transform.localPosition = Vector3.zero;
-
-        Sprite sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), (Screen.width / 1920f) * 200f);
-        Popup.GetComponent<SpriteRenderer>().sprite = sprite;
-        Popup.GetComponent<SpriteRenderer>().enabled = true;
-
+        if (tex != null){
+            Sprite sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), (Screen.width / 1920f) * 200f);
+            Popup.GetComponent<SpriteRenderer>().sprite = sprite;
+            Popup.GetComponent<SpriteRenderer>().enabled = true;
+        }
         Time.timeScale = 0;
     }
 
