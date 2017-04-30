@@ -26,7 +26,7 @@ public class startMenu : MonoBehaviour {
     public GameObject ReflectPage;
     public GameObject BlockPage;
     public GameObject RedirectPage;
-
+    public GameObject ControlsPage;
     //Vars for buttons/toggles/sliders
     public Button Play;
     public Button Exit;
@@ -61,6 +61,7 @@ public class startMenu : MonoBehaviour {
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
         CreatureMenu.SetActive(false);
+        ControlsPage.SetActive(false);
         ResourcePage.SetActive(false);
         RefractPage.SetActive(false);
         ReflectPage.SetActive(false);
@@ -74,6 +75,7 @@ public class startMenu : MonoBehaviour {
         OptionMenu.SetActive(true);
         InstructMenu.SetActive(false);
         CreatureMenu.SetActive(false);
+        ControlsPage.SetActive(false);
         ResourcePage.SetActive(false);
         RefractPage.SetActive(false);
         ReflectPage.SetActive(false);
@@ -87,6 +89,7 @@ public class startMenu : MonoBehaviour {
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(true);
         CreatureMenu.SetActive(false);
+        ControlsPage.SetActive(false);
         ResourcePage.SetActive(false);
         RefractPage.SetActive(false);
         ReflectPage.SetActive(false);
@@ -100,6 +103,21 @@ public class startMenu : MonoBehaviour {
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
         CreatureMenu.SetActive(true);
+        ControlsPage.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
+    }
+
+    public void ControlPage()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        ControlsPage.SetActive(true);
         ResourcePage.SetActive(false);
         RefractPage.SetActive(false);
         ReflectPage.SetActive(false);
@@ -114,6 +132,7 @@ public class startMenu : MonoBehaviour {
         InstructMenu.SetActive(false);
         CreatureMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        ControlsPage.SetActive(false);
         ResourcePage.SetActive(true);
         RefractPage.SetActive(false);
         ReflectPage.SetActive(false);
@@ -128,6 +147,7 @@ public class startMenu : MonoBehaviour {
         InstructMenu.SetActive(false);
         CreatureMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        ControlsPage.SetActive(false);
         ResourcePage.SetActive(false);
         RefractPage.SetActive(true);
         ReflectPage.SetActive(false);
@@ -142,6 +162,7 @@ public class startMenu : MonoBehaviour {
         InstructMenu.SetActive(false);
         CreatureMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        ControlsPage.SetActive(false);
         ResourcePage.SetActive(false);
         RefractPage.SetActive(false);
         ReflectPage.SetActive(true);
@@ -156,6 +177,7 @@ public class startMenu : MonoBehaviour {
         InstructMenu.SetActive(false);
         CreatureMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        ControlsPage.SetActive(false);
         ResourcePage.SetActive(false);
         RefractPage.SetActive(false);
         ReflectPage.SetActive(false);
@@ -170,6 +192,7 @@ public class startMenu : MonoBehaviour {
         InstructMenu.SetActive(false);
         CreatureMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        ControlsPage.SetActive(false);
         ResourcePage.SetActive(false);
         RefractPage.SetActive(false);
         ReflectPage.SetActive(false);

@@ -6,13 +6,14 @@ public class Limicator : MonoBehaviour
 {
     public static LimicatorObject limicatorObj;
     public GameObject limicator;
-    public Sprite[] sprites;
+    public Sprite[] sprites1;
+    public Sprite[] sprites2;
     public float scale;
 
     // Use this for initialization
     void Awake()
     {
-        limicatorObj = new LimicatorObject(limicator, sprites, scale);
+        limicatorObj = new LimicatorObject(limicator, sprites1, sprites2, scale);
     }
 
     // Update is called once per frame
@@ -29,13 +30,15 @@ public class Limicator : MonoBehaviour
         //[HideInInspector]
         public int p2StonesPlaced;
         public float scale;
-        public Sprite[] sprites;
+        public Sprite[] sprites1;
+        public Sprite[] sprites2;
         public GameObject limicator;
 
-        public LimicatorObject(GameObject limiter, Sprite[] sprits, float scal)
+        public LimicatorObject(GameObject limiter, Sprite[] sprits1, Sprite[] sprits2, float scal)
         {
             limicator = limiter;
-            sprites = sprits;
+            sprites1 = sprits1;
+            sprites2 = sprits2;
             scale = scal;
             for(int i = 0; i< 2; i++){
                 for (int j = 0; j< 10; j++)
@@ -70,13 +73,13 @@ public class Limicator : MonoBehaviour
                 if (i == 0)
                 {
                     stones[i, p1StonesPlaced].transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
-                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
+                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites1[animal];
                     p1StonesPlaced = Mathf.Min(10, p1StonesPlaced + 1);
                 }
                 else
                 {
                     stones[i, p2StonesPlaced].transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
-                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
+                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites2[animal];
                     p2StonesPlaced = Mathf.Min(10, p2StonesPlaced + 1);
                 }
             }
@@ -86,13 +89,13 @@ public class Limicator : MonoBehaviour
                 {
                     p1StonesPlaced = Mathf.Max(0, p1StonesPlaced - 1);
                     stones[i, p1StonesPlaced].transform.localScale = new Vector3(scale, scale, scale);
-                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
+                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites1[animal];
                 }
                 else
                 {
                     p2StonesPlaced = Mathf.Max(0, p2StonesPlaced - 1);
                     stones[i, p2StonesPlaced].transform.localScale = new Vector3(scale, scale, scale);
-                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
+                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites2[animal];
                 }
             }
         }
