@@ -31,6 +31,12 @@ public class GUI_Script : MonoBehaviour {
         UI.playerOneResource = GameObject.Find("playerOneResource").GetComponent<Text>();
         UI.playerTwoResource = GameObject.Find("playerTwoResource").GetComponent<Text>();
 
+        UI.BlockPlaceCost.text = gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP1.x, Player.PlayerOne).ToString();
+        UI.ReflectPlaceCost.text = gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP1.x, Player.PlayerOne).ToString();
+        UI.RefractPlaceCost.text = gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP1.x, Player.PlayerOne).ToString();
+        UI.RedirectPlaceCost.text = gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP1.x, Player.PlayerOne).ToString();
+        UI.ResourcePlaceCost.text = gridManager.theGrid.getCost(Building.Resource, inputController.cursorP1.x, Player.PlayerOne).ToString();
+
         //default values for Player 1 UI  
         /*p1UI = gameObject.AddComponent<playerOneUI>();
         //p1UI.playerState = GameObject.Find("playerOneState").GetComponent<Text>();
@@ -155,12 +161,6 @@ public class GUI_Script : MonoBehaviour {
         if (gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2RefractBackground.color = Color.grey;
         if (gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2RedirectBackground.color = Color.grey;
         if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) p2UI.p2ResourceBackground.color = Color.grey; */
-
-        UI.BlockPlaceCost.text = gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP1.x, Player.PlayerOne).ToString();
-        UI.ReflectPlaceCost.text = gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP1.x, Player.PlayerOne).ToString();
-        UI.RefractPlaceCost.text = gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP1.x, Player.PlayerOne).ToString();
-        UI.RedirectPlaceCost.text = gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP1.x, Player.PlayerOne).ToString();
-        UI.ResourcePlaceCost.text = gridManager.theGrid.getCost(Building.Resource, inputController.cursorP1.x, Player.PlayerOne).ToString();
 
         /*Text[] elements = p1UI.p1BlockBackground.GetComponentsInChildren<Text>();
         int counter = 0;
