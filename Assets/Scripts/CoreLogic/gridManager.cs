@@ -375,18 +375,18 @@ public struct Grid
             if(timer < 0 ){
                 if(((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)) < laserCeiling){
 
-                    SoundManager.PlaySound(inputController.Sounds[5].audioclip,SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
+                    SoundManager.PlaySound(inputController.Sounds[5].audioclip,((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)));
                     timer = .7f;
                     //MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
                 }
                 else{
-                    SoundManager.PlaySound(inputController.Sounds[5].audioclip,SoundManager.globalSoundsVolume*laserCeiling/80); 
+                    SoundManager.PlaySound(inputController.Sounds[5].audioclip,laserCeiling); 
                     timer = .7f;
                     //MonoBehaviour.print(SoundManager.globalSoundsVolume*laserCeiling/80);
                 }
             }
             if(hitTimer < 0 ){
-                //SoundManager.PlaySound(inputController.Sounds[6].audioclip,SoundManager.globalSoundsVolume/60); // was causing error in tutorial scene, not sure why
+				SoundManager.PlaySound (inputController.Sounds [6].audioclip, 60); // was causing error in tutorial scene, not sure why
                 hitTimer = 4.5f;
             }
 
@@ -475,6 +475,7 @@ public struct Grid
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
+			SoundManager.PlaySound(inputController.Sounds[2].audioclip, .5f);
             updateSquares();
             
             if (newBuilding != Building.Base && newBuilding != Building.Laser) { 
@@ -525,6 +526,7 @@ public struct Grid
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
+			SoundManager.PlaySound(inputController.Sounds[3].audioclip, .75f);
             updateSquares();
             Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, Building.Base);
         } else return false;
@@ -533,7 +535,7 @@ public struct Grid
 
     public bool destroyBuilding(int x, int y)
     {
-		SoundManager.PlaySound(inputController.Sounds[1].audioclip, SoundManager.globalSoundsVolume/25, true, .95f, 1.05f);
+		SoundManager.PlaySound(inputController.Sounds[1].audioclip, .5f, true, .95f, 1.05f);
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
             // Emit Destruction Particle
