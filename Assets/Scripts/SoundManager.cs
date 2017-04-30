@@ -405,6 +405,44 @@ public class SoundManager : MonoBehaviour {
 
 		return audio.audioID;
 	}
+    public static int PlayMusic(AudioClip clip){
+        return PlayMusic(clip, 1f, false, false, 1f, 1f, -1f, null);
+    }
+
+    public static int PlayMusic(AudioClip clip, float volume){
+        return PlayMusic(clip, volume, false, false, 1f, 1f, -1f, null);
+    }
+
+    public static int PlayMusic(AudioClip clip, float volume, bool loop, bool persist){
+        return PlayMusic(clip, volume, loop, persist, 1f, 1f, -1f, null);
+    }
+
+    public static int PlayMusic(AudioClip clip, float volume, bool loop, bool persist, float fadeInSeconds, float fadeOutSeconds){
+        return PlayMusic(clip, volume, loop, persist, fadeInSeconds, fadeOutSeconds, -1f, null);
+    }
+    public static int PlayMusic(AudioClip clip, float volume, bool loop, bool persist, float fadeInSeconds, float fadeOutSeconds, float currentMusicfadeOutSeconds, Transform sourceTransform)
+    {
+        if (clip == null)
+        {
+            Debug.LogError("No Music ", clip);
+        }
+
+        if(ignoreDuplicateMusic){
+            List<int> keys = new List<int>(musicAudio.Keys);
+            foreach (int key in keys){
+                if (musicAudio[key].audioSource.clip == clip)
+                {
+                    return musicAudio[key].audioID;
+                }
+            }
+        }
+        instance.Init();
+        StopAllMusic(currentMusicfadeOutSeconds);
+        Audio audio = new Audio(Audio.AudioType.Music, clip, loop, persist, volume, fadeInSeconds, fadeOutSeconds, sourceTransform, false, 1, 1);
+        musicAudio.Add(audio.audioID, audio);
+
+        return audio.audioID;
+    }
 }
 public class Audio
 {

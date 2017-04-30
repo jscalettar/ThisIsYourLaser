@@ -73,6 +73,8 @@ public class inputController : MonoBehaviour {
 	public static Audios[] Sounds;
 	public Audios[] setUISounds;
 	public static Audios[] UISounds;
+    public Audios[] setMusicSounds;
+    public static Audios[] musicSounds;
 
     //Vars for UI
     //public static playerOneUI p1UI;
@@ -149,14 +151,15 @@ public class inputController : MonoBehaviour {
     void Start () {
         Sounds = setSounds;
 		UISounds = setUISounds;
+        musicSounds = setMusicSounds;
         //default values for Player 1 UI  
         /*p1UI = gameObject.AddComponent<playerOneUI>();
         p1UI.State = GameObject.Find("p1State").GetComponent<Text>();
         //default values for Player 2 UI  
         p2UI = gameObject.AddComponent<playerTwoUI>();
         p2UI.State = GameObject.Find("p2State").GetComponent<Text>();*/
-
         initCursors();
+        SoundManager.PlayMusic(musicSounds[0].audioclip, SoundManager.globalMusicVolume, true, true);
     }
 
     void Update()
