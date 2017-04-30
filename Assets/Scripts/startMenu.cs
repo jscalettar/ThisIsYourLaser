@@ -56,6 +56,10 @@ public class startMenu : MonoBehaviour {
         SceneManager.LoadScene("main");
     }
 
+	public void startTut(){
+		SceneManager.LoadScene ("TutorialBoard");
+	}
+
     public void mainMenu() {
         StartMenu.SetActive(true);
         OptionMenu.SetActive(false);
