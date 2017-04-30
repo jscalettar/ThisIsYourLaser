@@ -203,7 +203,7 @@ public class TutorialFramework : MonoBehaviour {
 
     void Update () {
         // Check if popup is active, and close it if cancel pressed
-        if (Time.timeScale == 0 && (Input.GetButtonDown("cancel_1") || Input.GetButtonDown("cancel_2"))) closePopup();
+        if (Time.timeScale == 0 && (Input.GetButtonDown("place_1"))) closePopup();
 
         // Check if initial popups exist, and if so display them
         if (activeTutorial.initialPopup != null || activeTutorial.initialPopup2 != null || activeTutorial.initialPopup3 != null) displayInitialPopups();

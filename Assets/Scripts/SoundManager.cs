@@ -679,7 +679,8 @@ public class Audio
 			playing = audioSource.isPlaying;
 		}
 	}
-} 	[System.Serializable]
+}
+[System.Serializable]
 public struct Audios
 {
 	public AudioClip audioclip;

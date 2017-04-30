@@ -475,7 +475,7 @@ public struct Grid
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
-			SoundManager.PlaySound(inputController.Sounds[2].audioclip, .5f);
+			if (!TutorialFramework.tutorialActive) SoundManager.PlaySound(inputController.Sounds[2].audioclip, .5f); // FIX
             updateSquares();
             
             if (newBuilding != Building.Base && newBuilding != Building.Laser) { 
