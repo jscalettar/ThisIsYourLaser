@@ -71,13 +71,13 @@ public class Limicator : MonoBehaviour
                 {
                     stones[i, p1StonesPlaced].transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
                     stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
-                    p1StonesPlaced = Mathf.Min(9, p1StonesPlaced + 1);
+                    p1StonesPlaced = Mathf.Min(10, p1StonesPlaced + 1);
                 }
                 else
                 {
                     stones[i, p2StonesPlaced].transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
                     stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites[animal];
-                    p2StonesPlaced = Mathf.Min(9, p2StonesPlaced + 1);
+                    p2StonesPlaced = Mathf.Min(10, p2StonesPlaced + 1);
                 }
             }
             else if (state == State.removing)

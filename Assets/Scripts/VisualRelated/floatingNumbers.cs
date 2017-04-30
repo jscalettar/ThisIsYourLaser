@@ -42,6 +42,8 @@ public struct damageResourceGrid
     private float textSpeed;
     private float textLifetime;
     private Font font;
+    private float numP1;
+    private float numP2;
 
     public damageResourceGrid(Sprite[] laser, GameObject container, Color p1, Color p2, Font customFont, float rate = 1f, float randomAngle = 0f, float size = 1f, float speed = 1f, float life = 1f)
     {
@@ -58,6 +60,8 @@ public struct damageResourceGrid
         if (customFont == null) customFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
         font = customFont;
         laserite = laser;
+        numP1 = 0;
+        numP2 = 0;
     }
 
     public void checkDamage(XY pos, float currHP, float maxHP, Building building, Player buildingOwner)
@@ -101,11 +105,11 @@ public struct damageResourceGrid
     }
     public void checkResource(XY pos, float currResource, Player buildingOwner, State state)
     {
-        if (state != State.placing)
+        if (state != State.placing && state != State.removing && state != State.moving)
         {
             resourceBuilding value = new resourceBuilding();
-            if (!gridR.TryGetValue(pos, out value)) gridR.Add(pos, new resourceBuilding(currResource, emissionRate)); // Add to gridInfo if not already there
-            else if (currResource < value.lastResource) gridR[pos] = new resourceBuilding(currResource, emissionRate); // Reset if building has changed
+            if (!gridR.TryGetValue(pos, out value)) { gridR.Add(pos, new resourceBuilding(currResource, emissionRate)); if (buildingOwner == Player.PlayerOne) numP1 += 1; else numP2 += 1; } // Add to gridInfo if not already ther
+            else if (currResource < value.lastResource) gridR[pos] = new resourceBuilding(currResource, emissionRate);
             else if (value.time <= 0f)
             {
                 // Emit damage number
@@ -129,7 +133,7 @@ public struct damageResourceGrid
                 textMesh.color = buildingOwner == Player.PlayerOne ? Color.red : Color.green;
                 textMesh.fontStyle = FontStyle.Bold;
                 textMesh.font = font;
-                textMesh.text = ((currResource - value.lastResource)).ToString("F1");
+                textMesh.text = buildingOwner == Player.PlayerOne ? ((currResource - value.lastResource) / numP1).ToString("F1") : ((currResource - value.lastResource) / numP2).ToString("F1");
 
 
                 GameObject child2 = new GameObject();
@@ -169,7 +173,7 @@ public struct damageResourceGrid
             Rigidbody rigidBody = child.GetComponent<Rigidbody>();
 
             rigidBody.useGravity = false;
-            rigidBody.velocity = Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.down) * Vector3.back * textSpeed;
+            rigidBody.velocity = state == State.removing ? Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.down) * Vector3.forward * textSpeed : Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.down) * Vector3.back * textSpeed;
 
 
             child.AddComponent<TextMesh>();
@@ -181,7 +185,7 @@ public struct damageResourceGrid
             textMesh.color = buildingOwner == Player.PlayerOne ? Color.red : Color.green;
             textMesh.fontStyle = FontStyle.Bold;
             textMesh.font = font;
-            textMesh.text = "-" + (currResource).ToString("F1");
+            textMesh.text = state == State.placing ? "-" + (currResource).ToString("F1") : (currResource).ToString("F1");
 
 
             GameObject child2 = new GameObject();
@@ -195,8 +199,7 @@ public struct damageResourceGrid
             Rigidbody rigidBody2 = child2.GetComponent<Rigidbody>();
 
             rigidBody2.useGravity = false;
-            rigidBody2.velocity = Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.down) * Vector3.back * textSpeed;
-
+            rigidBody2.velocity = state == State.removing ? Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.down) * Vector3.forward * textSpeed : Quaternion.AngleAxis(Random.Range(-randomnessRange, randomnessRange), Vector3.down) * Vector3.back * textSpeed;
             MonoBehaviour.Destroy(child, textLifetime);
             MonoBehaviour.Destroy(child2, textLifetime);
         }

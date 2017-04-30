@@ -341,6 +341,7 @@ public struct Grid
     public int getDimY() { return dimY; }
     public float getResourcesP1() { return resourcesP1; }
     public float getResourcesP2() { return resourcesP2; }
+    public float getResourceLimit() { return resourceLimit; }
     public float baseHealthP1() { return baseP1 != null ? baseP1.GetComponent<buildingParameters>().currentHP : 0f; }
     public float baseHealthP2() { return baseP2 != null ? baseP2.GetComponent<buildingParameters>().currentHP : 0f; }
     public void addResources(float p1, float p2) { resourcesP1 += p1; resourcesP2 += p2; if (resourcesP1 >= resourceLimit) resourcesP1 = resourceLimit; if (resourcesP2 >= resourceLimit) resourcesP2 = resourceLimit; }
@@ -514,6 +515,14 @@ public struct Grid
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
+            if (playerID == Player.PlayerOne)
+            {
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(x, y), getCost(grid[y, x].building, x, playerID)/2, Player.PlayerOne, State.removing);
+            }
+            else
+            {
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(x, y), getCost(grid[y, x].building, x, playerID)/2, Player.PlayerTwo, State.removing);
+            }
             // Specify that the board was updated and that laserLogic needs to run a simulation
             //needsUpdate = true;
             updateSquares();
@@ -600,6 +609,14 @@ public struct Grid
             if(canRotate(grid[yNew, xNew].building)) building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
             // Specify that the board was updated and that laserLogic needs to run a simulation
             needsUpdate = true;
+            if (playerID == Player.PlayerOne)
+            {
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(xNew, yNew), getCost(grid[yNew, xNew].building, xNew, playerID) / 2, Player.PlayerOne, State.moving);
+            }
+            else
+            {
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(xNew, yNew), getCost(grid[yNew, xNew].building, xNew, playerID) / 2, Player.PlayerTwo, State.moving);
+            }
             updateSquares();
         } else return false;
         return true;

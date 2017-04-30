@@ -301,8 +301,8 @@ public class laserLogic : MonoBehaviour
 				if (prefab != null && prefab.transform.GetChild(0) != null) prefab = prefab.transform.GetChild(0).gameObject;
 				if (prefab != null && prefab.GetComponent<ParticleSystem>() != null && !prefab.GetComponent<ParticleSystem>().isEmitting) prefab.GetComponent<ParticleSystem>().Emit(1);
 
-                if (hit.buildingOwner == Player.PlayerOne) { gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0); floatingNumbers.floatingNumbersStruct.checkResource(new XY(hit.X,hit.Y), gridManager.theGrid.getResourcesP1(), Player.PlayerOne, State.idle); }
-                else if (hit.buildingOwner == Player.PlayerTwo) { gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate); floatingNumbers.floatingNumbersStruct.checkResource(new XY(hit.X, hit.Y), gridManager.theGrid.getResourcesP2(), Player.PlayerTwo, State.idle); }
+                if (hit.buildingOwner == Player.PlayerOne && gridManager.theGrid.getResourcesP1() != gridManager.theGrid.getResourceLimit()) { gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0); floatingNumbers.floatingNumbersStruct.checkResource(new XY(hit.X,hit.Y), gridManager.theGrid.getResourcesP1(), Player.PlayerOne, State.idle); }
+                else if (hit.buildingOwner == Player.PlayerTwo && gridManager.theGrid.getResourcesP2() != gridManager.theGrid.getResourceLimit()) { gridManager.theGrid.addResources(0, hit.laserStrength * Time.deltaTime * resourceRate); floatingNumbers.floatingNumbersStruct.checkResource(new XY(hit.X, hit.Y), gridManager.theGrid.getResourcesP2(), Player.PlayerTwo, State.idle); }
             } else if (hit.weakSideHit) {
                 // Apply Damage
                 gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * laserPowerMultiplier * Time.deltaTime);
