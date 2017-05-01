@@ -390,10 +390,8 @@ public class SoundManager : MonoBehaviour {
 
 		if (ignoreDuplicateUISounds){
 			List<int> keys = new List<int>(UISoundsAudio.Keys);
-			foreach (int key in keys)
-			{
-				if (UISoundsAudio[key].audioSource.clip == clip)
-				{
+			foreach (int key in keys){
+                if (UISoundsAudio[key].audioSource.clip == clip){
 					return UISoundsAudio[key].audioID;
 				}
 			}
@@ -422,16 +420,14 @@ public class SoundManager : MonoBehaviour {
     }
     public static int PlayMusic(AudioClip clip, float volume, bool loop, bool persist, float fadeInSeconds, float fadeOutSeconds, float currentMusicfadeOutSeconds, Transform sourceTransform)
     {
-        if (clip == null)
-        {
-            Debug.LogError("No Music ", clip);
+        if (clip == null){
+           // Debug.LogError("No Music ", clip);
         }
 
         if(ignoreDuplicateMusic){
             List<int> keys = new List<int>(musicAudio.Keys);
             foreach (int key in keys){
-                if (musicAudio[key].audioSource.clip == clip)
-                {
+                if (musicAudio[key].audioSource.clip == clip){
                     return musicAudio[key].audioID;
                 }
             }

@@ -226,7 +226,7 @@ public struct Grid
         blockScale = blockResourceScale;
         timer = .5f;
         hitTimer = 4.5f;
-        laserCeiling = 1f;
+        laserCeiling = .45f;
     }
 
     private bool validateInput(int x, int y)
@@ -377,20 +377,17 @@ public struct Grid
 
                     SoundManager.PlaySound(inputController.Sounds[5].audioclip,((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)));
                     timer = .7f;
-                    //MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))/80);
                 }
                 else{
                     SoundManager.PlaySound(inputController.Sounds[5].audioclip,laserCeiling); 
                     timer = .7f;
-                    //MonoBehaviour.print(SoundManager.globalSoundsVolume*laserCeiling/80);
                 }
             }
             if(hitTimer < 0 ){
-				SoundManager.PlaySound (inputController.Sounds [6].audioclip, 60); // was causing error in tutorial scene, not sure why
+				SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f); // was causing error in tutorial scene, not sure why
                 hitTimer = 4.5f;
             }
-
-            // MonoBehaviour.print(SoundManager.globalSoundsVolume*((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1))); // Print statements cause lag
+                
             prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
             floatingNumbers.floatingNumbersStruct.checkDamage(new XY(x, y), grid[y, x].health, prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().health, grid[y, x].building, grid[y, x].owner);
             if (grid[y, x].health <= 0f) {
