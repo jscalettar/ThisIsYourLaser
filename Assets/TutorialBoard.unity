@@ -2672,6 +2672,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 212541650951703974, guid: 4bc178d3a7964fb4ba752bba36d3386f,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: -100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bc178d3a7964fb4ba752bba36d3386f, type: 2}
   m_IsPrefabParent: 0
@@ -6013,6 +6018,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moduleOrderIndex: 0
   initialState: 0
+  highlightPos:
+    x: 2
+    y: 1
+  highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
   initialSelection: 2
   spawnList:
   - x: 2
@@ -8582,6 +8591,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moduleOrderIndex: 2
   initialState: 0
+  highlightPos:
+    x: -1
+    y: -1
+  highlightTexture: {fileID: 0}
   initialSelection: 2
   spawnList:
   - x: 3
@@ -15501,6 +15514,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moduleOrderIndex: 1
   initialState: 2
+  highlightPos:
+    x: -1
+    y: -1
+  highlightTexture: {fileID: 0}
   initialSelection: 3
   spawnList:
   - x: 0

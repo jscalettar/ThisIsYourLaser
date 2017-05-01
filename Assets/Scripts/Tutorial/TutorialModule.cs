@@ -12,6 +12,9 @@ public class TutorialModule : MonoBehaviour {
     public int moduleOrderIndex;
     [Header("Starting State")]
     public startState initialState;
+    [Header("Highlighted Square")]
+    public XY highlightPos = new XY(-1, -1);
+    public Texture2D highlightTexture;
     [Header("Starting Building Selection")]
     public Building initialSelection = Building.Blocking;
     [Tooltip("List of creatures to place into tutorial level")]

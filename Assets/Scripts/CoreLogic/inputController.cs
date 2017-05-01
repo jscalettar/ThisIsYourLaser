@@ -168,7 +168,7 @@ public class inputController : MonoBehaviour {
 		bool notNow2 = false;
 		if (Time.timeScale != 0) {
 			// Check that the game isn't paused
-			if (PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false || TutorialFramework.tutorialActive) {
+			if (PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false || (TutorialFramework.tutorialActive && !TutorialFramework.skipFrame)) {
 				// Cursor Selection P1
 				if (Input.GetKeyDown("1")) { cursorP1.selection = Building.Blocking; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("2")) { cursorP1.selection = Building.Reflecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("3")) { cursorP1.selection = Building.Refracting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("4")) { cursorP1.selection = Building.Redirecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("5")) { cursorP1.selection = Building.Resource; SoundManager.PlayUISound(UISounds[0].audioclip); }
 
@@ -473,6 +473,7 @@ public class inputController : MonoBehaviour {
 				cursorP2Last = cursorP2;
 			}
 		}
+        if (TutorialFramework.skipFrame) TutorialFramework.skipFrame = false;
 	}
 
 	private Building cycleToBuilding(int index)

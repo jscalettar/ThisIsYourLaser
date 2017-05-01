@@ -10,10 +10,12 @@ using UnityEngine.UI;
 public class TutorialFramework : MonoBehaviour {
 
     public static bool tutorialActive = false;
+    public static bool skipFrame = false;       // used to skip input for a frame after a popup closes which prevents issues
     public GameObject Popup;    // Generic game object for displaying popups
     public GameObject Board;    // Board with gridManager on it
 
     private TutorialModule activeTutorial;
+    private GameObject Highlight;
     private bool endFlag = false;
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,6 +150,7 @@ public class TutorialFramework : MonoBehaviour {
 
     private void closePopup()
     {
+        skipFrame = true;
         Time.timeScale = 1;
         Popup.GetComponent<SpriteRenderer>().enabled = false;
         if (endFlag) { endFlag = false; Invoke("nextTutorialLevel", 2); }
@@ -164,6 +167,8 @@ public class TutorialFramework : MonoBehaviour {
         Board.GetComponent<gridManager>().initGrid();
         Board.GetComponent<inputController>().initCursors();
         spawnInitialCreatures();
+        Destroy(Highlight);
+        createHighlightSquare();
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -199,6 +204,28 @@ public class TutorialFramework : MonoBehaviour {
         inputController.cursorP1.selection = activeTutorial.initialSelection;
     }
 
+    private void createHighlightSquare()
+    {
+        if (activeTutorial.highlightPos == new XY(-1, -1) || activeTutorial.highlightTexture == null) {
+            if (Highlight != null) {
+                Destroy(Highlight); Highlight = null;
+            }
+            return;
+        }
+        int x = activeTutorial.highlightPos.x;
+        int y = activeTutorial.highlightPos.y;
+        if (Highlight == null) Highlight = new GameObject("Highlight Sprite");
+        if (Highlight.GetComponent<SpriteRenderer>() == null) Highlight.AddComponent<SpriteRenderer>();
+        Highlight.transform.position = gridManager.theGrid.coordsToWorld(x, y);
+        Highlight.transform.eulerAngles = new Vector3(90f, 0f, 0f);
+        Vector3 v1 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(0, 0));
+        Vector3 v2 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(1, 0));
+        Sprite sprite = Sprite.Create(activeTutorial.highlightTexture, new Rect(0.0f, 0.0f, 256, 256), new Vector2(0.5f, 0.5f), 2.11f * (v2- v1).magnitude);
+        Highlight.GetComponent<SpriteRenderer>().sprite = sprite;
+        Highlight.GetComponent<SpriteRenderer>().enabled = true;
+        Highlight.GetComponent<SpriteRenderer>().sortingOrder = -1;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------------------------------------
 
     void Update () {
@@ -213,6 +240,7 @@ public class TutorialFramework : MonoBehaviour {
     {
         spawnInitialCreatures();
         displayInitialPopups();
+        createHighlightSquare();
     }
 
     // Toggle Tutorial Game State
@@ -226,5 +254,6 @@ public class TutorialFramework : MonoBehaviour {
     void OnDisable()
     {
         tutorialActive = false;
+        if (Highlight != null) Destroy(Highlight);
     }
 }
