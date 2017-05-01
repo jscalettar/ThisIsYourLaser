@@ -2781,10 +2781,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1999001546}
-  - {fileID: 713375135}
-  - {fileID: 1854738378}
   - {fileID: 1792056343}
   - {fileID: 988190461}
+  - {fileID: 713375135}
+  - {fileID: 1854738378}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6005,7 +6005,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314660326}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &713375136
 MonoBehaviour:
@@ -6018,7 +6018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 1
+  moduleOrderIndex: 3
   initialState: 0
   highlightPos:
     x: 0
@@ -6026,12 +6026,12 @@ MonoBehaviour:
   highlightTexture: {fileID: 0}
   initialSelection: 2
   spawnList:
-  - x: 2
-    y: 4
+  - x: 3
+    y: 5
     building: 3
     player: 2
     direction: 6
-  - x: 3
+  - x: 4
     y: 3
     building: 2
     player: 2
@@ -8578,7 +8578,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314660326}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &988190462
 MonoBehaviour:
@@ -8591,7 +8591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 4
+  moduleOrderIndex: 2
   initialState: 2
   highlightPos:
     x: -1
@@ -8612,16 +8612,11 @@ MonoBehaviour:
   initialPopup: {fileID: 2800000, guid: 02ded89e3c3f5ed4cb090571a73a82b6, type: 3}
   initialPopup2: {fileID: 2800000, guid: 32fe46bb454e55647b5f2ec54f2f400f, type: 3}
   initialPopup3: {fileID: 2800000, guid: 8de37593fc4fa4a4e99ae062e0359027, type: 3}
-  firstDestroyed: {fileID: 21300000, guid: 3b7671bbcc73b724795008c65ae78b21, type: 3}
+  firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
-  baseDestroyed: {fileID: 21300000, guid: 45c3dbc26fb994544964289ad8109513, type: 3}
+  baseDestroyed: {fileID: 0}
   endOnBaseDestruction: 0
-  specificDestroyed:
-  - pos:
-      x: 3
-      y: 3
-    popup: {fileID: 21300000, guid: d4167f815ad4ae542a59bb6cfe19a899, type: 3}
-    endTrigger: 0
+  specificDestroyed: []
   firstPlacing: {fileID: 0}
   firstPlaced: {fileID: 0}
   endOnPlaced: 0
@@ -8636,7 +8631,7 @@ MonoBehaviour:
   - pos:
       x: -1
       y: -1
-    building: 1
+    building: 6
     type: 0
     popup: {fileID: 2800000, guid: d798161202eb0c648935de67b5bf8433, type: 3}
     endTrigger: 1
@@ -15506,7 +15501,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314660326}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1792056344
 MonoBehaviour:
@@ -15519,7 +15514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 3
+  moduleOrderIndex: 1
   initialState: 2
   highlightPos:
     x: -1
@@ -15544,12 +15539,7 @@ MonoBehaviour:
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 2800000, guid: 94a614a5f3d11b14daa77357c06a3d44, type: 3}
   endOnBaseDestruction: 1
-  specificDestroyed:
-  - pos:
-      x: 3
-      y: 3
-    popup: {fileID: 21300000, guid: d4167f815ad4ae542a59bb6cfe19a899, type: 3}
-    endTrigger: 0
+  specificDestroyed: []
   firstPlacing: {fileID: 0}
   firstPlaced: {fileID: 0}
   endOnPlaced: 0
@@ -16081,7 +16071,7 @@ GameObject:
   - component: {fileID: 1854738378}
   - component: {fileID: 1854738379}
   m_Layer: 0
-  m_Name: Laser(not done)
+  m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16098,7 +16088,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314660326}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1854738379
 MonoBehaviour:
@@ -16111,7 +16101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 2
+  moduleOrderIndex: 4
   initialState: 1
   highlightPos:
     x: -1
@@ -16124,16 +16114,21 @@ MonoBehaviour:
     building: 3
     player: 2
     direction: 6
-  - x: 3
-    y: 3
+  - x: 4
+    y: 5
     building: 2
     player: 2
     direction: 8
   - x: 0
-    y: 3
+    y: 4
     building: 0
     player: 1
     direction: 0
+  - x: 5
+    y: 0
+    building: 2
+    player: 2
+    direction: 8
   initialPopup: {fileID: 2800000, guid: bdd35972b99aa114db67ee5e33983b02, type: 3}
   initialPopup2: {fileID: 0}
   initialPopup3: {fileID: 0}
@@ -16141,12 +16136,7 @@ MonoBehaviour:
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 0}
   endOnBaseDestruction: 0
-  specificDestroyed:
-  - pos:
-      x: 3
-      y: 3
-    popup: {fileID: 21300000, guid: d4167f815ad4ae542a59bb6cfe19a899, type: 3}
-    endTrigger: 0
+  specificDestroyed: []
   firstPlacing: {fileID: 0}
   firstPlaced: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
   endOnPlaced: 1

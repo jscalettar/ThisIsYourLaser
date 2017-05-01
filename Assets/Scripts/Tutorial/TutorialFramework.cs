@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-// Still need to remove player 2 from tutorial, simplify it etc.
-// Movement event popup triggers not yet implemented
-// Building destruction related popups, and initial building spawns working
+using UnityEngine.SceneManagement;
 
 public class TutorialFramework : MonoBehaviour {
 
@@ -70,7 +67,7 @@ public class TutorialFramework : MonoBehaviour {
         {
             for (int i = 0; i < activeTutorial.specificInteraction.Count; i++)
             {
-                if (activeTutorial.specificInteraction[i] != null && activeTutorial.specificInteraction[i].type == tutorialTrigger.placed && (activeTutorial.specificInteraction[i].pos == pos || activeTutorial.specificInteraction[i].pos == new XY(-1, -1)))
+                if (activeTutorial.specificInteraction[i] != null && (activeTutorial.specificInteraction[i].building == building || activeTutorial.specificInteraction[i].building == Building.Any) && activeTutorial.specificInteraction[i] != null && activeTutorial.specificInteraction[i].type == tutorialTrigger.placed && (activeTutorial.specificInteraction[i].pos == pos || activeTutorial.specificInteraction[i].pos == new XY(-1, -1)))
                 {
                     if (activeTutorial.specificInteraction[i].endTrigger) endFlag = true;
                     displayPopup(activeTutorial.specificInteraction[i].popup);
@@ -92,7 +89,7 @@ public class TutorialFramework : MonoBehaviour {
         {
             for (int i = 0; i < activeTutorial.specificInteraction.Count; i++)
             {
-                if (activeTutorial.specificInteraction[i] != null && activeTutorial.specificInteraction[i].type == tutorialTrigger.placing && (activeTutorial.specificInteraction[i].pos == pos || activeTutorial.specificInteraction[i].pos == new XY(-1, -1)))
+                if (activeTutorial.specificInteraction[i] != null && (activeTutorial.specificInteraction[i].building == building || activeTutorial.specificInteraction[i].building == Building.Any) && activeTutorial.specificInteraction[i] != null && activeTutorial.specificInteraction[i].type == tutorialTrigger.placing && (activeTutorial.specificInteraction[i].pos == pos || activeTutorial.specificInteraction[i].pos == new XY(-1, -1)))
                 {
                     if (activeTutorial.specificInteraction[i].endTrigger) endFlag = true;
                     displayPopup(activeTutorial.specificInteraction[i].popup);
@@ -153,13 +150,16 @@ public class TutorialFramework : MonoBehaviour {
         skipFrame = true;
         Time.timeScale = 1;
         Popup.GetComponent<SpriteRenderer>().enabled = false;
-        if (endFlag) { endFlag = false; Invoke("nextTutorialLevel", 2); }
+        if (endFlag) { endFlag = false; Invoke("nextTutorialLevel", 5); }
     }
 
     private void nextTutorialLevel()
     {
         endFlag = false;
-        if (activeTutorial.moduleOrderIndex + 1 >= transform.childCount) return;
+        if (activeTutorial.moduleOrderIndex + 1 >= transform.childCount) {
+            SceneManager.LoadScene("TitleScreen");
+            return;
+        }
         activeTutorial = transform.GetChild(activeTutorial.moduleOrderIndex + 1).GetComponent<TutorialModule>();
         Transform toDelete = Board.transform.Find("ObjectHolder");
         if (toDelete != null) Destroy(toDelete.gameObject);
@@ -169,6 +169,7 @@ public class TutorialFramework : MonoBehaviour {
         spawnInitialCreatures();
         Destroy(Highlight);
         createHighlightSquare();
+        Limicator.limicatorObj.reset();
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------

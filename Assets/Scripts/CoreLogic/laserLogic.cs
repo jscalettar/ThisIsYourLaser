@@ -298,7 +298,7 @@ public class laserLogic : MonoBehaviour
                 // Add Resources
 				GameObject prefab = null;
 				gridManager.theGrid.prefabDictionary.TryGetValue(new XY(hit.X, hit.Y), out prefab);
-				if (prefab != null && prefab.transform.GetChild(0) != null) prefab = prefab.transform.GetChild(0).gameObject;
+				if (prefab != null && prefab.transform.childCount > 0 && prefab.transform.GetChild(0) != null) prefab = prefab.transform.GetChild(0).gameObject;
 				if (prefab != null && prefab.GetComponent<ParticleSystem>() != null && !prefab.GetComponent<ParticleSystem>().isEmitting) prefab.GetComponent<ParticleSystem>().Emit(1);
 
                 if (hit.buildingOwner == Player.PlayerOne && gridManager.theGrid.getResourcesP1() != gridManager.theGrid.getResourceLimit()) { gridManager.theGrid.addResources(hit.laserStrength * Time.deltaTime * resourceRate, 0); floatingNumbers.floatingNumbersStruct.checkResource(new XY(hit.X,hit.Y), gridManager.theGrid.getResourcesP1(), Player.PlayerOne, State.idle); }

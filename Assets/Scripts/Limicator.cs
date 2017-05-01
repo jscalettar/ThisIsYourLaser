@@ -34,6 +34,20 @@ public class Limicator : MonoBehaviour
         public Sprite[] sprites2;
         public GameObject limicator;
 
+        public void reset()
+        {
+            for (int i = 0; i < stones.GetLength(0); i++) {
+                for (int j = 0; j < stones.GetLength(1); j++) {
+                    if (stones[i, j] != null) {
+                        stones[i, j].GetComponent<SpriteRenderer>().sprite = limicator.GetComponent<SpriteRenderer>().sprite;
+                        stones[i, j].transform.localScale = new Vector3(scale, scale, scale);
+                    }
+                }
+            }
+            p1StonesPlaced = 0;
+            p2StonesPlaced = 0;
+        }
+
         public LimicatorObject(GameObject limiter, Sprite[] sprits1, Sprite[] sprits2, float scal)
         {
             limicator = limiter;
@@ -68,6 +82,7 @@ public class Limicator : MonoBehaviour
                 default: animal = 0; break;
             }
             int stonesPlaced = i == 0 ? p1StonesPlaced : p2StonesPlaced;
+            if(stones != null)
             if (state == State.placing)
             {
                 if (i == 0)
