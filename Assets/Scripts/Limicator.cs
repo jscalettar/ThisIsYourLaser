@@ -24,7 +24,7 @@ public class Limicator : MonoBehaviour
 
     public class LimicatorObject 
     {
-        public GameObject[,] stones = new GameObject[2, 10];
+        public KeyValuePair<GameObject, int>[,] stones = new KeyValuePair<GameObject, int>[2, 10];
         //[HideInInspector]
         public int p1StonesPlaced;
         //[HideInInspector]
@@ -38,12 +38,15 @@ public class Limicator : MonoBehaviour
         {
             for (int i = 0; i < stones.GetLength(0); i++) {
                 for (int j = 0; j < stones.GetLength(1); j++) {
-                    if (stones[i, j] != null) {
-                        stones[i, j].GetComponent<SpriteRenderer>().sprite = limicator.GetComponent<SpriteRenderer>().sprite;
-                        stones[i, j].transform.localScale = new Vector3(scale, scale, scale);
+                    if (stones[i, j].Key != null) {
+                        GameObject stone = stones[i,j].Key;
+                        stone.transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
+                        stone.GetComponent<SpriteRenderer>().sprite = sprites1[0];
+                        stones[i,j] = new KeyValuePair<GameObject, int>(stone, 0);
                     }
                 }
             }
+            drawStones();
             p1StonesPlaced = 0;
             p2StonesPlaced = 0;
         }
@@ -57,19 +60,33 @@ public class Limicator : MonoBehaviour
             for(int i = 0; i< 2; i++){
                 for (int j = 0; j< 10; j++)
                 {
-                    GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid square
+                    GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid squar
                     limit.transform.localPosition = i == 0 ? new Vector3(-6.6f, 0f, -3.45f + j* (.75f)) : new Vector3(6.8f, 0f, -3.45f + j* (.75f));
                     limit.transform.Rotate(90, 0, 0);
                     limit.transform.localScale = new Vector3(scale, scale, scale);
-                    stones[i, j] = limit;
+                    KeyValuePair<GameObject, int> pair = new KeyValuePair<GameObject, int>(limit, 0);
+                    stones[i, j] = pair;
                 }
             }
             p1StonesPlaced = 0;
             p2StonesPlaced = 0;
         }
         
+        public void drawStones()
+        {
+            for(int i = 0; i < 2; i++){
+                for (int j = 0; j < 10; j++)
+                {
+                    GameObject stone = stones[i, j].Key;
+                    int code = stones[i, j].Value;
+                    stone.transform.localScale = code == 0 ? new Vector3(scale, scale, scale) : new Vector3(scale/5, scale/5, scale/5);
+                    stone.GetComponent<SpriteRenderer>().sprite = i == 0 ? sprites1[code] : sprites2[code];
+                    stones[i,j] = new KeyValuePair<GameObject, int>(stone, code);
+                }
+            }
+        }
 
-        public void changeStones(int i, State state, Building build)
+        public void changeStones(int s, State state, Building build)
         {
             int animal = 0;
             switch (build)
@@ -81,37 +98,41 @@ public class Limicator : MonoBehaviour
                 case Building.Resource: animal = 5; break;
                 default: animal = 0; break;
             }
-            int stonesPlaced = i == 0 ? p1StonesPlaced : p2StonesPlaced;
-            if(stones != null)
-            if (state == State.placing)
+            int stonesPlaced = s == 0 ? p1StonesPlaced : p2StonesPlaced;
+            //if(stones != null)
+            if (state == State.placing)//could probably add the drawing part here to the drawStones function
             {
-                if (i == 0)
+                int code = animal;
+                if (s == 0)
                 {
-                    stones[i, p1StonesPlaced].transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
-                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites1[animal];
+                    GameObject stone = stones[s, p1StonesPlaced].Key;
+                    stone.transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
+                    stone.GetComponent<SpriteRenderer>().sprite = sprites1[animal];
+                    stones[s, p1StonesPlaced] = new KeyValuePair<GameObject, int>(stone, code);
                     p1StonesPlaced = Mathf.Min(10, p1StonesPlaced + 1);
                 }
                 else
                 {
-                    stones[i, p2StonesPlaced].transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
-                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites2[animal];
+                    GameObject stone = stones[s, p2StonesPlaced].Key;
+                    stone.transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
+                    stone.GetComponent<SpriteRenderer>().sprite = sprites2[animal];
+                    stones[s, p2StonesPlaced] = new KeyValuePair<GameObject, int>(stone, code);
                     p2StonesPlaced = Mathf.Min(10, p2StonesPlaced + 1);
                 }
             }
             else if (state == State.removing)
             {
-                if (i == 0)
+                if (s == 0) p1StonesPlaced = Mathf.Max(0, p1StonesPlaced - 1);
+                else p2StonesPlaced = Mathf.Max(0, p2StonesPlaced - 1);
+                int order = -1;
+                for(int i = stones.GetLength(1)-1; i >=0; i--) if(stones[s,i].Value == animal) order = i;
+                for (int i = order; i < stones.GetLength(1); i++)
                 {
-                    p1StonesPlaced = Mathf.Max(0, p1StonesPlaced - 1);
-                    stones[i, p1StonesPlaced].transform.localScale = new Vector3(scale, scale, scale);
-                    stones[i, p1StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites1[animal];
+                    GameObject go = stones[s,i].Key;
+                    if (i == stones.GetLength(1) - 1) stones[s, i] = new KeyValuePair<GameObject, int>(go, 0);
+                    else stones[s, i] = new KeyValuePair<GameObject, int>(go, stones[s, i+1].Value);
                 }
-                else
-                {
-                    p2StonesPlaced = Mathf.Max(0, p2StonesPlaced - 1);
-                    stones[i, p2StonesPlaced].transform.localScale = new Vector3(scale, scale, scale);
-                    stones[i, p2StonesPlaced].GetComponent<SpriteRenderer>().sprite = sprites2[animal];
-                }
+                drawStones();
             }
         }
     }

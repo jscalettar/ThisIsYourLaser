@@ -497,6 +497,7 @@ public struct Grid
 			removalList.Add (new buildingRequest (new XY (x, y), buildingPrefabs [(int)grid [y, x].building].GetComponent<buildingParameters>().removalTime, grid [y, x].building, playerID));
             grid [y, x].markedForDeath = true;
 
+            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, grid[y, x].building);
             //Building temp = grid[y, x].building;
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             // Give some resources back to player -> half of placement cost * percentage remaining health
@@ -525,7 +526,6 @@ public struct Grid
             //needsUpdate = true;
 			SoundManager.PlaySound(inputController.Sounds[3].audioclip, .75f);
             updateSquares();
-            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, Building.Base);
         } else return false;
         return true;
     }
@@ -557,7 +557,7 @@ public struct Grid
             }
 
             // Limicator stuff
-            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, Building.Base);
+            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, grid[y, x].building);
 
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
