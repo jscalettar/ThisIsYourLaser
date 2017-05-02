@@ -157,6 +157,7 @@ public class TutorialFramework : MonoBehaviour {
     {
         endFlag = false;
         if (activeTutorial.moduleOrderIndex + 1 >= transform.childCount) {
+            tutorialToInstructionFlag.instance.flag = true;
             SceneManager.LoadScene("TitleScreen");
             return;
         }

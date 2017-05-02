@@ -45,8 +45,9 @@ public class startMenu : MonoBehaviour {
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
         populateList();
+        if (tutorialToInstructionFlag.instance.flag) CreautureMenu();
     }
-	void Update(){
+    void Update(){
 		setMaster (masterSlider.value);
 		setMusic (musicSlider.value);
 		setSFX (sfxSlider.value);
@@ -57,7 +58,7 @@ public class startMenu : MonoBehaviour {
     }
 
 	public void startTut(){
-		SceneManager.LoadScene ("TutorialBoard");
+		SceneManager.LoadScene("TutorialBoard");
 	}
 
     public void mainMenu() {
@@ -252,5 +253,10 @@ public class startMenu : MonoBehaviour {
     public void exitGame()
     {
         Application.Quit();
+    }
+
+    void OnDisable()
+    {
+        tutorialToInstructionFlag.instance.flag = false;
     }
 }
