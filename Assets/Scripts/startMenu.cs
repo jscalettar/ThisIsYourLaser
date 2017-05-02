@@ -17,6 +17,9 @@ public class startMenu : MonoBehaviour {
     public float sfxVol;
 
     //Hold game objects to show/hide as neccesary
+	Image backImage;
+	public Sprite davidImage;
+	public Sprite ocean;
     public GameObject StartMenu;
     public GameObject OptionMenu;
     public GameObject InstructMenu;
@@ -41,6 +44,8 @@ public class startMenu : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Screen.fullScreen = false;
+		backImage = GetComponent<Image> ();
+		backImage.sprite = davidImage;
         StartMenu.SetActive(true);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
@@ -72,6 +77,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
+		backImage.sprite = davidImage;
     }
 
     public void OptionsMenu()
@@ -86,6 +92,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
+		backImage.sprite = ocean;
     }
 
     public void InstructionsMenu()
@@ -100,6 +107,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
+		backImage.sprite = ocean;
     }
 
     public void CreautureMenu()
@@ -114,6 +122,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
+		backImage.sprite = ocean;
     }
 
     public void ControlPage()
@@ -128,6 +137,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
+		backImage.sprite = ocean;
     }
 
     public void Resource()
@@ -143,6 +153,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
+		backImage.sprite = ocean;
     }
 
     public void Refract()
@@ -158,6 +169,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
+		backImage.sprite = ocean;
     }
 
     public void Reflect()
@@ -173,6 +185,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(true);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
+		backImage.sprite = ocean;
     }
 
     public void Block()
@@ -188,6 +201,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(true);
         RedirectPage.SetActive(false);
+		backImage.sprite = ocean;
     }
 
     public void Redirect()
@@ -203,6 +217,7 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(true);
+		backImage.sprite = ocean;
     }
 
     public void setMaster(float vol) 
