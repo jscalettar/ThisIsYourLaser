@@ -11,3 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b0bd557360eb742b95ec70226eb0db, type: 3}
   m_Name: tutorialToInstructionFlag
   m_EditorClassIdentifier: 
+  flag: 0
