@@ -6025,17 +6025,7 @@ MonoBehaviour:
     y: 0
   highlightTexture: {fileID: 0}
   initialSelection: 2
-  spawnList:
-  - x: 3
-    y: 5
-    building: 3
-    player: 2
-    direction: 6
-  - x: 4
-    y: 3
-    building: 2
-    player: 2
-    direction: 8
+  spawnList: []
   initialPopup: {fileID: 2800000, guid: f9f656078c200514f8d3e7696080dc34, type: 3}
   initialPopup2: {fileID: 0}
   initialPopup3: {fileID: 0}
@@ -7790,7 +7780,7 @@ Canvas:
   m_GameObject: {fileID: 883863993}
   m_Enabled: 1
   serializedVersion: 2
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 990940181}
   m_PlaneDistance: 11
   m_PixelPerfect: 0
