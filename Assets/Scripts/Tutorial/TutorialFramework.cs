@@ -150,7 +150,7 @@ public class TutorialFramework : MonoBehaviour {
         skipFrame = true;
         Time.timeScale = 1;
         Popup.GetComponent<SpriteRenderer>().enabled = false;
-        if (endFlag) { endFlag = false; Invoke("nextTutorialLevel", 5); }
+        if (endFlag) { endFlag = false; Invoke("nextTutorialLevel", 3); }
     }
 
     private void nextTutorialLevel()
@@ -168,7 +168,8 @@ public class TutorialFramework : MonoBehaviour {
         Board.GetComponent<gridManager>().initGrid();
         Board.GetComponent<inputController>().initCursors();
         spawnInitialCreatures();
-        Destroy(Highlight);
+        gridManager.theGrid.queueUpdate();
+        if (Highlight != null) { Destroy(Highlight); }
         createHighlightSquare();
         Limicator.limicatorObj.reset();
     }
