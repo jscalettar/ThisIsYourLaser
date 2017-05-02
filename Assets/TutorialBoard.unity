@@ -8584,9 +8584,9 @@ MonoBehaviour:
   moduleOrderIndex: 2
   initialState: 2
   highlightPos:
-    x: -1
-    y: -1
-  highlightTexture: {fileID: 0}
+    x: 4
+    y: 4
+  highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
   initialSelection: 6
   spawnList:
   - x: 0
@@ -8619,8 +8619,8 @@ MonoBehaviour:
   endOnRemoved: 0
   specificInteraction:
   - pos:
-      x: -1
-      y: -1
+      x: 4
+      y: 4
     building: 6
     type: 0
     popup: {fileID: 2800000, guid: d798161202eb0c648935de67b5bf8433, type: 3}
