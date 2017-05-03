@@ -371,7 +371,10 @@ public class SoundManager : MonoBehaviour {
 	public static int PlaySound(AudioClip clip, bool loop){
 		return PlaySound(clip, 1f, loop, null, false, 1, 1);
 	}
-
+    //overload sound with loop + volume boolean
+    public static int PlaySound(AudioClip clip, float volume, bool loop){
+        return PlaySound(clip, volume, loop, null, false, 1, 1);
+    }
 	public static int PlaySound(AudioClip clip, float volume, bool loop, Transform sourceTransform, bool randPitch, float pitchLow, float pitchHigh){
 		if (clip == null){
 			Debug.LogError("No Sound", clip);

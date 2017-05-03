@@ -135,6 +135,8 @@ public struct Grid
     private float timer;
     private float hitTimer;
     private float laserCeiling;
+    private float explosionTimer;
+    private float explosionNum;
     private bool needsUpdate;
     public GameObject tutorialObject;
     private GameObject baseP1;
@@ -226,7 +228,9 @@ public struct Grid
         blockScale = blockResourceScale;
         timer = .5f;
         hitTimer = 4.5f;
-        laserCeiling = .45f;
+        laserCeiling = .15f;
+        explosionTimer = .1f;
+        explosionNum = 6f;
     }
 
     private bool validateInput(int x, int y)
@@ -378,19 +382,53 @@ public struct Grid
             timer -= Time.deltaTime*5;
             hitTimer -= Time.deltaTime*5;
             if(timer < 0 ){
-                if(((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)) < laserCeiling){
+                if(getBuilding(x,y) == Building.Base){
+                    if(((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)) < laserCeiling){
 
-                    SoundManager.PlaySound(inputController.Sounds[5].audioclip,((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)));
-                    timer = .7f;
+                        SoundManager.PlaySound(inputController.Sounds[5].audioclip,((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)));
+                        timer = .7f;
+                    }
+                    else{
+                        SoundManager.PlaySound(inputController.Sounds[5].audioclip,laserCeiling); 
+                        timer = .7f;
+                        }
                 }
-                else{
-                    SoundManager.PlaySound(inputController.Sounds[5].audioclip,laserCeiling); 
+                else
+                    SoundManager.PlaySound(inputController.Sounds[5].audioclip, .06f);
                     timer = .7f;
-                }
             }
             if(hitTimer < 0 ){
-				SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f); // was causing error in tutorial scene, not sure why
-                hitTimer = 4.5f;
+                switch(getBuilding(x,y)){
+                    case Building.Base: 
+                        SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f);
+                        SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(8,10)].audioclip, .4f, true, .8f, 1.2f); 
+                        hitTimer = 4.5f; 
+                        break;
+
+                    case Building.Reflecting: 
+                        SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                        SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(12,13)].audioclip, .6f, true, .8f, 1.2f);  
+                        hitTimer = 4.5f; 
+                        break;
+                    case Building.Resource: 
+                        SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                        SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(16,17)].audioclip, .6f, true, .8f, 1.2f);  
+                        hitTimer = 4.5f; 
+                        break;
+                    case Building.Refracting: 
+                        SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                        SoundManager.PlaySound (inputController.Sounds [18].audioclip, .6f, true, 1.5f, 1.8f);  
+                        hitTimer = 4.5f; 
+                        break;
+                    case Building.Blocking: 
+                        SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                        SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(16,17)].audioclip, .6f, true, .4f, .6f);  
+                        hitTimer = 4.5f; 
+                        break;
+                    default: SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f); hitTimer = 4.5f; break;
+                }
+
+
             }
                 
             prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().currentHP = grid[y, x].health;
@@ -399,8 +437,8 @@ public struct Grid
                 if (tutorialObject != null && TutorialFramework.tutorialActive) {
                     tutorialObject.GetComponent<TutorialFramework>().buildingDestructionEvent(new XY(x, y), grid[y, x].building);
                 } else {
-                    if (getBuilding(x, y) == Building.Base && baseHealthP2() <= 0f) SceneManager.LoadScene("P1Win", LoadSceneMode.Single);
-                    else if (getBuilding(x, y) == Building.Base && baseHealthP1() <= 0f) SceneManager.LoadScene("P2Win", LoadSceneMode.Single);
+                    if (getBuilding(x, y) == Building.Base && baseHealthP2() <= 0f){ SoundManager.StopMusic(); SceneManager.LoadScene("P1Win", LoadSceneMode.Single);}
+                    else if (getBuilding(x, y) == Building.Base && baseHealthP1() <= 0f){ SoundManager.StopMusic(); SceneManager.LoadScene("P2Win", LoadSceneMode.Single);}
                 }
                 destroyBuilding(x, y);
             }
@@ -475,7 +513,12 @@ public struct Grid
                 placementTimerObject.GetComponent<placementTimer>().init(building.GetComponent<buildingParameters>().placementTime, playerID);
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
-			if (!TutorialFramework.tutorialActive) SoundManager.PlaySound(inputController.Sounds[2].audioclip, .5f); // FIX
+            if (!TutorialFramework.tutorialActive) {
+                if(UnityEngine.Random.Range(1, 100) != 1)
+                    SoundManager.PlaySound(inputController.Sounds[2].audioclip, .5f, true, .9f, 1.1f); // FIX
+                else
+                    SoundManager.PlaySound(inputController.Sounds[14].audioclip, 1f, true, .9f, 1.1f);
+            }
             updateSquares();
             
             if (newBuilding != Building.Base && newBuilding != Building.Laser) { 
@@ -534,7 +577,7 @@ public struct Grid
 
     public bool destroyBuilding(int x, int y)
     {
-		SoundManager.PlaySound(inputController.Sounds[1].audioclip, .5f, true, .95f, 1.05f);
+		
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
             // Emit Destruction Particle
@@ -568,6 +611,17 @@ public struct Grid
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
+            switch(getBuilding(x, y)){
+                case Building.Reflecting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1.2f, 1.2f); break;
+                case Building.Refracting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 2f, 2f); break;
+                case Building.Redirecting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .7f, .7f); break;
+                case Building.Resource: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .6f, .6f); break;
+                case Building.Blocking: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .8f, .8f); break;
+                default: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1f, 1f); break;
+            }
+            SoundManager.PlaySound(inputController.Sounds[15].audioclip, .4f, true, .7f, 1.3f);
+
+
             updateSquares();
         } else return false;
         return true;
