@@ -16077,26 +16077,11 @@ MonoBehaviour:
   highlightTexture: {fileID: 0}
   initialSelection: 2
   spawnList:
-  - x: 2
-    y: 4
-    building: 3
-    player: 2
-    direction: 6
-  - x: 4
-    y: 5
-    building: 2
-    player: 2
-    direction: 8
   - x: 0
     y: 4
     building: 0
     player: 1
     direction: 0
-  - x: 5
-    y: 0
-    building: 2
-    player: 2
-    direction: 8
   initialPopup: {fileID: 2800000, guid: 17908b9aa17290f46a7e0e403c5bbfd4, type: 3}
   initialPopup2: {fileID: 0}
   initialPopup3: {fileID: 0}
@@ -16122,14 +16107,7 @@ MonoBehaviour:
     building: 1
     type: 1
     popup: {fileID: 2800000, guid: 253f019d764611a43b7dd41a19d50781, type: 3}
-    endTrigger: 1
-  - pos:
-      x: -1
-      y: -1
-    building: 1
-    type: 0
-    popup: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
-    endTrigger: 1
+    endTrigger: 0
   movedLeft: {fileID: 0}
   movedRight: {fileID: 0}
   movedUp: {fileID: 0}

@@ -24,7 +24,7 @@ public class TutorialFramework : MonoBehaviour {
                 if (activeTutorial.specificDestroyed[i] != null && activeTutorial.specificDestroyed[i].pos == pos) {
                     if (activeTutorial.specificDestroyed[i].endTrigger) endFlag = true;
                     displayPopup(activeTutorial.specificDestroyed[i].popup);
-                    activeTutorial.specificDestroyed[i] = null;
+                    activeTutorial.specificDestroyed.RemoveAt(i);
                     return;
                 }
             }
@@ -71,7 +71,7 @@ public class TutorialFramework : MonoBehaviour {
                 {
                     if (activeTutorial.specificInteraction[i].endTrigger) endFlag = true;
                     displayPopup(activeTutorial.specificInteraction[i].popup);
-                    activeTutorial.specificInteraction[i] = null;
+                    activeTutorial.specificInteraction.RemoveAt(i);
                     return;
                 }
             }
@@ -93,7 +93,7 @@ public class TutorialFramework : MonoBehaviour {
                 {
                     if (activeTutorial.specificInteraction[i].endTrigger) endFlag = true;
                     displayPopup(activeTutorial.specificInteraction[i].popup);
-                    activeTutorial.specificInteraction[i] = null;
+                    activeTutorial.specificInteraction.RemoveAt(i);
                     return;
                 }
             }
