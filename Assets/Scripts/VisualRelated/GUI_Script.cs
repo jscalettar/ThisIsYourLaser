@@ -101,8 +101,8 @@ public class GUI_Script : MonoBehaviour {
         p1UI.currentResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
         p2UI.currentResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");*/
 
-        UI.playerOneResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
-        UI.playerTwoResource.text = "Resources: " + (Mathf.Floor(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
+        UI.playerOneResource.text = (Mathf.Floor(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
+        UI.playerTwoResource.text = (Mathf.Floor(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
 
         /*p1UI.p1ResourceBackground.color = Color.white; p1UI.p1BlockBackground.color = Color.white; p1UI.p1ReflectBackground.color = Color.white;
         p1UI.p1RefractBackground.color = Color.white; p1UI.p1RedirectBackground.color = Color.white;
