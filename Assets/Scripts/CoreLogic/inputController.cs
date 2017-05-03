@@ -171,7 +171,6 @@ public class inputController : MonoBehaviour {
 			// Check that the game isn't paused
 			if (PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false || (TutorialFramework.tutorialActive && !TutorialFramework.skipFrame)) {
 				// Cursor Selection P1
-				if (Input.GetKeyDown("1")) { cursorP1.selection = Building.Blocking; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("2")) { cursorP1.selection = Building.Reflecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("3")) { cursorP1.selection = Building.Refracting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("4")) { cursorP1.selection = Building.Redirecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("5")) { cursorP1.selection = Building.Resource; SoundManager.PlayUISound(UISounds[0].audioclip); }
 
 				// Cycle P1
 
@@ -179,35 +178,30 @@ public class inputController : MonoBehaviour {
 				if (gridManager.theGrid.getResourcesP1() < 4) {
 					cursorP1.selection = Building.Resource;
 				}
-
-				if (Input.GetButtonDown("cycleR_1")) {
-					if (cursorP1.selection == Building.Resource) cursorP1.selection = Building.Blocking;
-					else cursorP1.selection += 1;
-
-					while (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-						if (cursorP1.selection == Building.Resource) return;
-						cursorP1.selection += 1;
-					}
-
-
-					SoundManager.PlayUISound(UISounds[0].audioclip);
-				} else if (Input.GetButtonDown("cycleL_1")) {
-					if (cursorP1.selection == Building.Blocking) cursorP1.selection = Building.Resource;
-					else cursorP1.selection -= 1;
-
-					while (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-						if (cursorP1.selection == Building.Blocking) {
-							cursorP1.selection = Building.Resource;
-							return;
-						}
-						cursorP1.selection -= 1;
-					}
-
-					SoundManager.PlayUISound(UISounds[0].audioclip);
-				}
+                if (cursorP1.state != State.placing) {
+                    if (Input.GetKeyDown("1")) { cursorP1.selection = Building.Blocking; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("2")) { cursorP1.selection = Building.Reflecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("3")) { cursorP1.selection = Building.Refracting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("4")) { cursorP1.selection = Building.Redirecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("5")) { cursorP1.selection = Building.Resource; SoundManager.PlayUISound(UISounds[0].audioclip); }
+                    if (Input.GetButtonDown("cycleR_1")) {
+                        if (cursorP1.selection == Building.Resource) {
+                            cursorP1.selection = Building.Blocking;
+                        }
+                        else {
+                            cursorP1.selection += 1;
+                        }
+                        SoundManager.PlayUISound(UISounds[0].audioclip);
+                    }
+                    else if (Input.GetButtonDown("cycleL_1")) {
+                        if (cursorP1.selection == Building.Blocking) {
+                            cursorP1.selection = Building.Resource;
+                        }
+                        else {
+                            cursorP1.selection -= 1;
+                        }
+                        SoundManager.PlayUISound(UISounds[0].audioclip);
+                    }
+                }
 
 				// Cursor Selection P2
-				if (Input.GetKeyDown("7")) { cursorP2.selection = Building.Blocking; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("8")) { cursorP2.selection = Building.Reflecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("9")) { cursorP2.selection = Building.Refracting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("0")) { cursorP2.selection = Building.Redirecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("-")) { cursorP2.selection = Building.Resource; SoundManager.PlayUISound(UISounds[0].audioclip); }
+				
 
 
 				// Cycle P2
@@ -216,30 +210,29 @@ public class inputController : MonoBehaviour {
 				if (gridManager.theGrid.getResourcesP2() < 4) {
 					cursorP2.selection = Building.Resource;
 				}
-				if (Input.GetButtonDown("cycleR_2")) {
-					if (cursorP2.selection == Building.Resource) cursorP2.selection = Building.Blocking;
-					else cursorP2.selection += 1;
+                if (cursorP2.state != State.placing) {
+                    if (Input.GetKeyDown("7")) { cursorP2.selection = Building.Blocking; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("8")) { cursorP2.selection = Building.Reflecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("9")) { cursorP2.selection = Building.Refracting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("0")) { cursorP2.selection = Building.Redirecting; SoundManager.PlayUISound(UISounds[0].audioclip); } else if (Input.GetKeyDown("-")) { cursorP2.selection = Building.Resource; SoundManager.PlayUISound(UISounds[0].audioclip); }
+                    if (Input.GetButtonDown("cycleR_2")) {
+                        if (cursorP2.selection == Building.Resource) {
+                            cursorP2.selection = Building.Blocking;
+                        }
+                        else {
+                            cursorP2.selection += 1;
+                        }
+                        SoundManager.PlayUISound(UISounds[0].audioclip);
 
-					while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-						if (cursorP2.selection == Building.Resource) return;
-						cursorP2.selection += 1;
-					}
+                    }
+                    else if (Input.GetButtonDown("cycleL_2")) {
+                        if (cursorP2.selection == Building.Blocking) {
+                            cursorP2.selection = Building.Redirecting;
+                        }
+                        else {
+                            cursorP2.selection -= 1;
+                        }
 
-					SoundManager.PlayUISound(UISounds[0].audioclip);
-				} else if (Input.GetButtonDown("cycleL_2")) {
-					if (cursorP2.selection == Building.Blocking) cursorP2.selection = Building.Redirecting;
-					else cursorP2.selection -= 1;
-
-					while (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-						if (cursorP2.selection == Building.Blocking) {
-							cursorP2.selection = Building.Resource;
-							return;
-						}
-						cursorP2.selection -= 1;
-					}
-
-					SoundManager.PlayUISound(UISounds[0].audioclip);
-				}
+                        SoundManager.PlayUISound(UISounds[0].audioclip);
+                    }
+                }
 				if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove && cursorP1.state != State.removing) {
 					// Cursor Movement P1
 					if (Input.GetAxis("xboxLeftVert") != 0) { vertDelayP1 = delayFactor; if (!flagVP1) { vertCounterP1 = 1f / cursorSpeed; flagVP1 = true; } } else { flagVP1 = false; }
