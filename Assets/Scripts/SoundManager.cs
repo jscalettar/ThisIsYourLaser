@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 ////////////////////////////All hope abandon...///////////////////////////
@@ -93,8 +93,20 @@ public class SoundManager : MonoBehaviour {
 	void Awake(){
 		instance.Init();
 	}
-	void OnLevelWasLoaded(int level)
+    void OnEnable(){
+        //Debug.Log (name + ":OnEnable()");
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
+
+
+    void OnDisable(){
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene scene,LoadSceneMode mode)
 	{
+        //Debug.Log (scene.name + ":OnLevelFinishedLoading is playing ");
+
 		List<int> keys;
 
 		// Stop and remove all non-persistent music audio
@@ -127,6 +139,8 @@ public class SoundManager : MonoBehaviour {
 			UISoundsAudio.Remove(key);
 		}
 	}
+
+
 	//Initialize variables
 	void Init(){
 		if (!initialized)
