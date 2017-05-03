@@ -160,7 +160,7 @@ public class inputController : MonoBehaviour {
         p2UI.State = GameObject.Find("p2State").GetComponent<Text>();*/
 		initCursors();
 		SoundManager.PlayMusic(musicSounds[0].audioclip, .2f, true, true, 5f, 1.5f);
-        SoundManager.PlaySound(Sounds[7].audioclip, .05f, true);
+        //SoundManager.PlaySound(Sounds[7].audioclip, .05f, true);
 	}
 
 	void Update()
