@@ -321,8 +321,13 @@ public struct Grid
         else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2 - 2) cost *= 3f;
         else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2 - 1) cost *= 2.5f;
         else if (player == Player.PlayerTwo && x < gridManager.theGrid.getDimX() / 2) cost *= 2f;
-        if (moving || removing) cost /= 2f;
+        if (removing) cost /= 2f;
         else if (swaping) cost /= 4f;
+        else if (moving)
+        {
+            if ((player == Player.PlayerOne && x < gridManager.theGrid.getDimX() / 2)) cost /= 2f;
+            else if ((player == Player.PlayerTwo && x >= gridManager.theGrid.getDimX() / 2)) cost /= 2f;
+        }
         return cost;
     }
 
@@ -427,7 +432,6 @@ public struct Grid
                 float scale = building.GetComponent<buildingParameters>().scale;
                 building.transform.localScale = new Vector3(scale, scale, scale);
             } else if (newBuilding == Building.Laser) {
-                //building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing) - 2];
                 building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f);
                 float scale = building.GetComponent<buildingParameters>().scale;
@@ -471,7 +475,6 @@ public struct Grid
                 placementTimerObject.GetComponent<placementTimer>().init(building.GetComponent<buildingParameters>().placementTime, playerID);
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            //needsUpdate = true;
 			if (!TutorialFramework.tutorialActive) SoundManager.PlaySound(inputController.Sounds[2].audioclip, .5f); // FIX
             updateSquares();
             
@@ -516,14 +519,13 @@ public struct Grid
             }
             if (playerID == Player.PlayerOne)
             {
-                floatingNumbers.floatingNumbersStruct.checkResource(new XY(x, y), getCost(grid[y, x].building, x, playerID)/2, Player.PlayerOne, State.removing);
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(x, y), getCost(grid[y, x].building, x, playerID,false, true), Player.PlayerOne, State.removing);
             }
             else
             {
-                floatingNumbers.floatingNumbersStruct.checkResource(new XY(x, y), getCost(grid[y, x].building, x, playerID)/2, Player.PlayerTwo, State.removing);
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(x, y), getCost(grid[y, x].building, x, playerID,false, true), Player.PlayerTwo, State.removing);
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
-            //needsUpdate = true;
 			SoundManager.PlaySound(inputController.Sounds[3].audioclip, .75f);
             updateSquares();
         } else return false;
@@ -540,8 +542,6 @@ public struct Grid
 
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
 			//SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume, true, .5f, 1.5f);
-            //Building temp = grid[y, x].building;
-			//MonoBehaviour.print("owner: " + grid [y, x].owner);
 			if (grid [y, x].owner == Player.PlayerOne) {
 				buildingNumP1--;
 			} else {
@@ -568,7 +568,6 @@ public struct Grid
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
-            //needsUpdate = true;
             updateSquares();
         } else return false;
         return true;
@@ -599,22 +598,23 @@ public struct Grid
                 // Move Building Prefab
                 building.GetComponent<buildingParameters>().x = xNew;
                 building.GetComponent<buildingParameters>().y = yNew;
+                building.GetComponent<buildingParameters>().direction = facing;
                 building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
                 prefabDictionary.Remove(new XY(x, y));
                 prefabDictionary.Add(new XY(xNew, yNew), building);
             }
             grid[yNew, xNew].direction = facing;
             // Rotate
-            if(canRotate(grid[yNew, xNew].building)) building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
+            if (canRotate(grid[yNew, xNew].building)) { building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)]; building.GetComponent<buildingParameters>().direction = facing; }
             // Specify that the board was updated and that laserLogic needs to run a simulation
             needsUpdate = true;
             if (playerID == Player.PlayerOne)
             {
-                floatingNumbers.floatingNumbersStruct.checkResource(new XY(xNew, yNew), getCost(grid[yNew, xNew].building, xNew, playerID) / 2, Player.PlayerOne, State.moving);
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(xNew, yNew), getCost(grid[yNew, xNew].building, xNew, playerID, true) / 2, Player.PlayerOne, State.moving);
             }
             else
             {
-                floatingNumbers.floatingNumbersStruct.checkResource(new XY(xNew, yNew), getCost(grid[yNew, xNew].building, xNew, playerID) / 2, Player.PlayerTwo, State.moving);
+                floatingNumbers.floatingNumbersStruct.checkResource(new XY(xNew, yNew), getCost(grid[yNew, xNew].building, xNew, playerID, true) / 2, Player.PlayerTwo, State.moving);
             }
             updateSquares();
         } else return false;
@@ -729,12 +729,6 @@ public class gridManager : MonoBehaviour
             if (theGrid.destructionList[i].updateTime(Time.deltaTime) <= 0f) {
                 int x = theGrid.destructionList[i].coords.x;
                 int y = theGrid.destructionList[i].coords.y;
-                /*theGrid.grid[y, x].isEmpty = true;
-                theGrid.grid[y, x].building = Building.Empty;
-                theGrid.grid[y, x].owner = Player.World;
-                theGrid.grid[y, x].level = 0;
-                theGrid.grid[y, x].health = 0;
-                theGrid.grid[y, x].markedForDeath = false;*/
                 if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
                     DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
                     theGrid.prefabDictionary.Remove(new XY(x, y));
@@ -750,26 +744,4 @@ public class gridManager : MonoBehaviour
 			theGrid.destructionList.RemoveAt(0);
         }
     }
-
-
-    // Debug building placements
-    // Comment out to hide gizmos
-    /*void OnDrawGizmos()
-    {
-        // Note: one grid cell = 1x1 meter in unity
-        int dimX = theGrid.getDimX();
-        int dimY = theGrid.getDimY();
-
-        for (int row = 0; row < theGrid.getDimY(); row++) {
-            for (int col = 0; col < theGrid.getDimX(); col++) {
-                Gizmos.color = new Color(1f, 1f, 1f, .8f);
-                //Gizmos.DrawCube(new Vector3((-dimX/2)+col+0.5f, -0.5f, (-dimY/2)+row+0.5f), new Vector3(.8f, 1f, .8f));
-                if (theGrid.getCellInfo(col, row).isEmpty) {
-                    Gizmos.color = new Color(1f, 1f, 1f, .8f);
-                    //Gizmos.DrawCube(new Vector3((-dimX / 2) + col + 0.5f, 0.5f, (-dimY / 2) + row + 0.5f), Vector3.one);
-                }
-            }
-        }
-    }*/
-
 }

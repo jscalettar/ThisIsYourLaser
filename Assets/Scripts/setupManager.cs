@@ -307,7 +307,7 @@ public class setupManager : MonoBehaviour
     {
 		float xOff = ((gridManager.theGrid.getDimX() / 2) - 0.5f);
 		float zOff = ((gridManager.theGrid.getDimY() / 2) - 0.5f);
-		p1Pos = new Vector3(cursor1.pos.x + xOff, 0, cursor1.pos.z + zOff);
+		p1Pos = new Vector3(cursor.pos.x + xOff, 0, cursor.pos.z + zOff);
 		p2Pos = new Vector3(cursor2.pos.x + xOff, 0, cursor2.pos.z + zOff);
     }
     
