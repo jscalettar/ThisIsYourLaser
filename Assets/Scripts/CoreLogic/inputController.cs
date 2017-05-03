@@ -299,11 +299,12 @@ public class inputController : MonoBehaviour {
                 }
 
 				// Update Cursor/UI Appearance P1
-				if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; /*p1UI.State.text = "Place base on the current column \nPress [e] to place base";*/ }
+				if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; cursorSpriteP1.transform.localScale = new Vector3(1f, 1f, 1f);/*p1UI.State.text = "Place base on the current column \nPress [e] to place base";*/ }
                 else if (cursorP1.state == State.placeLaser) {
-					cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1LaserSprite;
-					//p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
-				} else if (cursorP1.state == State.placingLaser) {
+					cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][0];
+                    cursorSpriteP1.transform.localScale = new Vector3(1f, 1f, 1f);
+                    //p1UI.State.text = "Press [e] to place laser \nPress [w] or [s] for direction \n[e] to confirm";
+                } else if (cursorP1.state == State.placingLaser) {
 					switch (cursorP1.direction) {
 					    case Direction.Up: if (cursorP1.y != yEnd) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][1]; } break;
 					    case Direction.Down: if (cursorP1.y != 0) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][0]; } break;
