@@ -397,35 +397,37 @@ public struct Grid
                     SoundManager.PlaySound(inputController.Sounds[5].audioclip, .06f);
                     timer = .7f;
             }
-            if(hitTimer < 0 ){
-                switch(getBuilding(x,y)){
-                    case Building.Base: 
-                        SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f);
-                        //SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(8,10)].audioclip, .4f, true, .8f, 1.2f); 
-                        hitTimer = 4.5f; 
-                        break;
+            if (!TutorialFramework.tutorialActive) {
+                if(hitTimer < 0 ){
+                    switch(getBuilding(x,y)){
+                        case Building.Base: 
+                            SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f);
+                            SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(8,10)].audioclip, .4f, true, .8f, 1.2f); 
+                            hitTimer = 4.5f; 
+                            break;
 
-                    case Building.Reflecting: 
-                        SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
-                        SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(12,13)].audioclip, .6f, true, .8f, 1.2f);  
-                        hitTimer = 4.5f; 
-                        break;
-                    case Building.Resource: 
-                        SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
-                        SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(16,17)].audioclip, .6f, true, .8f, 1.2f);  
-                        hitTimer = 4.5f; 
-                        break;
-                    case Building.Refracting: 
-                        SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
-                        SoundManager.PlaySound (inputController.Sounds [18].audioclip, .6f, true, 1.5f, 1.8f);  
-                        hitTimer = 4.5f; 
-                        break;
-                    case Building.Blocking: 
-                        SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
-                        SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(16,17)].audioclip, .6f, true, .4f, .6f);  
-                        hitTimer = 4.5f; 
-                        break;
-                    default: SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f); hitTimer = 4.5f; break;
+                        case Building.Reflecting: 
+                            SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                            SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(12,13)].audioclip, .6f, true, .8f, 1.2f);  
+                            hitTimer = 4.5f; 
+                            break;
+                        case Building.Resource: 
+                            SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                            SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(16,17)].audioclip, .6f, true, .8f, 1.2f);  
+                            hitTimer = 4.5f; 
+                            break;
+                        case Building.Refracting: 
+                            SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                            SoundManager.PlaySound (inputController.Sounds [18].audioclip, .6f, true, 1.5f, 1.8f);  
+                            hitTimer = 4.5f; 
+                            break;
+                        case Building.Blocking: 
+                            SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                            SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(16,17)].audioclip, .6f, true, .4f, .6f);  
+                            hitTimer = 4.5f; 
+                            break;
+                        default: SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f); hitTimer = 4.5f; break;
+                    }
                 }
 
 
