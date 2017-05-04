@@ -390,8 +390,8 @@ public class SoundManager : MonoBehaviour {
 		}
 
 		instance.Init();
-		AudioSource audioSource = instance.gameObject.AddComponent<AudioSource>() as AudioSource;
-		Audio audio = new Audio(Audio.AudioType.Sound, clip, loop, false, volume, 0f, 0f, sourceTransform, randPitch, pitchLow, pitchHigh);
+        //AudioSource audioSource = instance.gameObject.AddComponent<AudioSource>() as AudioSource; // Lag generator commented out, yorokobe shounen
+        Audio audio = new Audio(Audio.AudioType.Sound, clip, loop, false, volume, 0f, 0f, sourceTransform, randPitch, pitchLow, pitchHigh);
 		soundsAudio.Add(audio.audioID, audio);
 
 		return audio.audioID;

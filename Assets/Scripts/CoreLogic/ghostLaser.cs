@@ -8,7 +8,7 @@ public class ghostLaser : MonoBehaviour {
 
     // Configurable
     public float laserWidth = 0.05f;
-    public float laserVisualHeight = 0.5f;
+    public float laserVisualHeight = 0.4f;
     public float laserTransparency = 0.5f;
     public Material laserMaterialGhostP1;
     public Material laserMaterialGhostP2;
@@ -247,7 +247,7 @@ public class ghostLaser : MonoBehaviour {
             LineRenderer line = lineObject.AddComponent<LineRenderer>();
             line.startWidth = laserWidth;
             line.endWidth = laserWidth;
-            line.numCapVertices = 5;
+            line.numCapVertices = 0;
             line.material = laserMaterialGhostP1;
             line.enabled = false;
         }
@@ -274,8 +274,9 @@ public class ghostLaser : MonoBehaviour {
             startPos = coordToPos(start.getX(), start.getY(), start.getHeading(), dir, true);
         }
         Vector3 endPos = coordToPos(end.getX(), end.getY(), end.getHeading(), end.getMarchDir(), false);
-        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(0, startPos);
-        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(1, endPos);
+        Vector3 heightOffset = new Vector3(0, laserCounter * -0.01f, 0);
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(0, startPos + heightOffset);
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(1, endPos + heightOffset);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().enabled = true;
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().material = start.getOwner() == Player.PlayerOne ? laserMaterialGhostP1 : laserMaterialGhostP2;
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().startColor = new Color(1, 1, 1, laserTransparency);

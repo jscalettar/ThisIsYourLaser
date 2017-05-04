@@ -269,7 +269,7 @@ public class laserLogic : MonoBehaviour
             LineRenderer line = lineObject.AddComponent<LineRenderer>();
             line.startWidth = laserWidth;
             line.endWidth = laserWidth;
-            line.numCapVertices = 5;
+            line.numCapVertices = 0;
             line.material = laserMaterialP1;
             line.enabled = false;
             // Particle object pool
@@ -319,8 +319,9 @@ public class laserLogic : MonoBehaviour
     {
         Vector3 startPos = coordToPos(start.getX(), start.getY(), start.getHeading(), start.getMarchDir(), true);
         Vector3 endPos = coordToPos(end.getX(), end.getY(), end.getHeading(), end.getMarchDir(), false);
-        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(0, startPos);
-        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(1, endPos);
+        Vector3 heightOffset = new Vector3(0, laserCounter * -0.01f, 0);
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(0, startPos + heightOffset);
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(1, endPos + heightOffset);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().enabled = true;
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().startColor = new Color(1, 1, 1, start.getStrength() * laserIntensity);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().endColor = new Color(1, 1, 1, end.getStrength() * laserIntensity);
@@ -436,7 +437,7 @@ public class laserLogic : MonoBehaviour
         foreach (KeyValuePair<XY, List<dirHeadPlayer>> keyValue in particleHits) {
             for (int i = 0; i < keyValue.Value.Count; i++) {
                 Transform particle = particleContainer.transform.GetChild(particleCounter);
-                particle.localPosition = new Vector3((-dimX / 2) + keyValue.Key.x + 0.5f, 0.01f, (-dimY / 2) + keyValue.Key.y + 0.5f); ;
+                particle.localPosition = new Vector3((-dimX / 2) + keyValue.Key.x + 0.5f, 0.5f, (-dimY / 2) + keyValue.Key.y + 0.5f); ;
                 particle.localEulerAngles = directionToEular(keyValue.Value[i].direction);
                 //particle.transform.GetChild(0).GetComponent<ParticleSystem>(). set color? // hit.Value.player == Player.PlayerOne ? red : green;
                 particle.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
