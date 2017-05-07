@@ -151,7 +151,7 @@ public struct Grid
         GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder,
         GameObject Dots, GameObject placementTimerObj, GameObject tutorial, float limit, int blockResourceScale)
     {
-        flag = 0;
+        flag = 69;
         grid = new GridItem[y, x];
         // Generate Object Holder
         GameObject trashCompactor = new GameObject();
@@ -165,11 +165,11 @@ public struct Grid
                 empty.transform.SetParent(trashCompactor.transform);
                 empty.transform.localPosition = new Vector3((-x / 2) + col + 0.5f, -0.1f, (-y / 2) + row + 0.5f);
                 Color gridColor = Color.white;
-                //if (col < (x/2)) {
-                //    gridColor = Color.red;
+                //if (row < 2 || row > y-3) {
+                //    empty.GetComponent<Renderer>().enabled = false;
                 //}
-                //else {
-                //    gridColor = Color.green;
+                //if(col != 0 && col != x-1){
+                //    empty.GetComponent<Renderer>().enabled = false;
                 //}
                 gridColor.a = 0.20f;
                 empty.GetComponent<Renderer>().material.color = gridColor;
@@ -366,20 +366,30 @@ public struct Grid
         return new Vector3(x - (dimX / 2f) + 0.5f, yOffset, y - (dimY / 2f) + 0.5f);
     }
 
-    public void updateSquares(Building b)
+    public void updateSquares(Building b = Building.Empty)
     {
         for (int i = 0; i < gridSquares.GetLength(0); i++) {
-            for (int j = 0; j < gridSquares.GetLength(1); j++) {
-                if(b == Building.Laser)
-                {
-                    if (probeGrid(j, i, Direction.Up, Building.Laser)) gridSquares[i, j].GetComponent<Renderer>().enabled = true;
-                    else gridSquares[i, j].GetComponent<Renderer>().enabled = false;
-                }else
-                {
-                    if (probeGrid(j, i, Direction.Up, Building.Blocking)) gridSquares[i, j].GetComponent<Renderer>().enabled = true;
-                    else gridSquares[i, j].GetComponent<Renderer>().enabled = false;
-                }
-                
+            for (int j = 0; j < gridSquares.GetLength(1)/2; j++) {
+                bool enableSquare = false;
+                if(inputController.cursorP1.state == State.placeLaser || inputController.cursorP1.state == State.placingLaser || inputController.cursorP1.state == State.placeBase) {
+                    if (probeGrid(j, i, Direction.Up, Building.Laser)) enableSquare = true;
+                } else if (probeGrid(j, i, Direction.Up, Building.Blocking)) enableSquare = true;
+
+                if (inputController.cursorP1.state == State.placeBase)
+                    if ((i < 2 || i > (dimY - 3)) && j == 0) enableSquare = false;
+
+                gridSquares[i, j].GetComponent<Renderer>().enabled = enableSquare;
+            }
+            for (int j = gridSquares.GetLength(1) / 2; j < gridSquares.GetLength(1); j++) {
+                bool enableSquare = false;
+                if (inputController.cursorP2.state == State.placeLaser || inputController.cursorP2.state == State.placingLaser || inputController.cursorP1.state == State.placeBase) {
+                    if (probeGrid(j, i, Direction.Up, Building.Laser)) enableSquare = true;
+                } else if (probeGrid(j, i, Direction.Up, Building.Blocking)) enableSquare = true;
+
+                if (inputController.cursorP2.state == State.placeBase)
+                    if ((i < 2 || i > (dimY - 3)) && j == dimX-1) enableSquare = false;
+
+                gridSquares[i, j].GetComponent<Renderer>().enabled = enableSquare;
             }
         }
     }
@@ -748,12 +758,13 @@ public class gridManager : MonoBehaviour
     public int blockResourceScale;
     private GameObject buildingContainer;
     private int deletionCount = 0;
-    private int flag = 0;
+    private int flag = 420;
 
     public void initGrid()
     {
         theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources,
             startingBuildingNum, empty, dot, placementTimerObj, tutorialObject, limit, blockResourceScale);
+        theGrid.updateSquares();
     }
 
     void Awake()

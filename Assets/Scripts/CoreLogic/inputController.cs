@@ -507,8 +507,8 @@ public class inputController : MonoBehaviour {
 				else if (cursorP1.y == 0 || cursorP1.y == yEnd) print("Base cannot be placed in corners");
 				else
 				{
-					gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Base, Player.PlayerOne);
 					cursorP1.state = State.placeLaser; p1HasPlacedBase = true;
+                    gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Base, Player.PlayerOne);
 
 					if(TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placedEvent(new XY(cursorP1.x, cursorP1.y), Building.Base);
 				}
@@ -516,8 +516,8 @@ public class inputController : MonoBehaviour {
 				if (cursorP2.x < xEnd) print("Base must be placed on the edge of the board");
 				else if (cursorP2.y == 0 || cursorP2.y == yEnd) print("Base cannot be placed in corners");
 				else {
-					gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Base, Player.PlayerTwo);
 					cursorP2.state = State.placeLaser; p2HasPlacedBase = true;
+                    gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Base, Player.PlayerTwo);
 
 				}
 			}
