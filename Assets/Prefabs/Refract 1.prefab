@@ -147,7 +147,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
   - {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
   - {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
-  scale: 0.2
+  scale: 0.23
   placementTime: 1.5
   removalTime: 1
   destructionTime: 0.5
