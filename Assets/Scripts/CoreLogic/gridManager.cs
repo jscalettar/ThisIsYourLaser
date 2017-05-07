@@ -491,6 +491,18 @@ public struct Grid
             {
                 building.transform.localPosition = coordsToWorld(x, y - 0.135f);
             }
+            if (newBuilding == Building.Base && playerID == Player.PlayerOne)
+            {
+                GameObject ripple = null;
+                ripple = building.transform.GetChild(0).gameObject;
+                ripple.transform.localPosition = coordsToWorld(x+5.25f, y, -1.5f);
+            }
+            else if(newBuilding == Building.Base && playerID == Player.PlayerTwo)
+            {
+                GameObject ripple = null;
+                ripple = building.transform.GetChild(0).gameObject;
+                ripple.transform.localPosition = coordsToWorld(x-4.5f, y, -1.5f);
+            }
             building.transform.localEulerAngles = new Vector3(90, 0, 0);
             prefabDictionary.Add(new XY(x, y), building);
             // Subtract Cost From Resources
