@@ -144,12 +144,14 @@ public struct Grid
     private GameObject placementTimer;
     public GameObject[,] gridSquares;
     public int blockScale;
+    private int flag;
    
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
         GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder,
         GameObject Dots, GameObject placementTimerObj, GameObject tutorial, float limit, int blockResourceScale)
     {
+        flag = 0;
         grid = new GridItem[y, x];
         // Generate Object Holder
         GameObject trashCompactor = new GameObject();
@@ -364,12 +366,20 @@ public struct Grid
         return new Vector3(x - (dimX / 2f) + 0.5f, yOffset, y - (dimY / 2f) + 0.5f);
     }
 
-    public void updateSquares()
+    public void updateSquares(Building b)
     {
         for (int i = 0; i < gridSquares.GetLength(0); i++) {
             for (int j = 0; j < gridSquares.GetLength(1); j++) {
-                if (probeGrid(j, i, Direction.Up, Building.Blocking)) gridSquares[i, j].GetComponent<Renderer>().enabled = true;
-                else gridSquares[i, j].GetComponent<Renderer>().enabled = false;
+                if(b == Building.Laser)
+                {
+                    if (probeGrid(j, i, Direction.Up, Building.Laser)) gridSquares[i, j].GetComponent<Renderer>().enabled = true;
+                    else gridSquares[i, j].GetComponent<Renderer>().enabled = false;
+                }else
+                {
+                    if (probeGrid(j, i, Direction.Up, Building.Blocking)) gridSquares[i, j].GetComponent<Renderer>().enabled = true;
+                    else gridSquares[i, j].GetComponent<Renderer>().enabled = false;
+                }
+                
             }
         }
     }
@@ -537,8 +547,16 @@ public struct Grid
                 else
                     SoundManager.PlaySound(inputController.Sounds[14].audioclip, 1f, true, .9f, 1.1f);
             }
-            updateSquares();
-            
+            if (newBuilding == Building.Laser)
+            {
+                flag += 1;
+            }
+            if (flag >= 2)
+            {
+                updateSquares(Building.Base);
+            }
+            else updateSquares(Building.Laser);
+
             if (newBuilding != Building.Base && newBuilding != Building.Laser) { 
                 Limicator.limicatorObj.changeStones(playerID == Player.PlayerOne ? 0 : 1, State.placing, newBuilding);
                 if (playerID == Player.PlayerOne)
@@ -588,7 +606,7 @@ public struct Grid
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
 			SoundManager.PlaySound(inputController.Sounds[3].audioclip, .75f);
-            updateSquares();
+            updateSquares(Building.Base);
         } else return false;
         return true;
     }
@@ -640,7 +658,7 @@ public struct Grid
             //SoundManager.PlaySound(inputController.Sounds[15].audioclip, .4f, true, .7f, 1.3f);
 
 
-            updateSquares();
+            updateSquares(Building.Base);
         } else return false;
         return true;
     }
@@ -688,7 +706,7 @@ public struct Grid
             {
                 floatingNumbers.floatingNumbersStruct.checkResource(new XY(xNew, yNew), getCost(grid[yNew, xNew].building, xNew, playerID, true) / 2, Player.PlayerTwo, State.moving);
             }
-            updateSquares();
+            updateSquares(Building.Base);
         } else return false;
         return true;
     }
@@ -730,6 +748,7 @@ public class gridManager : MonoBehaviour
     public int blockResourceScale;
     private GameObject buildingContainer;
     private int deletionCount = 0;
+    private int flag = 0;
 
     public void initGrid()
     {
@@ -763,7 +782,15 @@ public class gridManager : MonoBehaviour
                 deletionCount++;
 
                 ghostLaser.ghostUpdateNeeded = true;
-                theGrid.updateSquares();
+                if(theGrid.placementList[i].building == Building.Laser)
+                {
+                    flag += 1;
+                }
+                if(flag >= 2)
+                {
+                    theGrid.updateSquares(Building.Base);
+                }
+                else theGrid.updateSquares(Building.Laser);
             }
         }
         for (int i = 0; i < deletionCount; i++) {
@@ -789,7 +816,7 @@ public class gridManager : MonoBehaviour
                 deletionCount++;
 
                 ghostLaser.ghostUpdateNeeded = true;
-                theGrid.updateSquares();
+                theGrid.updateSquares(Building.Base);
             }
         }
         for (int i = 0; i < deletionCount; i++) {
@@ -809,7 +836,7 @@ public class gridManager : MonoBehaviour
                 deletionCount++;
 
                 ghostLaser.ghostUpdateNeeded = true;
-                theGrid.updateSquares();
+                theGrid.updateSquares(Building.Base);
             }
         }
         for (int i = 0; i < deletionCount; i++) {
