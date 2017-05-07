@@ -289,14 +289,14 @@ public class laserLogic : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Time.realtimeSinceStartup >= intervalInSeconds1) {
-            laserPowerMultiplier = 2;
+		if (laserLifetime >= intervalInSeconds3) {
+            laserPowerMultiplier = 4;
         }
-        else if (Time.realtimeSinceStartup >= intervalInSeconds2) {
+		else if (laserLifetime >= intervalInSeconds2) {
             laserPowerMultiplier = 3;
         }
-        else if (Time.realtimeSinceStartup >= intervalInSeconds3) {
-            laserPowerMultiplier = 4;
+		else if (laserLifetime >= intervalInSeconds1) {
+            laserPowerMultiplier = 2;
         }
        if (gridManager.theGrid.updateLaser()) simulateLasers(); // Update laser if needed
 
