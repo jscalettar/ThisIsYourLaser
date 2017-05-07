@@ -64,6 +64,7 @@ public class Limicator : MonoBehaviour
                     limit.transform.localPosition = i == 0 ? new Vector3(-6.6f, 0f, -3.45f + j* (.75f)) : new Vector3(6.8f, 0f, -3.45f + j* (.75f));
                     limit.transform.Rotate(90, 0, 0);
                     limit.transform.localScale = new Vector3(scale, scale, scale);
+                    limit.GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, .5f);
                     KeyValuePair<GameObject, int> pair = new KeyValuePair<GameObject, int>(limit, 0);
                     stones[i, j] = pair;
                 }
@@ -81,6 +82,7 @@ public class Limicator : MonoBehaviour
                     int code = stones[i, j].Value;
                     stone.transform.localScale = code == 0 ? new Vector3(scale, scale, scale) : new Vector3(scale/5, scale/5, scale/5);
                     stone.GetComponent<SpriteRenderer>().sprite = i == 0 ? sprites1[code] : sprites2[code];
+                    stone.GetComponent<Renderer>().material.color = code == 0 ? new Vector4(1f, 1f, 1f, .5f) : new Vector4(1f,1f,1f,1f);
                     stones[i,j] = new KeyValuePair<GameObject, int>(stone, code);
                 }
             }
@@ -108,6 +110,7 @@ public class Limicator : MonoBehaviour
                     GameObject stone = stones[s, p1StonesPlaced].Key;
                     stone.transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
                     stone.GetComponent<SpriteRenderer>().sprite = sprites1[animal];
+                    stone.GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, 1f);
                     stones[s, p1StonesPlaced] = new KeyValuePair<GameObject, int>(stone, code);
                     p1StonesPlaced = Mathf.Min(10, p1StonesPlaced + 1);
                 }
