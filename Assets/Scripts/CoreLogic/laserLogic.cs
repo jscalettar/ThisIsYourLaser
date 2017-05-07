@@ -7,7 +7,8 @@ public class laserLogic : MonoBehaviour
 
     // Configurable
     //public float laserDecay = 0.025f;
-    public float laserWidth = 0.05f;
+    public float laserStartWidth = 0.1f;
+    public float laserEndWidth = 0.3f;
     public float laserVisualHeight = 0.5f;
     public float laserIntensity = 0.5f;
     public float intervalInMinutes1;
@@ -28,7 +29,11 @@ public class laserLogic : MonoBehaviour
     // Private Variables
     private int laserStartP1 = 0;
     private int laserStartP2 = 0;
-    
+
+    // Laser Lifetime Timer
+    private float laserLifetime = 0f;
+    private bool laserActive = false;
+
     private float intervalInSeconds1;
     private float intervalInSeconds2;
     private float intervalInSeconds3;
@@ -250,6 +255,9 @@ public class laserLogic : MonoBehaviour
         float intervalInSeconds2 = 60 / intervalInMinutes2;
         float intervalInSeconds3 = 60 / intervalInMinutes3;
 
+        laserLifetime = 0f;
+        laserActive = false;
+
         laserIndex = -1;
         lasers = new List<List<laserNode>>();
         laserQueue = new List<laserNode>();
@@ -267,8 +275,8 @@ public class laserLogic : MonoBehaviour
             GameObject lineObject = new GameObject("lineObject");
             lineObject.transform.SetParent(laserContainer.transform);
             LineRenderer line = lineObject.AddComponent<LineRenderer>();
-            line.startWidth = laserWidth;
-            line.endWidth = laserWidth;
+            line.startWidth = 0f;
+            line.endWidth = 0f;
             line.numCapVertices = 0;
             line.material = laserMaterialP1;
             line.enabled = false;
@@ -313,10 +321,48 @@ public class laserLogic : MonoBehaviour
         if (gridManager.theGrid.baseHealthP1() > 0f && gridManager.theGrid.baseHealthP2() > 0f) gridManager.theGrid.addResources(Time.deltaTime * resourceRate/2, Time.deltaTime * resourceRate/2);
 
         if (ghostLaser.ghostUpdateNeeded) { ghostLaser.updateGhostLaser = true; ghostLaser.ghostUpdateNeeded = false; }
+
+        // Scale lasers over time
+        for (int i = 0; i < laserContainer.transform.childCount; i++) {
+            if (laserContainer.transform.GetChild(i).GetComponent<LineRenderer>() != null && laserContainer.transform.GetChild(i).GetComponent<LineRenderer>().enabled == true) {
+
+                float targetScale = getLaserTargetScale();
+                float currentScale = laserContainer.transform.GetChild(i).GetComponent<LineRenderer>().startWidth;
+
+                if (currentScale != targetScale) {
+                    float scale = currentScale + ((targetScale - currentScale) * Time.deltaTime * 3f);
+                    AnimationCurve curve = new AnimationCurve();
+                    curve.AddKey(0, scale);
+                    curve.AddKey(1, scale);
+                    laserContainer.transform.GetChild(i).GetComponent<LineRenderer>().widthCurve = curve;
+                }
+            }
+        }
+        // Update laser lifetime vairable
+        if (laserActive) laserLifetime += Time.deltaTime;
+    }
+
+    private float getLaserTargetScale()
+    {
+        float targetScale = 0f;
+        if (laserLifetime / 60f > intervalInMinutes3) targetScale = laserEndWidth;
+        else if (laserLifetime / 60f > intervalInMinutes2) targetScale = (laserStartWidth + ((laserEndWidth - laserStartWidth) * (intervalInMinutes2 / intervalInMinutes3)));
+        else if (laserLifetime / 60f > intervalInMinutes1) targetScale = (laserStartWidth + ((laserEndWidth - laserStartWidth) * (intervalInMinutes1 / intervalInMinutes3)));
+        else targetScale = laserStartWidth;
+        return targetScale;
     }
 
     private void drawLaser(laserNode start, laserNode end)
     {
+        // Set initial laser width if needed
+        if (laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().enabled == false) {
+            float scale = getLaserTargetScale();
+            AnimationCurve curve = new AnimationCurve();
+            curve.AddKey(0, scale);
+            curve.AddKey(1, scale);
+            laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().widthCurve = curve;
+        }
+
         Vector3 startPos = coordToPos(start.getX(), start.getY(), start.getHeading(), start.getMarchDir(), true);
         Vector3 endPos = coordToPos(end.getX(), end.getY(), end.getHeading(), end.getMarchDir(), false);
         Vector3 heightOffset = new Vector3(0, laserCounter * -0.01f, 0);
@@ -382,6 +428,7 @@ public class laserLogic : MonoBehaviour
 
     private void simulateLasers()
     {
+
         // Reset laser data grid, causes ocasional garbage collection spike
         laserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
 
@@ -392,6 +439,9 @@ public class laserLogic : MonoBehaviour
             if (gridManager.theGrid.getBuilding(0, i) == Building.Laser) { laserStartP1 = i; p1LaserFound = true; }
             if (gridManager.theGrid.getBuilding(gridManager.theGrid.getDimX() - 1, i) == Building.Laser) { laserStartP2 = i; p2LaserFound = true; }
         }
+
+        // If a laser has been placed, set this variable to active and start incrementing the laserLifetime timer (in LateUpdate)
+        if (p1LaserFound || p2LaserFound) laserActive = true;
 
         // Clear old lasers before starting again
         for (int i = 0; i < lasers.Count; i++) lasers[i].Clear();
