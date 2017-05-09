@@ -638,15 +638,20 @@ public struct Grid
 			}
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             if (grid[y, x].building == Building.Blocking) {
-                if (grid[y, x].owner == Player.PlayerOne) {
-                     resourcesP1 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier*blockScale;
-                } else if (grid[y, x].owner == Player.PlayerTwo) {
-                    resourcesP2 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier*blockScale;
+                //resourcesP1 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier*blockScale
+                Debug.Log("placed" + x + "," + y);
+                for (int i = y - 2; i < y + 2; i++) { 
+                    for (int j = x - 2; j < x + 2; j++) {
+                        Debug.Log("Loop" + i + "," + j);
+                        if (j != x && i != y && j >= 0 && i >= 0 && grid[i, j].building != Building.Laser) {
+                            applyDamage(j, i, 100);
+                        }
+                    }
                 }
             }
 
-            // Limicator stuff
-            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, grid[y, x].building);
+                // Limicator stuff
+                Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, grid[y, x].building);
 
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
