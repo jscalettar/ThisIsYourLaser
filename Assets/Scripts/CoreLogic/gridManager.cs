@@ -626,6 +626,8 @@ public struct Grid
 		
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
+            //
+            grid[y, x].markedForDeath = true;
             // Emit Destruction Particle
             emitParticles.genericParticle.emitParticle(x, y, particleType.destroy);
 
@@ -639,12 +641,10 @@ public struct Grid
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             if (grid[y, x].building == Building.Blocking) {
                 //resourcesP1 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier*blockScale
-                Debug.Log("placed" + x + "," + y);
                 for (int i = y - 2; i < y + 2; i++) { 
                     for (int j = x - 2; j < x + 2; j++) {
-                        Debug.Log("Loop" + i + "," + j);
-                        if (j != x && i != y && j >= 0 && i >= 0 && grid[i, j].building != Building.Laser) {
-                            applyDamage(j, i, 100);
+                        if (j != x && i != y && j >= 0 && 11 >= j && 7 >= i && i >= 0 && grid[i, j].building != Building.Laser && !grid[i, j].markedForDeath) {
+                           applyDamage(j, i, 100);
                         }
                     }
                 }
@@ -736,7 +736,7 @@ public class gridManager : MonoBehaviour
     public static Grid theGrid;
     public int boardWidth = 14;
     public int boardHeight = 10;
-    public float startingResources = 20;
+    public float startingResources = 100;
     public int startingBuildingNum = 0;
     public GameObject Base;
     public GameObject Base2;
