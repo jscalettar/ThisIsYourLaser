@@ -174,10 +174,7 @@ public class inputController : MonoBehaviour {
 
 				// Cycle P1
 
-				// Defualts selection to resource
-				if (gridManager.theGrid.getResourcesP1() < 4) {
-					cursorP1.selection = Building.Resource;
-				}
+				
                 if (cursorP1.state != State.placing) {
                     if (Input.GetKeyDown("1")) { cursorP1.selection = Building.Blocking; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("2")) { cursorP1.selection = Building.Reflecting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("3")) { cursorP1.selection = Building.Refracting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("4")) { cursorP1.selection = Building.Redirecting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("5")) { cursorP1.selection = Building.Resource; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); }
                     if (Input.GetButtonDown("cycleR_1")) {

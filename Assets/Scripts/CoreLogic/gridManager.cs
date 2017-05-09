@@ -626,11 +626,9 @@ public struct Grid
 		
         if (!validateInput(x, y)) return false;
         if (!grid[y, x].isEmpty) {
-            //
             grid[y, x].markedForDeath = true;
             // Emit Destruction Particle
             emitParticles.genericParticle.emitParticle(x, y, particleType.destroy);
-
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
 			//SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume, true, .5f, 1.5f);
 			if (grid [y, x].owner == Player.PlayerOne) {
@@ -640,26 +638,24 @@ public struct Grid
 			}
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             if (grid[y, x].building == Building.Blocking) {
-                //resourcesP1 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier*blockScale
-                for (int i = y - 2; i < y + 2; i++) { 
-                    for (int j = x - 2; j < x + 2; j++) {
-                        if (j >= 0 && 11 >= j && 7 >= i && i >= 0 && grid[i, j].building != Building.Laser && !grid[i, j].markedForDeath) {
-                            Debug.Log("Loop" + i + "," + j);
-                            applyDamage(j, i, 100);
+                for (int i = y - 1; i < y + 2; i++) { 
+                    for (int j = x - 1; j < x + 2; j++) {
+                        if (validateInput(j,i) && grid[i, j].building != Building.Empty && grid[i, j].building != Building.Laser && grid[i, j].building != Building.Base && !grid[i, j].markedForDeath) {
+                             destroyBuilding(j, i);
                         }
                     }
                 }
             }
 
-                // Limicator stuff
-                Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, grid[y, x].building);
+            // Limicator stuff
+            Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, grid[y, x].building);
 
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
             grid[y, x].health = 0;
-            if (grid[y, x].building != Building.Base && grid[y, x].building != Building.Laser && grid[y, x].building != Building.Redirecting)
+            if (grid[y, x].building != Building.Base && grid[y, x].building != Building.Laser)
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
@@ -674,7 +670,7 @@ public struct Grid
             //SoundManager.PlaySound(inputController.Sounds[15].audioclip, .4f, true, .7f, 1.3f);
 
 
-            updateSquares(Building.Base);
+            updateSquares();
         } else return false;
         return true;
     }
@@ -763,8 +759,6 @@ public class gridManager : MonoBehaviour
     public GameObject placementTimerObj;
     public int blockResourceScale;
     private GameObject buildingContainer;
-    private int deletionCount = 0;
-    private int flag = 420;
 
     public void initGrid()
     {
@@ -782,7 +776,6 @@ public class gridManager : MonoBehaviour
     
     void LateUpdate()
     {
-        deletionCount = 0;
         // Place buildings
         for (int i = 0; i < theGrid.placementList.Count; i++) {
             if (theGrid.placementList[i].updateTime(Time.deltaTime) <= 0f) {
@@ -796,24 +789,11 @@ public class gridManager : MonoBehaviour
 				theGrid.prefabDictionary[new XY(x,y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, 1f, 1f, 1f) : new Vector4(1f, 1f, 1f, 1f);
                 
                 theGrid.queueUpdate();
-                deletionCount++;
-
                 ghostLaser.ghostUpdateNeeded = true;
-                if(theGrid.placementList[i].building == Building.Laser)
-                {
-                    flag += 1;
-                }
-                if(flag >= 2)
-                {
-                    theGrid.updateSquares(Building.Base);
-                }
-                else theGrid.updateSquares(Building.Laser);
+                theGrid.placementList.RemoveAt(i--);
+                theGrid.updateSquares();
             }
         }
-        for (int i = 0; i < deletionCount; i++) {
-			theGrid.placementList.RemoveAt(0);
-        }
-        deletionCount = 0;
         // Remove buildings
         for (int i = 0; i < theGrid.removalList.Count; i++) {
             if (theGrid.removalList[i].updateTime(Time.deltaTime) <= 0f) {
@@ -828,36 +808,30 @@ public class gridManager : MonoBehaviour
                 if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
                     DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
                     theGrid.prefabDictionary.Remove(new XY(x, y));
+                    theGrid.removalList.RemoveAt(i--);
                 }
                 theGrid.queueUpdate();
-                deletionCount++;
 
                 ghostLaser.ghostUpdateNeeded = true;
-                theGrid.updateSquares(Building.Base);
+                theGrid.updateSquares();
             }
         }
-        for (int i = 0; i < deletionCount; i++) {
-            theGrid.removalList.RemoveAt(0);
-        }
-        deletionCount = 0;
         // Destroy buildings
         for (int i = 0; i < theGrid.destructionList.Count; i++) {
             if (theGrid.destructionList[i].updateTime(Time.deltaTime) <= 0f) {
                 int x = theGrid.destructionList[i].coords.x;
                 int y = theGrid.destructionList[i].coords.y;
+                theGrid.grid[y, x].markedForDeath = false;
                 if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
                     DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
                     theGrid.prefabDictionary.Remove(new XY(x, y));
+                    theGrid.destructionList.RemoveAt(i--);
                 }
                 theGrid.queueUpdate();
-                deletionCount++;
 
                 ghostLaser.ghostUpdateNeeded = true;
-                theGrid.updateSquares(Building.Base);
+                theGrid.updateSquares();
             }
-        }
-        for (int i = 0; i < deletionCount; i++) {
-			theGrid.destructionList.RemoveAt(0);
         }
     }
 }

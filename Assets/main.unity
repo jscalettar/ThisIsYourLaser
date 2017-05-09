@@ -16168,7 +16168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardWidth: 12
   boardHeight: 8
-  startingResources: 15
+  startingResources: 150
   startingBuildingNum: 0
   Base: {fileID: 1320039939882930, guid: 5a17714f57439af4191f4481adaef6cc, type: 2}
   Base2: {fileID: 1992347706106546, guid: 673612bb3d1f19b4587e24fea68c21d4, type: 2}
