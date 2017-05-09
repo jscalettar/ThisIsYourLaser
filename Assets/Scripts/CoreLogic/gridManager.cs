@@ -643,8 +643,9 @@ public struct Grid
                 //resourcesP1 += getCost(grid[y, x].building)*laserLogic.laserPowerMultiplier*blockScale
                 for (int i = y - 2; i < y + 2; i++) { 
                     for (int j = x - 2; j < x + 2; j++) {
-                        if (j != x && i != y && j >= 0 && 11 >= j && 7 >= i && i >= 0 && grid[i, j].building != Building.Laser && !grid[i, j].markedForDeath) {
-                           applyDamage(j, i, 100);
+                        if (j >= 0 && 11 >= j && 7 >= i && i >= 0 && grid[i, j].building != Building.Laser && !grid[i, j].markedForDeath) {
+                            Debug.Log("Loop" + i + "," + j);
+                            applyDamage(j, i, 100);
                         }
                     }
                 }
