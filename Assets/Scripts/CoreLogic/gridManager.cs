@@ -488,7 +488,7 @@ public struct Grid
 			building.GetComponent<buildingParameters>().direction = facing;
 			building.GetComponent<buildingParameters>().buildingType = newBuilding;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
-            if (newBuilding != Building.Laser && newBuilding != Building.Base) {// || newBuilding == Building.Blocking || newBuilding == Building.Resource || newBuilding == Building.Blocking) { // This if statement will be removed once all buildings are set up properly
+            if (newBuilding != Building.Laser && newBuilding != Building.Base) {
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
                 building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f);
@@ -589,7 +589,6 @@ public struct Grid
             grid [y, x].markedForDeath = true;
 
             Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, grid[y, x].building);
-            //Building temp = grid[y, x].building;
             if (grid[y, x].building == Building.Base) { if (grid[y, x].owner == Player.PlayerOne) baseP1 = null; else baseP2 = null; }  // Remove Base Reference
             // Give some resources back to player -> half of placement cost * percentage remaining health
             if (playerID == Player.PlayerOne) {
@@ -629,7 +628,6 @@ public struct Grid
             // Emit Destruction Particle
             emitParticles.genericParticle.emitParticle(x, y, particleType.destroy);
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
-			//SoundManager.PlaySound (Sounds[0].audioclip, SoundManager.globalSoundsVolume, true, .5f, 1.5f);
 			if (grid [y, x].owner == Player.PlayerOne) {
 				buildingNumP1--;
 			} else {
@@ -666,9 +664,6 @@ public struct Grid
                 case Building.Blocking: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .8f, .8f); break;
                 default: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1f, 1f); break;
             }
-            //SoundManager.PlaySound(inputController.Sounds[15].audioclip, .4f, true, .7f, 1.3f);
-
-
             updateSquares();
         } else return false;
         return true;

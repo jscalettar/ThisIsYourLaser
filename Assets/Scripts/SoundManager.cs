@@ -172,7 +172,6 @@ public class SoundManager : MonoBehaviour {
 			if (!audio.playing && !audio.paused){
 				Destroy(audio.audioSource);
 				musicAudio.Remove (key);
-				//emove(key);
 			}
 		}
 
@@ -186,7 +185,6 @@ public class SoundManager : MonoBehaviour {
 			{
 				Destroy(audio.audioSource);
 				soundsAudio.Remove(key);
-				//.Remove(key);
 			}
 		}
 			
@@ -203,9 +201,6 @@ public class SoundManager : MonoBehaviour {
 		}
 	}
 
-	/*public static Audio SetGlobalVolume(float vol){
-		globalVolume = vol;
-	}*/
 	//Stop sounds with with music fade
 	public static void FadeAll(float fadeOutSeconds){
 		StopAllMusic(fadeOutSeconds);
@@ -390,7 +385,6 @@ public class SoundManager : MonoBehaviour {
 		}
 
 		instance.Init();
-        //AudioSource audioSource = instance.gameObject.AddComponent<AudioSource>() as AudioSource; // Lag generator commented out, yorokobe shounen
         Audio audio = new Audio(Audio.AudioType.Sound, clip, loop, false, volume, 0f, 0f, sourceTransform, randPitch, pitchLow, pitchHigh);
 		soundsAudio.Add(audio.audioID, audio);
 
@@ -437,9 +431,6 @@ public class SoundManager : MonoBehaviour {
     }
     public static int PlayMusic(AudioClip clip, float volume, bool loop, bool persist, float fadeInSeconds, float fadeOutSeconds, float currentMusicfadeOutSeconds, Transform sourceTransform)
     {
-        if (clip == null){
-           // Debug.LogError("No Music ", clip);
-        }
 
         if(ignoreDuplicateMusic){
             List<int> keys = new List<int>(musicAudio.Keys);

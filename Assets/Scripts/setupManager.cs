@@ -130,9 +130,6 @@ public class setupManager : MonoBehaviour
         Building currentTextp2 = (Building)selection2;
         p1UI.currentResource.text = currentTextp1.ToString();
         p2UI.currentResource.text = currentTextp2.ToString();
-		//Building currentText = (Building)selection1;
-
-		//p1UI.currentSelection.text = currentText.ToString();
 
 		UpdateSelection();
         if (!pOneCanLaser && !pTwoCanLaser)//when players cant place lasers, not laser phase
@@ -150,18 +147,13 @@ public class setupManager : MonoBehaviour
         }
         if (basePhase)
         {
-			//selection1 = Building.Base;
-            //selection2 = Building.Base;
 			if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("xboxA")) && pOneCanBase && p1Pos.x == 0)//P1 base place
             {
-				
 				PlaceBuild(Player.PlayerOne, Building.Base, 0, p1Pos, Direction.None);
-				//selection1 = Building.Laser;
             }
 			else if (Input.GetKeyDown(KeyCode.O) && pTwoCanBase && p2Pos.x == gridManager.theGrid.getDimX()-1)//P2 base place
             {
 				PlaceBuild(Player.PlayerTwo, Building.Base, 0, p2Pos, Direction.None);
-				//selection2 = Building.Laser;
             }
         }
         else if (laserPhase)
@@ -197,7 +189,6 @@ public class setupManager : MonoBehaviour
                 SelectBlock(p1Pos, Player.PlayerOne);
 				p1UI.playerState.text = "swapping";
             }
-			//endFlag = true;
         }
         if (haveSelected2)//if you have an object selected
         {
@@ -215,7 +206,6 @@ public class setupManager : MonoBehaviour
             {
                 SelectBlock(p2Pos, Player.PlayerTwo);
             }
-			//endFlag = true;
         }
         if (basePhase == laserPhase)//pick a building that you want to place
         {
@@ -313,21 +303,11 @@ public class setupManager : MonoBehaviour
     
     public void PlaceBuild(Player player, Building newBuild, int val, Vector3 pos, Direction facing)
     {
-        //make it so lasers have to be put on the edge
-        /*bool allow = false;
-        if (newBuild != Building.Laser) allow = true;
-        else if (player == Player.PlayerOne && newBuild == Building.Laser && (int)pos.x == 0) allow = true;
-        else if (player == Player.PlayerTwo && newBuild == Building.Laser && (int)pos.x == 13) allow = true;
-        else allow = false;*/
         if (gridManager.theGrid.placeBuilding((int)pos.x, (int)pos.z, newBuild, player, facing)) //place in grid
         {
             print(newBuild + " building placed with direction = " + facing);
-            //pos = new Vector3(pos.x - 6.5f, 0, pos.z - 3.5f);//cursor position is based on grid not world coordinates; adjust
-            //GameObject go = Instantiate(goList[val], pos, Quaternion.identity) as GameObject;//if it works, create an instance of object
             if (player == Player.PlayerOne)//if player one, make the mat red and update bools so you dont place more than one base/laser
             {
-                //MeshRenderer r = go.GetComponent<MeshRenderer>();
-                //r.material = p1Mat;
                 if (newBuild == Building.Base)
                     pOneCanBase = !pOneCanBase;
                 else if (newBuild == Building.Laser)
@@ -335,16 +315,11 @@ public class setupManager : MonoBehaviour
             }
             else//if player two, make the mat red and update bools so you dont place more than one base/laser
             {
-                //MeshRenderer r = go.GetComponent<MeshRenderer>();
-                //r.material = p2Mat;
                 if (newBuild == Building.Base)
                     pTwoCanBase = !pTwoCanBase;
                 else if (newBuild == Building.Laser)
                     pTwoCanLaser = !pTwoCanLaser;
             }
-            //go.transform.SetParent(transform);
-            //pos = new Vector3(pos.x + 6.5f, 0, pos.z + 3.5f);//want grid coordinates because negative numbers dont work for array
-            //listPlace[(int)pos.x,(int)pos.z] = go;
         }
         else
             print("dont work");
@@ -360,14 +335,12 @@ public class setupManager : MonoBehaviour
         else if (player == Player.PlayerOne)//get grid items info
         {
             print(pos);
-            //for (int i = 0; i < 4; i++) print(gi.weakSides[i]);
             haveSelected1 = true;
             selected1 = gi;
             selectedLoc1 = new Vector2(pos.x, pos.z);
         }else if(player == Player.PlayerTwo)
         {
             print(pos);
-            //for (int i = 0; i < 4; i++) print(gi.weakSides[i]);
             haveSelected2 = true;
             selected2 = gi;
             selectedLoc2 = new Vector2(pos.x, pos.z);
@@ -378,36 +351,11 @@ public class setupManager : MonoBehaviour
     {
         GridItem temp = gridManager.theGrid.getCellInfo((int)newPos.x, (int)newPos.z);
         if (temp.owner == gridObj.owner)
-        {//swap buildings
-            //if (gridManager.theGrid.swapBuilding((int)oldPos.x, (int)oldPos.y, (int)newPos.x, (int)newPos.z, gridObj.owner))
-            //{//connect the instances to the gridItem so when they swap the instance will also move
-                /*GameObject go1 = listPlace[(int)oldPos.x, (int)oldPos.y];
-                GameObject go2 = listPlace[(int)newPos.x, (int)newPos.z];
-                listPlace[(int)oldPos.x, (int)oldPos.y] = listPlace[(int)newPos.x, (int)newPos.z];
-                listPlace[(int)newPos.x, (int)newPos.z] = go1;
-                newPos = new Vector3(newPos.x - 6.5f, 0, newPos.z - 3.5f);
-                Vector3 loc = new Vector3(oldPos.x - 6.5f, 0, oldPos.y - 3.5f);
-                go1.transform.position = newPos;
-                go2.transform.position = loc;*/
-                print("Swap Complete");
-            //}
-            //else
-            //    print("Cannot complete swap");
+        {
             return true;
         }
         else if (temp.owner == Player.World)
         {
-            //bool move = gridManager.theGrid.moveBuilding((int)oldPos.x, (int)oldPos.y, (int)newPos.x, (int)newPos.z, gridObj.owner);
-            //if (move)
-            //{//move the instance to new location
-                /*listPlace[(int)newPos.x, (int)newPos.z] = listPlace[(int)oldPos.x, (int)oldPos.y];
-                listPlace[(int)oldPos.x, (int)oldPos.y] = null;
-                GameObject go = listPlace[(int)newPos.x, (int)newPos.z];
-                newPos = new Vector3(newPos.x - 6.5f, 0, newPos.z - 3.5f);
-                go.transform.position = newPos;*/
-            //    print("Move complete");
-            //}
-            //else print("Cannot move");
             return true;
         }
         return false;
