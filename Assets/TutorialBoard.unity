@@ -8579,7 +8579,7 @@ MonoBehaviour:
     player: 1
     direction: 8
   initialPopup: {fileID: 2800000, guid: 02ded89e3c3f5ed4cb090571a73a82b6, type: 3}
-  initialPopup2: {fileID: 2800000, guid: 72607195e7d99994eb540d5fa53625be, type: 3}
+  initialPopup2: {fileID: 2800000, guid: 3a214eba7ee0d77419106fb48d01aaf3, type: 3}
   initialPopup3: {fileID: 2800000, guid: 79db983978c9e2b459cfb3902383ac4f, type: 3}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
@@ -15502,7 +15502,7 @@ MonoBehaviour:
     building: 0
     player: 2
     direction: 8
-  initialPopup: {fileID: 2800000, guid: faba9a51fca1f0043b33e9a9940706dc, type: 3}
+  initialPopup: {fileID: 2800000, guid: 840fb6c872e027e419135c9a4a80dabf, type: 3}
   initialPopup2: {fileID: 2800000, guid: 7031634202ffaa0498b8ef26a0df882b, type: 3}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
@@ -17255,7 +17255,7 @@ MonoBehaviour:
     building: 1
     player: 1
     direction: 8
-  initialPopup: {fileID: 2800000, guid: 1d3536e4ed891554dba69ae51b46e0a9, type: 3}
+  initialPopup: {fileID: 2800000, guid: bfe92a487bbda924bb34a63c71989ea1, type: 3}
   initialPopup2: {fileID: 0}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
