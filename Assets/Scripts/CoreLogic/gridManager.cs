@@ -366,10 +366,10 @@ public struct Grid
         return new Vector3(x - (dimX / 2f) + 0.5f, yOffset, y - (dimY / 2f) + 0.5f);
     }
 
-    public void updateSquares(Building b = Building.Empty)
+    public void updateSquares()
     {
         for (int i = 0; i < gridSquares.GetLength(0); i++) {
-            for (int j = 0; j < gridSquares.GetLength(1)/2; j++) {
+            for (int j = 0; j < 1; j++) {
                 bool enableSquare = false;
                 if(inputController.cursorP1.state == State.placeLaser || inputController.cursorP1.state == State.placingLaser || inputController.cursorP1.state == State.placeBase) {
                     if (probeGrid(j, i, Direction.Up, Building.Laser)) enableSquare = true;
@@ -380,7 +380,10 @@ public struct Grid
 
                 gridSquares[i, j].GetComponent<Renderer>().enabled = enableSquare;
             }
-            for (int j = gridSquares.GetLength(1) / 2; j < gridSquares.GetLength(1); j++) {
+            for (int j = 1; j < gridSquares.GetLength(1) - 1; j++) {
+                gridSquares[i, j].GetComponent<Renderer>().enabled = probeGrid(j, i, Direction.Up, Building.Blocking);
+            }
+            for (int j = gridSquares.GetLength(1) - 1; j < gridSquares.GetLength(1); j++) {
                 bool enableSquare = false;
                 if (inputController.cursorP2.state == State.placeLaser || inputController.cursorP2.state == State.placingLaser || inputController.cursorP1.state == State.placeBase) {
                     if (probeGrid(j, i, Direction.Up, Building.Laser)) enableSquare = true;
@@ -561,11 +564,7 @@ public struct Grid
             {
                 flag += 1;
             }
-            if (flag >= 2)
-            {
-                updateSquares(Building.Base);
-            }
-            else updateSquares(Building.Laser);
+            updateSquares();
 
             if (newBuilding != Building.Base && newBuilding != Building.Laser) { 
                 Limicator.limicatorObj.changeStones(playerID == Player.PlayerOne ? 0 : 1, State.placing, newBuilding);
@@ -616,7 +615,7 @@ public struct Grid
             }
             // Specify that the board was updated and that laserLogic needs to run a simulation
 			SoundManager.PlaySound(inputController.Sounds[3].audioclip, .75f);
-            updateSquares(Building.Base);
+            updateSquares();
         } else return false;
         return true;
     }
@@ -718,7 +717,7 @@ public struct Grid
             {
                 floatingNumbers.floatingNumbersStruct.checkResource(new XY(xNew, yNew), getCost(grid[yNew, xNew].building, xNew, playerID, true) / 2, Player.PlayerTwo, State.moving);
             }
-            updateSquares(Building.Base);
+            updateSquares();
         } else return false;
         return true;
     }
