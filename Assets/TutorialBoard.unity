@@ -6005,7 +6005,7 @@ MonoBehaviour:
   highlightTexture: {fileID: 0}
   initialSelection: 2
   spawnList: []
-  initialPopup: {fileID: 2800000, guid: 23bd2877fdcf9214e9ed1ea4741a1b5a, type: 3}
+  initialPopup: {fileID: 2800000, guid: f9f656078c200514f8d3e7696080dc34, type: 3}
   initialPopup2: {fileID: 0}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
@@ -12171,8 +12171,8 @@ MonoBehaviour:
   - audioclip: {fileID: 8300000, guid: 18905e0693f4ef7429e396da0a4687af, type: 3}
   setMusicSounds:
   - audioclip: {fileID: 0}
-  PauseMenu: {fileID: 0}
-  Win: {fileID: 0}
+  PauseMenu: {fileID: 1092880288}
+  Win: {fileID: 1110470188}
 --- !u!114 &1461189276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12208,12 +12208,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef75e960f5b66c47a73ee4415573c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardWidth: 6
-  boardHeight: 6
+  boardWidth: 12
+  boardHeight: 8
   startingResources: 15
   startingBuildingNum: 0
-  Base: {fileID: 1718999871870560, guid: 483fe14c380132f4c8767aac5e65e87c, type: 2}
-  Base2: {fileID: 1906582796008646, guid: f080cb7e91bf8614a84907449966fef9, type: 2}
+  Base: {fileID: 1320039939882930, guid: 5a17714f57439af4191f4481adaef6cc, type: 2}
+  Base2: {fileID: 1992347706106546, guid: 673612bb3d1f19b4587e24fea68c21d4, type: 2}
   Laser: {fileID: 1857337499070074, guid: e8b4216f3f61fd04787f914a67bb57de, type: 2}
   Laser2: {fileID: 1967906596791806, guid: bc474a4d601159b4aa500a408665f7bf, type: 2}
   Block: {fileID: 1737375806282318, guid: 5047ebc5d548d8f4fb2ceffa7b621528, type: 2}
