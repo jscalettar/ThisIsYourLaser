@@ -8578,9 +8578,9 @@ MonoBehaviour:
     building: 1
     player: 1
     direction: 8
-  initialPopup: {fileID: 2800000, guid: 02ded89e3c3f5ed4cb090571a73a82b6, type: 3}
-  initialPopup2: {fileID: 2800000, guid: 3a214eba7ee0d77419106fb48d01aaf3, type: 3}
-  initialPopup3: {fileID: 2800000, guid: 79db983978c9e2b459cfb3902383ac4f, type: 3}
+  initialPopup: {fileID: 2800000, guid: f0b40b5989fd6b44cab56d82c509cc84, type: 3}
+  initialPopup2: {fileID: 2800000, guid: 533e337c620ef9e40b1fba5b5a84e8ec, type: 3}
+  initialPopup3: {fileID: 2800000, guid: 9fd6c6ce24210a040a1a2926860e0b44, type: 3}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 0}
@@ -15490,27 +15490,27 @@ MonoBehaviour:
     x: -1
     y: -1
   highlightTexture: {fileID: 0}
-  initialSelection: 3
+  initialSelection: 2
   spawnList:
   - x: 0
     y: 1
     building: 1
     player: 1
     direction: 7
-  - x: 5
-    y: 2
+  - x: 11
+    y: 1
     building: 0
     player: 2
     direction: 8
-  initialPopup: {fileID: 2800000, guid: 840fb6c872e027e419135c9a4a80dabf, type: 3}
-  initialPopup2: {fileID: 2800000, guid: 7031634202ffaa0498b8ef26a0df882b, type: 3}
+  initialPopup: {fileID: 2800000, guid: f151a50fac0616e43b7e3a77c3e43839, type: 3}
+  initialPopup2: {fileID: 2800000, guid: 6a9a970717d16f94ca666504c7c872f4, type: 3}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 2800000, guid: 94a614a5f3d11b14daa77357c06a3d44, type: 3}
   endOnBaseDestruction: 1
   specificDestroyed: []
-  firstPlacing: {fileID: 0}
+  firstPlacing: {fileID: 2800000, guid: 8095aafb24e3d084683643a3393aa416, type: 3}
   firstPlaced: {fileID: 0}
   endOnPlaced: 0
   firstMoving: {fileID: 0}
