@@ -18,4 +18,7 @@ public class UIScript : MonoBehaviour {
 
     public Text playerOneResource;
     public Text playerTwoResource;
+
+	public Material SpriteP1;
+	public Material SpriteP2;
 }
