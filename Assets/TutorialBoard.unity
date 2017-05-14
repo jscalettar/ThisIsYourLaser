@@ -12184,8 +12184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f771067c1038644c9c6c5fc61be283c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserStartWidth: 0.1
-  laserEndWidth: 0.3
+  laserStartWidth: 0.2
+  laserEndWidth: 0.4
   laserVisualHeight: 0.5
   laserIntensity: 0.5
   intervalInMinutes1: 3
