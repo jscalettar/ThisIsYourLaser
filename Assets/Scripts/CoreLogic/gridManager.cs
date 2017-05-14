@@ -441,9 +441,9 @@ public struct Grid
                             SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(16,17)].audioclip, .6f, true, .8f, 1.2f);  
                             hitTimer = 4.5f; 
                             break;
-                        case Building.Refracting: 
-                            SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
-                            SoundManager.PlaySound (inputController.Sounds [18].audioclip, .1f, true, 1.5f, 1.8f);  
+						case Building.Refracting: 
+							SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+							SoundManager.PlaySound (inputController.Sounds [18].audioclip, .1f, true, 1.5f, 1.8f);
                             hitTimer = 4.5f; 
                             break;
                         case Building.Blocking: 
@@ -527,10 +527,6 @@ public struct Grid
                 GameObject ripple = null;
                 ripple = building.transform.GetChild(0).gameObject;
                 ripple.transform.localPosition = coordsToWorld(x-4.5f, y, -1.5f);
-            }
-            if (newBuilding == Building.Refracting)
-            {
-                building.transform.localPosition = coordsToWorld(x, y - 0.2f);
             }
             building.transform.localEulerAngles = new Vector3(90, 0, 0);
             prefabDictionary.Add(new XY(x, y), building);
