@@ -15,7 +15,6 @@ public class startMenu : MonoBehaviour {
     public float masterVol;
     public float musicVol;
     public float sfxVol;
-
     //Hold game objects to show/hide as neccesary
 	Image backImage;
 	public Sprite davidImage;
@@ -39,7 +38,7 @@ public class startMenu : MonoBehaviour {
     public Slider masterSlider;
     public Slider musicSlider;
     public Slider sfxSlider;
-
+	public Slider UISlider;
  
     // Use this for initialization
     void Start () {
@@ -56,6 +55,7 @@ public class startMenu : MonoBehaviour {
 		setMaster (masterSlider.value);
 		setMusic (musicSlider.value);
 		setSFX (sfxSlider.value);
+		setUISFX (UISlider.value);
 	}
 	public void startGame()
     {
@@ -238,7 +238,10 @@ public class startMenu : MonoBehaviour {
 		SoundManager.globalSoundsVolume = vol;
         //Need actual sound source to implement
     }
-
+	public void setUISFX(float vol)
+	{
+		SoundManager.globalUISoundsVolume = vol;
+	}
 
     public void toggleFullscreen() 
     {
