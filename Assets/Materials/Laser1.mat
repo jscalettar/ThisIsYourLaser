@@ -48,8 +48,8 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 9cfc8dd8d4b0c324a8290ecf0eebb0f1, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: fc84a29e3ef587443b3699f405fe9255, type: 3}
+        m_Scale: {x: -0.2, y: 0.05}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MetallicGlossMap
@@ -70,6 +70,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - first:
+        name: PixelSnap
+      second: 0
     - first:
         name: _BumpScale
       second: 1

@@ -277,6 +277,7 @@ public class laserLogic : MonoBehaviour
             line.endWidth = 0f;
             line.numCapVertices = 0;
             line.material = laserMaterialP1;
+            line.textureMode = LineTextureMode.Tile;
             line.enabled = false;
             // Particle object pool
             GameObject particleObject = Instantiate(hitEffect);
@@ -337,6 +338,15 @@ public class laserLogic : MonoBehaviour
         }
         // Update laser lifetime vairable
         if (laserActive) laserLifetime += Time.deltaTime;
+
+        // Laser Texture Animation
+        float fps = 24.0f;
+        int index = (int)(Time.time * fps);
+        index = index % 20;
+        Vector2 offset = new Vector2(0.0f, 0.05f * index);
+
+        laserMaterialP1.SetTextureOffset("_MainTex", offset);
+        laserMaterialP2.SetTextureOffset("_MainTex", offset);
     }
 
     private float getLaserTargetScale()
@@ -718,6 +728,13 @@ public class laserLogic : MonoBehaviour
         }
     }
 
+    void OnDisable()
+    {
+        // Reset offsets on disable so that they don't keep changing and cause source control issues
+        Vector2 offset = new Vector2(0.0f, 0.0f);
+        laserMaterialP1.SetTextureOffset("_MainTex", offset);
+        laserMaterialP2.SetTextureOffset("_MainTex", offset);
+    }
     // DEBUG LASER    
     /*void OnDrawGizmos()
     {
