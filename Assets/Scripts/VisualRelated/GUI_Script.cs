@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class GUI_Script : MonoBehaviour {
 
     public GameObject canvas;
-    public static playerOneUI p1UI;
-    public static playerTwoUI p2UI;
     public static UIScript UI;
     
     // Use this for initialization
@@ -36,11 +34,90 @@ public class GUI_Script : MonoBehaviour {
         UI.RefractPlaceCost.text = gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP1.x, Player.PlayerOne).ToString();
         UI.RedirectPlaceCost.text = gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP1.x, Player.PlayerOne).ToString();
         UI.ResourcePlaceCost.text = gridManager.theGrid.getCost(Building.Resource, inputController.cursorP1.x, Player.PlayerOne).ToString();
+
+		UI.SpriteP1 = GameObject.Find ("Sprite1").GetComponent<SpriteRenderer> ().material;
+		UI.SpriteP2 = GameObject.Find ("Sprite2").GetComponent<SpriteRenderer> ().material;
     }
 	
 	// Update is called once per frame
 	void Update () {
         UI.playerOneResource.text = (Mathf.Floor(gridManager.theGrid.getResourcesP1() * 2) / 2f).ToString("F1");
         UI.playerTwoResource.text = (Mathf.Floor(gridManager.theGrid.getResourcesP2() * 2) / 2f).ToString("F1");
+
+		////////// Player 1 cursor color //////////
+		UI.SpriteP1.color = new Vector4 (1f,1f,1f,0.5f); //default cursor color
+		//Blocking Block selected
+		if (inputController.cursorP1.selection == Building.Blocking) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+		//Reflecting Block selected
+		if (inputController.cursorP1.selection == Building.Reflecting) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+		//Refracting Block selected
+		if (inputController.cursorP1.selection == Building.Refracting) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+		//Redirecting Block selected
+		if (inputController.cursorP1.selection == Building.Redirecting) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+		//Resource Block selected
+		if (inputController.cursorP1.selection == Building.Resource) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
+				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+
+		////////// Player 2 cursor color //////////
+		UI.SpriteP2.color = new Vector4 (1f,1f,1f,0.5f); //default cursor color
+		//Blocking Block selected
+		if (inputController.cursorP2.selection == Building.Blocking) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+				UI.SpriteP2.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+		//Reflecting Block selected
+		if (inputController.cursorP2.selection == Building.Reflecting) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+				UI.SpriteP2.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+		//Refracting Block selected
+		if (inputController.cursorP2.selection == Building.Refracting) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+				UI.SpriteP2.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+		//Redirecting Block selected
+		if (inputController.cursorP2.selection == Building.Redirecting) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+				UI.SpriteP2.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
+		//Resource Block selected
+		if (inputController.cursorP2.selection == Building.Resource) {
+			//Can't afford
+			if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
+				UI.SpriteP2.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			}
+		}
     } 
 }

@@ -33,7 +33,7 @@ public class pauseMenu : MonoBehaviour
     public Slider masterSlider;
     public Slider musicSlider;
     public Slider sfxSlider;
-
+	public Slider UISlider;
     //Vars for screen options
     public bool isFull;
     public Dropdown resDrop;
@@ -71,6 +71,7 @@ public class pauseMenu : MonoBehaviour
         setMaster(masterSlider.value);
         setMusic(musicSlider.value);
         setSFX(sfxSlider.value);
+		setUISFX (UISlider.value);
     }
 
     // -------------------------------------------------------- //
@@ -201,6 +202,11 @@ public class pauseMenu : MonoBehaviour
         SoundManager.globalSoundsVolume = vol;
         //Need actual sound source to implement
     }
+	public void setUISFX(float vol)
+	{
+		SoundManager.globalUISoundsVolume = vol;
+		//Need actual sound source to implement
+	}
 
     public void toggleFullscreen()
     {
