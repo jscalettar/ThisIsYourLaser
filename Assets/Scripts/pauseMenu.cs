@@ -68,9 +68,9 @@ public class pauseMenu : MonoBehaviour
 
     void Update()
     {
-        //setMaster(masterSlider.value);
-        //setMusic(musicSlider.value);
-        //setSFX(sfxSlider.value);
+        setMaster(masterSlider.value);
+        setMusic(musicSlider.value);
+        setSFX(sfxSlider.value);
     }
 
     // -------------------------------------------------------- //
