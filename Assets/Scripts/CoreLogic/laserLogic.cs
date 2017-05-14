@@ -43,6 +43,7 @@ public class laserLogic : MonoBehaviour
     private int laserCounter = 0;
     private int particleCounter = 0;
     private List<List<laserNode>> lasers;   // Laser list for line rendering
+    private List<laserNode>[] laserReflectPoints;   // Laser list for line rendering
     private List<laserNode> laserQueue;
     public static laserGrid laserData;
     private List<laserHit> laserHits;       // Laser-building collision list
@@ -61,8 +62,9 @@ public class laserLogic : MonoBehaviour
         private Player owner;
         private int laserIndex;
         private int laserSubIndex;
+        public int reflectCount;
 
-        public laserNode(int x, int y, float laserPower, Direction laserDirection, Direction marchDir, Player ownedBy, int index, int subIndex)
+        public laserNode(int x, int y, float laserPower, Direction laserDirection, Direction marchDir, Player ownedBy, int index, int subIndex, int reflections = 0)
         {
             X = x;
             Y = y;
@@ -72,6 +74,7 @@ public class laserLogic : MonoBehaviour
             owner = ownedBy;
             laserIndex = index;
             laserSubIndex = subIndex;
+            reflectCount = reflections;
         }
 
         // Get
@@ -136,10 +139,10 @@ public class laserLogic : MonoBehaviour
             return Direction.None;
         }
 
-        public bool insertNode(int x, int y, float str, Direction heading, Direction marchDir, Player laserOwner, int indx, int subIndx)
+        public bool insertNode(int x, int y, float str, Direction heading, Direction marchDir, Player laserOwner, int indx, int subIndx, int reflections)
         {
             if (!validateInput(x, y)) return false;
-            grid[y, x].Add(new laserNode(x, y, str, heading, marchDir, laserOwner, indx, subIndx));
+            grid[y, x].Add(new laserNode(x, y, str, heading, marchDir, laserOwner, indx, subIndx, reflections));
             return true;
         }
 
@@ -258,6 +261,7 @@ public class laserLogic : MonoBehaviour
 
         laserIndex = -1;
         lasers = new List<List<laserNode>>();
+        laserReflectPoints = new List<laserNode>[laserLimit];
         laserQueue = new List<laserNode>();
         laserHits = new List<laserHit>();
         laserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
@@ -370,17 +374,40 @@ public class laserLogic : MonoBehaviour
             laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().widthCurve = curve;
         }
 
+        if (end.reflectCount > 0) {
+            drawLaserPath(start, end, laserReflectPoints[start.getIndex()]);
+        } else {
+            drawLaserLine(start, end);
+        }
+
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().enabled = true;
+        if (start.getOwner() == Player.Shared) laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().material = laserMaterialCombined;
+        else laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().material = start.getOwner() == Player.PlayerOne ? laserMaterialP1 : laserMaterialP2;
+        laserCounter++;
+    }
+
+    private void drawLaserLine(laserNode start, laserNode end)
+    {
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().numPositions = 2;
         Vector3 startPos = coordToPos(start.getX(), start.getY(), start.getHeading(), start.getMarchDir(), true);
         Vector3 endPos = coordToPos(end.getX(), end.getY(), end.getHeading(), end.getMarchDir(), false);
         Vector3 heightOffset = new Vector3(0, laserCounter * -0.01f, 0);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(0, startPos + heightOffset);
         laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(1, endPos + heightOffset);
-        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().enabled = true;
-        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().startColor = new Color(1, 1, 1, start.getStrength() * laserIntensity);
-        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().endColor = new Color(1, 1, 1, end.getStrength() * laserIntensity);
-        if (start.getOwner() == Player.Shared) laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().material = laserMaterialCombined;
-        else laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().material = start.getOwner() == Player.PlayerOne ? laserMaterialP1 : laserMaterialP2;
-        laserCounter++;
+    }
+
+    private void drawLaserPath(laserNode start, laserNode end, List<laserNode> reflectionPoints)
+    {
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().numPositions = 2 + reflectionPoints.Count;
+        Vector3 startPos = coordToPos(start.getX(), start.getY(), start.getHeading(), start.getMarchDir(), true);
+        Vector3 endPos = coordToPos(end.getX(), end.getY(), end.getHeading(), end.getMarchDir(), false);
+        Vector3 heightOffset = new Vector3(0, laserCounter * -0.01f, 0);
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(0, startPos + heightOffset);
+        for (int i = 0; i < reflectionPoints.Count; i++) {
+            Vector3 pos = coordToPos(reflectionPoints[i].getX(), reflectionPoints[i].getY(), reflectionPoints[i].getHeading(), reflectionPoints[i].getMarchDir(), true);
+            laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(i+1, pos + heightOffset);
+        }
+        laserContainer.transform.GetChild(laserCounter).GetComponent<LineRenderer>().SetPosition(reflectionPoints.Count+1, endPos + heightOffset);
     }
 
     private Vector3 coordToPos(int x, int y, Direction heading, Direction direction, bool start)
@@ -443,8 +470,8 @@ public class laserLogic : MonoBehaviour
         iterationCount = 0; laserIndex = -1;
         bool p1LaserFound = false, p2LaserFound = false;
         for (int i = 0; i < gridManager.theGrid.getDimY(); i++) {
-            if (gridManager.theGrid.getBuilding(0, i) == Building.Laser) { laserStartP1 = i; p1LaserFound = true; }
-            if (gridManager.theGrid.getBuilding(gridManager.theGrid.getDimX() - 1, i) == Building.Laser) { laserStartP2 = i; p2LaserFound = true; }
+            if (gridManager.theGrid.getBuilding(0, i) == Building.Laser) { laserStartP1 = i; p1LaserFound = true; laserHeadingP1 = gridManager.theGrid.getDirection(0, i) == Direction.Up ? Direction.NE : Direction.SE; }
+            if (gridManager.theGrid.getBuilding(gridManager.theGrid.getDimX() - 1, i) == Building.Laser) { laserStartP2 = i; p2LaserFound = true; laserHeadingP2 = gridManager.theGrid.getDirection(gridManager.theGrid.getDimX() - 1, i) == Direction.Up ? Direction.NW : Direction.SW; }
         }
 
         // If a laser has been placed, set this variable to active and start incrementing the laserLifetime timer (in LateUpdate)
@@ -509,7 +536,7 @@ public class laserLogic : MonoBehaviour
     private void laserStep(laserNode node) // Need to add: if strength <= 0 return
     {
         // Get data from node
-        int x = node.getX(), y = node.getY(), indx = node.getIndex(), subIndx = node.getSubIndex();
+        int x = node.getX(), y = node.getY(), indx = node.getIndex(), subIndx = node.getSubIndex(), reflections = node.reflectCount;
         float strength = node.getStrength();
         Direction heading = node.getHeading(), direction = node.getMarchDir();
         Player player = node.getOwner();
@@ -529,11 +556,11 @@ public class laserLogic : MonoBehaviour
         // Check if on same path as existing laser
         int[] indeces = laserData.checkOverlapping(x, y, strength, heading, direction, player);
         if (indeces != null) {
-            lasers[indeces[0]][indeces[1]] = new laserNode(x, y, lasers[indeces[0]][indeces[1]].getStrength() + strength, heading, direction, Player.Shared, indx, subIndx);
+            lasers[indeces[0]][indeces[1]] = new laserNode(x, y, lasers[indeces[0]][indeces[1]].getStrength() + strength, heading, direction, Player.Shared, indx, subIndx, reflections);
         } else {
             // Add node to list for line rendering later
-            laserData.insertNode(x, y, strength, heading, direction, player, indx, subIndx);
-            lasers[indx].Add(new laserNode(x, y, strength, heading, direction, player, indx, subIndx));
+            laserData.insertNode(x, y, strength, heading, direction, player, indx, subIndx, reflections);
+            lasers[indx].Add(new laserNode(x, y, strength, heading, direction, player, indx, subIndx, reflections));
         }
 
         // Determine next laser step
@@ -552,7 +579,7 @@ public class laserLogic : MonoBehaviour
                         newX = x + 1; newY = y;
                     }
 
-                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
+                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx, reflections);
                     
                     break;
                 }
@@ -566,7 +593,7 @@ public class laserLogic : MonoBehaviour
                         newX = x - 1; newY = y;
                     }
 
-                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
+                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx, reflections);
                     break;
                 }
             case Direction.SE:
@@ -579,7 +606,7 @@ public class laserLogic : MonoBehaviour
                         newX = x + 1; newY = y;
                     }
 
-                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
+                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx, reflections);
                     break;
                 }
             case Direction.SW:
@@ -592,25 +619,25 @@ public class laserLogic : MonoBehaviour
                         newX = x - 1; newY = y;
                     }
 
-                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx);
+                    laserSolver(newX, newY, newStrength, heading, newDir, player, indx, subIndx, reflections);
                     break;
                 }
         }
     }
 
-    private void laserSolver(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
+    private void laserSolver(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, int reflections)
     {
         if (x < 0 || y < 0 || x >= gridManager.theGrid.getDimX() || y >= gridManager.theGrid.getDimY()) return;
         switch (gridManager.theGrid.getBuilding(x, y)) {
-            case Building.Empty: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false); break;
+            case Building.Empty: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, reflections, false); break;
             case Building.Blocking: laserBlock(x, y, strength, heading, direction, player, indx, subIndx); break;
-            case Building.Reflecting: laserReflect(x, y, strength, heading, direction, player, indx, subIndx); break;
-            case Building.Refracting: laserRefract(x, y, strength, heading, direction, player, indx, subIndx); break;
-            case Building.Redirecting: laserRedirect(x, y, strength, heading, direction, player, indx, subIndx); break;
+            case Building.Reflecting: laserReflect(x, y, strength, heading, direction, player, indx, subIndx, reflections); break;
+            case Building.Refracting: laserRefract(x, y, strength, heading, direction, player, indx, subIndx, reflections); break;
+            case Building.Redirecting: laserRedirect(x, y, strength, heading, direction, player, indx, subIndx, reflections); break;
             case Building.Portal: break; // Not implemented
             case Building.Resource: laserResource(x, y, strength, heading, direction, player, indx, subIndx); break;
             case Building.Base: laserBase(x, y, strength, heading, direction, player); break;
-            case Building.Laser: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false); break;
+            case Building.Laser: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, reflections, false); break;
 
         }
     }
@@ -620,12 +647,20 @@ public class laserLogic : MonoBehaviour
     }
 
     // Adds laser node to queue
-    private void addLaserToQueue(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, bool isNew)
+    private void addLaserToQueue(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, int reflections, bool isNew, bool reflected = false)
     {
         if (subIndx == 0 && lasers[indx][0].onRedirect()) isNew = true;
+        if (reflected)
+        if (reflected) {
+            if (indx < laserLimit) {
+                if (laserReflectPoints[indx] == null) laserReflectPoints[indx] = new List<laserNode>();
+                else if (reflections < laserReflectPoints[indx].Count) laserReflectPoints[indx].Clear();
+                laserReflectPoints[indx].Add(new laserNode(x, y, strength, heading, direction, player, laserIndex, subIndx + 1, reflections + 1));
+            }
+        }
         // Add laser node to queue
-        if (isNew) laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, ++laserIndex, 0));
-        else laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, indx, subIndx + 1));
+        if (isNew) laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, ++laserIndex, 0, 0));
+        else laserQueue.Add(new laserNode(x, y, strength, heading, direction, player, indx, subIndx + 1, reflected ? reflections + 1 : reflections));
     }
 
     // What happens when a laser collides with a base
@@ -659,7 +694,7 @@ public class laserLogic : MonoBehaviour
     }
 
     // What happens when a laser collides with a reflection block
-    private void laserReflect(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
+    private void laserReflect(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, int reflections)
     {
         // Need to add if (direction == building weak side), add damageHit, break;
         GridItem gi = gridManager.theGrid.getCellInfo(x, y);
@@ -671,16 +706,16 @@ public class laserLogic : MonoBehaviour
 
         switch (direction)
             {
-            case Direction.Down: if (gridManager.theGrid.getBuilding(x, y + 1) != Building.Redirecting) addLaserToQueue(x, y + 1, strength, heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
-            case Direction.Up: if (gridManager.theGrid.getBuilding(x, y - 1) != Building.Redirecting) addLaserToQueue(x, y - 1, strength, heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, true); break;
-            case Direction.Left: if (gridManager.theGrid.getBuilding(x + 1, y) != Building.Redirecting) addLaserToQueue(x + 1, y, strength, heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, true); break;
-            case Direction.Right: if (gridManager.theGrid.getBuilding(x - 1, y) != Building.Redirecting) addLaserToQueue(x - 1, y, strength, heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, true); break;
+            case Direction.Down: if (gridManager.theGrid.getBuilding(x, y + 1) != Building.Redirecting) addLaserToQueue(x, y + 1, strength, heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, reflections, false, true); break;
+            case Direction.Up: if (gridManager.theGrid.getBuilding(x, y - 1) != Building.Redirecting) addLaserToQueue(x, y - 1, strength, heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, reflections, false, true); break;
+            case Direction.Left: if (gridManager.theGrid.getBuilding(x + 1, y) != Building.Redirecting) addLaserToQueue(x + 1, y, strength, heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, reflections, false, true); break;
+            case Direction.Right: if (gridManager.theGrid.getBuilding(x - 1, y) != Building.Redirecting) addLaserToQueue(x - 1, y, strength, heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, reflections, false, true); break;
         }
 
     }
 
     // What happens when a laser collides with a refraction block
-    private void laserRefract(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
+    private void laserRefract(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, int reflections)
     {
         // Infinite loop check;
         List<dirHeadPlayer> directionalHits;
@@ -695,18 +730,18 @@ public class laserLogic : MonoBehaviour
 
         // Need to add particles somewhere
 
-        addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false);
+        addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, reflections, false);
 
         switch (direction) {
-            case Direction.Down: addLaserToQueue(x, y + 1, strength, heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
-            case Direction.Up: addLaserToQueue(x, y - 1, strength, heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, true); break;
-            case Direction.Left: addLaserToQueue(x + 1, y, strength, heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, true); break;
-            case Direction.Right: addLaserToQueue(x - 1, y, strength, heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, true); break;
+            case Direction.Down: addLaserToQueue(x, y + 1, strength, heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, reflections, true); break;
+            case Direction.Up: addLaserToQueue(x, y - 1, strength, heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, reflections, true); break;
+            case Direction.Left: addLaserToQueue(x + 1, y, strength, heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, reflections, true); break;
+            case Direction.Right: addLaserToQueue(x - 1, y, strength, heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, reflections, true); break;
         }
     }
 
     // What happens when a laser collides with a redirect block
-    private void laserRedirect(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
+    private void laserRedirect(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, int reflections)
     {
         // Add damage hit if side hit
         bool damageHit = false;
@@ -716,10 +751,10 @@ public class laserLogic : MonoBehaviour
 
         if (!damageHit) {
             switch (direction) {
-                case Direction.Down: addLaserToQueue(x, y, strength, heading, heading == Direction.SE ? Direction.Right : Direction.Left, player, indx, subIndx, true); break;
-                case Direction.Up: addLaserToQueue(x, y, strength, heading, heading == Direction.NE ? Direction.Right : Direction.Left, player, indx, subIndx, true); break;
-                case Direction.Left: addLaserToQueue(x, y, strength, heading, heading == Direction.NW ? Direction.Up : Direction.Down, player, indx, subIndx, true); break;
-                case Direction.Right: addLaserToQueue(x, y, strength, heading, heading == Direction.NE ? Direction.Up : Direction.Down, player, indx, subIndx, true); break;
+                case Direction.Down: addLaserToQueue(x, y, strength, heading, heading == Direction.SE ? Direction.Right : Direction.Left, player, indx, subIndx, reflections, true); break;
+                case Direction.Up: addLaserToQueue(x, y, strength, heading, heading == Direction.NE ? Direction.Right : Direction.Left, player, indx, subIndx, reflections, true); break;
+                case Direction.Left: addLaserToQueue(x, y, strength, heading, heading == Direction.NW ? Direction.Up : Direction.Down, player, indx, subIndx, reflections, true); break;
+                case Direction.Right: addLaserToQueue(x, y, strength, heading, heading == Direction.NE ? Direction.Up : Direction.Down, player, indx, subIndx, reflections, true); break;
             }
         } else {
             laserHits.Add(new laserHit(x, y, true, strength, Building.Redirecting, gi.owner));

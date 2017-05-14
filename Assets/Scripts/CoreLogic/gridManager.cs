@@ -145,12 +145,14 @@ public struct Grid
     public GameObject[,] gridSquares;
     public int blockScale;
     private int flag;
-   
+    private GameObject canvasObject;
+
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
         GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder,
-        GameObject Dots, GameObject placementTimerObj, GameObject tutorial, float limit, int blockResourceScale)
+        GameObject Dots, GameObject placementTimerObj, GameObject tutorial, float limit, int blockResourceScale, GameObject canvasObj)
     {
+        canvasObject = canvasObj;
         flag = 69;
         grid = new GridItem[y, x];
         // Generate Object Holder
@@ -462,8 +464,8 @@ public struct Grid
                 if (tutorialObject != null && TutorialFramework.tutorialActive) {
                     tutorialObject.GetComponent<TutorialFramework>().buildingDestructionEvent(new XY(x, y), grid[y, x].building);
                 } else {
-                    if (getBuilding(x, y) == Building.Base && baseHealthP2() <= 0f){ SoundManager.StopMusic(); SceneManager.LoadScene("P1Win", LoadSceneMode.Single);}
-                    else if (getBuilding(x, y) == Building.Base && baseHealthP1() <= 0f){ SoundManager.StopMusic(); SceneManager.LoadScene("P2Win", LoadSceneMode.Single);}
+                    if (getBuilding(x, y) == Building.Base && baseHealthP2() <= 0f){ SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerOne); }
+                    else if (getBuilding(x, y) == Building.Base && baseHealthP1() <= 0f){ SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerTwo); }
                 }
                 destroyBuilding(x, y);
             }
@@ -754,10 +756,12 @@ public class gridManager : MonoBehaviour
     public int blockResourceScale;
     private GameObject buildingContainer;
 
+    public GameObject canvasObject;
+
     public void initGrid()
     {
         theGrid = new Grid(boardWidth, boardHeight, buildingContainer, Base, Base2, Laser, Laser2, Block, Block2, Reflect, Reflect2, Refract, Refract2, Redirect, Redirect2, Resource, Resource2, Portal, Portal2, startingResources,
-            startingBuildingNum, empty, dot, placementTimerObj, tutorialObject, limit, blockResourceScale);
+            startingBuildingNum, empty, dot, placementTimerObj, tutorialObject, limit, blockResourceScale, canvasObject);
         theGrid.updateSquares();
     }
 

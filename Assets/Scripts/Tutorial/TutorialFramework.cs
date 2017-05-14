@@ -165,8 +165,8 @@ public class TutorialFramework : MonoBehaviour {
         Transform toDelete = Board.transform.Find("ObjectHolder");
         if (toDelete != null) Destroy(toDelete.gameObject);
         foreach (var item in gridManager.theGrid.prefabDictionary) Destroy(item.Value);
-        Board.GetComponent<gridManager>().initGrid();
         Board.GetComponent<inputController>().initCursors();
+        Board.GetComponent<gridManager>().initGrid();
         spawnInitialCreatures();
         gridManager.theGrid.queueUpdate();
         if (Highlight != null) { Destroy(Highlight); }

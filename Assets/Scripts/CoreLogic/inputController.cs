@@ -149,7 +149,9 @@ public class inputController : MonoBehaviour {
 		UISounds = setUISounds;
 		musicSounds = setMusicSounds;
 		initCursors();
-		SoundManager.PlayMusic(musicSounds[0].audioclip, .2f, true, true, 5f, 1.5f);
+        gridManager.theGrid.updateSquares();
+        gridManager.theGrid.updateLaser();
+        SoundManager.PlayMusic(musicSounds[0].audioclip, .2f, true, true, 5f, 1.5f);
 	}
 
 	void Update()
@@ -158,7 +160,7 @@ public class inputController : MonoBehaviour {
 		bool notNow2 = false;
 		if (Time.timeScale != 0) {
 			// Check that the game isn't paused
-			if (PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false || (TutorialFramework.tutorialActive && !TutorialFramework.skipFrame)) {
+			if ((PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false) && !(TutorialFramework.tutorialActive && TutorialFramework.skipFrame)) {
 				// Cursor Selection P1
 
 				// Cycle P1
@@ -221,9 +223,17 @@ public class inputController : MonoBehaviour {
 					if (Input.GetAxis("xboxLeftVert") != 0) { vertDelayP1 = delayFactor; if (!flagVP1) { vertCounterP1 = 1f / cursorSpeed; flagVP1 = true; } } else { flagVP1 = false; }
 					if (Input.GetAxis("xboxLeftHor") != 0) { horDelayP1 = delayFactor; if (!flagHP1) { horCounterP1 = 1f / cursorSpeed; flagHP1 = true; } } else { flagHP1 = false; }
 
-					if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } } else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftVert") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} vertCounterP1 = 0f; } } } else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} } else if (Input.GetButton("down_1") || Input.GetAxis("xboxLeftVert") == -1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } vertCounterP1 = 0f; } } } else { vertCounterP1 = 0f; vertDelayP1 = 0f; vertMovingP1 = false; }
+					if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } }
+                    else if (Input.GetButton("up_1") || Input.GetAxis("xboxLeftVert") == 1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} vertCounterP1 = 0f; } } }
+                    else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} }
+                    else if (Input.GetButton("down_1") || Input.GetAxis("xboxLeftVert") == -1) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } vertCounterP1 = 0f; } } }
+                    else { vertCounterP1 = 0f; vertDelayP1 = 0f; vertMovingP1 = false; }
 
-					if ((Input.GetButtonDown("right_1")) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} } else if ((Input.GetButton("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { horMovingP1 = true; horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } horCounterP1 = 0f; } } } else if (Input.GetButtonDown("left_1")) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} } else if (Input.GetButton("left_1") || Input.GetAxis("xboxLeftHor") == -1) { horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horMovingP1 = true; horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } horCounterP1 = 0f; } } } else { horCounterP1 = 0f; horDelayP1 = 0f; horMovingP1 = false; }
+					if ((Input.GetButtonDown("right_1")) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} }
+                    else if ((Input.GetButton("right_1") || Input.GetAxis("xboxLeftHor") == 1) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { horMovingP1 = true; horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } horCounterP1 = 0f; } } }
+                    else if (Input.GetButtonDown("left_1")) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} }
+                    else if (Input.GetButton("left_1") || Input.GetAxis("xboxLeftHor") == -1) { horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horMovingP1 = true; horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } horCounterP1 = 0f; } } }
+                    else { horCounterP1 = 0f; horDelayP1 = 0f; horMovingP1 = false; }
 				} else {
 					// Cursor Rotation P1
 					bool selectionMade = false;
@@ -234,6 +244,14 @@ public class inputController : MonoBehaviour {
 						else place(Player.PlayerOne, cursorP1.state);
 					}
 				}
+                // Added right stick rotation P1
+                if (cursorP1.state == State.idle || cursorP1.state == State.moving || cursorP1.state == State.placing || cursorP1.state == State.placingMove) {
+                    if (cursorP1.selection == Building.Blocking) { cursorP1.direction = Direction.Down; }
+                    else if (Input.GetAxis("xboxRightStickX1") == 1) { cursorP1.direction = Direction.Right; }
+                    else if (Input.GetAxis("xboxRightStickX1") == -1) { cursorP1.direction = Direction.Left; }
+                    else if (Input.GetAxis("xboxRightStickY1") == 1) { cursorP1.direction = Direction.Up; }
+                    else if (Input.GetAxis("xboxRightStickY1") == -1) { cursorP1.direction = Direction.Down; }
+                }
 
 				if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove && cursorP2.state != State.removing) {
 					// Cursor Movement P2
@@ -253,6 +271,14 @@ public class inputController : MonoBehaviour {
 						else place(Player.PlayerTwo, cursorP2.state);
 					}
 				}
+                // Added right stick rotation P2
+                if (cursorP2.state == State.idle || cursorP2.state == State.moving || cursorP2.state == State.placing || cursorP2.state == State.placingMove) {
+                    if (cursorP2.selection == Building.Blocking) { cursorP2.direction = Direction.Down; }
+                    else if (Input.GetAxis("xboxRightStickX2") == 1) { cursorP2.direction = Direction.Right; }
+                    else if (Input.GetAxis("xboxRightStickX2") == -1) { cursorP2.direction = Direction.Left; }
+                    else if (Input.GetAxis("xboxRightStickY2") == 1) { cursorP2.direction = Direction.Up; }
+                    else if (Input.GetAxis("xboxRightStickY2") == -1) { cursorP2.direction = Direction.Down; }
+                }
 
                 // Cursor Functions P1
                 if ((Input.GetButtonDown("place_1")) && !notNow1) place(Player.PlayerOne, cursorP1.state);
@@ -286,7 +312,7 @@ public class inputController : MonoBehaviour {
 					    case Direction.Down: if (cursorP1.y != 0) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][0]; } break;
 					    default: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorP1.y == 0 ? cursorObjP1.GetComponent<cursor>().Sprites[5][1] : cursorObjP1.GetComponent<cursor>().Sprites[5][0]; break;
 					}
-				} else if (cursorP1.state == State.placing) // in here change the sprite while choosing direction
+				} else if (cursorP1.state == State.placing || cursorP1.state == State.idle) // in here change the sprite while choosing direction
 				{
 					float scale = 1f;
 					switch (cursorP1.selection) {
@@ -345,7 +371,7 @@ public class inputController : MonoBehaviour {
 					    default: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorP2.y == 0 ? cursorObjP2.GetComponent<cursor>().Sprites[5][1] : cursorObjP2.GetComponent<cursor>().Sprites[5][0]; break;
 					}
 
-				} else if (cursorP2.state == State.placing) // in here change the sprite while choosing direction
+				} else if (cursorP2.state == State.placing || cursorP2.state == State.idle) // in here change the sprite while choosing direction
 				{
 					float scale = 1f;
 					switch (cursorP2.selection) {

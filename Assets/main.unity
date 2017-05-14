@@ -16259,6 +16259,7 @@ MonoBehaviour:
   placementTimerObj: {fileID: 1212582469528822, guid: dd8945e57707bcd4590911d4ec55ea6e,
     type: 2}
   blockResourceScale: 1
+  canvasObject: {fileID: 2061673243}
 --- !u!114 &2040606551
 MonoBehaviour:
   m_ObjectHideFlags: 0

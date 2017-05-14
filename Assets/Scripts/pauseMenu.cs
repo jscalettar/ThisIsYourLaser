@@ -158,14 +158,14 @@ public class pauseMenu : MonoBehaviour
     }
 
     // Call winGame in gridManager in applyDamage and input "P1" or "P2"
-    public void winGame(string winner)
+    public void winGame(Player player)
     {
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
 
         // Take the in winner value and display correct winner text
-        if (winner == "P1") { winText.text = "Player 1 Wins!"; }
-        else if (winner == "P2") { winText.text = "Player 2 Wins!"; }
+        if (player == Player.PlayerOne) { winText.text = "Player 1 Wins!"; }
+        else if (player == Player.PlayerTwo) { winText.text = "Player 2 Wins!"; }
         Win.SetActive(true);
     }
 
