@@ -558,7 +558,7 @@ public class inputController : MonoBehaviour {
 			}
 		} else if (currentState == State.idle) {
 			if (player == Player.PlayerOne) {
-				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.selection)){print("You can not place here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, .6f, true, .95f, 1.05f);}
+				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.selection)){print("You can not place here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, .4f, true, .95f, 1.05f);}
 				else if (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) <= gridManager.theGrid.getResourcesP1()){
 					cursorP1.state = State.placing;
 					if (cursorP1.selection == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
@@ -567,9 +567,9 @@ public class inputController : MonoBehaviour {
 
 					}
 				}
-				else {print("Not enough resources to place.");   }
+				else {print("Not enough resources to place."); SoundManager.PlaySound(Sounds[4].audioclip, .4f, true, .95f, 1.05f);  }
 			} else {
-				if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.selection)) print("You can not place here, selection is not valid");
+				if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.selection)){ print("You can not place here, selection is not valid"); SoundManager.PlaySound(Sounds[4].audioclip, .4f, true, .95f, 1.05f);}
 				else if (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) <= gridManager.theGrid.getResourcesP2()){
 					cursorP2.state = State.placing;
 					if (cursorP2.selection == Building.Resource && laserLogic.laserData.grid[cursorP2.y, cursorP2.x].Count > 0) {
@@ -578,7 +578,7 @@ public class inputController : MonoBehaviour {
 
 					}
 				}
-				else{ print("Not enough resources to place.");   }
+				else{ print("Not enough resources to place.");   SoundManager.PlaySound(Sounds[4].audioclip, .4f, true, .95f, 1.05f);}
 			}
 		} else {
 			print("Can not place, busy with some other action.");   
