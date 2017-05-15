@@ -1843,7 +1843,7 @@ RectTransform:
   m_GameObject: {fileID: 175126606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 445352210}
   m_Father: {fileID: 1297208500}
@@ -3478,7 +3478,7 @@ RectTransform:
   m_GameObject: {fileID: 414157419}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 678844801}
   m_Father: {fileID: 1297208500}
@@ -6873,7 +6873,7 @@ RectTransform:
   m_GameObject: {fileID: 795314480}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 124624010}
   m_Father: {fileID: 1297208500}
@@ -7709,6 +7709,7 @@ MonoBehaviour:
   masterSlider: {fileID: 726505901}
   musicSlider: {fileID: 110269518}
   sfxSlider: {fileID: 1150139707}
+  UISlider: {fileID: 0}
   isFull: 0
   resDrop: {fileID: 925588615}
   masterVol: 0
@@ -8577,7 +8578,7 @@ MonoBehaviour:
     y: 0
     building: 1
     player: 1
-    direction: 8
+    direction: 7
   initialPopup: {fileID: 2800000, guid: f0b40b5989fd6b44cab56d82c509cc84, type: 3}
   initialPopup2: {fileID: 2800000, guid: 533e337c620ef9e40b1fba5b5a84e8ec, type: 3}
   initialPopup3: {fileID: 2800000, guid: 9fd6c6ce24210a040a1a2926860e0b44, type: 3}
@@ -8859,7 +8860,7 @@ RectTransform:
   m_GameObject: {fileID: 996499927}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.000002790479}
-  m_LocalScale: {x: 0.9998595, y: 0.9998608, z: 0.9998608}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.9998608}
   m_Children:
   - {fileID: 1602045058}
   m_Father: {fileID: 1297208500}
@@ -10501,7 +10502,7 @@ RectTransform:
   m_GameObject: {fileID: 1172156387}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 88555117}
   m_Father: {fileID: 1297208500}
@@ -17255,7 +17256,7 @@ MonoBehaviour:
     y: 0
     building: 1
     player: 1
-    direction: 8
+    direction: 7
   initialPopup: {fileID: 2800000, guid: bfe92a487bbda924bb34a63c71989ea1, type: 3}
   initialPopup2: {fileID: 0}
   initialPopup3: {fileID: 0}
