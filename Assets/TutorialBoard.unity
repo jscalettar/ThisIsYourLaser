@@ -2577,6 +2577,101 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 265522045}
+--- !u!1 &279050954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 279050955}
+  - component: {fileID: 279050956}
+  m_Layer: 0
+  m_Name: Moving
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &279050955
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 279050954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 314660326}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279050956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 279050954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moduleOrderIndex: 6
+  initialState: 2
+  highlightPos:
+    x: 5
+    y: 4
+  highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
+  initialSelection: 4
+  spawnList:
+  - x: 0
+    y: 3
+    building: 0
+    player: 1
+    direction: 8
+  - x: 0
+    y: 0
+    building: 1
+    player: 1
+    direction: 7
+  - x: 3
+    y: 2
+    building: 2
+    player: 1
+    direction: 8
+  initialPopup: {fileID: 2800000, guid: 22d8cd0ac7b07fb429c35e5209c20c6f, type: 3}
+  initialPopup2: {fileID: 2800000, guid: 2caec41ba5597e345854e0bab0f34269, type: 3}
+  initialPopup3: {fileID: 0}
+  firstDestroyed: {fileID: 0}
+  endOnFirstDestroyed: 0
+  baseDestroyed: {fileID: 0}
+  endOnBaseDestruction: 0
+  specificDestroyed: []
+  firstPlacing: {fileID: 0}
+  firstPlaced: {fileID: 0}
+  endOnPlaced: 0
+  firstMoving: {fileID: 0}
+  firstMovingPlacing: {fileID: 0}
+  firstMoved: {fileID: 0}
+  endOnMoved: 0
+  firstRemoving: {fileID: 0}
+  firstRemoved: {fileID: 0}
+  endOnRemoved: 0
+  specificInteraction:
+  - pos:
+      x: 0
+      y: 0
+    building: 2
+    type: 2
+    popup: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
+    endTrigger: 1
+  movedLeft: {fileID: 0}
+  movedRight: {fileID: 0}
+  movedUp: {fileID: 0}
+  movedDown: {fileID: 0}
+  endOnAllDirectionsMoved: 0
+  allDrectionsMovedPopup: {fileID: 0}
 --- !u!1 &280521727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2764,6 +2859,8 @@ Transform:
   - {fileID: 1792056343}
   - {fileID: 988190461}
   - {fileID: 1999940287}
+  - {fileID: 279050955}
+  - {fileID: 1903941899}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16340,6 +16437,101 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1894681307}
+--- !u!1 &1903941898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1903941899}
+  - component: {fileID: 1903941900}
+  m_Layer: 0
+  m_Name: Removing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1903941899
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1903941898}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 314660326}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1903941900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1903941898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moduleOrderIndex: 7
+  initialState: 2
+  highlightPos:
+    x: -1
+    y: -1
+  highlightTexture: {fileID: 0}
+  initialSelection: 2
+  spawnList:
+  - x: 0
+    y: 3
+    building: 0
+    player: 1
+    direction: 8
+  - x: 0
+    y: 0
+    building: 1
+    player: 1
+    direction: 7
+  - x: 6
+    y: 7
+    building: 2
+    player: 1
+    direction: 7
+  initialPopup: {fileID: 2800000, guid: 5af9877f712b38f4099f6cfc453b6855, type: 3}
+  initialPopup2: {fileID: 2800000, guid: ac29876f04157ef4bb494a0d97cc1a81, type: 3}
+  initialPopup3: {fileID: 0}
+  firstDestroyed: {fileID: 0}
+  endOnFirstDestroyed: 0
+  baseDestroyed: {fileID: 0}
+  endOnBaseDestruction: 0
+  specificDestroyed: []
+  firstPlacing: {fileID: 0}
+  firstPlaced: {fileID: 0}
+  endOnPlaced: 0
+  firstMoving: {fileID: 0}
+  firstMovingPlacing: {fileID: 0}
+  firstMoved: {fileID: 0}
+  endOnMoved: 0
+  firstRemoving: {fileID: 0}
+  firstRemoved: {fileID: 0}
+  endOnRemoved: 0
+  specificInteraction:
+  - pos:
+      x: 0
+      y: 0
+    building: 2
+    type: 4
+    popup: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
+    endTrigger: 1
+  movedLeft: {fileID: 0}
+  movedRight: {fileID: 0}
+  movedUp: {fileID: 0}
+  movedDown: {fileID: 0}
+  endOnAllDirectionsMoved: 0
+  allDrectionsMovedPopup: {fileID: 0}
 --- !u!1 &1908058911
 GameObject:
   m_ObjectHideFlags: 0
@@ -17243,7 +17435,7 @@ MonoBehaviour:
   initialState: 2
   highlightPos:
     x: 4
-    y: 4
+    y: 5
   highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
   initialSelection: 5
   spawnList:
