@@ -212,6 +212,7 @@ public class SoundManager : MonoBehaviour {
 		FadeAll(-1f);
 	}
 	public static void StopMusic(){
+        MonoBehaviour.print("STOP");
 		StopAllMusic(-1f);
 	}
 	public static void StopAllMusic(float fadeOutSeconds){
@@ -239,6 +240,66 @@ public class SoundManager : MonoBehaviour {
 			audio.Stop();
 		}
 	}
+
+    public static void PauseAll(){
+        PauseAllMusic();
+        PauseAllSounds();
+        PauseAllUISounds();
+    }
+
+    public static void PauseAllMusic(){
+        List<int> keys = new List<int>(musicAudio.Keys);
+        foreach (int key in keys){
+            Audio audio = musicAudio[key];
+            audio.Pause();
+        }
+    }
+
+
+    public static void PauseAllSounds(){
+        List<int> keys = new List<int>(soundsAudio.Keys);
+        foreach (int key in keys){
+            Audio audio = soundsAudio[key];
+            audio.Pause();
+     
+        }
+    }
+
+    public static void PauseAllUISounds(){
+        List<int> keys = new List<int>(UISoundsAudio.Keys);
+        foreach (int key in keys){
+            Audio audio = UISoundsAudio[key];
+            audio.Pause();
+        }
+    }
+    public static void ResumeAll(){
+        ResumeAllMusic();
+        ResumeAllSounds();
+        ResumeAllUISounds();
+    }
+
+    public static void ResumeAllMusic(){
+        List<int> keys = new List<int>(musicAudio.Keys);
+        foreach (int key in keys){
+            Audio audio = musicAudio[key];
+            audio.Resume();
+        }
+    }
+
+    public static void ResumeAllSounds(){
+        List<int> keys = new List<int>(soundsAudio.Keys);
+        foreach (int key in keys){
+            Audio audio = soundsAudio[key];
+            audio.Resume();
+        }
+    }
+    public static void ResumeAllUISounds(){
+        List<int> keys = new List<int>(UISoundsAudio.Keys);
+        foreach (int key in keys){
+            Audio audio = UISoundsAudio[key];
+            audio.Resume();
+        }
+    }
 
 	public static Audio GetAudio(int audioID){
 		Audio audio;
@@ -601,7 +662,6 @@ public class Audio
 
 		stopping = true;
 	}
-		
 	public void Pause(){
 		audioSource.Pause();
 		paused = true;

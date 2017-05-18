@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
 public class pauseMenu : MonoBehaviour
 {
     // Game objects to set active and deactivate
@@ -93,6 +92,7 @@ public class pauseMenu : MonoBehaviour
     {
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
+        SoundManager.PauseAllMusic();
         PauseMenu.SetActive(true);
     }
 
@@ -100,6 +100,7 @@ public class pauseMenu : MonoBehaviour
     {
         // Sets the game time to realtime
         Time.timeScale = 1F;
+        SoundManager.ResumeAllMusic();
         PauseMenu.SetActive(false);
     }
 
@@ -312,6 +313,7 @@ public class pauseMenu : MonoBehaviour
         Instructions.interactable = true;
         Options.interactable = true;
         End.interactable = true;
+
     }
 
     // Call winGame in gridManager in applyDamage and input "P1" or "P2"
@@ -319,7 +321,6 @@ public class pauseMenu : MonoBehaviour
     {
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
-
         // Take the in winner value and display correct winner text
         if (player == Player.PlayerOne) { winText.text = "Player 1 Wins!"; }
         else if (player == Player.PlayerTwo) { winText.text = "Player 2 Wins!"; }
