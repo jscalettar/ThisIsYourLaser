@@ -11,6 +11,12 @@ public class pauseMenu : MonoBehaviour
     public GameObject OptionMenu;
     public GameObject InstructMenu;
     public GameObject StructureMenu;
+    public GameObject ControlsMenu;
+    public GameObject ResourceMenu;
+    public GameObject RefractMenu;
+    public GameObject ReflectMenu;
+    public GameObject RedirectMenu;
+    public GameObject BlockMenu;
     public GameObject Win;
 
     // Vars for menu buttons
@@ -52,6 +58,12 @@ public class pauseMenu : MonoBehaviour
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
         StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
         Win.SetActive(false);
 
         // Set pause menu buttons to active
@@ -96,6 +108,12 @@ public class pauseMenu : MonoBehaviour
         OptionMenu.SetActive(true);
         InstructMenu.SetActive(false);
         StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
 
         // Disable pause menu buttons when options are up
         Pause.interactable = false;
@@ -110,6 +128,12 @@ public class pauseMenu : MonoBehaviour
         InstructMenu.SetActive(true);
         OptionMenu.SetActive(false);
         StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
 
         // Disable pause menu buttons when instructions are up
         Pause.interactable = false;
@@ -124,6 +148,132 @@ public class pauseMenu : MonoBehaviour
         InstructMenu.SetActive(false);
         OptionMenu.SetActive(false);
         StructureMenu.SetActive(true);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
+
+        // Disable pause menu buttons when structures are up
+        Pause.interactable = false;
+        Resume.interactable = false;
+        Instructions.interactable = false;
+        Options.interactable = false;
+        End.interactable = false;
+    }
+
+    public void controlsMenu()
+    {
+        InstructMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(true);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
+
+        // Disable pause menu buttons when structures are up
+        Pause.interactable = false;
+        Resume.interactable = false;
+        Instructions.interactable = false;
+        Options.interactable = false;
+        End.interactable = false;
+    }
+
+    public void resourceMenu()
+    {
+        InstructMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(true);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
+
+        // Disable pause menu buttons when structures are up
+        Pause.interactable = false;
+        Resume.interactable = false;
+        Instructions.interactable = false;
+        Options.interactable = false;
+        End.interactable = false;
+    }
+
+    public void refractMenu()
+    {
+        InstructMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(true);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
+
+        // Disable pause menu buttons when structures are up
+        Pause.interactable = false;
+        Resume.interactable = false;
+        Instructions.interactable = false;
+        Options.interactable = false;
+        End.interactable = false;
+    }
+
+    public void reflectMenu()
+    {
+        InstructMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(true);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
+
+        // Disable pause menu buttons when structures are up
+        Pause.interactable = false;
+        Resume.interactable = false;
+        Instructions.interactable = false;
+        Options.interactable = false;
+        End.interactable = false;
+    }
+
+    public void redirectMenu()
+    {
+        InstructMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(true);
+        BlockMenu.SetActive(false);
+
+        // Disable pause menu buttons when structures are up
+        Pause.interactable = false;
+        Resume.interactable = false;
+        Instructions.interactable = false;
+        Options.interactable = false;
+        End.interactable = false;
+    }
+
+    public void blockMenu()
+    {
+        InstructMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(true);
 
         // Disable pause menu buttons when structures are up
         Pause.interactable = false;
@@ -149,6 +299,12 @@ public class pauseMenu : MonoBehaviour
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
         StructureMenu.SetActive(false);
+        ControlsMenu.SetActive(false);
+        ResourceMenu.SetActive(false);
+        RefractMenu.SetActive(false);
+        ReflectMenu.SetActive(false);
+        RedirectMenu.SetActive(false);
+        BlockMenu.SetActive(false);
 
         // Set pause menu buttons to active
         Pause.interactable = true;
