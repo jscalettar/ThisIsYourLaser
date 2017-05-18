@@ -29,6 +29,7 @@ public class startMenu : MonoBehaviour {
     public GameObject BlockPage;
     public GameObject RedirectPage;
     public GameObject ControlsPage;
+    public GameObject CreditMenu;
     //Vars for buttons/toggles/sliders
     public Button Play;
     public Button Exit;
@@ -48,6 +49,7 @@ public class startMenu : MonoBehaviour {
         StartMenu.SetActive(true);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
+        CreditMenu.SetActive(false);
         populateList();
         if (tutorialToInstructionFlag.instance.flag) CreautureMenu();
     }
@@ -77,7 +79,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
-		backImage.sprite = davidImage;
+        CreditMenu.SetActive(false);
+        backImage.sprite = davidImage;
     }
 
     public void OptionsMenu()
@@ -92,7 +95,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
     }
 
     public void InstructionsMenu()
@@ -107,7 +111,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
     }
 
     public void CreautureMenu()
@@ -122,7 +127,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
     }
 
     public void ControlPage()
@@ -137,7 +143,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
     }
 
     public void Resource()
@@ -153,7 +160,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
     }
 
     public void Refract()
@@ -169,7 +177,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
     }
 
     public void Reflect()
@@ -185,7 +194,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(true);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(false);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
     }
 
     public void Block()
@@ -201,7 +211,8 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(true);
         RedirectPage.SetActive(false);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
     }
 
     public void Redirect()
@@ -217,7 +228,24 @@ public class startMenu : MonoBehaviour {
         ReflectPage.SetActive(false);
         BlockPage.SetActive(false);
         RedirectPage.SetActive(true);
-		backImage.sprite = ocean;
+        CreditMenu.SetActive(false);
+        backImage.sprite = ocean;
+    }
+
+    public void CreditsMenu()
+    {
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        CreatureMenu.SetActive(false);
+        ControlsPage.SetActive(false);
+        ResourcePage.SetActive(false);
+        RefractPage.SetActive(false);
+        ReflectPage.SetActive(false);
+        BlockPage.SetActive(false);
+        RedirectPage.SetActive(false);
+        CreditMenu.SetActive(true);
+        backImage.sprite = ocean;
     }
 
     public void setMaster(float vol) 
