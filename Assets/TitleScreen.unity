@@ -698,7 +698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &111918951
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7359,7 +7359,11 @@ MonoBehaviour:
 
 
 
-    Social Media Coordinator'
+    Social Media Coordinator
+
+
+
+    Special Thanks'
 --- !u!222 &1423801711
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11248,7 +11252,11 @@ MonoBehaviour:
 
 
 
-    Franz Breedon'
+    Franz Breedon
+
+
+
+    Songs From An Unmade World 2 by Visager'
 --- !u!222 &2063050948
 CanvasRenderer:
   m_ObjectHideFlags: 0
