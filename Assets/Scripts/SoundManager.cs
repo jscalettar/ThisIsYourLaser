@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 ////////////////////////////Ye who enter here/////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
-
 public class SoundManager : MonoBehaviour {
 	private static SoundManager _instance = null;
 	private static float vol = 1f;
@@ -242,12 +241,12 @@ public class SoundManager : MonoBehaviour {
 	}
 
     public static void PauseAll(){
-        PauseAllMusic();
+		PauseAllMusic ();
         PauseAllSounds();
         PauseAllUISounds();
     }
 
-    public static void PauseAllMusic(){
+	public static void PauseAllMusic(){
         List<int> keys = new List<int>(musicAudio.Keys);
         foreach (int key in keys){
             Audio audio = musicAudio[key];
