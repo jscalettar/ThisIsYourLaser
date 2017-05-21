@@ -662,6 +662,7 @@ public struct Grid
                 case Building.Blocking: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .8f, .8f); break;
                 default: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1f, 1f); break;
             }
+            CameraShake.shakeTimer = 0f;
             updateSquares();
         } else return false;
         return true;

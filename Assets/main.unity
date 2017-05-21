@@ -12096,6 +12096,7 @@ GameObject:
   - component: {fileID: 1166739912}
   - component: {fileID: 1166739911}
   - component: {fileID: 1166739910}
+  - component: {fileID: 1166739915}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -12171,6 +12172,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1166739915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1166739909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8452c6cace25cac4a8180b2924d61161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.1
+  shakeAmount: 0.7
+  decreaseFactor: 2
 --- !u!1 &1181317694
 GameObject:
   m_ObjectHideFlags: 0
@@ -19957,7 +19972,6 @@ MonoBehaviour:
   intervalInMinutes1: 3
   intervalInMinutes2: 7
   intervalInMinutes3: 10
-  resourceRate: 0.2
   laserMaterialP1: {fileID: 2100000, guid: 0c7a4a17bc51ce34abbe492260b42caf, type: 2}
   laserMaterialP2: {fileID: 2100000, guid: 5881a0a8f7395b54e8e5f711a120a7ba, type: 2}
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
