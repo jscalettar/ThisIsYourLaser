@@ -406,7 +406,15 @@ public struct Grid
             grid[y, x].health -= damage;
             timer -= Time.deltaTime*5;
             hitTimer -= Time.deltaTime*5;
-            prefabDictionary[new XY(x, y)].GetComponent<Animator>().SetInteger("state", 1);
+            //Damage Animation Code
+			GameObject structure = null;
+			prefabDictionary.TryGetValue (new XY (x, y), out structure);
+			if (structure != null) {
+				Building type = structure.GetComponent<buildingParameters> ().buildingType;
+				if (type == Building.Refracting && !structure.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("damage"))
+					structure.GetComponent<Animator> ().Play ("damage");
+				
+			}
             if(timer < 0 ){
                 if(getBuilding(x,y) == Building.Base){
                     if(((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)) < laserCeiling){
