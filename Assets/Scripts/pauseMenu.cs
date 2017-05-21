@@ -75,14 +75,18 @@ public class pauseMenu : MonoBehaviour
         // Other stuff
         Screen.fullScreen = false;
         populateList();
+		masterSlider.value = SoundManager.globalVolume;
+		musicSlider.value = SoundManager.globalMusicVolume;
+		sfxSlider.value = SoundManager.globalSoundsVolume;
+		UISlider.value = SoundManager.globalUISoundsVolume;
     }
 
     void Update()
     {
-        setMaster(masterSlider.value);
-        setMusic(musicSlider.value);
-        setSFX(sfxSlider.value);
-		setUISFX (UISlider.value);
+		masterSlider.onValueChanged.AddListener(setMaster);
+		musicSlider.onValueChanged.AddListener(setMusic);
+		sfxSlider.onValueChanged.AddListener(setSFX);
+		UISlider.onValueChanged.AddListener(setUISFX);
     }
 
     // -------------------------------------------------------- //
@@ -92,7 +96,7 @@ public class pauseMenu : MonoBehaviour
     {
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
-        SoundManager.PauseAllMusic();
+		SoundManager.globalVolume/=8;
         PauseMenu.SetActive(true);
     }
 
@@ -100,7 +104,7 @@ public class pauseMenu : MonoBehaviour
     {
         // Sets the game time to realtime
         Time.timeScale = 1F;
-        SoundManager.ResumeAllMusic();
+		SoundManager.globalVolume*=8;
         PauseMenu.SetActive(false);
     }
 
@@ -287,6 +291,7 @@ public class pauseMenu : MonoBehaviour
     public void endGame()
     {
         // Resets the time scale so the game doesn't freeze when restarted
+		SoundManager.StopAll();
         SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
         Time.timeScale = 1F;
         PauseMenu.SetActive(false);

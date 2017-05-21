@@ -9829,9 +9829,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2061673248}
-        m_MethodName: setMusic
-        m_Mode: 4
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19943,13 +19943,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da194bc2237b55f4ba622191d1868e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emissionRate: 1
-  randomnessRange: 0
-  textSize: 1
-  textSpeed: 1
-  textLifetime: 1
+  emissionRate: 4
+  randomnessRange: 75
+  textSize: 0.8
+  textSpeed: 2.5
+  textLifetime: 0.4
   p1DamageColor: {r: 1, g: 1, b: 0, a: 1}
   p2DamageColor: {r: 1, g: 0, b: 1, a: 1}
+  emissionRateR: 1
+  randomnessRangeR: 0
+  textSizeR: 0.9
+  textSpeedR: 1
+  textLifetimeR: 1
+  p1ResourceColor: {r: 0, g: 1, b: 0, a: 1}
+  p2ResourceColor: {r: 0.6965518, g: 1, b: 0, a: 1}
   laserite:
   - {fileID: 21300000, guid: 3ab937dfd81267346bdbc6ee4c981d1c, type: 3}
   - {fileID: 21300000, guid: ee371a75da8fb56488d181a69636e428, type: 3}
@@ -19968,8 +19975,8 @@ MonoBehaviour:
   laserStartWidth: 0.2
   laserEndWidth: 0.4
   laserVisualHeight: 0.5
-  laserIntensity: 0.5
-  intervalInMinutes1: 3
+  laserIntensity: 1
+  intervalInMinutes1: 1
   intervalInMinutes2: 7
   intervalInMinutes3: 10
   laserMaterialP1: {fileID: 2100000, guid: 0c7a4a17bc51ce34abbe492260b42caf, type: 2}

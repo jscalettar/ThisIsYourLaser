@@ -313,7 +313,7 @@ public class laserLogic : MonoBehaviour
         }
         // Generate Resources passively
         if (gridManager.theGrid.baseHealthP1() > 0f && gridManager.theGrid.baseHealthP2() > 0f) gridManager.theGrid.addResources(Time.deltaTime * resourceRate/2, Time.deltaTime * resourceRate/2);
-
+        
         if (ghostLaser.ghostUpdateNeeded) { ghostLaser.updateGhostLaser = true; ghostLaser.ghostUpdateNeeded = false; }
 
         // Scale lasers over time
@@ -482,8 +482,8 @@ public class laserLogic : MonoBehaviour
         particleHits.Clear();
 
         // Simulate each player's laser
-        if (p1LaserFound) laserQueue.Add(new laserNode(0, laserStartP1, 1f, laserHeadingP1, Direction.Right, Player.PlayerOne, ++laserIndex, 0));
-        if (p2LaserFound) laserQueue.Add(new laserNode(gridManager.theGrid.getDimX() - 1, laserStartP2, 1f, laserHeadingP2, Direction.Left, Player.PlayerTwo, ++laserIndex, 0));
+        if (p1LaserFound) laserQueue.Add(new laserNode(0, laserStartP1, laserIntensity, laserHeadingP1, Direction.Right, Player.PlayerOne, ++laserIndex, 0));
+        if (p2LaserFound) laserQueue.Add(new laserNode(gridManager.theGrid.getDimX() - 1, laserStartP2, laserIntensity, laserHeadingP2, Direction.Left, Player.PlayerTwo, ++laserIndex, 0));
 
         // Loop through the simulation
         while (laserQueue.Count > 0) {
@@ -632,10 +632,6 @@ public class laserLogic : MonoBehaviour
             case Building.Laser: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, reflections, false); break;
 
         }
-    }
-
-    private float multiplyPower(float curStrength, float powerLevel) {
-        return curStrength * powerLevel;
     }
 
     // Adds laser node to queue
