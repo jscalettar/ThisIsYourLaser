@@ -75,6 +75,10 @@ public class pauseMenu : MonoBehaviour
         // Other stuff
         Screen.fullScreen = false;
         populateList();
+		masterSlider.value = SoundManager.globalVolume;
+		musicSlider.value = SoundManager.globalMusicVolume;
+		sfxSlider.value = SoundManager.globalSoundsVolume;
+		UISlider.value = SoundManager.globalUISoundsVolume;
     }
 
     void Update()
@@ -287,6 +291,7 @@ public class pauseMenu : MonoBehaviour
     public void endGame()
     {
         // Resets the time scale so the game doesn't freeze when restarted
+		SoundManager.StopAll();
         SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
         Time.timeScale = 1F;
         PauseMenu.SetActive(false);
