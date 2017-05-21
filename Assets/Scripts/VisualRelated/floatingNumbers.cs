@@ -112,7 +112,7 @@ public struct damageResourceGrid
             else if (currResource < value.lastResource) gridR[pos] = new resourceBuilding(currResource, emissionRate);
             else if (value.time <= 0f)
             {
-                // Emit damage number
+                // Emit resource number
                 GameObject child = new GameObject();
                 child.transform.parent = gameObject.transform;
                 child.transform.localEulerAngles = new Vector3(90f, 0, 0);
@@ -133,7 +133,8 @@ public struct damageResourceGrid
                 textMesh.color = buildingOwner == Player.PlayerOne ? Color.red : Color.green;
                 textMesh.fontStyle = FontStyle.Bold;
                 textMesh.font = font;
-                textMesh.text = buildingOwner == Player.PlayerOne ? ((currResource - value.lastResource) / numP1).ToString("F1") : ((currResource - value.lastResource) / numP2).ToString("F1");
+
+                textMesh.text = (GameObject.Find("Board").GetComponent<laserLogic>().resourceRate*(GameObject.Find("Board").GetComponent<laserLogic>().laserPowerMultiplier)/4).ToString("F1");
 
 
                 GameObject child2 = new GameObject();
