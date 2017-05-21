@@ -7,118 +7,138 @@ public enum State { placeBase, placeLaser, placingLaser, placing, moving, placin
 
 public class inputController : MonoBehaviour {
 
-	// These should be gameObjects that contain a sprite renderer
-	public GameObject cursorObjP1;
-	public GameObject cursorObjP2;
+    // These should be gameObjects that contain a sprite renderer
+    public GameObject cursorObjP1;
+    public GameObject cursorObjP2;
 
-	public GameObject cursorSpriteP1;
-	public GameObject cursorSpriteP2;
-	public GameObject indicatorP1;
-	public GameObject indicatorP2;
-	public GameObject LaserArrowP1;
-	public GameObject LaserArrowP2;
+    public GameObject cursorSpriteP1;
+    public GameObject cursorSpriteP2;
+    public GameObject indicatorP1;
+    public GameObject indicatorP2;
+    public GameObject LaserArrowP1;
+    public GameObject LaserArrowP2;
 
-	// Sprites for cursor appearance
-	public Sprite P1BaseSprite;
-	public Sprite P1BlockSprite;
-	public Sprite P1LaserSprite;
-	public Sprite P1ReflectSprite;
-	public Sprite P1RefractSprite;
-	public Sprite P1RedirectSprite;
-	public Sprite P1ResourceSprite;
+    // Sprites for cursor appearance
+    public Sprite P1BaseSprite;
+    public Sprite P1BlockSprite;
+    public Sprite P1LaserSprite;
+    public Sprite P1ReflectSprite;
+    public Sprite P1RefractSprite;
+    public Sprite P1RedirectSprite;
+    public Sprite P1ResourceSprite;
 
-	public Sprite P2BaseSprite;
-	public Sprite P2BlockSprite;
-	public Sprite P2LaserSprite;
-	public Sprite P2ReflectSprite;
-	public Sprite P2RefractSprite;
-	public Sprite P2RedirectSprite;
-	public Sprite P2ResourceSprite;
+    public Sprite P2BaseSprite;
+    public Sprite P2BlockSprite;
+    public Sprite P2LaserSprite;
+    public Sprite P2ReflectSprite;
+    public Sprite P2RefractSprite;
+    public Sprite P2RedirectSprite;
+    public Sprite P2ResourceSprite;
 
-	public Sprite RedirectUp;
-	public Sprite RedirectDown;
-	public Sprite RedirectLeft;
-	public Sprite RedirectRight;
+    public Sprite RedirectUp;
+    public Sprite RedirectDown;
+    public Sprite RedirectLeft;
+    public Sprite RedirectRight;
 
-	public Sprite RedirectUp2;
-	public Sprite RedirectDown2;
-	public Sprite RedirectLeft2;
-	public Sprite RedirectRight2;
+    public Sprite RedirectUp2;
+    public Sprite RedirectDown2;
+    public Sprite RedirectLeft2;
+    public Sprite RedirectRight2;
 
-	// Cursor movement speed
-	private const float cursorSpeed = 8f;
-	private float delayFactor = 1f / cursorSpeed;
-	private float diagSpeed = 0.707f;
+    // Cursor movement speed
+    private const float cursorSpeed = 8f;
+    private float delayFactor = 1f / cursorSpeed;
+    private float diagSpeed = 0.707f;
 
-	// Variables used with cursor movement
-	private float vertDelayP1 = 0f;
-	private float vertCounterP1 = 0f;
-	private float horDelayP1 = 0f;
-	private float horCounterP1 = 0f;
-	private bool vertMovingP1 = false;
-	private bool horMovingP1 = false;
-	private float vertDelayP2 = 0f;
-	private float vertCounterP2 = 0f;
-	private float horDelayP2 = 0f;
-	private float horCounterP2 = 0f;
-	private bool vertMovingP2 = false;
-	private bool horMovingP2 = false;
-	private bool flagVP1 = false;
-	private bool flagHP1 = false;
-	private bool flagVP2 = false;
-	private bool flagHP2 = false;
+    // Analog deadzone
+    private float deadzone = 0.5f;
 
-	//List of Sounds
-	public Audios[] setSounds;
-	public static Audios[] Sounds;
-	public Audios[] setUISounds;
-	public static Audios[] UISounds;
-	public Audios[] setMusicSounds;
-	public static Audios[] musicSounds;
+    //List of Sounds
+    public Audios[] setSounds;
+    public static Audios[] Sounds;
+    public Audios[] setUISounds;
+    public static Audios[] UISounds;
+    public Audios[] setMusicSounds;
+    public static Audios[] musicSounds;
 
-	// Pause menu and win screen
-	public GameObject PauseMenu;
-	public GameObject Win;
+    // Pause menu and win screen
+    public GameObject PauseMenu;
+    public GameObject Win;
 
-	public struct Cursor
-	{
-		public int x, y;
-		public XY moveOrigin;
-		public Building moveBuilding;
-		public Building selection;
-		public Direction direction;
-		public State state;
-        public bool laser;
-		public Cursor(int X, int Y, Direction dir, Building selected, State current)
-		{
-			x = X;
-			y = Y;
-			direction = dir;
-			selection = selected;
-			state = current;
-			moveOrigin = new XY(-1, -1);
-			moveBuilding = Building.Empty;
-            laser = false;
-		}
+    public class Cursor
+    {
+        public int x, y;
+        public XY moveOrigin;
+        public Building moveBuilding;
+        public Building selection;
+        public Direction direction;
+        public State state;
+        public bool moving;
+        public float moveDelay;
 
-		public override int GetHashCode()
-		{
-			int value = x + (y * 8) + ((int)selection * 69) + ((int)direction * 1337) + (laser ? 420000 : 0);
-			return value.GetHashCode();
-		}
-	}
+        public Cursor(int X, int Y, Direction dir, Building selected, State current)
+        {
+            x = X;
+            y = Y;
+            direction = dir;
+            selection = selected;
+            state = current;
+            moveOrigin = new XY(-1, -1);
+            moveBuilding = Building.Empty;
+            moving = false;
+            moveDelay = 0f;
+        }
 
-	private int clamp(int value, int min, int max) {
-		if (value > max) return max;
-		else if (value < min) return min;
-		return value;
-	}
+        public override int GetHashCode()
+        {
+            int value = x + (y * 8) + ((int)selection * 69) + ((int)direction * 1337);
+            return value.GetHashCode();
+        }
+    }
 
-	private bool isValid(State state, int value, int min, int max) {
-		if (state == State.placeBase)
-			return value < max -1 && value > min+1;
-		return value <= max && value >= min;
-	}
+    private int clamp(int value, int min, int max) {
+        if (value > max) return max;
+        else if (value < min) return min;
+        return value;
+    }
+
+    private bool isValid(State state, int value, int min, int max) {
+        if (state == State.placeBase)
+            return value < max - 1 && value > min + 1;
+        return value <= max && value >= min;
+    }
+
+    private void enqueueMovement(Player cursorOwner, Direction moveDir, bool analog = false)
+    {
+        // Only move if queue is empty to avoid extremely rapid movement
+        if ((cursorOwner == Player.PlayerOne ? moveQueueP1.Count : moveQueueP2.Count) > 0 || (cursorOwner == Player.PlayerOne ? cursorP1.moveDelay : cursorP2.moveDelay) > 0) return;
+
+        State currState = cursorOwner == Player.PlayerOne ? cursorP1.state : cursorP2.state;
+        int x = cursorOwner == Player.PlayerOne ? cursorP1.x : cursorP2.x;
+        int y = cursorOwner == Player.PlayerOne ? cursorP1.y : cursorP2.y;
+
+        if (moveDir == Direction.Up) { y += 1; if (!isValid(currState, y, 0, yEnd)) return; }
+        else if (moveDir == Direction.Down) { y -= 1; if (!isValid(currState, y, 0, yEnd)) return; }
+        else if (moveDir == Direction.Right && currState != State.placeLaser) { x += 1; if (!isValid(currState, x, 0, xEnd)) return; }
+        else if (moveDir == Direction.Left && currState != State.placeLaser) { x -= 1; if (!isValid(currState, x, 0, xEnd)) return; }
+        else return;
+
+        if (cursorOwner == Player.PlayerOne) {
+            if (!cursorP1.moving) cursorP1.moveDelay = 0.2f;
+            cursorP1.moving = true;
+            cursorP1.x = x;
+            cursorP1.y = y;
+            moveQueueP1.Enqueue(new XY(x, y));
+        } else {
+            if (!cursorP2.moving) cursorP2.moveDelay = 0.2f;
+            cursorP2.moving = true;
+            cursorP2.x = x;
+            cursorP2.y = y;
+            moveQueueP2.Enqueue(new XY(x, y));
+        }
+
+        SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);
+    }
 
 	public static Cursor cursorP1, cursorP2, cursorP1Last, cursorP2Last;
 	private int xEnd, yEnd;
@@ -138,8 +158,8 @@ public class inputController : MonoBehaviour {
 		cursorP1 = new Cursor(0, 2, Direction.Down, Building.Resource, State.placeBase);
 		cursorP2 = new Cursor(xEnd, yEnd - 2, Direction.Down, Building.Resource, State.placeBase);
 		if (TutorialFramework.tutorialActive) { gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().setupCursorState(); }
-		cursorP1Last = cursorP1;
-		cursorP2Last = cursorP2;
+		cursorP1Last = new Cursor(cursorP1.x, cursorP1.y, cursorP1.direction, cursorP1.selection, cursorP1.state);
+        cursorP2Last = new Cursor(cursorP2.x, cursorP2.y, cursorP2.direction, cursorP2.selection, cursorP2.state);
 		//PauseMenu = GameObject.Find("Pause Menu");
 		// Set initial cursor positions
 		cursorObjP1.transform.position = new Vector3(cursorP1.x + (-gridManager.theGrid.getDimX() / 2f + 0.5f), 0.01f, cursorP1.y + (-gridManager.theGrid.getDimY() / 2f + 0.5f));
@@ -163,6 +183,7 @@ public class inputController : MonoBehaviour {
 		if (Time.timeScale != 0) {
 			// Check that the game isn't paused
 			if ((PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false) && !(TutorialFramework.tutorialActive && TutorialFramework.skipFrame)) {
+
 				// Cursor Selection P1
 
 				// Cycle P1
@@ -190,8 +211,6 @@ public class inputController : MonoBehaviour {
 
 				// Cursor Selection P2
 				
-
-
 				// Cycle P2
 				// Defaults selection to resource
 				if (gridManager.theGrid.getResourcesP2() < 4) {
@@ -220,90 +239,162 @@ public class inputController : MonoBehaviour {
                         SoundManager.PlayUISound(UISounds[0].audioclip, .1f);
                     }
                 }
-				if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove && cursorP1.state != State.removing) {
 
-                    //Determining Dead Zone
-                    float deadzone = .5f;
-                    Vector2 p1LeftAnalog = new Vector2(Input.GetAxis("xboxLeftHor"), Input.GetAxis("xboxLeftVert"));
-                    if(Mathf.Abs(p1LeftAnalog.x) < deadzone) p1LeftAnalog.x = 0f;
-                    if (Mathf.Abs(p1LeftAnalog.y) < deadzone) p1LeftAnalog.y = 0f;
+                // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                
+                // Deadzone
+                Vector2 p1LeftAnalog = new Vector2(Input.GetAxisRaw("xboxLeftHor"), Input.GetAxisRaw("xboxLeftVert"));
+                if (Mathf.Abs(p1LeftAnalog.x) < deadzone) p1LeftAnalog.x = 0f;
+                if (Mathf.Abs(p1LeftAnalog.y) < deadzone) p1LeftAnalog.y = 0f;
 
+                Vector2 p1RightAnalog = new Vector2(Input.GetAxisRaw("xboxRightStickX1"), Input.GetAxisRaw("xboxRightStickY1"));
+                if (Mathf.Abs(p1RightAnalog.x) < deadzone) p1RightAnalog.x = 0f;
+                if (Mathf.Abs(p1RightAnalog.y) < deadzone) p1RightAnalog.y = 0f;
 
-
-                    // Cursor Movement P1
-                    if (p1LeftAnalog.y  != 0 || Input.GetAxis("xboxDpadY1") != 0) { vertDelayP1 = delayFactor; if (!flagVP1) { vertCounterP1 = 1f / cursorSpeed; flagVP1 = true; } } else { flagVP1 = false; }
-					if (p1LeftAnalog.x != 0 || Input.GetAxis("xboxDpadX1") !=0 ) { horDelayP1 = delayFactor; if (!flagHP1) { horCounterP1 = 1f / cursorSpeed; flagHP1 = true; } } else { flagHP1 = false; }
-
-					if (Input.GetButtonDown("up_1")) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } }
-                    else if (Input.GetButton("up_1") || p1LeftAnalog.y > 0 || Input.GetAxis("xboxDpadY1") > 0) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y + 1, 0, yEnd)) { cursorP1.y += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} vertCounterP1 = 0f; } } }
-                    else if (Input.GetButtonDown("down_1")) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} }
-                    else if (Input.GetButton("down_1") || p1LeftAnalog.y < 0 || Input.GetAxis("xboxDpadY1") < 0) { vertMovingP1 = true; vertDelayP1 += Time.deltaTime; if (vertDelayP1 >= delayFactor) { vertCounterP1 += (!horMovingP1 || (cursorP1.x == xEnd || cursorP1.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.y - 1, 0, yEnd)) { cursorP1.y -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } vertCounterP1 = 0f; } } }
-                    else { vertCounterP1 = 0f; vertDelayP1 = 0f; vertMovingP1 = false; }
-
-					if ((Input.GetButtonDown("right_1")) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} }
-                    else if ((Input.GetButton("right_1") || p1LeftAnalog.x > 0 || Input.GetAxis("xboxDpadX1") > 0) && (cursorP1.state != State.placeLaser && cursorP1.state != State.placeBase)) { horMovingP1 = true; horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x + 1, 0, xEnd)) { cursorP1.x += 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } horCounterP1 = 0f; } } }
-                    else if (Input.GetButtonDown("left_1")) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} }
-                    else if (Input.GetButton("left_1") || p1LeftAnalog.x < 0 || Input.GetAxis("xboxDpadX1") < 0) { horDelayP1 += Time.deltaTime; if (horDelayP1 >= delayFactor) { horMovingP1 = true; horCounterP1 += (!vertMovingP1 || (cursorP1.y == yEnd || cursorP1.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP1 >= 1f / cursorSpeed) { if (isValid(cursorP1.state, cursorP1.x - 1, 0, xEnd)) { cursorP1.x -= 1; moveQueueP1.Enqueue(new XY(cursorP1.x, cursorP1.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } horCounterP1 = 0f; } } }
-                    else { horCounterP1 = 0f; horDelayP1 = 0f; horMovingP1 = false; }
-				} else {
-					// Cursor Rotation P1
-					bool selectionMade = false;
-					if (cursorP1.state != State.placingLaser && (cursorP1.selection == Building.Blocking || cursorP1.selection == Building.Refracting)) { cursorP1.direction = Direction.Down; } else if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxLeftVert") == 1) { cursorP1.direction = Direction.Up; } else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxLeftVert") == -1) { cursorP1.direction = Direction.Down; } else if (Input.GetButtonDown("right_1") || Input.GetAxis("xboxLeftHor") == 1) { cursorP1.direction = Direction.Right; } else if ((Input.GetButtonDown("left_1") || Input.GetAxis("xboxLeftHor") == -1)) { cursorP1.direction = Direction.Left; }
-					if (Input.GetButtonDown("place_1")) { selectionMade = true; notNow1 = true; }
-					if (selectionMade) { // If placing or moving, finalize action
-						if (cursorP1.state == State.placingMove) move(Player.PlayerOne, cursorP1.state);
-						else place(Player.PlayerOne, cursorP1.state);
-					}
-				}
-                // Added right stick rotation P1
-                if (cursorP1.state == State.idle || cursorP1.state == State.moving || cursorP1.state == State.placing || cursorP1.state == State.placingMove) {
-                    if (cursorP1.selection == Building.Blocking) { cursorP1.direction = Direction.Down; }
-                    else if (Input.GetAxis("xboxRightStickX1") == 1) { cursorP1.direction = Direction.Right; }
-                    else if (Input.GetAxis("xboxRightStickX1") == -1) { cursorP1.direction = Direction.Left; }
-                    else if (Input.GetAxis("xboxRightStickY1") == 1) { cursorP1.direction = Direction.Up; }
-                    else if (Input.GetAxis("xboxRightStickY1") == -1) { cursorP1.direction = Direction.Down; }
+                // Calculate Joystick direction accuratly
+                Vector2 dirVec = p1LeftAnalog.normalized;
+                int dirIndx = ((Mathf.RoundToInt(Mathf.Atan2(dirVec.y, dirVec.x) / (2 * Mathf.PI / 4))) + 4) % 4;
+                Direction directionL1 = Direction.Down;
+                switch (dirIndx) {
+                    case 0: directionL1 = Direction.Right; break;
+                    case 1: directionL1 = Direction.Up; break;
+                    case 2: directionL1 = Direction.Left; break;
+                    case 3: directionL1 = Direction.Down; break;
+                }
+                // Now for Right Stick
+                dirVec = p1RightAnalog.normalized;
+                dirIndx = ((Mathf.RoundToInt(Mathf.Atan2(dirVec.y, dirVec.x) / (2 * Mathf.PI / 4))) + 4) % 4;
+                Direction directionR1 = Direction.Down;
+                switch (dirIndx) {
+                    case 0: directionR1 = Direction.Right; break;
+                    case 1: directionR1 = Direction.Up; break;
+                    case 2: directionR1 = Direction.Left; break;
+                    case 3: directionR1 = Direction.Down; break;
                 }
 
-				if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove && cursorP2.state != State.removing) {
+                // Check if cursorP1 should be moving
+                if (cursorP1.state != State.placing && cursorP1.state != State.placingLaser && cursorP1.state != State.placingMove && cursorP1.state != State.removing) {
 
-                    //Deadzone
-                    float deadzone = .5f;
-                    Vector2 p2LeftAnalog = new Vector2(Input.GetAxis("xboxLeftHor2"), Input.GetAxis("xboxLeftVert2"));
-                    if (Mathf.Abs(p2LeftAnalog.x) < deadzone) p2LeftAnalog.x = 0f;
-                    if (Mathf.Abs(p2LeftAnalog.y) < deadzone) p2LeftAnalog.y = 0f;
+                    // Analog movement
+                    if (!(Input.GetButton("up_1") || Input.GetButton("down_1") || Input.GetButton("left_1") || Input.GetButton("right_1")) && p1LeftAnalog != Vector2.zero) {
+                        // Enqueue movement
+                        enqueueMovement(Player.PlayerOne, directionL1, true);
+                    } else {
+                        // Keyboard movement
+                        if (Input.GetButton("up_1") || Input.GetAxis("xboxDpadY1") > 0) enqueueMovement(Player.PlayerOne, Direction.Up);
+                        else if (Input.GetButton("down_1") || Input.GetAxis("xboxDpadY1") < 0) enqueueMovement(Player.PlayerOne, Direction.Down);
+                        else if (Input.GetButton("right_1") || Input.GetAxis("xboxDpadX1") > 0) enqueueMovement(Player.PlayerOne, Direction.Right);
+                        else if (Input.GetButton("left_1") || Input.GetAxis("xboxDpadX1") < 0) enqueueMovement(Player.PlayerOne, Direction.Left);
+                        else cursorP1.moving = false;
+                    }
+                } else {
+                    // Cursor Rotation P1
+                    bool selectionMade = false;
+                    if (cursorP1.selection == Building.Blocking || cursorP1.selection == Building.Refracting) cursorP1.direction = Direction.Down;
+                    else if (p1LeftAnalog != Vector2.zero) {
+                        if (directionL1 == Direction.Right || directionL1 == Direction.Left) {
+                            if (cursorP1.state != State.placingLaser) cursorP1.direction = directionL1;
+                        } else cursorP1.direction = directionL1;
+                    } else if (Input.GetButtonDown("up_1") || Input.GetAxis("xboxDpadY1") > 0) cursorP1.direction = Direction.Up;
+                    else if (Input.GetButtonDown("down_1") || Input.GetAxis("xboxDpadY1") < 0) cursorP1.direction = Direction.Down;
+                    else if (cursorP1.state != State.placingLaser && Input.GetButtonDown("right_1") || Input.GetAxis("xboxDpadX1") > 0) cursorP1.direction = Direction.Right;
+                    else if (cursorP1.state != State.placingLaser && Input.GetButtonDown("left_1") || Input.GetAxis("xboxDpadX1") < 0) cursorP1.direction = Direction.Left;
 
-                    // Cursor Movement P2
-                    if (Input.GetAxis("xboxLeftVert2") != 0) { vertDelayP2 = delayFactor; if (!flagVP2) { vertCounterP2 = 1f / cursorSpeed; flagVP2 = true; } } else { flagVP2 = false; }
-					if (Input.GetAxis("xboxLeftHor2") != 0) { horDelayP2 = delayFactor; if (!flagHP2) { horCounterP2 = 1f / cursorSpeed; flagHP2 = true; } } else { flagHP2 = false; }
-
-					if (Input.GetButtonDown("up_2")) { if (isValid(cursorP2.state, cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} }
-                    else if (Input.GetButton("up_2") || p2LeftAnalog.y > 0 || Input.GetAxis("xboxDpadY2") > 0) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.y + 1, 0, yEnd)) { cursorP2.y += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } } }
-                    else if (Input.GetButtonDown("down_2")) { if (isValid(cursorP2.state, cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } }
-                    else if (Input.GetButton("down_2") || p2LeftAnalog.y < 0 || Input.GetAxis("xboxDpadY2") < 0) { vertMovingP2 = true; vertDelayP2 += Time.deltaTime; if (vertDelayP2 >= delayFactor) { vertCounterP2 += (!horMovingP2 || (cursorP2.x == xEnd || cursorP2.x == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (vertCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.y - 1, 0, yEnd)) { cursorP2.y -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } vertCounterP2 = 0f; SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} } } else { vertCounterP2 = 0f; vertDelayP2 = 0f; vertMovingP2 = false; }
-
-					if (Input.GetButtonDown("right_2")) { if (isValid(cursorP2.state, cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } }
-                    else if (Input.GetButton("right_2") || p2LeftAnalog.x > 0 || Input.GetAxis("xboxDpadX2") > 0) { horMovingP2 = true; horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.x + 1, 0, xEnd)) { cursorP2.x += 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); } horCounterP2 = 0f; SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} } }
-                    else if (Input.GetButtonDown("left_2") && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { if (isValid(cursorP2.state, cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y)); SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f);} }
-                    else if ((Input.GetButton("left_2") || p2LeftAnalog.x < 0 || Input.GetAxis("xboxDpadX2") < 0 ) && (cursorP2.state != State.placeLaser && cursorP2.state != State.placeBase)) { horDelayP2 += Time.deltaTime; if (horDelayP2 >= delayFactor) { horMovingP2 = true; horCounterP2 += (!vertMovingP2 || (cursorP2.y == yEnd || cursorP2.y == 0)) ? Time.deltaTime : Time.deltaTime * diagSpeed; if (horCounterP2 >= 1f / cursorSpeed) { if (isValid(cursorP2.state, cursorP2.x - 1, 0, xEnd)) { cursorP2.x -= 1; moveQueueP2.Enqueue(new XY(cursorP2.x, cursorP2.y));SoundManager.PlaySound(Sounds[0].audioclip, .2f, true, .95f, 1.05f); } horCounterP2 = 0f; } } }
-                    else { horCounterP2 = 0f; horDelayP2 = 0f; horMovingP2 = false; }
-				} else {
-					// Cursor Rotation P2
-					bool selectionMade = false;
-					if (cursorP2.selection == Building.Blocking || cursorP2.selection == Building.Refracting) { cursorP2.direction = Direction.Down; } else if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxLeftVert2") == 1) { cursorP2.direction = Direction.Up; } else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxLeftVert2") == -1) { cursorP2.direction = Direction.Down; } else if (Input.GetButtonDown("right_2") || Input.GetAxis("xboxLeftHor2") == 1) { cursorP2.direction = Direction.Right; } else if (Input.GetButtonDown("left_2") || Input.GetAxis("xboxLeftHor2") == -1) { cursorP2.direction = Direction.Left; }
-					if (Input.GetButtonDown("place_2")) { selectionMade = true; notNow2 = true; }
-					if (selectionMade) { // If placing or moving, finalize action
-						if (cursorP2.state == State.placingMove) move(Player.PlayerTwo, cursorP2.state);
-						else place(Player.PlayerTwo, cursorP2.state);
-					}
-				}
-                // Added right stick rotation P2
-                if (cursorP2.state == State.idle || cursorP2.state == State.moving || cursorP2.state == State.placing || cursorP2.state == State.placingMove) {
-                    if (cursorP2.selection == Building.Blocking) { cursorP2.direction = Direction.Down; }
-                    else if (Input.GetAxis("xboxRightStickX2") == 1) { cursorP2.direction = Direction.Right; }
-                    else if (Input.GetAxis("xboxRightStickX2") == -1) { cursorP2.direction = Direction.Left; }
-                    else if (Input.GetAxis("xboxRightStickY2") == 1) { cursorP2.direction = Direction.Up; }
-                    else if (Input.GetAxis("xboxRightStickY2") == -1) { cursorP2.direction = Direction.Down; }
+                    if (Input.GetButtonDown("place_1")) { selectionMade = true; notNow1 = true; }
+                    if (selectionMade) { // If placing or moving, finalize action
+                        if (cursorP1.state == State.placingMove) move(Player.PlayerOne, cursorP1.state);
+                        else place(Player.PlayerOne, cursorP1.state);
+                    }
                 }
+                cursorP1.moveDelay = Mathf.Max(0f, cursorP1.moveDelay - Time.deltaTime); // Delay is used to make slight pause before continuous movement
+
+                // Right stick rotation P1
+                if (cursorP1.state == State.idle || cursorP1.state == State.moving || cursorP1.state == State.placing || cursorP1.state == State.placingMove || cursorP1.state == State.placingLaser || cursorP1.state == State.placeLaser) {
+                    if (p1RightAnalog != Vector2.zero) {
+                        if (directionR1 == Direction.Right || directionR1 == Direction.Left) {
+                            if (cursorP1.state != State.placingLaser && cursorP1.state != State.placeLaser) cursorP1.direction = directionR1;
+                        } else cursorP1.direction = directionR1;
+                    }
+                }
+
+                // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                // Deadzone
+                Vector2 p2LeftAnalog = new Vector2(Input.GetAxisRaw("xboxLeftHor2"), Input.GetAxisRaw("xboxLeftVert2"));
+                if (Mathf.Abs(p2LeftAnalog.x) < deadzone) p2LeftAnalog.x = 0f;
+                if (Mathf.Abs(p2LeftAnalog.y) < deadzone) p2LeftAnalog.y = 0f;
+
+                Vector2 p2RightAnalog = new Vector2(Input.GetAxisRaw("xboxRightStickX2"), Input.GetAxisRaw("xboxRightStickY2"));
+                if (Mathf.Abs(p2RightAnalog.x) < deadzone) p2RightAnalog.x = 0f;
+                if (Mathf.Abs(p2RightAnalog.y) < deadzone) p2RightAnalog.y = 0f;
+
+                // Calculate Joystick direction accuratly
+                dirVec = p2LeftAnalog.normalized;
+                dirIndx = ((Mathf.RoundToInt(Mathf.Atan2(dirVec.y, dirVec.x) / (2 * Mathf.PI / 4))) + 4) % 4;
+                Direction directionL2 = Direction.Down;
+                switch (dirIndx) {
+                    case 0: directionL2 = Direction.Right; break;
+                    case 1: directionL2 = Direction.Up; break;
+                    case 2: directionL2 = Direction.Left; break;
+                    case 3: directionL2 = Direction.Down; break;
+                }
+                // Now for Right Stick
+                dirVec = p2RightAnalog.normalized;
+                dirIndx = ((Mathf.RoundToInt(Mathf.Atan2(dirVec.y, dirVec.x) / (2 * Mathf.PI / 4))) + 4) % 4;
+                Direction directionR2 = Direction.Down;
+                switch (dirIndx) {
+                    case 0: directionR2 = Direction.Right; break;
+                    case 1: directionR2 = Direction.Up; break;
+                    case 2: directionR2 = Direction.Left; break;
+                    case 3: directionR2 = Direction.Down; break;
+                }
+
+                // Check if cursorP2 should be moving
+                if (cursorP2.state != State.placing && cursorP2.state != State.placingLaser && cursorP2.state != State.placingMove && cursorP2.state != State.removing) {
+
+                    // Analog movement
+                    if (!(Input.GetButton("up_2") || Input.GetButton("down_2") || Input.GetButton("left_2") || Input.GetButton("right_2")) && p2LeftAnalog != Vector2.zero) {
+                        // Enqueue movement
+                        enqueueMovement(Player.PlayerTwo, directionL2, true);
+                    } else {
+                        // Keyboard movement
+                        if (Input.GetButton("up_2") || Input.GetAxis("xboxDpadY2") > 0) enqueueMovement(Player.PlayerTwo, Direction.Up);
+                        else if (Input.GetButton("down_2") || Input.GetAxis("xboxDpadY2") < 0) enqueueMovement(Player.PlayerTwo, Direction.Down);
+                        else if (Input.GetButton("right_2") || Input.GetAxis("xboxDpadX2") > 0) enqueueMovement(Player.PlayerTwo, Direction.Right);
+                        else if (Input.GetButton("left_2") || Input.GetAxis("xboxDpadX2") < 0) enqueueMovement(Player.PlayerTwo, Direction.Left);
+                        else cursorP2.moving = false;
+                    }
+                } else {
+                    // Cursor Rotation P2
+                    bool selectionMade = false;
+                    if (cursorP2.selection == Building.Blocking || cursorP2.selection == Building.Refracting) cursorP2.direction = Direction.Down;
+                    else if(p2LeftAnalog != Vector2.zero) {
+                        if (directionL2 == Direction.Right || directionL2 == Direction.Left) {
+                            if (cursorP2.state != State.placingLaser) cursorP2.direction = directionL2;
+                        } else cursorP2.direction = directionL2;
+                    } else if (Input.GetButtonDown("up_2") || Input.GetAxis("xboxDpadY2") > 0) cursorP2.direction = Direction.Up;
+                    else if (Input.GetButtonDown("down_2") || Input.GetAxis("xboxDpadY2") < 0) cursorP2.direction = Direction.Down;
+                    else if (cursorP2.state != State.placingLaser && Input.GetButtonDown("right_2") || Input.GetAxis("xboxDpadX2") > 0) cursorP2.direction = Direction.Right;
+                    else if (cursorP2.state != State.placingLaser && Input.GetButtonDown("left_2") || Input.GetAxis("xboxDpadX2") < 0) cursorP2.direction = Direction.Left;
+
+                    if (Input.GetButtonDown("place_2")) { selectionMade = true; notNow2 = true; }
+                    if (selectionMade) { // If placing or moving, finalize action
+                        if (cursorP2.state == State.placingMove) move(Player.PlayerTwo, cursorP2.state);
+                        else place(Player.PlayerTwo, cursorP2.state);
+                    }
+                }
+                cursorP2.moveDelay = Mathf.Max(0f, cursorP2.moveDelay - Time.deltaTime); // Delay is used to make slight pause before continuous movement
+
+                // Right stick rotation P2
+                if (cursorP2.state == State.idle || cursorP2.state == State.moving || cursorP2.state == State.placing || cursorP2.state == State.placingMove || cursorP2.state == State.placingLaser || cursorP2.state == State.placeLaser) {
+                    if (p2RightAnalog != Vector2.zero) {
+                        if (directionR2 == Direction.Right || directionR2 == Direction.Left) {
+                            if (cursorP2.state != State.placingLaser && cursorP2.state != State.placeLaser) cursorP2.direction = directionR2;
+                        } else cursorP2.direction = directionR2;
+                    }
+                }
+
+                // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Cursor Functions P1
                 if ((Input.GetButtonDown("place_1")) && !notNow1) place(Player.PlayerOne, cursorP1.state);
@@ -326,8 +417,10 @@ public class inputController : MonoBehaviour {
                     }
                 }
 
-				// Update Cursor/UI Appearance P1
-				if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; cursorSpriteP1.transform.localScale = new Vector3(1f, 1f, 1f); }
+                // Matt's Code --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                // Update Cursor/UI Appearance P1
+                if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; cursorSpriteP1.transform.localScale = new Vector3(1f, 1f, 1f); }
                 else if (cursorP1.state == State.placeLaser) {
 					cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][0];
                     cursorSpriteP1.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -446,20 +539,6 @@ public class inputController : MonoBehaviour {
 					cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
 				}
 
-				float xOff = -gridManager.theGrid.getDimX() / 2f + 0.5f;
-				float yOff = -gridManager.theGrid.getDimY() / 2f + 0.5f;
-
-				// Update Cursor Position P1
-				if (moveQueueP1.Count > 0) {
-					cursorObjP1.transform.position = Vector3.MoveTowards(cursorObjP1.transform.position, new Vector3(moveQueueP1.Peek().x + xOff, 0.01f, moveQueueP1.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP1.Count, 1.5f) * 0.2f));
-					if (Vector2.Distance(new Vector2(cursorObjP1.transform.position.x, cursorObjP1.transform.position.z), new Vector2(moveQueueP1.Peek().x + xOff, moveQueueP1.Peek().y + yOff)) == 0f) moveQueueP1.Dequeue();
-				}
-				// Update Cursor Position P2
-				if (moveQueueP2.Count > 0) {
-					cursorObjP2.transform.position = Vector3.MoveTowards(cursorObjP2.transform.position, new Vector3(moveQueueP2.Peek().x + xOff, 0.01f, moveQueueP2.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP2.Count, 1.5f) * 0.2f));
-					if (Vector2.Distance(new Vector2(cursorObjP2.transform.position.x, cursorObjP2.transform.position.z), new Vector2(moveQueueP2.Peek().x + xOff, moveQueueP2.Peek().y + yOff)) == 0f) moveQueueP2.Dequeue();
-				}
-
 				// Update Cursor Indicator---------------------------------
 				if (cursorP1.state == State.placing) {
 					indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
@@ -490,12 +569,28 @@ public class inputController : MonoBehaviour {
 					indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
 				}
 
-				// Check if ghost laser update needed
-				if (!cursorP1.Equals(cursorP1Last)) { ghostLaser.ghostUpdateNeeded = true; if (TutorialFramework.tutorialActive && gridManager.theGrid.tutorialObject != null) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().moveEvent(cursorP1, cursorP1Last); }
+                // End Matt's Code ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                float xOff = -gridManager.theGrid.getDimX() / 2f + 0.5f;
+                float yOff = -gridManager.theGrid.getDimY() / 2f + 0.5f;
+
+                // Update Cursor Position P1
+                if (moveQueueP1.Count > 0) {
+                    cursorObjP1.transform.position = Vector3.MoveTowards(cursorObjP1.transform.position, new Vector3(moveQueueP1.Peek().x + xOff, 0.01f, moveQueueP1.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP1.Count, 1.5f) * 0.2f));
+                    if (Vector2.Distance(new Vector2(cursorObjP1.transform.position.x, cursorObjP1.transform.position.z), new Vector2(moveQueueP1.Peek().x + xOff, moveQueueP1.Peek().y + yOff)) == 0f) moveQueueP1.Dequeue();
+                }
+                // Update Cursor Position P2
+                if (moveQueueP2.Count > 0) {
+                    cursorObjP2.transform.position = Vector3.MoveTowards(cursorObjP2.transform.position, new Vector3(moveQueueP2.Peek().x + xOff, 0.01f, moveQueueP2.Peek().y + yOff), Time.deltaTime * cursorSpeed * (0.8f + Mathf.Pow(moveQueueP2.Count, 1.5f) * 0.2f));
+                    if (Vector2.Distance(new Vector2(cursorObjP2.transform.position.x, cursorObjP2.transform.position.z), new Vector2(moveQueueP2.Peek().x + xOff, moveQueueP2.Peek().y + yOff)) == 0f) moveQueueP2.Dequeue();
+                }
+
+                // Check if ghost laser update needed
+                if (!cursorP1.Equals(cursorP1Last)) { ghostLaser.ghostUpdateNeeded = true; if (TutorialFramework.tutorialActive && gridManager.theGrid.tutorialObject != null) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().moveEvent(cursorP1, cursorP1Last); }
 				else if (!cursorP2.Equals(cursorP2Last)) { ghostLaser.ghostUpdateNeeded = true; }
-				cursorP1Last = cursorP1;
-				cursorP2Last = cursorP2;
-			}
+                cursorP1Last = new Cursor(cursorP1.x, cursorP1.y, cursorP1.direction, cursorP1.selection, cursorP1.state);
+                cursorP2Last = new Cursor(cursorP2.x, cursorP2.y, cursorP2.direction, cursorP2.selection, cursorP2.state);
+            }
 		}
         if (TutorialFramework.skipFrame) TutorialFramework.skipFrame = false;
 	}
@@ -526,7 +621,7 @@ public class inputController : MonoBehaviour {
 				else if (cursorP1.y == 0 || cursorP1.y == yEnd) print("Base cannot be placed in corners");
 				else
 				{
-					cursorP1.state = State.placeLaser; p1HasPlacedBase = true; cursorP1.laser = true;
+					cursorP1.state = State.placeLaser; p1HasPlacedBase = true;
                     gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Base, Player.PlayerOne);
 
 					if(TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placedEvent(new XY(cursorP1.x, cursorP1.y), Building.Base);
@@ -535,7 +630,7 @@ public class inputController : MonoBehaviour {
 				if (cursorP2.x < xEnd) print("Base must be placed on the edge of the board");
 				else if (cursorP2.y == 0 || cursorP2.y == yEnd) print("Base cannot be placed in corners");
 				else {
-					cursorP2.state = State.placeLaser; p2HasPlacedBase = true; cursorP2.laser = true;
+					cursorP2.state = State.placeLaser; p2HasPlacedBase = true;
                     gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Base, Player.PlayerTwo);
 
 				}
@@ -546,29 +641,29 @@ public class inputController : MonoBehaviour {
 				if (cursorP1.x > 0) print("Laser must be placed on the edge of the board");
 				else {
 					if (!validPlacement(cursorP1.x, cursorP1.y, Direction.Right, Building.Laser)){ print("Laser can not be placed that close to the base.");   }
-					else{ cursorP1.state = State.placingLaser; cursorP1.direction = Direction.Right; if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placingEvent(new XY(cursorP1.x, cursorP1.y), Building.Laser); }
+					else{ cursorP1.state = State.placingLaser; cursorP1.direction = Direction.Down; if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placingEvent(new XY(cursorP1.x, cursorP1.y), Building.Laser); }
 				}
 			} else {
 				if (cursorP2.x < xEnd) print("Laser must be placed on the edge of the board");
 				else {
 					if (!validPlacement(cursorP2.x, cursorP2.y, Direction.Left, Building.Laser)){ print("Laser can not be placed that close to the base.");   }
-					else{ cursorP2.state = State.placingLaser; cursorP2.direction = Direction.Left; }
+					else{ cursorP2.state = State.placingLaser; cursorP2.direction = Direction.Down; }
 				}
 			}
 
 		} else if (currentState == State.placingLaser) {
 			if (player == Player.PlayerOne) {
-				if (cursorP1.direction == Direction.Up && cursorP1.y != yEnd && cursorP1.y != yEnd - 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; cursorP1.laser = false; } else { cursorP1.state = State.placeLaser; } }
-				else if (cursorP1.direction == Direction.Down && cursorP1.y != 0 && cursorP1.y != 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; cursorP1.laser = false; } else { cursorP1.state = State.placeLaser; } }
-				else if (cursorP1.y != 0 && cursorP1.y != 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; cursorP1.laser = false; } else { cursorP1.state = State.placeLaser; } }
-				else if (cursorP1.y == 0 || cursorP1.y == 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; cursorP1.laser = false; } else { cursorP1.state = State.placeLaser; } }
+				if (cursorP1.direction == Direction.Up && cursorP1.y != yEnd && cursorP1.y != yEnd - 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
+				else if (cursorP1.direction == Direction.Down && cursorP1.y != 0 && cursorP1.y != 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
+				else if (cursorP1.y != 0 && cursorP1.y != 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
+				else if (cursorP1.y == 0 || cursorP1.y == 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
 				else print("Press the up or down direction keys to place laser");
 				if (cursorP1.state == State.idle) if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placedEvent(new XY(cursorP1.x, cursorP1.y), Building.Laser);
 			} else {
-				if (cursorP2.direction == Direction.Up && cursorP2.y != yEnd && cursorP2.y != yEnd - 1) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; cursorP2.laser = false; } else { cursorP2.state = State.placeLaser; } }
-				else if (cursorP2.direction == Direction.Down && cursorP2.y != 0 && cursorP2.y != 1) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; cursorP2.laser = false; } else { cursorP2.state = State.placeLaser; } }
-				else if (cursorP2.y != 0 && cursorP2.y != 1) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; cursorP2.laser = false; } else { cursorP2.state = State.placeLaser; } }
-				else if (cursorP2.y == 0 || cursorP2.y == 1) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; cursorP2.laser = false; } else { cursorP2.state = State.placeLaser; } }
+				if (cursorP2.direction == Direction.Up && cursorP2.y != yEnd && cursorP2.y != yEnd - 1) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
+				else if (cursorP2.direction == Direction.Down && cursorP2.y != 0 && cursorP2.y != 1) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
+				else if (cursorP2.y != 0 && cursorP2.y != 1) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Down)) { laserLogic.laserHeadingP2 = Direction.SW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
+				else if (cursorP2.y == 0 || cursorP2.y == 1) { if (gridManager.theGrid.placeBuilding(xEnd, cursorP2.y, Building.Laser, Player.PlayerTwo, Direction.Up)) { laserLogic.laserHeadingP2 = Direction.NW; cursorP2.state = State.idle; } else { cursorP2.state = State.placeLaser; } }
 				else print("Press the up or down direction keys to place laser");
 			}
 		} else if (currentState == State.placing) {

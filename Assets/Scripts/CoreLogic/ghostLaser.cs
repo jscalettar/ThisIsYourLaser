@@ -365,12 +365,16 @@ public class ghostLaser : MonoBehaviour {
                     laserQueue.RemoveAt(0);
                 }
             }
-        if (inputController.cursorP1.laser && inputController.cursorP1.direction == Direction.Down) addLaserToQueue(inputController.cursorP1.x, inputController.cursorP1.y - 1, 1f, Direction.SE, Direction.Down, Player.PlayerOne, 0, 0, true);
-        else if (inputController.cursorP1.laser && inputController.cursorP1.direction == Direction.Up) addLaserToQueue(inputController.cursorP1.x, inputController.cursorP1.y + 1, 1f, Direction.NE, Direction.Up, Player.PlayerOne, 0, 0, true);
-        while (laserQueue.Count > 0)
-        {
-            laserStep(laserQueue[0]);
-            laserQueue.RemoveAt(0);
+        if (inputController.cursorP1.state == State.placeLaser || inputController.cursorP1.state == State.placingLaser) {
+            Direction dir = inputController.cursorP1.direction;
+            if (inputController.cursorP1.y < 2) dir = Direction.Up;
+            else if (inputController.cursorP1.y > gridManager.theGrid.getDimY() - 3) dir = Direction.Down;
+            if (dir == Direction.Up) addLaserToQueue(inputController.cursorP1.x, inputController.cursorP1.y + 1, 1f, Direction.NE, Direction.Up, Player.PlayerOne, 0, 0, true);
+            else if (dir == Direction.Down) addLaserToQueue(inputController.cursorP1.x, inputController.cursorP1.y - 1, 1f, Direction.SE, Direction.Down, Player.PlayerOne, 0, 0, true);
+            while (laserQueue.Count > 0) {
+                laserStep(laserQueue[0]);
+                laserQueue.RemoveAt(0);
+            }
         }
 
         ghostLaserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
@@ -390,13 +394,18 @@ public class ghostLaser : MonoBehaviour {
                     laserQueue.RemoveAt(0);
                 }
             }
-        if (inputController.cursorP2.laser && inputController.cursorP2.direction == Direction.Down) addLaserToQueue(inputController.cursorP2.x, inputController.cursorP2.y - 1, 1f, Direction.SW, Direction.Down, Player.PlayerTwo, 0, 0, true);
-        else if (inputController.cursorP2.laser && inputController.cursorP2.direction == Direction.Up) addLaserToQueue(inputController.cursorP2.x, inputController.cursorP2.y + 1, 1f, Direction.NW, Direction.Up, Player.PlayerTwo, 0, 0, true);
-        while (laserQueue.Count > 0)
-        {
-            laserStep(laserQueue[0]);
-            laserQueue.RemoveAt(0);
+        if (inputController.cursorP2.state == State.placeLaser || inputController.cursorP2.state == State.placingLaser) {
+            Direction dir = inputController.cursorP2.direction;
+            if (inputController.cursorP2.y < 2) dir = Direction.Up;
+            else if (inputController.cursorP2.y > gridManager.theGrid.getDimY() - 3) dir = Direction.Down;
+            if (dir == Direction.Up) addLaserToQueue(inputController.cursorP2.x, inputController.cursorP2.y + 1, 1f, Direction.NW, Direction.Up, Player.PlayerTwo, 0, 0, true);
+            else if (dir == Direction.Down) addLaserToQueue(inputController.cursorP2.x, inputController.cursorP2.y - 1, 1f, Direction.SW, Direction.Down, Player.PlayerTwo, 0, 0, true);
+            while (laserQueue.Count > 0) {
+                laserStep(laserQueue[0]);
+                laserQueue.RemoveAt(0);
+            }
         }
+
         // Trim down unused list elements
         for (int i = lasers.Count - 1; i >= 0; i--) {
             if (lasers[i].Count == 0) lasers.RemoveAt(i);

@@ -373,11 +373,11 @@ public struct Grid
         for (int i = 0; i < gridSquares.GetLength(0); i++) {
             for (int j = 0; j < 1; j++) {
                 bool enableSquare = false;
-                if(inputController.cursorP1.state == State.placeLaser || inputController.cursorP1.state == State.placingLaser || inputController.cursorP1.state == State.placeBase) {
+                if(inputController.cursorP1 != null && (inputController.cursorP1.state == State.placeLaser || inputController.cursorP1.state == State.placingLaser || inputController.cursorP1.state == State.placeBase)) {
                     if (probeGrid(j, i, Direction.Up, Building.Laser)) enableSquare = true;
                 } else if (probeGrid(j, i, Direction.Up, Building.Blocking)) enableSquare = true;
 
-                if (inputController.cursorP1.state == State.placeBase)
+                if (inputController.cursorP1 != null && (inputController.cursorP1.state == State.placeBase))
                     if ((i < 2 || i > (dimY - 3)) && j == 0) enableSquare = false;
 
                 gridSquares[i, j].GetComponent<Renderer>().enabled = enableSquare;
@@ -387,11 +387,11 @@ public struct Grid
             }
             for (int j = gridSquares.GetLength(1) - 1; j < gridSquares.GetLength(1); j++) {
                 bool enableSquare = false;
-                if (inputController.cursorP2.state == State.placeLaser || inputController.cursorP2.state == State.placingLaser || inputController.cursorP1.state == State.placeBase) {
+                if (inputController.cursorP1 != null && (inputController.cursorP2.state == State.placeLaser || inputController.cursorP2.state == State.placingLaser || inputController.cursorP1.state == State.placeBase)) {
                     if (probeGrid(j, i, Direction.Up, Building.Laser)) enableSquare = true;
                 } else if (probeGrid(j, i, Direction.Up, Building.Blocking)) enableSquare = true;
 
-                if (inputController.cursorP2.state == State.placeBase)
+                if (inputController.cursorP1 != null && (inputController.cursorP2.state == State.placeBase))
                     if ((i < 2 || i > (dimY - 3)) && j == dimX-1) enableSquare = false;
 
                 gridSquares[i, j].GetComponent<Renderer>().enabled = enableSquare;
@@ -720,7 +720,7 @@ public class gridManager : MonoBehaviour
 {
     // Use this to make HP appear artificially higher on UI etc. (ie. gridManager.hpScale)
     // EX: Lets say an actual damage value is 1.337f. With a hpScale of 100f it would show up on screen as 133.7
-    public const float hpScale = 10f; 
+    public const float hpScale = 1f; 
 
     public static Grid theGrid;
     public int boardWidth = 14;
