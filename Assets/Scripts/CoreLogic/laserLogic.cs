@@ -13,7 +13,7 @@ public class laserLogic : MonoBehaviour
     public float intervalInMinutes1;
     public float intervalInMinutes2;
     public float intervalInMinutes3;
-    public float resourceRate = 0.1f;
+    public static float resourceRate = 0.2f;
     public Material laserMaterialP1;
     public Material laserMaterialP2;
     public Material laserMaterialCombined;
@@ -52,7 +52,7 @@ public class laserLogic : MonoBehaviour
     private GameObject laserContainer;
     private GameObject particleContainer;
 
-	public static float getLaserMultiplier() {	return laserPowerMultiplier;}
+
     public struct laserNode
     {
         private int X;
