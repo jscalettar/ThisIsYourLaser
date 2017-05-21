@@ -406,6 +406,7 @@ public struct Grid
             grid[y, x].health -= damage;
             timer -= Time.deltaTime*5;
             hitTimer -= Time.deltaTime*5;
+            prefabDictionary[new XY(x, y)].GetComponent<Animator>().SetInteger("state", 1);
             if(timer < 0 ){
                 if(getBuilding(x,y) == Building.Base){
                     if(((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)) < laserCeiling){
@@ -469,7 +470,8 @@ public struct Grid
                 }
                 destroyBuilding(x, y);
             }
-        } else return false;
+        } else
+            return false;
         return true;
     }
 
