@@ -7876,6 +7876,12 @@ MonoBehaviour:
   OptionMenu: {fileID: 1653857034}
   InstructMenu: {fileID: 740042479}
   StructureMenu: {fileID: 436798514}
+  ControlsMenu: {fileID: 0}
+  ResourceMenu: {fileID: 0}
+  RefractMenu: {fileID: 0}
+  ReflectMenu: {fileID: 0}
+  RedirectMenu: {fileID: 0}
+  BlockMenu: {fileID: 0}
   Win: {fileID: 1110470188}
   Pause: {fileID: 1279542549}
   Resume: {fileID: 1648199932}
@@ -12373,7 +12379,6 @@ MonoBehaviour:
   intervalInMinutes1: 3
   intervalInMinutes2: 7
   intervalInMinutes3: 10
-  resourceRate: 0.2
   laserMaterialP1: {fileID: 2100000, guid: 0c7a4a17bc51ce34abbe492260b42caf, type: 2}
   laserMaterialP2: {fileID: 2100000, guid: 5881a0a8f7395b54e8e5f711a120a7ba, type: 2}
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
@@ -17554,7 +17559,7 @@ MonoBehaviour:
   specificInteraction:
   - pos:
       x: 4
-      y: 4
+      y: 5
     building: 5
     type: 0
     popup: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
