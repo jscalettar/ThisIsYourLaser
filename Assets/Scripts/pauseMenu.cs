@@ -96,7 +96,7 @@ public class pauseMenu : MonoBehaviour
     {
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
-		//SoundManager.globalVolume/=8;
+		SoundManager.globalVolume/=8;
         PauseMenu.SetActive(true);
     }
 
@@ -105,7 +105,7 @@ public class pauseMenu : MonoBehaviour
         // Sets the game time to realtime
         Time.timeScale = 1F;
         //SoundManager.ResumeAllMusic();
-		//SoundManager.globalVolume*=8;
+		SoundManager.globalVolume*=8;
         PauseMenu.SetActive(false);
     }
 
