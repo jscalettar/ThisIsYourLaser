@@ -83,10 +83,10 @@ public class pauseMenu : MonoBehaviour
 
     void Update()
     {
-        setMaster(masterSlider.value);
-        setMusic(musicSlider.value);
-        setSFX(sfxSlider.value);
-		setUISFX (UISlider.value);
+		masterSlider.onValueChanged.AddListener(setMaster);
+		musicSlider.onValueChanged.AddListener(setMusic);
+		sfxSlider.onValueChanged.AddListener(setSFX);
+		UISlider.onValueChanged.AddListener(setUISFX);
     }
 
     // -------------------------------------------------------- //
@@ -96,7 +96,7 @@ public class pauseMenu : MonoBehaviour
     {
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
-        SoundManager.PauseAllMusic();
+		//SoundManager.globalVolume/=8;
         PauseMenu.SetActive(true);
     }
 
@@ -104,7 +104,8 @@ public class pauseMenu : MonoBehaviour
     {
         // Sets the game time to realtime
         Time.timeScale = 1F;
-        SoundManager.ResumeAllMusic();
+        //SoundManager.ResumeAllMusic();
+		//SoundManager.globalVolume*=8;
         PauseMenu.SetActive(false);
     }
 

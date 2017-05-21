@@ -9829,9 +9829,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2061673248}
-        m_MethodName: setMusic
-        m_Mode: 4
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19957,7 +19957,6 @@ MonoBehaviour:
   intervalInMinutes1: 3
   intervalInMinutes2: 7
   intervalInMinutes3: 10
-  resourceRate: 0.2
   laserMaterialP1: {fileID: 2100000, guid: 0c7a4a17bc51ce34abbe492260b42caf, type: 2}
   laserMaterialP2: {fileID: 2100000, guid: 5881a0a8f7395b54e8e5f711a120a7ba, type: 2}
   laserMaterialCombined: {fileID: 2100000, guid: 5f2ca04b84afcd746a7cfc660fdd8e53,
