@@ -18,7 +18,7 @@ public class laserLogic : MonoBehaviour
     public Material laserMaterialP2;
     public Material laserMaterialCombined;
     public GameObject hitEffect;
-    public float laserPowerMultiplier = 1.0f;
+    public static float laserPowerMultiplier = 1.0f;
 
     // Can change laser heading like this:
     // laserLogic.laserHeadingP1 = Direction.SE;  or  laserLogic.laserHeadingP2 = Direction.SW;
@@ -52,6 +52,7 @@ public class laserLogic : MonoBehaviour
     private GameObject laserContainer;
     private GameObject particleContainer;
 
+	public static float getLaserMultiplier() {	return laserPowerMultiplier;}
     public struct laserNode
     {
         private int X;
@@ -78,6 +79,7 @@ public class laserLogic : MonoBehaviour
         }
 
         // Get
+
         public int getX() { return X; }
         public int getY() { return Y; }
         public int getIndex() { return laserIndex; }
@@ -251,10 +253,6 @@ public class laserLogic : MonoBehaviour
 
     void Awake()
     {
-        // Conversion to seconds
-        float intervalInSeconds1 = 60 / intervalInMinutes1;
-        float intervalInSeconds2 = 60 / intervalInMinutes2;
-        float intervalInSeconds3 = 60 / intervalInMinutes3;
 
         laserLifetime = 0f;
         laserActive = false;
@@ -292,15 +290,9 @@ public class laserLogic : MonoBehaviour
 
     void LateUpdate()
     {
-		if (laserLifetime >= intervalInSeconds3) {
-            laserPowerMultiplier = 4;
-        }
-		else if (laserLifetime >= intervalInSeconds2) {
-            laserPowerMultiplier = 3;
-        }
-		else if (laserLifetime >= intervalInSeconds1) {
-            laserPowerMultiplier = 2;
-        }
+        if (laserLifetime / 60f > intervalInMinutes3) laserPowerMultiplier = 4;
+        else if (laserLifetime / 60f > intervalInMinutes2) laserPowerMultiplier = 3;
+        else if (laserLifetime / 60f > intervalInMinutes1) laserPowerMultiplier = 2;
        if (gridManager.theGrid.updateLaser()) simulateLasers(); // Update laser if needed
 
         // Generate Resources, apply damage
