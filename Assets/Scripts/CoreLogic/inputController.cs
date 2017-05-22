@@ -18,6 +18,9 @@ public class inputController : MonoBehaviour {
     public GameObject LaserArrowP1;
     public GameObject LaserArrowP2;
 
+    public GameObject selectorP1;
+    public GameObject selectorP2;
+
     // Sprites for cursor appearance
     public Sprite P1BaseSprite;
     public Sprite P1BlockSprite;
@@ -184,11 +187,19 @@ public class inputController : MonoBehaviour {
 			// Check that the game isn't paused
 			if ((PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false) && !(TutorialFramework.tutorialActive && TutorialFramework.skipFrame)) {
 
-				// Cursor Selection P1
-
+                // Cursor Selection P1
+                int p1 = 0;
+                switch (cursorP1.selection)
+                {
+                    case Building.Blocking: p1 = 0; break;
+                    case Building.Reflecting: p1 = 1; break;
+                    case Building.Refracting: p1 = 2; break;
+                    case Building.Redirecting: p1 = 3; break;
+                    case Building.Resource: p1 = 4; break;
+                }
 				// Cycle P1
                 if (cursorP1.state != State.placing) {
-                    if (Input.GetKeyDown("1")) { cursorP1.selection = Building.Blocking; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("2")) { cursorP1.selection = Building.Reflecting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("3")) { cursorP1.selection = Building.Refracting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("4")) { cursorP1.selection = Building.Redirecting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("5")) { cursorP1.selection = Building.Resource; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); }
+                    if (Input.GetKeyDown("1")) { cursorP1.selection = Building.Blocking; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("2")) { cursorP1.selection = Building.Reflecting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f);  } else if (Input.GetKeyDown("3")) { cursorP1.selection = Building.Refracting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("4")) { cursorP1.selection = Building.Redirecting; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); } else if (Input.GetKeyDown("5")) { cursorP1.selection = Building.Resource; SoundManager.PlayUISound(UISounds[0].audioclip, .1f); }
                     if (Input.GetButtonDown("cycleR_1")) {
                         if (cursorP1.selection == Building.Resource) {
                             cursorP1.selection = Building.Blocking;
@@ -207,13 +218,22 @@ public class inputController : MonoBehaviour {
                         }
                         SoundManager.PlayUISound(UISounds[0].audioclip, .1f);
                     }
+                    selectorP1.transform.localPosition = new Vector3(-152.1f + p1 * 70, 225.3f, 4f);
                 }
 
-				// Cursor Selection P2
-				
-				// Cycle P2
-				// Defaults selection to resource
-				if (gridManager.theGrid.getResourcesP2() < 4) {
+                // Cursor Selection P2
+                int p2 = 0;
+                switch (cursorP2.selection)
+                {
+                    case Building.Blocking: p2 = 0; break;
+                    case Building.Reflecting: p2 = 1; break;
+                    case Building.Refracting: p2 = 2; break;
+                    case Building.Redirecting: p2 = 3; break;
+                    case Building.Resource: p2 = 4; break;
+                }
+                // Cycle P2
+                // Defaults selection to resource
+                if (gridManager.theGrid.getResourcesP2() < 4) {
 					cursorP2.selection = Building.Resource;
 				}
                 if (cursorP2.state != State.placing) {
@@ -238,6 +258,7 @@ public class inputController : MonoBehaviour {
 
                         SoundManager.PlayUISound(UISounds[0].audioclip, .1f);
                     }
+                    selectorP2.transform.localPosition = new Vector3(-129f + p2 * 70, 225.3f, 4f);
                 }
 
                 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
