@@ -33,8 +33,21 @@ public class startMenu : MonoBehaviour {
     //Vars for buttons/toggles/sliders
     public Button Play;
     public Button Exit;
-
     public Toggle fullscreenToggle;
+    //Vars for initially selected items
+    public Button tutorialButton;
+    public Button creatureMenuButton;
+    public Dropdown resDropdown;
+    public Button resourceInfoButton;
+
+    public Button resourceBack;
+    public Button reflectBack;
+    public Button refractBack;
+    public Button blockBack;
+    public Button redirectBack;
+    public Button controlBack;
+    public Button creditsBack;
+
 
     public Slider masterSlider;
     public Slider musicSlider;
@@ -81,6 +94,8 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = davidImage;
+        tutorialButton.Select();
+        
     }
 
     public void OptionsMenu()
@@ -97,6 +112,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        resDropdown.Select();
     }
 
     public void InstructionsMenu()
@@ -113,6 +129,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        creatureMenuButton.Select();
     }
 
     public void CreautureMenu()
@@ -129,6 +146,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        resourceInfoButton.Select();
     }
 
     public void ControlPage()
@@ -145,6 +163,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        controlBack.Select();
     }
 
     public void Resource()
@@ -162,6 +181,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        resourceBack.Select();
     }
 
     public void Refract()
@@ -179,6 +199,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        refractBack.Select();
     }
 
     public void Reflect()
@@ -196,6 +217,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        reflectBack.Select();
     }
 
     public void Block()
@@ -213,6 +235,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        blockBack.Select();
     }
 
     public void Redirect()
@@ -230,6 +253,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(true);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        redirectBack.Select();
     }
 
     public void CreditsMenu()
@@ -246,6 +270,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(true);
         backImage.sprite = ocean;
+        creditsBack.Select();
     }
 
     public void setMaster(float vol) 
