@@ -634,7 +634,14 @@ public struct Grid
         if (!grid[y, x].isEmpty) {
             grid[y, x].markedForDeath = true;
             // Emit Destruction Particle
-            emitParticles.genericParticle.emitParticle(x, y, particleType.destroy);
+            
+            if(grid[y, x].building == Building.Blocking)
+            {
+                emitParticles.genericParticle.emitParticle(x, y, particleType.squid_destroy);
+            }else
+            {
+                emitParticles.genericParticle.emitParticle(x, y, particleType.destroy);
+            }
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
 			if (grid [y, x].owner == Player.PlayerOne) {
 				buildingNumP1--;
