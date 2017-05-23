@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum particleType { place, destroy, squid_destroy};
+public enum particleType { place, destroy};
 
 public class emitParticles : MonoBehaviour {
 
@@ -10,18 +10,16 @@ public class emitParticles : MonoBehaviour {
 
     public GameObject splash;
     public GameObject explosion;
-    public GameObject squidexplode;
 
     public class particle
     {
         private Dictionary<particleType, GameObject> enumToParticleDict;
 
-        public particle (GameObject Splash, GameObject Explosion, GameObject SquidExplode)
+        public particle (GameObject Splash, GameObject Explosion)
         {
             enumToParticleDict = new Dictionary<particleType, GameObject>();
             enumToParticleDict.Add(particleType.place, Splash);
             enumToParticleDict.Add(particleType.destroy, Explosion);
-            enumToParticleDict.Add(particleType.squid_destroy, SquidExplode);
         }
 
         public void emitParticle(int x, int y, particleType type)
@@ -36,6 +34,6 @@ public class emitParticles : MonoBehaviour {
 
     void Awake()
     {
-        genericParticle = new particle(splash, explosion, squidexplode);
+        genericParticle = new particle(splash, explosion);
     }
 }
