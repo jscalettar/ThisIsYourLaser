@@ -20133,8 +20133,9 @@ MonoBehaviour:
   - audioclip: {fileID: 8300000, guid: d57ef719ad063da4592962d7115cc619, type: 3}
   - audioclip: {fileID: 8300000, guid: eeb07a637ef48074a9ac8443233c220e, type: 3}
   - audioclip: {fileID: 8300000, guid: c49145dfe3159e24d8dbda87494f7710, type: 3}
-  - audioclip: {fileID: 8300000, guid: da870b103f83a7e4cace7a28d6eaa542, type: 3}
-  - audioclip: {fileID: 8300000, guid: 298376a7c8aa4554480064b2f31071b3, type: 3}
+  - audioclip: {fileID: 8300000, guid: b02d5294d1f08e0459c5593d6272cd26, type: 3}
+  - audioclip: {fileID: 8300000, guid: 29c35a70c6ca6294e8c9f6f11b3bc16f, type: 3}
+  - audioclip: {fileID: 8300000, guid: 561d9412d65223e4b88c7ecf00867e88, type: 3}
   - audioclip: {fileID: 8300000, guid: 561d9412d65223e4b88c7ecf00867e88, type: 3}
   setUISounds:
   - audioclip: {fileID: 8300000, guid: 18905e0693f4ef7429e396da0a4687af, type: 3}
