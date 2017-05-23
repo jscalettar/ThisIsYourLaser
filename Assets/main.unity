@@ -19907,6 +19907,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splash: {fileID: 153116, guid: 5caa4c4c9994a554d84ae18bb8941791, type: 2}
   explosion: {fileID: 120184, guid: c4483c3fbe6fa8848a70e2a377130971, type: 2}
+  squidexplode: {fileID: 1347276797777194, guid: f5296c1a9111cc246a10c58df3a20c20,
+    type: 2}
 --- !u!1 &2053190675
 GameObject:
   m_ObjectHideFlags: 0
