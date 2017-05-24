@@ -1,0 +1,314 @@
+fileFormatVersion: 2
+guid: 94fd6df9c4ab61a4d8da54a3fa8cc191
+timeCreated: 1495614260
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: squidSheet2_0
+    21300002: squidSheet2_1
+    21300004: squidSheet2_2
+    21300006: squidSheet2_3
+    21300008: squidSheet2_4
+    21300010: squidSheet2_5
+    21300012: squidSheet2_6
+    21300014: squidSheet2_7
+    21300016: squidSheet2_8
+    21300018: squidSheet2_9
+    21300020: squidSheet2_10
+    21300022: squidSheet2_11
+    21300024: squidSheet2_12
+    21300026: squidSheet2_13
+    21300028: squidSheet2_14
+    21300030: squidSheet2_15
+    21300032: squidSheet2_16
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: squidSheet2_0
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 1432
+        width: 517
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_1
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 1433
+        width: 524
+        height: 519
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_2
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 1459
+        width: 524
+        height: 490
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_3
+      rect:
+        serializedVersion: 2
+        x: 1983
+        y: 1471
+        width: 537
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_4
+      rect:
+        serializedVersion: 2
+        x: 2623
+        y: 1456
+        width: 522
+        height: 493
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_5
+      rect:
+        serializedVersion: 2
+        x: 3251
+        y: 1447
+        width: 525
+        height: 505
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_6
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 821
+        width: 514
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_7
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 821
+        width: 524
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_8
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 847
+        width: 524
+        height: 490
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_9
+      rect:
+        serializedVersion: 2
+        x: 1985
+        y: 856
+        width: 535
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_10
+      rect:
+        serializedVersion: 2
+        x: 2623
+        y: 821
+        width: 522
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_11
+      rect:
+        serializedVersion: 2
+        x: 3261
+        y: 821
+        width: 515
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_12
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 208
+        width: 517
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_13
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 209
+        width: 524
+        height: 519
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_14
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 235
+        width: 522
+        height: 490
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_15
+      rect:
+        serializedVersion: 2
+        x: 1983
+        y: 247
+        width: 537
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidSheet2_16
+      rect:
+        serializedVersion: 2
+        x: 2631
+        y: 209
+        width: 514
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
