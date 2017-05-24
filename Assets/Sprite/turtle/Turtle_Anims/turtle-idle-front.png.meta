@@ -1,0 +1,412 @@
+fileFormatVersion: 2
+guid: 49f53291d886cd844872174cca207c00
+timeCreated: 1495612788
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: turtle-idle-front_0
+    21300002: turtle-idle-front_1
+    21300004: turtle-idle-front_2
+    21300006: turtle-idle-front_3
+    21300008: turtle-idle-front_4
+    21300010: turtle-idle-front_5
+    21300012: turtle-idle-front_6
+    21300014: turtle-idle-front_7
+    21300016: turtle-idle-front_8
+    21300018: turtle-idle-front_9
+    21300020: turtle-idle-front_10
+    21300022: turtle-idle-front_11
+    21300024: turtle-idle-front_12
+    21300026: turtle-idle-front_13
+    21300028: turtle-idle-front_14
+    21300030: turtle-idle-front_15
+    21300032: turtle-idle-front_16
+    21300034: turtle-idle-front_17
+    21300036: turtle-idle-front_18
+    21300038: turtle-idle-front_19
+    21300040: turtle-idle-front_20
+    21300042: turtle-idle-front_21
+    21300044: turtle-idle-front_22
+    21300046: turtle-idle-front_23
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: turtle-idle-front_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 3733
+        width: 263
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_1
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 3733
+        width: 267
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_2
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 3733
+        width: 267
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_3
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 3733
+        width: 277
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_4
+      rect:
+        serializedVersion: 2
+        x: 1494
+        y: 3733
+        width: 276
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_5
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 3320
+        width: 277
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_6
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 3320
+        width: 291
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_7
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 3320
+        width: 288
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_8
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 3320
+        width: 288
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_9
+      rect:
+        serializedVersion: 2
+        x: 1566
+        y: 3320
+        width: 298
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_10
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 2911
+        width: 298
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_11
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 2911
+        width: 301
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_12
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 2911
+        width: 306
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_13
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 2911
+        width: 307
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_14
+      rect:
+        serializedVersion: 2
+        x: 1645
+        y: 2911
+        width: 306
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 2501
+        width: 299
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_16
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 2501
+        width: 300
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_17
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 2501
+        width: 304
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_18
+      rect:
+        serializedVersion: 2
+        x: 1229
+        y: 2501
+        width: 287
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_19
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 2501
+        width: 288
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_20
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 2088
+        width: 287
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_21
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 2088
+        width: 274
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_22
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 2088
+        width: 274
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-idle-front_23
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 2088
+        width: 274
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

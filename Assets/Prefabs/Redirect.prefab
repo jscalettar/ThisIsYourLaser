@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 212160785449125804}
   - component: {fileID: 198985872917995738}
   - component: {fileID: 199077713807685248}
+  - component: {fileID: 95319759833912958}
   m_Layer: 0
   m_Name: Redirect
   m_TagString: Untagged
@@ -43,6 +44,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 18.296001}
+--- !u!95 &95319759833912958
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514336581799410}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c8531c69f7cdae04ab2278d2c440b65f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114118978213347328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,7 +85,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 075c271c538371a4d831327f4d576ce2, type: 3}
   - {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
   - {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
-  scale: 0.25
+  scale: 0.35
   placementTime: 1.5
   removalTime: 1
   destructionTime: 0.5

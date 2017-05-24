@@ -1,0 +1,412 @@
+fileFormatVersion: 2
+guid: 6897551954cd1ef4baa0bc191fca9d0c
+timeCreated: 1495613099
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: turtle-dmg-L_0
+    21300002: turtle-dmg-L_1
+    21300004: turtle-dmg-L_2
+    21300006: turtle-dmg-L_3
+    21300008: turtle-dmg-L_4
+    21300010: turtle-dmg-L_5
+    21300012: turtle-dmg-L_6
+    21300014: turtle-dmg-L_7
+    21300016: turtle-dmg-L_8
+    21300018: turtle-dmg-L_9
+    21300020: turtle-dmg-L_10
+    21300022: turtle-dmg-L_11
+    21300024: turtle-dmg-L_12
+    21300026: turtle-dmg-L_13
+    21300028: turtle-dmg-L_14
+    21300030: turtle-dmg-L_15
+    21300032: turtle-dmg-L_16
+    21300034: turtle-dmg-L_17
+    21300036: turtle-dmg-L_18
+    21300038: turtle-dmg-L_19
+    21300040: turtle-dmg-L_20
+    21300042: turtle-dmg-L_21
+    21300044: turtle-dmg-L_22
+    21300046: turtle-dmg-L_23
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: turtle-dmg-L_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 3747
+        width: 377
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_1
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 3747
+        width: 373
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_2
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 3747
+        width: 372
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_3
+      rect:
+        serializedVersion: 2
+        x: 1447
+        y: 3749
+        width: 376
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_4
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 3351
+        width: 374
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_5
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 3351
+        width: 374
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_6
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 3355
+        width: 376
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_7
+      rect:
+        serializedVersion: 2
+        x: 1457
+        y: 3355
+        width: 374
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_8
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 2959
+        width: 376
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_9
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 2963
+        width: 376
+        height: 293
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_10
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 2963
+        width: 376
+        height: 293
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_11
+      rect:
+        serializedVersion: 2
+        x: 1463
+        y: 2963
+        width: 376
+        height: 293
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_12
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 2577
+        width: 378
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_13
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 2577
+        width: 377
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_14
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 2577
+        width: 377
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_15
+      rect:
+        serializedVersion: 2
+        x: 1463
+        y: 2571
+        width: 378
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_16
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 2182
+        width: 378
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_17
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 2182
+        width: 377
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_18
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 2177
+        width: 378
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_19
+      rect:
+        serializedVersion: 2
+        x: 1463
+        y: 2177
+        width: 374
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_20
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 1784
+        width: 376
+        height: 297
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_21
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 1780
+        width: 377
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_22
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1780
+        width: 374
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-L_23
+      rect:
+        serializedVersion: 2
+        x: 1456
+        y: 1780
+        width: 375
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
