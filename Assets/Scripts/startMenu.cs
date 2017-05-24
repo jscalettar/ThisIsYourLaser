@@ -30,6 +30,7 @@ public class startMenu : MonoBehaviour {
     public GameObject RedirectPage;
     public GameObject ControlsPage;
     public GameObject CreditMenu;
+    public GameObject LoadingLogo;
     //Vars for buttons/toggles/sliders
     public Button Play;
     public Button Exit;
@@ -75,6 +76,11 @@ public class startMenu : MonoBehaviour {
 	public void startGame()
     {
         SceneManager.LoadScene("main");
+        StartMenu.SetActive(false);
+        OptionMenu.SetActive(false);
+        InstructMenu.SetActive(false);
+        CreditMenu.SetActive(false);
+        LoadingLogo.SetActive(true);
     }
 
 	public void startTut(){
