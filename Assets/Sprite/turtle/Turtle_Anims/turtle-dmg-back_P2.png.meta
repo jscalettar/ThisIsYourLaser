@@ -1,0 +1,412 @@
+fileFormatVersion: 2
+guid: 7ddaab2168c7443419c71f2c81b0d09f
+timeCreated: 1495615881
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: turtle-dmg-back_P2_0
+    21300002: turtle-dmg-back_P2_1
+    21300004: turtle-dmg-back_P2_2
+    21300006: turtle-dmg-back_P2_3
+    21300008: turtle-dmg-back_P2_4
+    21300010: turtle-dmg-back_P2_5
+    21300012: turtle-dmg-back_P2_6
+    21300014: turtle-dmg-back_P2_7
+    21300016: turtle-dmg-back_P2_8
+    21300018: turtle-dmg-back_P2_9
+    21300020: turtle-dmg-back_P2_10
+    21300022: turtle-dmg-back_P2_11
+    21300024: turtle-dmg-back_P2_12
+    21300026: turtle-dmg-back_P2_13
+    21300028: turtle-dmg-back_P2_14
+    21300030: turtle-dmg-back_P2_15
+    21300032: turtle-dmg-back_P2_16
+    21300034: turtle-dmg-back_P2_17
+    21300036: turtle-dmg-back_P2_18
+    21300038: turtle-dmg-back_P2_19
+    21300040: turtle-dmg-back_P2_20
+    21300042: turtle-dmg-back_P2_21
+    21300044: turtle-dmg-back_P2_22
+    21300046: turtle-dmg-back_P2_23
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 3708
+        width: 265
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_1
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 3708
+        width: 267
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_2
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 3708
+        width: 267
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_3
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 3723
+        width: 277
+        height: 326
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_4
+      rect:
+        serializedVersion: 2
+        x: 1493
+        y: 3723
+        width: 276
+        height: 326
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_5
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 3284
+        width: 275
+        height: 325
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_6
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 3303
+        width: 286
+        height: 306
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_7
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 3303
+        width: 288
+        height: 306
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_8
+      rect:
+        serializedVersion: 2
+        x: 1183
+        y: 3303
+        width: 286
+        height: 306
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_9
+      rect:
+        serializedVersion: 2
+        x: 1565
+        y: 3318
+        width: 299
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_10
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 2895
+        width: 298
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_11
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 2895
+        width: 299
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_12
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 2891
+        width: 308
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_13
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 2891
+        width: 307
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_14
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 2891
+        width: 308
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 2477
+        width: 298
+        height: 318
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_16
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 2477
+        width: 299
+        height: 318
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_17
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 2477
+        width: 298
+        height: 318
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_18
+      rect:
+        serializedVersion: 2
+        x: 1229
+        y: 2457
+        width: 286
+        height: 338
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_19
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 2456
+        width: 287
+        height: 339
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_20
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 2023
+        width: 289
+        height: 338
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_21
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 2014
+        width: 273
+        height: 347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_22
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 2014
+        width: 274
+        height: 347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: turtle-dmg-back_P2_23
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 2014
+        width: 273
+        height: 347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
