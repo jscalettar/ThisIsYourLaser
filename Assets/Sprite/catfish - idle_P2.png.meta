@@ -1,0 +1,524 @@
+fileFormatVersion: 2
+guid: 4930506fcbab0ca4681c1f083123fdab
+timeCreated: 1495696355
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: catfish - idle_P2_0
+    21300002: catfish - idle_P2_1
+    21300004: catfish - idle_P2_2
+    21300006: catfish - idle_P2_3
+    21300008: catfish - idle_P2_4
+    21300010: catfish - idle_P2_5
+    21300012: catfish - idle_P2_6
+    21300014: catfish - idle_P2_7
+    21300016: catfish - idle_P2_8
+    21300018: catfish - idle_P2_9
+    21300020: catfish - idle_P2_10
+    21300022: catfish - idle_P2_11
+    21300024: catfish - idle_P2_12
+    21300026: catfish - idle_P2_13
+    21300028: catfish - idle_P2_14
+    21300030: catfish - idle_P2_15
+    21300032: catfish - idle_P2_16
+    21300034: catfish - idle_P2_17
+    21300036: catfish - idle_P2_18
+    21300038: catfish - idle_P2_19
+    21300040: catfish - idle_P2_20
+    21300042: catfish - idle_P2_21
+    21300044: catfish - idle_P2_22
+    21300046: catfish - idle_P2_23
+    21300048: catfish - idle_P2_24
+    21300050: catfish - idle_P2_25
+    21300052: catfish - idle_P2_26
+    21300054: catfish - idle_P2_27
+    21300056: catfish - idle_P2_28
+    21300058: catfish - idle_P2_29
+    21300060: catfish - idle_P2_30
+    21300062: catfish - idle_P2_31
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: catfish - idle_P2_0
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 3517
+        width: 443
+        height: 485
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_1
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 3513
+        width: 443
+        height: 487
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_2
+      rect:
+        serializedVersion: 2
+        x: 1201
+        y: 3513
+        width: 443
+        height: 484
+      alignment: 9
+      pivot: {x: 0.37, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_3
+      rect:
+        serializedVersion: 2
+        x: 1705
+        y: 3513
+        width: 443
+        height: 487
+      alignment: 9
+      pivot: {x: 0.37, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_4
+      rect:
+        serializedVersion: 2
+        x: 2165
+        y: 3512
+        width: 443
+        height: 485
+      alignment: 9
+      pivot: {x: 0.37, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_5
+      rect:
+        serializedVersion: 2
+        x: 2665
+        y: 3513
+        width: 443
+        height: 487
+      alignment: 9
+      pivot: {x: 0.37, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_6
+      rect:
+        serializedVersion: 2
+        x: 3088
+        y: 3712
+        width: 5
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_7
+      rect:
+        serializedVersion: 2
+        x: 3175
+        y: 3512
+        width: 416
+        height: 488
+      alignment: 9
+      pivot: {x: 0.37, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_8
+      rect:
+        serializedVersion: 2
+        x: 3599
+        y: 3512
+        width: 443
+        height: 488
+      alignment: 9
+      pivot: {x: 0.34, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_9
+      rect:
+        serializedVersion: 2
+        x: 3965
+        y: 3705
+        width: 6
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_10
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 2933
+        width: 443
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_11
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 2933
+        width: 443
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_12
+      rect:
+        serializedVersion: 2
+        x: 1135
+        y: 2933
+        width: 443
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_13
+      rect:
+        serializedVersion: 2
+        x: 1649
+        y: 2933
+        width: 445
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_14
+      rect:
+        serializedVersion: 2
+        x: 2208
+        y: 2933
+        width: 443
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_15
+      rect:
+        serializedVersion: 2
+        x: 2723
+        y: 2933
+        width: 443
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_16
+      rect:
+        serializedVersion: 2
+        x: 3287
+        y: 2933
+        width: 443
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_17
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 2351
+        width: 443
+        height: 484
+      alignment: 9
+      pivot: {x: 0.46, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_18
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 2351
+        width: 443
+        height: 484
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_19
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 2351
+        width: 443
+        height: 484
+      alignment: 9
+      pivot: {x: 0.42, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_20
+      rect:
+        serializedVersion: 2
+        x: 1562
+        y: 2356
+        width: 443
+        height: 484
+      alignment: 9
+      pivot: {x: 0.42, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_21
+      rect:
+        serializedVersion: 2
+        x: 2055
+        y: 2351
+        width: 443
+        height: 484
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_22
+      rect:
+        serializedVersion: 2
+        x: 2549
+        y: 2351
+        width: 443
+        height: 484
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_23
+      rect:
+        serializedVersion: 2
+        x: 3079
+        y: 2351
+        width: 443
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_24
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 1769
+        width: 443
+        height: 486
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_25
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 1765
+        width: 443
+        height: 487
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_26
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 1769
+        width: 443
+        height: 487
+      alignment: 9
+      pivot: {x: 0.46, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_27
+      rect:
+        serializedVersion: 2
+        x: 1645
+        y: 1768
+        width: 443
+        height: 487
+      alignment: 9
+      pivot: {x: 0.42, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_28
+      rect:
+        serializedVersion: 2
+        x: 2119
+        y: 1768
+        width: 443
+        height: 489
+      alignment: 9
+      pivot: {x: 0.42, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_29
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 1768
+        width: 443
+        height: 487
+      alignment: 9
+      pivot: {x: 0.46, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_30
+      rect:
+        serializedVersion: 2
+        x: 3133
+        y: 1768
+        width: 443
+        height: 487
+      alignment: 9
+      pivot: {x: 0.47, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: catfish - idle_P2_31
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 1189
+        width: 443
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
