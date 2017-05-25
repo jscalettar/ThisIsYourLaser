@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4930506fcbab0ca4681c1f083123fdab
-timeCreated: 1495696355
+timeCreated: 1495707018
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -105,9 +105,9 @@ TextureImporter:
       name: catfish - idle_P2_0
       rect:
         serializedVersion: 2
-        x: 84
-        y: 3517
-        width: 443
+        x: 79
+        y: 3512
+        width: 442
         height: 485
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -120,7 +120,7 @@ TextureImporter:
         serializedVersion: 2
         x: 640
         y: 3513
-        width: 443
+        width: 435
         height: 487
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -133,10 +133,10 @@ TextureImporter:
         serializedVersion: 2
         x: 1201
         y: 3513
-        width: 443
+        width: 385
         height: 484
       alignment: 9
-      pivot: {x: 0.37, y: 0.5}
+      pivot: {x: 0.44434988, y: 0.49683827}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -146,10 +146,10 @@ TextureImporter:
         serializedVersion: 2
         x: 1705
         y: 3513
-        width: 443
+        width: 386
         height: 487
       alignment: 9
-      pivot: {x: 0.37, y: 0.5}
+      pivot: {x: 0.43259978, y: 0.49685776}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -159,10 +159,10 @@ TextureImporter:
         serializedVersion: 2
         x: 2165
         y: 3512
-        width: 443
+        width: 387
         height: 485
       alignment: 9
-      pivot: {x: 0.37, y: 0.5}
+      pivot: {x: 0.4050924, y: 0.5063114}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -172,10 +172,10 @@ TextureImporter:
         serializedVersion: 2
         x: 2665
         y: 3513
-        width: 443
+        width: 386
         height: 487
       alignment: 9
-      pivot: {x: 0.37, y: 0.5}
+      pivot: {x: 0.42466998, y: 0.4937155}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -198,10 +198,10 @@ TextureImporter:
         serializedVersion: 2
         x: 3175
         y: 3512
-        width: 416
+        width: 356
         height: 488
       alignment: 9
-      pivot: {x: 0.37, y: 0.5}
+      pivot: {x: 0.3839317, y: 0.50627214}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -211,10 +211,10 @@ TextureImporter:
         serializedVersion: 2
         x: 3599
         y: 3512
-        width: 443
+        width: 358
         height: 488
       alignment: 9
-      pivot: {x: 0.34, y: 0.5}
+      pivot: {x: 0.37602976, y: 0.5031363}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -237,7 +237,7 @@ TextureImporter:
         serializedVersion: 2
         x: 69
         y: 2933
-        width: 443
+        width: 435
         height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -250,7 +250,7 @@ TextureImporter:
         serializedVersion: 2
         x: 613
         y: 2933
-        width: 443
+        width: 435
         height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -263,7 +263,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1135
         y: 2933
-        width: 443
+        width: 434
         height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -274,8 +274,8 @@ TextureImporter:
       name: catfish - idle_P2_13
       rect:
         serializedVersion: 2
-        x: 1649
-        y: 2933
+        x: 1642
+        y: 2931
         width: 445
         height: 484
       alignment: 0
@@ -302,7 +302,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2723
         y: 2933
-        width: 443
+        width: 437
         height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -313,9 +313,9 @@ TextureImporter:
       name: catfish - idle_P2_16
       rect:
         serializedVersion: 2
-        x: 3287
+        x: 3289
         y: 2933
-        width: 443
+        width: 435
         height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -328,10 +328,10 @@ TextureImporter:
         serializedVersion: 2
         x: 45
         y: 2351
-        width: 443
+        width: 410
         height: 484
       alignment: 9
-      pivot: {x: 0.46, y: 0.5}
+      pivot: {x: 0.47387144, y: 0.5000005}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -341,10 +341,10 @@ TextureImporter:
         serializedVersion: 2
         x: 607
         y: 2351
-        width: 443
+        width: 411
         height: 484
       alignment: 9
-      pivot: {x: 0.45, y: 0.5}
+      pivot: {x: 0.46276438, y: 0.49367654}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -354,10 +354,10 @@ TextureImporter:
         serializedVersion: 2
         x: 1072
         y: 2351
-        width: 443
+        width: 392
         height: 484
       alignment: 9
-      pivot: {x: 0.42, y: 0.5}
+      pivot: {x: 0.4375352, y: 0.49051434}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -365,12 +365,12 @@ TextureImporter:
       name: catfish - idle_P2_20
       rect:
         serializedVersion: 2
-        x: 1562
-        y: 2356
-        width: 443
+        x: 1567
+        y: 2351
+        width: 387
         height: 484
       alignment: 9
-      pivot: {x: 0.42, y: 0.5}
+      pivot: {x: 0.43277395, y: 0.4873526}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -380,10 +380,10 @@ TextureImporter:
         serializedVersion: 2
         x: 2055
         y: 2351
-        width: 443
+        width: 410
         height: 484
       alignment: 9
-      pivot: {x: 0.45, y: 0.5}
+      pivot: {x: 0.4738716, y: 0.49051434}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -393,10 +393,10 @@ TextureImporter:
         serializedVersion: 2
         x: 2549
         y: 2351
-        width: 443
+        width: 410
         height: 484
       alignment: 9
-      pivot: {x: 0.45, y: 0.5}
+      pivot: {x: 0.4701392, y: 0.5000005}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -406,7 +406,7 @@ TextureImporter:
         serializedVersion: 2
         x: 3079
         y: 2351
-        width: 443
+        width: 435
         height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -417,9 +417,9 @@ TextureImporter:
       name: catfish - idle_P2_24
       rect:
         serializedVersion: 2
-        x: 96
+        x: 101
         y: 1769
-        width: 443
+        width: 436
         height: 486
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -430,12 +430,12 @@ TextureImporter:
       name: catfish - idle_P2_25
       rect:
         serializedVersion: 2
-        x: 582
-        y: 1765
-        width: 443
+        x: 600
+        y: 1769
+        width: 416
         height: 487
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.47056946, y: 0.49685776}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -445,10 +445,10 @@ TextureImporter:
         serializedVersion: 2
         x: 1104
         y: 1769
-        width: 443
+        width: 416
         height: 487
       alignment: 9
-      pivot: {x: 0.46, y: 0.5}
+      pivot: {x: 0.4705696, y: 0.50000024}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -458,10 +458,10 @@ TextureImporter:
         serializedVersion: 2
         x: 1645
         y: 1768
-        width: 443
+        width: 387
         height: 487
       alignment: 9
-      pivot: {x: 0.42, y: 0.5}
+      pivot: {x: 0.43277365, y: 0.49371526}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -471,10 +471,10 @@ TextureImporter:
         serializedVersion: 2
         x: 2119
         y: 1768
-        width: 443
+        width: 387
         height: 489
       alignment: 9
-      pivot: {x: 0.42, y: 0.5}
+      pivot: {x: 0.42091042, y: 0.48435202}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -484,10 +484,10 @@ TextureImporter:
         serializedVersion: 2
         x: 2600
         y: 1768
-        width: 443
+        width: 410
         height: 487
       alignment: 9
-      pivot: {x: 0.46, y: 0.5}
+      pivot: {x: 0.44401082, y: 0.49057275}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -497,10 +497,10 @@ TextureImporter:
         serializedVersion: 2
         x: 3133
         y: 1768
-        width: 443
+        width: 411
         height: 487
       alignment: 9
-      pivot: {x: 0.47, y: 0.5}
+      pivot: {x: 0.46276468, y: 0.50000024}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -508,9 +508,9 @@ TextureImporter:
       name: catfish - idle_P2_31
       rect:
         serializedVersion: 2
-        x: 69
+        x: 68
         y: 1189
-        width: 443
+        width: 436
         height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
