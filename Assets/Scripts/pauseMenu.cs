@@ -64,7 +64,7 @@ public class pauseMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Resume.Select();
+  
         // Set the menus to inactive
         PauseMenu.SetActive(false);
         OptionMenu.SetActive(false);
@@ -96,8 +96,12 @@ public class pauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("xboxStart") || Input.GetButtonDown("xboxStart2")) {
-            pauseGame();
+        if ((Input.GetButtonDown("xboxStart") || Input.GetButtonDown("xboxStart2"))) {
+            if (PauseMenu.activeInHierarchy) {
+                resumeGame();
+            } else {
+                pauseGame();
+            }
         }
         masterSlider.onValueChanged.AddListener(setMaster);
 		musicSlider.onValueChanged.AddListener(setMusic);
@@ -111,11 +115,12 @@ public class pauseMenu : MonoBehaviour
     public void pauseGame()
     {
         // Stops Update functions, essentially pausing the game
-        Resume.Select();
         Time.timeScale = 0F;
 		SoundManager.globalVolume/=8;
         PauseMenu.SetActive(true);
-        
+        //Dont change it just works I know its stupid
+        Options.Select();
+        Resume.Select();
     }
 
     public void resumeGame()
