@@ -517,7 +517,7 @@ public class inputController : MonoBehaviour {
 					switch (cursorP2.selection) {
 					case Building.Blocking: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[0][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
 					case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .375f; break;
-					case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[2][0]; scale = .25f; break;
+					case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[2][0]; scale = .2f; break;
 					case Building.Redirecting: 
 						if (cursorP2.direction == Direction.Up) {
 							cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectUp2;

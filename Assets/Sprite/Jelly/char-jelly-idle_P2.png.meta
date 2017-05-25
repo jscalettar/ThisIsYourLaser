@@ -1,0 +1,412 @@
+fileFormatVersion: 2
+guid: 677fd277565dc6e40ba1ff13101e746a
+timeCreated: 1495687971
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: char-jelly-idle_P2_0
+    21300002: char-jelly-idle_P2_1
+    21300004: char-jelly-idle_P2_2
+    21300006: char-jelly-idle_P2_3
+    21300008: char-jelly-idle_P2_4
+    21300010: char-jelly-idle_P2_5
+    21300012: char-jelly-idle_P2_6
+    21300014: char-jelly-idle_P2_7
+    21300016: char-jelly-idle_P2_8
+    21300018: char-jelly-idle_P2_9
+    21300020: char-jelly-idle_P2_10
+    21300022: char-jelly-idle_P2_11
+    21300024: char-jelly-idle_P2_12
+    21300026: char-jelly-idle_P2_13
+    21300028: char-jelly-idle_P2_14
+    21300030: char-jelly-idle_P2_15
+    21300032: char-jelly-idle_P2_16
+    21300034: char-jelly-idle_P2_17
+    21300036: char-jelly-idle_P2_18
+    21300038: char-jelly-idle_P2_19
+    21300040: char-jelly-idle_P2_20
+    21300042: char-jelly-idle_P2_21
+    21300044: char-jelly-idle_P2_22
+    21300046: char-jelly-idle_P2_23
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 3678
+        width: 249
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_1
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 3678
+        width: 249
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_2
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 3678
+        width: 249
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_3
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 3684
+        width: 259
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_4
+      rect:
+        serializedVersion: 2
+        x: 1432
+        y: 3682
+        width: 265
+        height: 367
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_5
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 3214
+        width: 259
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_6
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 3238
+        width: 380
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_7
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 3238
+        width: 381
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_8
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 3238
+        width: 380
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_9
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 2782
+        width: 423
+        height: 333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_10
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 2782
+        width: 422
+        height: 333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_11
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 2782
+        width: 422
+        height: 333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_12
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 2367
+        width: 418
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_13
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 2367
+        width: 416
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_14
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 2367
+        width: 418
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_15
+      rect:
+        serializedVersion: 2
+        x: 1602
+        y: 2312
+        width: 280
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_16
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 1846
+        width: 278
+        height: 370
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_17
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 1846
+        width: 280
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_18
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 1844
+        width: 251
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_19
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1844
+        width: 251
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_20
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 1844
+        width: 251
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_21
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 1374
+        width: 249
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_22
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 1374
+        width: 247
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-jelly-idle_P2_23
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 1374
+        width: 247
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

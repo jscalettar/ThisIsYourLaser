@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 198725885183812184}
   - component: {fileID: 199107485358047654}
   - component: {fileID: 212953435743227676}
+  - component: {fileID: 95588928837057144}
   m_Layer: 0
   m_Name: Refract 1
   m_TagString: Untagged
@@ -124,6 +125,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95588928837057144
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332573950128304}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb80dcd03415ccc43a0e7cebcdceb897, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114325509885723468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,7 +166,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
   - {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
   - {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
-  scale: 0.23
+  scale: 0.37
   placementTime: 1.5
   removalTime: 1
   destructionTime: 0.5
