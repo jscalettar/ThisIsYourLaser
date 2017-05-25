@@ -25,6 +25,16 @@ public class pauseMenu : MonoBehaviour
     public Button Options;
     public Button End;
 
+    //Vars for initially selected items
+    public Button creatureMenuButton;
+    public Button resourceInfoButton;
+    public Button resourceBack;
+    public Button reflectBack;
+    public Button refractBack;
+    public Button blockBack;
+    public Button redirectBack;
+    public Button controlBack;
+
     // Vars for win screen buttons
     public Button Restart;
     public Button MainMenu;
@@ -52,6 +62,7 @@ public class pauseMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Resume.Select();
         // Set the menus to inactive
         PauseMenu.SetActive(false);
         OptionMenu.SetActive(false);
@@ -83,7 +94,10 @@ public class pauseMenu : MonoBehaviour
 
     void Update()
     {
-		masterSlider.onValueChanged.AddListener(setMaster);
+        if (Input.GetButtonDown("xboxStart") || Input.GetButtonDown("xboxStart2")) {
+            pauseGame();
+        }
+        masterSlider.onValueChanged.AddListener(setMaster);
 		musicSlider.onValueChanged.AddListener(setMusic);
 		sfxSlider.onValueChanged.AddListener(setSFX);
 		UISlider.onValueChanged.AddListener(setUISFX);
@@ -95,9 +109,11 @@ public class pauseMenu : MonoBehaviour
     public void pauseGame()
     {
         // Stops Update functions, essentially pausing the game
+        Resume.Select();
         Time.timeScale = 0F;
 		SoundManager.globalVolume/=8;
         PauseMenu.SetActive(true);
+        
     }
 
     public void resumeGame()
@@ -119,6 +135,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        resDrop.Select();
 
         // Disable pause menu buttons when options are up
         Pause.interactable = false;
@@ -139,6 +156,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        creatureMenuButton.Select();
 
         // Disable pause menu buttons when instructions are up
         Pause.interactable = false;
@@ -159,8 +177,9 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        resourceInfoButton.Select();
 
-        // Disable pause menu buttons when structures are up
+    // Disable pause menu buttons when structures are up
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -179,6 +198,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        controlBack.Select();
 
         // Disable pause menu buttons when structures are up
         Pause.interactable = false;
@@ -199,6 +219,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        resourceBack.Select();
 
         // Disable pause menu buttons when structures are up
         Pause.interactable = false;
@@ -219,6 +240,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        refractBack.Select();
 
         // Disable pause menu buttons when structures are up
         Pause.interactable = false;
@@ -239,6 +261,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(true);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        reflectBack.Select();
 
         // Disable pause menu buttons when structures are up
         Pause.interactable = false;
@@ -259,6 +282,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(true);
         BlockMenu.SetActive(false);
+        redirectBack.Select();
 
         // Disable pause menu buttons when structures are up
         Pause.interactable = false;
@@ -279,6 +303,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(true);
+        blockBack.Select();
 
         // Disable pause menu buttons when structures are up
         Pause.interactable = false;
@@ -318,6 +343,7 @@ public class pauseMenu : MonoBehaviour
         Instructions.interactable = true;
         Options.interactable = true;
         End.interactable = true;
+        Resume.Select();
 
     }
 

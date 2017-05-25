@@ -177,6 +177,7 @@ public class inputController : MonoBehaviour {
         gridManager.theGrid.updateSquares();
         gridManager.theGrid.updateLaser();
         SoundManager.PlayMusic(musicSounds[0].audioclip, .2f, true, true, 5f, 1.5f);
+        
 	}
 
 	void Update()
@@ -184,9 +185,9 @@ public class inputController : MonoBehaviour {
 		bool notNow1 = false;
 		bool notNow2 = false;
 		if (Time.timeScale != 0) {
-			// Check that the game isn't paused
-			if ((PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false) && !(TutorialFramework.tutorialActive && TutorialFramework.skipFrame)) {
-
+            // Check that the game isn't paused
+            if ((PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false) && !(TutorialFramework.tutorialActive && TutorialFramework.skipFrame)) {
+                
                 // Cursor Selection P1
                 int p1 = 0;
                 switch (cursorP1.selection)
