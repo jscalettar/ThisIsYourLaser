@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class refocusController : MonoBehaviour {
 
     GameObject lastSelectedObject;
+    public GameObject eventSystem;
+    public GameObject eventSystem2;
 
 	void Start() {
         lastSelectedObject = new GameObject();
@@ -18,5 +20,8 @@ public class refocusController : MonoBehaviour {
         } else {
             lastSelectedObject = EventSystem.current.currentSelectedGameObject;
         }
-	}
+
+        if (Input.GetKeyDown("joystick 1 button 7")) { eventSystem2.GetComponent<EventSystem>().enabled = false; eventSystem.GetComponent<EventSystem>().enabled = true; }
+        if (Input.GetKeyDown("joystick 2 button 7")) { eventSystem.GetComponent<EventSystem>().enabled = false; eventSystem2.GetComponent<EventSystem>().enabled = true; }
+    }
 }
