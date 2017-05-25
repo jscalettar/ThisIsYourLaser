@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class pauseMenu : MonoBehaviour
 {
+
+    public static bool skipFrame = false;
     // Game objects to set active and deactivate
     public GameObject PauseMenu;
     public GameObject OptionMenu;
@@ -121,6 +123,7 @@ public class pauseMenu : MonoBehaviour
         // Sets the game time to realtime
         Time.timeScale = 1F;
 		SoundManager.globalVolume*=8;
+        skipFrame = true;
         PauseMenu.SetActive(false);
     }
 

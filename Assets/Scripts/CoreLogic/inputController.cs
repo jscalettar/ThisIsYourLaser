@@ -186,7 +186,8 @@ public class inputController : MonoBehaviour {
 		bool notNow2 = false;
 		if (Time.timeScale != 0) {
             // Check that the game isn't paused
-            if ((PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false) && !(TutorialFramework.tutorialActive && TutorialFramework.skipFrame)) {
+            if ((PauseMenu != null && Win != null && PauseMenu.activeInHierarchy == false && Win.activeInHierarchy == false) && 
+                    !(TutorialFramework.tutorialActive && TutorialFramework.skipFrame) && !(pauseMenu.skipFrame)) {
                 
                 // Cursor Selection P1
                 int p1 = 0;
@@ -615,6 +616,7 @@ public class inputController : MonoBehaviour {
             }
 		}
         if (TutorialFramework.skipFrame) TutorialFramework.skipFrame = false;
+        if (pauseMenu.skipFrame) pauseMenu.skipFrame = false;
 	}
 
 	private Building cycleToBuilding(int index)
