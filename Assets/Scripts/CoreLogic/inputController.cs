@@ -220,7 +220,7 @@ public class inputController : MonoBehaviour {
                         }
                         SoundManager.PlayUISound(UISounds[0].audioclip, .1f);
                     }
-                    selectorP1.transform.localPosition = new Vector3(-151.9f + p1 * 70, 200f, 4f);
+                    selectorP1.transform.localPosition = new Vector3(-15f + p1 * 87.6f, -25f, 4f);
                 }
 
                 // Cursor Selection P2
@@ -260,7 +260,7 @@ public class inputController : MonoBehaviour {
 
                         SoundManager.PlayUISound(UISounds[0].audioclip, .1f);
                     }
-                    selectorP2.transform.localPosition = new Vector3(-128.5f + p2 * 70, 200f, 4f);
+                    selectorP2.transform.localPosition = new Vector3(14f + p2 * 87.6f, -25f, 4f);
                 }
 
                 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
