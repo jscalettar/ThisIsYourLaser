@@ -474,7 +474,7 @@ public class inputController : MonoBehaviour {
 							cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectRight;
 						}
 						break;
-					case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
+					case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .04f; break;
 					}
 					cursorSpriteP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
 					cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
