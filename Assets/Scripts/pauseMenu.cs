@@ -118,6 +118,8 @@ public class pauseMenu : MonoBehaviour
         Time.timeScale = 0F;
 		SoundManager.globalVolume/=8;
         PauseMenu.SetActive(true);
+        Pause.interactable = false;
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         //Dont change it just works I know its stupid
         Options.Select();
         Resume.Select();
@@ -129,6 +131,8 @@ public class pauseMenu : MonoBehaviour
         Time.timeScale = 1F;
 		SoundManager.globalVolume*=8;
         skipFrame = true;
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
+        Pause.interactable = true;
         PauseMenu.SetActive(false);
     }
 
@@ -143,6 +147,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         resDrop.Select();
 
         // Disable pause menu buttons when options are up
@@ -164,6 +169,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         creatureMenuButton.Select();
 
         // Disable pause menu buttons when instructions are up
@@ -185,6 +191,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         resourceInfoButton.Select();
 
     // Disable pause menu buttons when structures are up
@@ -206,6 +213,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         controlBack.Select();
 
         // Disable pause menu buttons when structures are up
@@ -227,6 +235,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         resourceBack.Select();
 
         // Disable pause menu buttons when structures are up
@@ -248,6 +257,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         refractBack.Select();
 
         // Disable pause menu buttons when structures are up
@@ -269,6 +279,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(true);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         reflectBack.Select();
 
         // Disable pause menu buttons when structures are up
@@ -290,6 +301,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(true);
         BlockMenu.SetActive(false);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         redirectBack.Select();
 
         // Disable pause menu buttons when structures are up
@@ -311,6 +323,7 @@ public class pauseMenu : MonoBehaviour
         ReflectMenu.SetActive(false);
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(true);
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         blockBack.Select();
 
         // Disable pause menu buttons when structures are up
@@ -346,11 +359,12 @@ public class pauseMenu : MonoBehaviour
         BlockMenu.SetActive(false);
 
         // Set pause menu buttons to active
-        Pause.interactable = true;
+        //Pause.interactable = true;
         Resume.interactable = true;
         Instructions.interactable = true;
         Options.interactable = true;
         End.interactable = true;
+        SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         Resume.Select();
 
     }

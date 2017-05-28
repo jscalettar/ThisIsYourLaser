@@ -123,6 +123,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
         resDropdown.Select();
     }
 
@@ -140,6 +141,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
         creatureMenuButton.Select();
     }
 
@@ -157,6 +159,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
         resourceInfoButton.Select();
     }
 
@@ -174,6 +177,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
         controlBack.Select();
     }
 
@@ -210,6 +214,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
         refractBack.Select();
     }
 
@@ -228,6 +233,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
         reflectBack.Select();
     }
 
@@ -246,6 +252,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
         blockBack.Select();
     }
 
@@ -264,6 +271,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(true);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
         redirectBack.Select();
     }
 
@@ -281,6 +289,8 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(true);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        MonoBehaviour.print("PLAYED");
         creditsBack.Select();
     }
 
