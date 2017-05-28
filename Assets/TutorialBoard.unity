@@ -10274,6 +10274,14 @@ MonoBehaviour:
   Instructions: {fileID: 690032549}
   Options: {fileID: 775101434}
   End: {fileID: 330473382}
+  creatureMenuButton: {fileID: 0}
+  resourceInfoButton: {fileID: 0}
+  resourceBack: {fileID: 0}
+  reflectBack: {fileID: 0}
+  refractBack: {fileID: 0}
+  blockBack: {fileID: 0}
+  redirectBack: {fileID: 0}
+  controlBack: {fileID: 0}
   Restart: {fileID: 127965205}
   MainMenu: {fileID: 556766224}
   winText: {fileID: 71816105}
@@ -15496,7 +15504,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1461189267}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d5233d01c9074b4ab79f5ed9f8efbc0, type: 3}
   m_Name: 

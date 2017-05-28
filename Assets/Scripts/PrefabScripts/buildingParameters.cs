@@ -15,6 +15,8 @@ public class buildingParameters : MonoBehaviour {
     public Direction direction = Direction.None;
     [HideInInspector]
     public Building buildingType = Building.Empty;
+    [HideInInspector]
+    public bool takingDamage = false;
 
     public float health = 5f;
     public float cost = 2f;

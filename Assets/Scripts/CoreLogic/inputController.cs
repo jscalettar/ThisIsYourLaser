@@ -147,12 +147,14 @@ public class inputController : MonoBehaviour {
 	private int xEnd, yEnd;
 	private int cycleP1, cycleP2;
 	public static bool p1HasPlacedBase = false, p2HasPlacedBase = false;
-	private Queue<XY> moveQueueP1 = new Queue<XY>();
-	private Queue<XY> moveQueueP2 = new Queue<XY>();
+    private Queue<XY> moveQueueP1;
+    private Queue<XY> moveQueueP2;
 
 	public void initCursors()
 	{
-		p1HasPlacedBase = false;
+        moveQueueP1 = new Queue<XY>();
+        moveQueueP2 = new Queue<XY>();
+        p1HasPlacedBase = false;
 		p2HasPlacedBase = false;
 		cycleP1 = 0;
 		cycleP2 = 0;

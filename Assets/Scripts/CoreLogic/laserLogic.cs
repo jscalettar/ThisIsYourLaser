@@ -290,10 +290,15 @@ public class laserLogic : MonoBehaviour
 
     void LateUpdate()
     {
+        // Laser power increase over time
         if (laserLifetime / 60f > intervalInMinutes3) laserPowerMultiplier = 4;
         else if (laserLifetime / 60f > intervalInMinutes2) laserPowerMultiplier = 3;
         else if (laserLifetime / 60f > intervalInMinutes1) laserPowerMultiplier = 2;
-       if (gridManager.theGrid.updateLaser()) simulateLasers(); // Update laser if needed
+
+        // Reset flag handling idle/damage anim switching
+        damageAnimScript.damageAnimResetBool();
+
+        if (gridManager.theGrid.updateLaser()) simulateLasers(); // Update laser if needed
 
         // Generate Resources, apply damage
         foreach (laserHit hit in laserHits) {
@@ -311,6 +316,10 @@ public class laserLogic : MonoBehaviour
                 gridManager.theGrid.applyDamage(hit.X, hit.Y, hit.laserStrength * laserPowerMultiplier * Time.deltaTime);
             }
         }
+
+        // Handle damage anims (switch to idle if not taking damage and vice versa)
+        damageAnimScript.damageAnimSolver();
+
         // Generate Resources passively
         if (gridManager.theGrid.baseHealthP1() > 0f && gridManager.theGrid.baseHealthP2() > 0f) gridManager.theGrid.addResources(Time.deltaTime * resourceRate/2, Time.deltaTime * resourceRate/2);
         
@@ -638,7 +647,6 @@ public class laserLogic : MonoBehaviour
     private void addLaserToQueue(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, int reflections, bool isNew, bool reflected = false)
     {
         if (subIndx == 0 && lasers[indx][0].onRedirect()) isNew = true;
-        if (reflected)
         if (reflected) {
             if (indx < laserLimit) {
                 if (laserReflectPoints[indx] == null) laserReflectPoints[indx] = new List<laserNode>();
@@ -709,14 +717,16 @@ public class laserLogic : MonoBehaviour
         List<dirHeadPlayer> directionalHits;
         if (refractHits.TryGetValue(new XY(x, y), out directionalHits))
             foreach (dirHeadPlayer hit in directionalHits) {
-                laserHits.Add(new laserHit(x, y, true, strength, Building.Refracting, gridManager.theGrid.getOwner(x, y))); return;
+                laserHits.Add(new laserHit(x, y, true, strength, Building.Refracting, gridManager.theGrid.getOwner(x, y)));
+                // Damage particles
+                if (!particleHits.ContainsKey(new XY(x, y))) particleHits.Add(new XY(x, y), new List<dirHeadPlayer>());
+                particleHits[new XY(x, y)].Add(new dirHeadPlayer(direction, heading, player));
+                return;
             }
         else directionalHits = new List<dirHeadPlayer>();
         directionalHits.Add(new dirHeadPlayer(getExit(direction, heading), heading, player));
         if (refractHits.ContainsKey(new XY(x, y))) refractHits[new XY(x, y)] = directionalHits;
         else refractHits.Add(new XY(x, y), directionalHits);
-
-        // Need to add particles somewhere
 
         addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, reflections, false);
 
@@ -758,6 +768,7 @@ public class laserLogic : MonoBehaviour
         laserMaterialP1.SetTextureOffset("_MainTex", offset);
         laserMaterialP2.SetTextureOffset("_MainTex", offset);
     }
+
     // DEBUG LASER    
     /*void OnDrawGizmos()
     {
