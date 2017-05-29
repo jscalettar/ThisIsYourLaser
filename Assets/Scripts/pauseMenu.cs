@@ -96,7 +96,7 @@ public class pauseMenu : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetButtonDown("xboxStart1") || Input.GetButtonDown("xboxStart2"))) {
+        if ((Input.GetButtonDown("xboxStart1") || Input.GetButtonDown("xboxStart2") || Input.GetKeyDown(KeyCode.Escape))) {
             if (PauseMenu.activeInHierarchy) {
                 resumeGame();
             } else {
