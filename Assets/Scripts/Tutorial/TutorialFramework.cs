@@ -106,7 +106,18 @@ public class TutorialFramework : MonoBehaviour {
 
     public void movedEvent(XY pos, Building building)
     {
-
+        if (activeTutorial.specificInteraction.Count > 0) {
+            for (int i = 0; i < activeTutorial.specificInteraction.Count; i++) {
+                if (activeTutorial.specificInteraction[i] != null && (activeTutorial.specificInteraction[i].building == building || activeTutorial.specificInteraction[i].building == Building.Any) && activeTutorial.specificInteraction[i] != null && activeTutorial.specificInteraction[i].type == tutorialTrigger.moved && (activeTutorial.specificInteraction[i].pos == pos || activeTutorial.specificInteraction[i].pos == new XY(-1, -1))) {
+                    if (activeTutorial.specificInteraction[i].endTrigger) endFlag = true;
+                    displayPopup(activeTutorial.specificInteraction[i].popup);
+                    activeTutorial.specificInteraction.RemoveAt(i);
+                    return;
+                }
+            }
+        } else if (activeTutorial.firstMoved != null) {
+            displayPopup(activeTutorial.firstMoved); activeTutorial.firstMoved = null;
+        }
     }
 
     public void movingEvent(XY pos, Building building)
@@ -121,7 +132,18 @@ public class TutorialFramework : MonoBehaviour {
 
     public void removedEvent(XY pos, Building building)
     {
-
+        if (activeTutorial.specificInteraction.Count > 0) {
+            for (int i = 0; i < activeTutorial.specificInteraction.Count; i++) {
+                if (activeTutorial.specificInteraction[i] != null && (activeTutorial.specificInteraction[i].building == building || activeTutorial.specificInteraction[i].building == Building.Any) && activeTutorial.specificInteraction[i] != null && activeTutorial.specificInteraction[i].type == tutorialTrigger.removed && (activeTutorial.specificInteraction[i].pos == pos || activeTutorial.specificInteraction[i].pos == new XY(-1, -1))) {
+                    if (activeTutorial.specificInteraction[i].endTrigger) endFlag = true;
+                    displayPopup(activeTutorial.specificInteraction[i].popup);
+                    activeTutorial.specificInteraction.RemoveAt(i);
+                    return;
+                }
+            }
+        } else if (activeTutorial.firstRemoved != null) {
+            displayPopup(activeTutorial.firstRemoved); activeTutorial.firstRemoved = null;
+        }
     }
 
     public void removingEvent(XY pos, Building building)
@@ -169,8 +191,9 @@ public class TutorialFramework : MonoBehaviour {
         Board.GetComponent<gridManager>().initGrid();
         spawnInitialCreatures();
         gridManager.theGrid.queueUpdate();
-        if (Highlight != null) { Destroy(Highlight); }
+        if (Highlight != null) { DestroyImmediate(Highlight); }
         createHighlightSquare();
+        //Invoke("createHighlightSquare", 0.1f);
         Limicator.limicatorObj.reset();
     }
 
@@ -200,8 +223,8 @@ public class TutorialFramework : MonoBehaviour {
         inputController.p2HasPlacedBase = true;
         switch (activeTutorial.initialState) {
             case startState.placeBase: inputController.cursorP1.state = State.placeBase; break;
-            case startState.placeLaser: inputController.cursorP1.state = State.placeLaser; inputController.p1HasPlacedBase = true; break;
-            case startState.idle: inputController.cursorP1.state = State.idle; inputController.p1HasPlacedBase = true; break;
+            case startState.placeLaser: inputController.cursorP1.state = State.placeLaser; inputController.p1HasPlacedBase = true; inputController.p2HasPlacedBase = true; break;
+            case startState.idle: inputController.cursorP1.state = State.idle; inputController.p1HasPlacedBase = true; inputController.p2HasPlacedBase = true; break;
         }
         if ((inputController.cursorP1.state == State.placeBase || inputController.cursorP1.state == State.placeLaser) && (activeTutorial.initialSelection == Building.Base || activeTutorial.initialSelection == Building.Laser)) return;
         inputController.cursorP1.selection = activeTutorial.initialSelection;
@@ -223,7 +246,7 @@ public class TutorialFramework : MonoBehaviour {
         Highlight.transform.eulerAngles = new Vector3(90f, 0f, 0f);
         Vector3 v1 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(0, 0));
         Vector3 v2 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(1, 0));
-        Sprite sprite = Sprite.Create(activeTutorial.highlightTexture, new Rect(0.0f, 0.0f, 256, 256), new Vector2(0.5f, 0.5f), 2.11f * (v2- v1).magnitude);
+        Sprite sprite = Sprite.Create(activeTutorial.highlightTexture, new Rect(0.0f, 0.0f, 256, 256), new Vector2(0.5f, 0.5f), 210f);
         Highlight.GetComponent<SpriteRenderer>().sprite = sprite;
         Highlight.GetComponent<SpriteRenderer>().enabled = true;
         Highlight.GetComponent<SpriteRenderer>().sortingOrder = -1;

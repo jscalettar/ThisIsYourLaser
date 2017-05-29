@@ -131,9 +131,11 @@ public class Limicator : MonoBehaviour
                 for(int i = stones.GetLength(1)-1; i >=0; i--) if(stones[s,i].Value == animal) order = i;
                 for (int i = order; i < stones.GetLength(1); i++)
                 {
-                    GameObject go = stones[s,i].Key;
-                    if (i == stones.GetLength(1) - 1) stones[s, i] = new KeyValuePair<GameObject, int>(go, 0);
-                    else stones[s, i] = new KeyValuePair<GameObject, int>(go, stones[s, i+1].Value);
+                    if (i >= 0 && s >= 0 && stones.GetLength(0) > s && stones.GetLength(1) > i) { // added error check, might cause issues ?
+                        GameObject go = stones[s, i].Key;
+                        if (i == stones.GetLength(1) - 1) stones[s, i] = new KeyValuePair<GameObject, int>(go, 0);
+                        else stones[s, i] = new KeyValuePair<GameObject, int>(go, stones[s, i + 1].Value);
+                    }
                 }
                 drawStones();
             }

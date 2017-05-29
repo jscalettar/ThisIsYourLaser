@@ -640,8 +640,8 @@ public class inputController : MonoBehaviour {
 
 	private void place(Player player, State currentState)
 	{
-		// Instant placement for refracting and blocking blocks (bypass rotation state)
-		if (currentState == State.placeBase) {
+        // Instant placement for refracting and blocking blocks (bypass rotation state)
+        if (currentState == State.placeBase) {
 			if (player == Player.PlayerOne) {
 				if (cursorP1.x > 0) print("Base must be placed on the edge of the board");
 				else if (cursorP1.y == 0 || cursorP1.y == yEnd) print("Base cannot be placed in corners");
@@ -650,7 +650,9 @@ public class inputController : MonoBehaviour {
 					cursorP1.state = State.placeLaser; p1HasPlacedBase = true;
                     gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Base, Player.PlayerOne);
 
-					if(TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placedEvent(new XY(cursorP1.x, cursorP1.y), Building.Base);
+                    if (TutorialFramework.tutorialActive) {
+                        gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placedEvent(new XY(cursorP1.x, cursorP1.y), Building.Base);
+                    }
 				}
 			} else {
 				if (cursorP2.x < xEnd) print("Base must be placed on the edge of the board");
@@ -678,7 +680,7 @@ public class inputController : MonoBehaviour {
 			}
 
 		} else if (currentState == State.placingLaser) {
-			if (player == Player.PlayerOne) {
+            if (player == Player.PlayerOne) {
 				if (cursorP1.direction == Direction.Up && cursorP1.y != yEnd && cursorP1.y != yEnd - 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Up)) { laserLogic.laserHeadingP1 = Direction.NE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
 				else if (cursorP1.direction == Direction.Down && cursorP1.y != 0 && cursorP1.y != 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }
 				else if (cursorP1.y != 0 && cursorP1.y != 1) { if (gridManager.theGrid.placeBuilding(0, cursorP1.y, Building.Laser, Player.PlayerOne, Direction.Down)) { laserLogic.laserHeadingP1 = Direction.SE; cursorP1.state = State.idle; } else { cursorP1.state = State.placeLaser; } }

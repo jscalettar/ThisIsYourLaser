@@ -211,7 +211,7 @@ public class SoundManager : MonoBehaviour {
 		FadeAll(-1f);
 	}
 	public static void StopMusic(){
-        MonoBehaviour.print("STOP");
+        MonoBehaviour.print("MUSIC STOP");
 		StopAllMusic(-1f);
 	}
 	public static void StopAllMusic(float fadeOutSeconds){

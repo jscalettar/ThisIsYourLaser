@@ -489,14 +489,24 @@ public struct Grid
 				return false;
             // Place Building Prefab
             GameObject building = MonoBehaviour.Instantiate(buildingPrefabs [(int)newBuilding + (playerID == Player.PlayerOne ? 0 : 8)]);
-			if (instant) placementList.Add (new buildingRequest(new XY (x, y), 0f, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
-			else placementList.Add (new buildingRequest(new XY (x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
-			building.GetComponent<buildingParameters>().x = x;
+            if (instant) {
+                // Tutorial base HP override
+                float hp = building.GetComponent<buildingParameters>().health;
+                if (TutorialFramework.tutorialActive && newBuilding == Building.Base && playerID == Player.PlayerTwo) {
+                    hp = 3f;
+                    grid[y, x].health = 3f;
+                }
+                placementList.Add(new buildingRequest(new XY(x, y), 0f, newBuilding, playerID, facing, hp)); // ADD BUILDING TO DELAYED BUILD LIST with a time of 0 (instant placement)
+            } else placementList.Add(new buildingRequest(new XY(x, y), building.GetComponent<buildingParameters>().placementTime, newBuilding, playerID, facing, building.GetComponent<buildingParameters>().health)); // ADD BUILDING TO DELAYED BUILD LIST
+
+            building.GetComponent<buildingParameters>().x = x;
 			building.GetComponent<buildingParameters>().y = y;
 			building.GetComponent<buildingParameters>().owner = playerID;
 			building.GetComponent<buildingParameters>().direction = facing;
 			building.GetComponent<buildingParameters>().buildingType = newBuilding;
+            if (TutorialFramework.tutorialActive && newBuilding == Building.Base && playerID == Player.PlayerTwo) building.GetComponent<buildingParameters>().health = 3f;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
+
             if (newBuilding != Building.Laser && newBuilding != Building.Base) {
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];

@@ -151,7 +151,7 @@ public struct damageResourceGrid
                 textMesh.color = buildingOwner == Player.PlayerOne ? p1ResourceColor : p2ResourceColor;
                 textMesh.fontStyle = FontStyle.Bold;
                 textMesh.font = font;
-				Debug.Log (laserLogic.laserPowerMultiplier);
+				//Debug.Log (laserLogic.laserPowerMultiplier);
 				textMesh.text = (laserLogic.resourceRate*laserLogic.laserPowerMultiplier).ToString("F1");
 
 

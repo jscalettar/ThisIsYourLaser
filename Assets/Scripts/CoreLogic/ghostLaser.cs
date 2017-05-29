@@ -351,7 +351,7 @@ public class ghostLaser : MonoBehaviour {
         refractHits.Clear();
 
         // Check p1 cursor if ghost laser simulation is necessary
-        if (validCursorBuilding(Player.PlayerOne) && inputController.validPlacement(inputController.cursorP1.x, inputController.cursorP1.y, inputController.cursorP1.direction, getCursorBuilding(Player.PlayerOne)))
+        if (validCursorBuilding(Player.PlayerOne) && inputController.validPlacement(inputController.cursorP1.x, inputController.cursorP1.y, inputController.cursorP1.direction, getCursorBuilding(Player.PlayerOne)) && laserLogic.laserData.grid.GetLength(0) > 0)
             for (int i = 0; i < laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x].Count; i++) {
                 if (laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getSubIndex() > 0) {
                     if (getCursorBuilding(Player.PlayerOne) == Building.Redirecting)
