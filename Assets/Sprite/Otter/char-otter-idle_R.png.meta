@@ -1,0 +1,412 @@
+fileFormatVersion: 2
+guid: af2ada3fc7821564395a6f045f3c8efa
+timeCreated: 1496117853
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: char-otter-idle_R_0
+    21300002: char-otter-idle_R_1
+    21300004: char-otter-idle_R_3
+    21300006: char-otter-idle_R_6
+    21300008: char-otter-idle_R_7
+    21300010: char-otter-idle_R_8
+    21300012: char-otter-idle_R_9
+    21300014: char-otter-idle_R_14
+    21300016: char-otter-idle_R_16
+    21300018: char-otter-idle_R_17
+    21300020: char-otter-idle_R_19
+    21300022: char-otter-idle_R_22
+    21300024: char-otter-idle_R_24
+    21300026: char-otter-idle_R_25
+    21300028: char-otter-idle_R_26
+    21300030: char-otter-idle_R_30
+    21300032: char-otter-idle_R_31
+    21300034: char-otter-idle_R_32
+    21300036: char-otter-idle_R_34
+    21300038: char-otter-idle_R_38
+    21300040: char-otter-idle_R_39
+    21300042: char-otter-idle_R_40
+    21300044: char-otter-idle_R_44
+    21300046: char-otter-idle_R_45
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: char-otter-idle_R_0
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 3640
+        width: 377
+        height: 417
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_1
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 3648
+        width: 376
+        height: 415
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_3
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 3631
+        width: 376
+        height: 418
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_6
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 3172
+        width: 374
+        height: 415
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_7
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 3143
+        width: 375
+        height: 418
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_8
+      rect:
+        serializedVersion: 2
+        x: 1079
+        y: 3139
+        width: 378
+        height: 414
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_9
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 3189
+        width: 378
+        height: 410
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_14
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 2714
+        width: 374
+        height: 409
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_16
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 2689
+        width: 374
+        height: 410
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_17
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 2694
+        width: 377
+        height: 405
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_19
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 2719
+        width: 377
+        height: 409
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 2255
+        width: 376
+        height: 410
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_24
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 2220
+        width: 379
+        height: 405
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_25
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 2227
+        width: 377
+        height: 405
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_26
+      rect:
+        serializedVersion: 2
+        x: 1561
+        y: 2250
+        width: 375
+        height: 406
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_30
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 1763
+        width: 374
+        height: 410
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_31
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 1754
+        width: 374
+        height: 411
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_32
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 1773
+        width: 374
+        height: 412
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_34
+      rect:
+        serializedVersion: 2
+        x: 1581
+        y: 1753
+        width: 374
+        height: 416
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_38
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 1299
+        width: 377
+        height: 418
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_39
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 1286
+        width: 374
+        height: 418
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_40
+      rect:
+        serializedVersion: 2
+        x: 1143
+        y: 1312
+        width: 378
+        height: 417
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_44
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 837
+        width: 374
+        height: 419
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-otter-idle_R_45
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 848
+        width: 377
+        height: 417
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
