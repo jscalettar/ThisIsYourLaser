@@ -378,6 +378,7 @@ public class pauseMenu : MonoBehaviour
         if (player == Player.PlayerOne) { winText.text = "Player 1 Wins!"; }
         else if (player == Player.PlayerTwo) { winText.text = "Player 2 Wins!"; }
         Win.SetActive(true);
+		Restart.Select ();
     }
 
     // Function for the "Play Again" button
