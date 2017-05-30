@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114588008945558078}
   - component: {fileID: 198554366963526966}
   - component: {fileID: 199082308912515012}
+  - component: {fileID: 95096322413615268}
   m_Layer: 0
   m_Name: Reflect 1
   m_TagString: Untagged
@@ -42,6 +43,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &95096322413615268
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813565523808972}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc1c80ff3c8a72849bbbb2662f098383, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114588008945558078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -59,6 +77,7 @@ MonoBehaviour:
   currentHP: 0
   direction: 0
   buildingType: 8
+  takingDamage: 0
   health: 10
   cost: 6
   sprites:

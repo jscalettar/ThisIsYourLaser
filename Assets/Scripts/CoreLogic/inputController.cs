@@ -254,7 +254,7 @@ public class inputController : MonoBehaviour {
                     }
                     else if (Input.GetButtonDown("cycleL_2")) {
                         if (cursorP2.selection == Building.Blocking) {
-                            cursorP2.selection = Building.Redirecting;
+                            cursorP2.selection = Building.Resource;
                         }
                         else {
                             cursorP2.selection -= 1;

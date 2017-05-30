@@ -35,7 +35,7 @@ public class refocusController : MonoBehaviour {
             EventSystem.current.SetSelectedGameObject(null);
         }
         if (Input.GetJoystickNames().Length > 0) {
-            print(Input.GetJoystickNames());
+            //print(Input.GetJoystickNames());
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
