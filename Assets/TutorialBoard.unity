@@ -6818,7 +6818,7 @@ MonoBehaviour:
     x: 0
     y: 0
   highlightTexture: {fileID: 0}
-  initialSelection: 2
+  initialSelection: 0
   spawnList: []
   initialPopup: {fileID: 2800000, guid: f9f656078c200514f8d3e7696080dc34, type: 3}
   initialPopup2: {fileID: 0}
@@ -19101,7 +19101,7 @@ MonoBehaviour:
     x: 0
     y: 2
   highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
-  initialSelection: 2
+  initialSelection: 1
   spawnList:
   - x: 0
     y: 5

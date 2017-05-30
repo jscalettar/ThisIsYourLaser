@@ -79,7 +79,6 @@ public class laserLogic : MonoBehaviour
         }
 
         // Get
-
         public int getX() { return X; }
         public int getY() { return Y; }
         public int getIndex() { return laserIndex; }
@@ -491,8 +490,8 @@ public class laserLogic : MonoBehaviour
         particleHits.Clear();
 
         // Simulate each player's laser
-        if (p1LaserFound) laserQueue.Add(new laserNode(0, laserStartP1, laserIntensity, laserHeadingP1, Direction.Right, Player.PlayerOne, ++laserIndex, 0));
-        if (p2LaserFound) laserQueue.Add(new laserNode(gridManager.theGrid.getDimX() - 1, laserStartP2, laserIntensity, laserHeadingP2, Direction.Left, Player.PlayerTwo, ++laserIndex, 0));
+        if (p1LaserFound) laserQueue.Add(new laserNode(0, laserStartP1 + (laserHeadingP1 == Direction.NE ? 1 : (-1)), laserIntensity, laserHeadingP1, laserHeadingP1 == Direction.NE ? Direction.Up : Direction.Down, Player.PlayerOne, ++laserIndex, 0));
+        if (p2LaserFound) laserQueue.Add(new laserNode(gridManager.theGrid.getDimX() - 1, laserStartP2 + (laserHeadingP2 == Direction.NW ? 1 : (-1)), laserIntensity, laserHeadingP2, laserHeadingP2 == Direction.NW ? Direction.Up : Direction.Down, Player.PlayerTwo, ++laserIndex, 0));
 
         // Loop through the simulation
         while (laserQueue.Count > 0) {
@@ -780,7 +779,8 @@ public class laserLogic : MonoBehaviour
                 for (int j = 0; j < lasers[i].Count; j++) {
                     Gizmos.color = lasers[i][j].getOwner() == Player.PlayerOne ? new Color(1f, 0, 0, lasers[i][j].getStrength()) : new Color(0f, 1f, 0f, lasers[i][j].getStrength());
                     Gizmos.DrawSphere(new Vector3((-dimX / 2) + lasers[i][j].getX() + 0.5f, 0.5f * 0.5f, (-dimY / 2) + lasers[i][j].getY() + 0.5f), 0.25f);
-                    UnityEditor.Handles.Label(new Vector3((-dimX / 2) + lasers[i][j].getX() + 0.40f, 0.5f * 0.5f, (-dimY / 2) + lasers[i][j].getY() + 0.25f), lasers[i][j].getStrength().ToString("F2"));
+                    //UnityEditor.Handles.Label(new Vector3((-dimX / 2) + lasers[i][j].getX() + 0.40f, 0.5f * 0.5f, (-dimY / 2) + lasers[i][j].getY() + 0.25f), lasers[i][j].getStrength().ToString("F2"));
+                    UnityEditor.Handles.Label(new Vector3((-dimX / 2) + lasers[i][j].getX() + 0.40f, 0.5f * 0.5f, (-dimY / 2) + lasers[i][j].getY() + 0.25f), lasers[i][j].getMarchDir().ToString());
                 }
             }
         }

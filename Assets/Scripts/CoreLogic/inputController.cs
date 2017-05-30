@@ -447,12 +447,18 @@ public class inputController : MonoBehaviour {
                 // Update Cursor/UI Appearance P1
                 if (cursorP1.state == State.placeBase) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1BaseSprite; cursorSpriteP1.transform.localScale = new Vector3(1f, 1f, 1f); }
                 else if (cursorP1.state == State.placeLaser) {
-					cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][0];
                     cursorSpriteP1.transform.localScale = new Vector3(1f, 1f, 1f);
+                    if (cursorP1.y < 2) cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][1];
+                    else cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][0];
                 } else if (cursorP1.state == State.placingLaser) {
-					switch (cursorP1.direction) {
-					    case Direction.Up: if (cursorP1.y != yEnd && cursorP1.y != yEnd - 1) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][1]; } break;
-					    case Direction.Down: if (cursorP1.y != 0 && cursorP1.y != 1) { cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][0]; } break;
+
+                    // If shark 2 from edge, force proper direction
+                    if (cursorP1.y > yEnd - 2) cursorP1.direction = Direction.Down;
+                    else if (cursorP1.y < 2) cursorP1.direction = Direction.Up;
+
+                    switch (cursorP1.direction) {
+					    case Direction.Up: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][1]; break;
+					    case Direction.Down: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[5][0]; break;
 					    default: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorP1.y <= 1 ? cursorObjP1.GetComponent<cursor>().Sprites[5][1] : cursorObjP1.GetComponent<cursor>().Sprites[5][0]; break;
 					}
 				} else if (cursorP1.state == State.placing || cursorP1.state == State.idle) // in here change the sprite while choosing direction
@@ -505,12 +511,20 @@ public class inputController : MonoBehaviour {
 				}
 
 				// Update Cursor/UI Appearance P2
-				if (cursorP2.state == State.placeBase) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; } else if (cursorP2.state == State.placeLaser) {
-					cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2LaserSprite;
-				} else if (cursorP2.state == State.placingLaser) {
-					switch (cursorP2.direction) {
-					    case Direction.Up: if (cursorP2.y != yEnd && cursorP2.y != yEnd -1) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[5][1]; } break;
-					    case Direction.Down: if (cursorP2.y != 0 && cursorP2.y != 1) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[5][0]; } break;
+				if (cursorP2.state == State.placeBase) { cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2BaseSprite; }
+                else if (cursorP2.state == State.placeLaser) {
+                    cursorSpriteP2.transform.localScale = new Vector3(1f, 1f, 1f);
+                    if (cursorP2.y < 2) cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[5][1];
+                    else cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[5][0];
+                } else if (cursorP2.state == State.placingLaser) {
+
+                    // If shark 2 from edge, force proper direction
+                    if (cursorP2.y > yEnd - 2) cursorP2.direction = Direction.Down;
+                    else if (cursorP2.y < 2) cursorP2.direction = Direction.Up;
+
+                    switch (cursorP2.direction) {
+					    case Direction.Up: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[5][1]; break;
+					    case Direction.Down: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[5][0]; break;
 					    default: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorP2.y <= 1 ? cursorObjP2.GetComponent<cursor>().Sprites[5][1] : cursorObjP2.GetComponent<cursor>().Sprites[5][0]; break;
 					}
 

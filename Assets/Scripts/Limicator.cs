@@ -53,6 +53,7 @@ public class Limicator : MonoBehaviour
 
         public LimicatorObject(GameObject limiter, Sprite[] sprits1, Sprite[] sprits2, float scal)
         {
+            stones = new KeyValuePair<GameObject, int>[2, 10];
             limicator = limiter;
             sprites1 = sprits1;
             sprites2 = sprits2;

@@ -507,6 +507,7 @@ public struct Grid
             if (TutorialFramework.tutorialActive && newBuilding == Building.Base && playerID == Player.PlayerTwo) building.GetComponent<buildingParameters>().health = 3f;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
 
+            // Building position offsets etc --------------------------------------------------------------------------
             if (newBuilding != Building.Laser && newBuilding != Building.Base) {
                 building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
@@ -533,6 +534,8 @@ public struct Grid
             {
                 building.transform.localPosition = coordsToWorld(x, y - 0.135f);
             }
+            // --------------------------------------------------------------------------------------------------------
+
             if (newBuilding == Building.Base && playerID == Player.PlayerOne)
             {
                 GameObject ripple = null;
