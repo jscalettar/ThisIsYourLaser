@@ -13028,6 +13028,7 @@ MonoBehaviour:
   eventSystem: {fileID: 833023827}
   eventSystem2: {fileID: 1258235880}
   eventSystem3: {fileID: 709083207}
+  tempEventSystem: {fileID: 0}
 --- !u!114 &1258235882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20554,6 +20555,7 @@ GameObject:
   - component: {fileID: 2061673245}
   - component: {fileID: 2061673244}
   - component: {fileID: 2061673248}
+  - component: {fileID: 2061673249}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -20699,6 +20701,17 @@ MonoBehaviour:
   masterVol: 0
   musicVol: 0
   sfxVol: 0
+--- !u!225 &2061673249
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2061673243}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &2068106238
 GameObject:
   m_ObjectHideFlags: 0
