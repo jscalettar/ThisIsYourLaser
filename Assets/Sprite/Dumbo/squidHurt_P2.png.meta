@@ -1,0 +1,328 @@
+fileFormatVersion: 2
+guid: 06706aa579288b44dbe6a7ff44942def
+timeCreated: 1496112477
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: squidHurt_P2_0
+    21300002: squidHurt_P2_1
+    21300004: squidHurt_P2_2
+    21300006: squidHurt_P2_3
+    21300008: squidHurt_P2_4
+    21300010: squidHurt_P2_5
+    21300012: squidHurt_P2_6
+    21300014: squidHurt_P2_7
+    21300016: squidHurt_P2_8
+    21300018: squidHurt_P2_9
+    21300020: squidHurt_P2_10
+    21300022: squidHurt_P2_11
+    21300024: squidHurt_P2_12
+    21300026: squidHurt_P2_13
+    21300028: squidHurt_P2_14
+    21300030: squidHurt_P2_15
+    21300032: squidHurt_P2_16
+    21300034: squidHurt_P2_17
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: squidHurt_P2_0
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 1440
+        width: 506
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_1
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 1440
+        width: 523
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_2
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 1451
+        width: 538
+        height: 468
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_3
+      rect:
+        serializedVersion: 2
+        x: 2040
+        y: 1456
+        width: 528
+        height: 456
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_4
+      rect:
+        serializedVersion: 2
+        x: 2665
+        y: 1456
+        width: 511
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_5
+      rect:
+        serializedVersion: 2
+        x: 3304
+        y: 1456
+        width: 513
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_6
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 839
+        width: 506
+        height: 508
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_7
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 848
+        width: 522
+        height: 491
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_8
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 848
+        width: 538
+        height: 472
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_9
+      rect:
+        serializedVersion: 2
+        x: 2041
+        y: 855
+        width: 524
+        height: 452
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_10
+      rect:
+        serializedVersion: 2
+        x: 2664
+        y: 855
+        width: 511
+        height: 434
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_11
+      rect:
+        serializedVersion: 2
+        x: 3325
+        y: 867
+        width: 524
+        height: 440
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_12
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 237
+        width: 506
+        height: 508
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_13
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 245
+        width: 524
+        height: 491
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_14
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 253
+        width: 538
+        height: 461
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_15
+      rect:
+        serializedVersion: 2
+        x: 2041
+        y: 253
+        width: 527
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_16
+      rect:
+        serializedVersion: 2
+        x: 2683
+        y: 253
+        width: 524
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squidHurt_P2_17
+      rect:
+        serializedVersion: 2
+        x: 3325
+        y: 263
+        width: 524
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
