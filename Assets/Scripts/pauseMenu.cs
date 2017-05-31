@@ -375,8 +375,8 @@ public class pauseMenu : MonoBehaviour
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
         // Take the in winner value and display correct winner text
-        if (player == Player.PlayerOne) { winText.text = "Player 1 Wins!"; }
-        else if (player == Player.PlayerTwo) { winText.text = "Player 2 Wins!"; }
+		if (player == Player.PlayerOne) { winText.text = "Player 1 Wins!"; winText.color = Color.red; }
+		else if (player == Player.PlayerTwo) { winText.text = "Player 2 Wins!"; winText.color = Color.green; }
         Win.SetActive(true);
 		Restart.Select ();
     }
