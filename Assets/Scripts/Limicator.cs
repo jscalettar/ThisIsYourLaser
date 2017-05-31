@@ -120,6 +120,7 @@ public class Limicator : MonoBehaviour
                     GameObject stone = stones[s, p2StonesPlaced].Key;
                     stone.transform.localScale = new Vector3(scale / 5, scale / 5, scale / 5);
                     stone.GetComponent<SpriteRenderer>().sprite = sprites2[animal];
+                    stone.GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, 1f);
                     stones[s, p2StonesPlaced] = new KeyValuePair<GameObject, int>(stone, code);
                     p2StonesPlaced = Mathf.Min(10, p2StonesPlaced + 1);
                 }
