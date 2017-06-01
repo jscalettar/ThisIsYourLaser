@@ -566,6 +566,7 @@ GameObject:
   - component: {fileID: 54327316}
   - component: {fileID: 54327315}
   - component: {fileID: 54327314}
+  - component: {fileID: 54327317}
   m_Layer: 5
   m_Name: Structure Menu
   m_TagString: Untagged
@@ -657,6 +658,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!225 &54327317
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 54327312}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &78706777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,6 +2086,7 @@ GameObject:
   - component: {fileID: 165587673}
   - component: {fileID: 165587672}
   - component: {fileID: 165587671}
+  - component: {fileID: 165587675}
   m_Layer: 5
   m_Name: OtterPage
   m_TagString: Untagged
@@ -2158,6 +2171,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &165587675
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 165587670}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &167511454
 GameObject:
   m_ObjectHideFlags: 0
@@ -6691,6 +6715,7 @@ GameObject:
   - component: {fileID: 621576111}
   - component: {fileID: 621576110}
   - component: {fileID: 621576109}
+  - component: {fileID: 621576113}
   m_Layer: 5
   m_Name: RefractPage
   m_TagString: Untagged
@@ -6775,6 +6800,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &621576113
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 621576108}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &622093079
 GameObject:
   m_ObjectHideFlags: 0
@@ -7547,6 +7583,7 @@ GameObject:
   - component: {fileID: 668018235}
   - component: {fileID: 668018234}
   - component: {fileID: 668018233}
+  - component: {fileID: 668018237}
   m_Layer: 5
   m_Name: TurtlePage
   m_TagString: Untagged
@@ -7631,6 +7668,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &668018237
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 668018232}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &671064471
 GameObject:
   m_ObjectHideFlags: 0
@@ -8269,6 +8317,7 @@ GameObject:
   - component: {fileID: 763569389}
   - component: {fileID: 763569388}
   - component: {fileID: 763569387}
+  - component: {fileID: 763569391}
   m_Layer: 5
   m_Name: BlockPage
   m_TagString: Untagged
@@ -8353,6 +8402,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &763569391
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763569386}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &764014458
 GameObject:
   m_ObjectHideFlags: 0
@@ -9360,6 +9420,7 @@ GameObject:
   - component: {fileID: 883830437}
   - component: {fileID: 883830439}
   - component: {fileID: 883830438}
+  - component: {fileID: 883830440}
   m_Layer: 5
   m_Name: OptionsMenu
   m_TagString: Untagged
@@ -9448,6 +9509,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!225 &883830440
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883830435}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &884051133
 GameObject:
   m_ObjectHideFlags: 0
@@ -9459,6 +9531,7 @@ GameObject:
   - component: {fileID: 884051137}
   - component: {fileID: 884051136}
   - component: {fileID: 884051135}
+  - component: {fileID: 884051138}
   m_Layer: 5
   m_Name: Controls Menu
   m_TagString: Untagged
@@ -9545,6 +9618,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!225 &884051138
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 884051133}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &889375120
 GameObject:
   m_ObjectHideFlags: 0
@@ -11514,6 +11598,7 @@ GameObject:
   - component: {fileID: 1151074146}
   - component: {fileID: 1151074145}
   - component: {fileID: 1151074144}
+  - component: {fileID: 1151074147}
   m_Layer: 5
   m_Name: Pause Menu
   m_TagString: Untagged
@@ -11601,6 +11686,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!225 &1151074147
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1151074142}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1152297010
 GameObject:
   m_ObjectHideFlags: 0
@@ -17726,6 +17822,7 @@ GameObject:
   - component: {fileID: 1835515280}
   - component: {fileID: 1835515279}
   - component: {fileID: 1835515278}
+  - component: {fileID: 1835515281}
   m_Layer: 5
   m_Name: InstructMenu
   m_TagString: Untagged
@@ -17815,6 +17912,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!225 &1835515281
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1835515276}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1866769081
 GameObject:
   m_ObjectHideFlags: 0
@@ -18576,6 +18684,7 @@ GameObject:
   - component: {fileID: 1979795365}
   - component: {fileID: 1979795364}
   - component: {fileID: 1979795363}
+  - component: {fileID: 1979795367}
   m_Layer: 5
   m_Name: ResourcePage
   m_TagString: Untagged
@@ -18660,6 +18769,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1979795367
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979795362}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1983259238
 GameObject:
   m_ObjectHideFlags: 0
@@ -20074,6 +20194,7 @@ GameObject:
   - component: {fileID: 2081024463}
   - component: {fileID: 2081024462}
   - component: {fileID: 2081024461}
+  - component: {fileID: 2081024464}
   m_Layer: 5
   m_Name: Win
   m_TagString: Untagged
@@ -20158,6 +20279,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
+--- !u!225 &2081024464
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2081024459}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &2092218762
 GameObject:
   m_ObjectHideFlags: 0

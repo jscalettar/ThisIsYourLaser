@@ -19,6 +19,8 @@ public class refocusController : MonoBehaviour {
 
 
 	void Start() {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         firstSelectedObject = new GameObject();
         firstSelectedObject = EventSystem.current.currentSelectedGameObject;
         lastSelectedObject = new GameObject();
