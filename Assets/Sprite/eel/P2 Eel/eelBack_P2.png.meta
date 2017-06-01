@@ -1,0 +1,496 @@
+fileFormatVersion: 2
+guid: 60c6f4ac50c1e2e40a735cead5e1250b
+timeCreated: 1496306166
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: eelBack_P2_0
+    21300002: eelBack_P2_1
+    21300004: eelBack_P2_2
+    21300006: eelBack_P2_3
+    21300008: eelBack_P2_4
+    21300010: eelBack_P2_5
+    21300012: eelBack_P2_6
+    21300014: eelBack_P2_7
+    21300016: eelBack_P2_8
+    21300018: eelBack_P2_9
+    21300020: eelBack_P2_10
+    21300022: eelBack_P2_11
+    21300024: eelBack_P2_12
+    21300026: eelBack_P2_13
+    21300028: eelBack_P2_14
+    21300030: eelBack_P2_15
+    21300032: eelBack_P2_16
+    21300034: eelBack_P2_17
+    21300036: eelBack_P2_18
+    21300038: eelBack_P2_19
+    21300040: eelBack_P2_20
+    21300042: eelBack_P2_21
+    21300044: eelBack_P2_22
+    21300046: eelBack_P2_23
+    21300048: eelBack_P2_24
+    21300050: eelBack_P2_25
+    21300052: eelBack_P2_26
+    21300054: eelBack_P2_27
+    21300056: eelBack_P2_28
+    21300058: eelBack_P2_29
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: eelBack_P2_0
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 7274
+        width: 716
+        height: 792
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_1
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 7264
+        width: 716
+        height: 790
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_2
+      rect:
+        serializedVersion: 2
+        x: 1739
+        y: 7260
+        width: 715
+        height: 790
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_3
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 7247
+        width: 710
+        height: 801
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_4
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 6298
+        width: 710
+        height: 792
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_5
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 6288
+        width: 700
+        height: 790
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_6
+      rect:
+        serializedVersion: 2
+        x: 1744
+        y: 6298
+        width: 710
+        height: 792
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_7
+      rect:
+        serializedVersion: 2
+        x: 2559
+        y: 6304
+        width: 711
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_8
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 5360
+        width: 712
+        height: 802
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_9
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 5372
+        width: 719
+        height: 804
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_10
+      rect:
+        serializedVersion: 2
+        x: 1734
+        y: 5374
+        width: 719
+        height: 808
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_11
+      rect:
+        serializedVersion: 2
+        x: 2550
+        y: 5375
+        width: 720
+        height: 815
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_12
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 4432
+        width: 722
+        height: 822
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_13
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 4434
+        width: 723
+        height: 812
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_14
+      rect:
+        serializedVersion: 2
+        x: 1734
+        y: 4432
+        width: 720
+        height: 802
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_15
+      rect:
+        serializedVersion: 2
+        x: 2554
+        y: 4434
+        width: 716
+        height: 791
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_16
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 3472
+        width: 716
+        height: 794
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_17
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 3471
+        width: 716
+        height: 791
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_18
+      rect:
+        serializedVersion: 2
+        x: 1744
+        y: 3466
+        width: 710
+        height: 790
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_19
+      rect:
+        serializedVersion: 2
+        x: 2566
+        y: 3456
+        width: 704
+        height: 790
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_20
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 2506
+        width: 700
+        height: 790
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_21
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 2523
+        width: 716
+        height: 805
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_22
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 2539
+        width: 722
+        height: 811
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_23
+      rect:
+        serializedVersion: 2
+        x: 2550
+        y: 2543
+        width: 718
+        height: 819
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_24
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 1566
+        width: 710
+        height: 788
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_25
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 1586
+        width: 719
+        height: 799
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_26
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 1584
+        width: 723
+        height: 819
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_27
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 622
+        width: 711
+        height: 796
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_28
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 638
+        width: 716
+        height: 808
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelBack_P2_29
+      rect:
+        serializedVersion: 2
+        x: 1734
+        y: 640
+        width: 720
+        height: 806
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

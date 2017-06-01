@@ -515,6 +515,7 @@ public class inputController : MonoBehaviour {
                         cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
                     }
                 } else { cursorSpriteP2.GetComponent<SpriteRenderer>().enabled = false; }
+
                 // Matt's Code --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Update Cursor Indicator---------------------------------

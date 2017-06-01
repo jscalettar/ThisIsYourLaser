@@ -1,39 +1,39 @@
 fileFormatVersion: 2
-guid: b8633e3f6aa70c247b5bfe66d22bd3d3
-timeCreated: 1496293787
+guid: af2f8950b5c012b41a0992ebc8e19d94
+timeCreated: 1496305529
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: eelLeft_0
-    21300002: eelLeft_1
-    21300004: eelLeft_2
-    21300006: eelLeft_3
-    21300008: eelLeft_4
-    21300010: eelLeft_5
-    21300012: eelLeft_6
-    21300014: eelLeft_7
-    21300016: eelLeft_8
-    21300018: eelLeft_9
-    21300020: eelLeft_10
-    21300022: eelLeft_11
-    21300024: eelLeft_12
-    21300026: eelLeft_13
-    21300028: eelLeft_14
-    21300030: eelLeft_15
-    21300032: eelLeft_16
-    21300034: eelLeft_17
-    21300036: eelLeft_18
-    21300038: eelLeft_19
-    21300040: eelLeft_20
-    21300042: eelLeft_21
-    21300044: eelLeft_22
-    21300046: eelLeft_23
-    21300048: eelLeft_24
-    21300050: eelLeft_25
-    21300052: eelLeft_26
-    21300054: eelLeft_27
-    21300056: eelLeft_28
-    21300058: eelLeft_29
+    21300000: eelLeft_P1_0
+    21300002: eelLeft_P1_1
+    21300004: eelLeft_P1_2
+    21300006: eelLeft_P1_3
+    21300008: eelLeft_P1_4
+    21300010: eelLeft_P1_5
+    21300012: eelLeft_P1_6
+    21300014: eelLeft_P1_7
+    21300016: eelLeft_P1_8
+    21300018: eelLeft_P1_9
+    21300020: eelLeft_P1_10
+    21300022: eelLeft_P1_11
+    21300024: eelLeft_P1_12
+    21300026: eelLeft_P1_13
+    21300028: eelLeft_P1_14
+    21300030: eelLeft_P1_15
+    21300032: eelLeft_P1_16
+    21300034: eelLeft_P1_17
+    21300036: eelLeft_P1_18
+    21300038: eelLeft_P1_19
+    21300040: eelLeft_P1_20
+    21300042: eelLeft_P1_21
+    21300044: eelLeft_P1_22
+    21300046: eelLeft_P1_23
+    21300048: eelLeft_P1_24
+    21300050: eelLeft_P1_25
+    21300052: eelLeft_P1_26
+    21300054: eelLeft_P1_27
+    21300056: eelLeft_P1_28
+    21300058: eelLeft_P1_29
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: eelLeft_0
+      name: eelLeft_P1_0
       rect:
         serializedVersion: 2
         x: 138
@@ -113,7 +113,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_1
+      name: eelLeft_P1_1
       rect:
         serializedVersion: 2
         x: 1066
@@ -126,7 +126,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_2
+      name: eelLeft_P1_2
       rect:
         serializedVersion: 2
         x: 1954
@@ -139,7 +139,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_3
+      name: eelLeft_P1_3
       rect:
         serializedVersion: 2
         x: 128
@@ -152,7 +152,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_4
+      name: eelLeft_P1_4
       rect:
         serializedVersion: 2
         x: 1074
@@ -165,7 +165,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_5
+      name: eelLeft_P1_5
       rect:
         serializedVersion: 2
         x: 1950
@@ -178,7 +178,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_6
+      name: eelLeft_P1_6
       rect:
         serializedVersion: 2
         x: 122
@@ -191,7 +191,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_7
+      name: eelLeft_P1_7
       rect:
         serializedVersion: 2
         x: 1086
@@ -204,7 +204,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_8
+      name: eelLeft_P1_8
       rect:
         serializedVersion: 2
         x: 1958
@@ -217,7 +217,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_9
+      name: eelLeft_P1_9
       rect:
         serializedVersion: 2
         x: 110
@@ -230,7 +230,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_10
+      name: eelLeft_P1_10
       rect:
         serializedVersion: 2
         x: 1071
@@ -243,7 +243,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_11
+      name: eelLeft_P1_11
       rect:
         serializedVersion: 2
         x: 1965
@@ -256,7 +256,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_12
+      name: eelLeft_P1_12
       rect:
         serializedVersion: 2
         x: 102
@@ -269,7 +269,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_13
+      name: eelLeft_P1_13
       rect:
         serializedVersion: 2
         x: 1070
@@ -282,7 +282,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_14
+      name: eelLeft_P1_14
       rect:
         serializedVersion: 2
         x: 1974
@@ -295,7 +295,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_15
+      name: eelLeft_P1_15
       rect:
         serializedVersion: 2
         x: 94
@@ -308,7 +308,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_16
+      name: eelLeft_P1_16
       rect:
         serializedVersion: 2
         x: 1066
@@ -321,7 +321,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_17
+      name: eelLeft_P1_17
       rect:
         serializedVersion: 2
         x: 1986
@@ -334,7 +334,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_18
+      name: eelLeft_P1_18
       rect:
         serializedVersion: 2
         x: 106
@@ -347,7 +347,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_19
+      name: eelLeft_P1_19
       rect:
         serializedVersion: 2
         x: 1066
@@ -360,7 +360,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_20
+      name: eelLeft_P1_20
       rect:
         serializedVersion: 2
         x: 1994
@@ -373,7 +373,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_21
+      name: eelLeft_P1_21
       rect:
         serializedVersion: 2
         x: 110
@@ -386,7 +386,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_22
+      name: eelLeft_P1_22
       rect:
         serializedVersion: 2
         x: 1058
@@ -399,7 +399,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_23
+      name: eelLeft_P1_23
       rect:
         serializedVersion: 2
         x: 2000
@@ -412,7 +412,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_24
+      name: eelLeft_P1_24
       rect:
         serializedVersion: 2
         x: 118
@@ -425,7 +425,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_25
+      name: eelLeft_P1_25
       rect:
         serializedVersion: 2
         x: 1050
@@ -438,7 +438,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_26
+      name: eelLeft_P1_26
       rect:
         serializedVersion: 2
         x: 2010
@@ -451,7 +451,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_27
+      name: eelLeft_P1_27
       rect:
         serializedVersion: 2
         x: 134
@@ -464,7 +464,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_28
+      name: eelLeft_P1_28
       rect:
         serializedVersion: 2
         x: 1038
@@ -477,7 +477,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: eelLeft_29
+      name: eelLeft_P1_29
       rect:
         serializedVersion: 2
         x: 2000
