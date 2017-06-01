@@ -48,80 +48,89 @@ public class GUI_Script : MonoBehaviour {
 
 		////////// Player 1 cursor color //////////
 		UI.SpriteP1.color = new Vector4 (1f,1f,1f,0.5f); //default cursor color
-		//Blocking Block selected
-		if (inputController.cursorP1.selection == Building.Blocking) {
+		if (inputController.cursorP1.selection != Building.Laser && inputController.cursorP1.selection != Building.Base) {
 			//Can't afford
-			if (gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
-			}
-		}
-		//Reflecting Block selected
-		if (inputController.cursorP1.selection == Building.Reflecting) {
-			//Can't afford
-			if (gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
-			}
-		}
-		//Refracting Block selected
-		if (inputController.cursorP1.selection == Building.Refracting) {
-			//Can't afford
-			if (gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
-			}
-		}
-		//Redirecting Block selected
-		if (inputController.cursorP1.selection == Building.Redirecting) {
-			//Can't afford
-			if (gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
-			}
-		}
-		//Resource Block selected
-		if (inputController.cursorP1.selection == Building.Resource) {
-			//Can't afford
-			if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1()) {
-				UI.SpriteP1.color = new Vector4 (0.3f,0.3f,0.3f,1f); //cursor quad is grey
+			if (gridManager.theGrid.getCost (inputController.cursorP1.selection, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1 ()) {
+				UI.SpriteP1.color = new Vector4 (0.3f, 0.3f, 0.3f, 0.5f); //cursor quad is grey
+			} else if (checkDanger(Player.PlayerOne)) {
+				UI.SpriteP1.color = new Vector4 (1f, 0.3f, 0.3f, 0.5f); //cursor quad is grey
 			}
 		}
 
         ////////// Player 2 cursor color //////////
         if (UI.SpriteP2 != null) {
             UI.SpriteP2.color = new Vector4(1f, 1f, 1f, 0.5f); //default cursor color
-                                                               //Blocking Block selected
-            if (inputController.cursorP2.selection == Building.Blocking) {
-                //Can't afford
-                if (gridManager.theGrid.getCost(Building.Blocking, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-                    UI.SpriteP2.color = new Vector4(0.3f, 0.3f, 0.3f, 1f); //cursor quad is grey
-                }
-            }
-            //Reflecting Block selected
-            if (inputController.cursorP2.selection == Building.Reflecting) {
-                //Can't afford
-                if (gridManager.theGrid.getCost(Building.Reflecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-                    UI.SpriteP2.color = new Vector4(0.3f, 0.3f, 0.3f, 1f); //cursor quad is grey
-                }
-            }
-            //Refracting Block selected
-            if (inputController.cursorP2.selection == Building.Refracting) {
-                //Can't afford
-                if (gridManager.theGrid.getCost(Building.Refracting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-                    UI.SpriteP2.color = new Vector4(0.3f, 0.3f, 0.3f, 1f); //cursor quad is grey
-                }
-            }
-            //Redirecting Block selected
-            if (inputController.cursorP2.selection == Building.Redirecting) {
-                //Can't afford
-                if (gridManager.theGrid.getCost(Building.Redirecting, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-                    UI.SpriteP2.color = new Vector4(0.3f, 0.3f, 0.3f, 1f); //cursor quad is grey
-                }
-            }
-            //Resource Block selected
-            if (inputController.cursorP2.selection == Building.Resource) {
-                //Can't afford
-                if (gridManager.theGrid.getCost(Building.Resource, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2()) {
-                    UI.SpriteP2.color = new Vector4(0.3f, 0.3f, 0.3f, 1f); //cursor quad is grey
-                }
-            }
+			if (inputController.cursorP2.selection != Building.Laser && inputController.cursorP2.selection != Building.Base) {
+				//Can't afford
+				if (gridManager.theGrid.getCost (inputController.cursorP2.selection, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2 ()) {
+					UI.SpriteP2.color = new Vector4 (0.3f, 0.3f, 0.3f, 0.5f); //cursor quad is grey
+				} else if (checkDanger(Player.PlayerTwo)) {
+					UI.SpriteP2.color = new Vector4 (1f, 0.3f, 0.3f, 0.5f); //cursor quad is grey
+				}
+			}
         }
-    } 
+    }
+
+	bool checkDanger(Player player) {
+		Direction dir = (player == Player.PlayerOne ? inputController.cursorP1.direction : inputController.cursorP2.direction);
+		Building creature = (player == Player.PlayerOne ? inputController.cursorP1.selection : inputController.cursorP2.selection);
+		if (player == Player.PlayerOne && (inputController.cursorP1.state == State.moving || inputController.cursorP1.state == State.placingMove)) {
+			creature = inputController.cursorP1.moveBuilding;
+		} else if (player == Player.PlayerTwo && (inputController.cursorP2.state == State.moving || inputController.cursorP2.state == State.placingMove)) {
+			creature = inputController.cursorP2.moveBuilding;
+		}
+		List<Direction> laserDirs;
+		if (player == Player.PlayerOne) laserDirs = laserLogic.laserData.getLaserDirections(inputController.cursorP1.x, inputController.cursorP1.y);
+		else laserDirs = laserLogic.laserData.getLaserDirections(inputController.cursorP2.x, inputController.cursorP2.y);
+
+
+		if (laserDirs != null) {
+			switch (creature) {
+			case Building.Blocking:
+				{
+					return true;
+				}
+			case Building.Reflecting:
+				{
+					foreach (var laserDir in laserDirs) {
+						if (laserLogic.opposites(dir, laserDir) || dir == laserDir)
+							return true;
+					}
+					return false;
+				}
+			case Building.Refracting:
+				{
+					Direction firstDir = laserDirs[0];
+					for (int i = 1; i < laserDirs.Count; i++) {
+						if (laserDirs [i] != laserDirs [0])
+							return true;
+					}
+					return false;
+				}
+			case Building.Redirecting:
+				{
+					foreach (var laserDir in laserDirs) {
+						if (dir == Direction.Up || dir == Direction.Down) {
+							if (laserDir == Direction.Right || laserDir == Direction.Left)
+								return true;
+						} else {
+							if (laserDir == Direction.Up || laserDir == Direction.Down)
+								return true;
+						}
+					}
+					return false;
+				}
+			case Building.Resource:
+				{
+					Direction firstDir = laserDirs[0];
+					for (int i = 1; i < laserDirs.Count; i++) {
+						if (laserDirs [i] != laserDirs [0])
+							return true;
+					}
+					return false;
+				}
+			}
+		}
+		return false;
+	}
 }

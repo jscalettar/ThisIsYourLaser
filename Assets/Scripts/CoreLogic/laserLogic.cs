@@ -125,7 +125,7 @@ public class laserLogic : MonoBehaviour
             return true;
         }
 
-        private Direction opposite(Direction dir)
+        public Direction opposite(Direction dir)
         {
             switch (dir) {
                 case Direction.NW: return Direction.SE;
@@ -139,6 +139,20 @@ public class laserLogic : MonoBehaviour
             }
             return Direction.None;
         }
+
+		public List<Direction> getLaserDirections(int x, int y) {
+			if (!validateInput(x, y)) return null;
+			List<Direction> dirs = new List<Direction>();
+			if (grid[y, x] != null) {
+				foreach (var item in grid[y, x]) {
+					dirs.Add (item.getMarchDir ());
+				}
+				if (dirs.Count == 0)
+					return null;
+				return dirs;
+			}
+			return null;
+		}
 
         public bool insertNode(int x, int y, float str, Direction heading, Direction marchDir, Player laserOwner, int indx, int subIndx, int reflections)
         {
@@ -213,7 +227,7 @@ public class laserLogic : MonoBehaviour
     }
 
     // Used for refraction loop checks
-    public bool opposites(Direction d1, Direction d2)
+    public static bool opposites(Direction d1, Direction d2)
     {
         if (d1 == d2) return false;
         switch (d1) {
