@@ -41,5 +41,7 @@ public class refocusController : MonoBehaviour {
 		if (Input.GetKeyDown("joystick 1 button 7") || Input.GetAxis("xboxLeftVert") != 0 || Input.GetAxis("xboxLeftHor") != 0) {if (tempEventSystem != null) {tempEventSystem.GetComponent<EventSystem> ().enabled = false;  } eventSystem3.GetComponent<EventSystem>().enabled = false; eventSystem2.GetComponent<EventSystem> ().enabled = false; eventSystem.GetComponent<EventSystem>().enabled = true; }
 		if (Input.GetKeyDown("joystick 2 button 7") || Input.GetAxis("xboxLeftVert2") != 0 || Input.GetAxis("xboxLeftHor2") != 0) { if (tempEventSystem != null) {tempEventSystem.GetComponent<EventSystem> ().enabled = false;  }eventSystem3.GetComponent<EventSystem>().enabled = false; eventSystem.GetComponent<EventSystem>().enabled = false; eventSystem2.GetComponent<EventSystem>().enabled = true; }
 		if (Input.anyKey) {if (tempEventSystem != null) {tempEventSystem.GetComponent<EventSystem> ().enabled = false;  } eventSystem2.GetComponent<EventSystem>().enabled = false; eventSystem.GetComponent<EventSystem>().enabled = false; eventSystem3.GetComponent<EventSystem>().enabled = true; }
-    }
+    
+		if (EventSystem.current.currentSelectedGameObject != null) print (EventSystem.current.currentSelectedGameObject.name);
+	}
 }

@@ -491,7 +491,7 @@ public class inputController : MonoBehaviour {
 
                 if (buildingSprite.sprite != null) {
                     cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = buildingSprite.sprite;
-                    cursorSpriteP1.transform.localPosition = new Vector3(0, buildingSprite.offset, -0.05f);
+					cursorSpriteP1.transform.localPosition = new Vector3(buildingSprite.offsetX, buildingSprite.offset, -0.05f);
                     cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
                 }
 
@@ -511,7 +511,7 @@ public class inputController : MonoBehaviour {
 
                     if (buildingSprite.sprite != null) {
                         cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = buildingSprite.sprite;
-                        cursorSpriteP2.transform.localPosition = new Vector3(0, buildingSprite.offset, -0.05f);
+						cursorSpriteP2.transform.localPosition = new Vector3(buildingSprite.offsetX, buildingSprite.offset, -0.05f);
                         cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
                     }
                 } else { cursorSpriteP2.GetComponent<SpriteRenderer>().enabled = false; }

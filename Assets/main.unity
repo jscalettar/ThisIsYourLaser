@@ -2303,50 +2303,70 @@ MonoBehaviour:
   Block:
   - sprite: {fileID: 21300000, guid: 89a5b54086407be4dad6126c140b5e7a, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 89a5b54086407be4dad6126c140b5e7a, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 89a5b54086407be4dad6126c140b5e7a, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 89a5b54086407be4dad6126c140b5e7a, type: 3}
     offset: 0
+    offsetX: 0
   Reflect:
   - sprite: {fileID: 21300000, guid: 865c5161b90546641823af71c50420c5, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 3741c4e5faa520143a0f4da027bc4326, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: c39cf1bb27a430044a45eb092d49d277, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 7a15a8bc2f5900a45ad291d7205fba06, type: 3}
     offset: 0
+    offsetX: 0
   Refract:
   - sprite: {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
     offset: 0
+    offsetX: 0
   Redirect:
   - sprite: {fileID: 21300000, guid: 342f74784aac9e24b98b90091d61f000, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 342f74784aac9e24b98b90091d61f000, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: cfa8eca0464594440a6b5a3a5b4a7f5e, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: cfa8eca0464594440a6b5a3a5b4a7f5e, type: 3}
     offset: 0
+    offsetX: 0
   Resource:
   - sprite: {fileID: 21300000, guid: aa7334a3c808f2a4bba5e930aa19b851, type: 3}
     offset: 0
+    offsetX: -1.5
   - sprite: {fileID: 21300000, guid: 551e9340debd4db4aad89652aba2ecdb, type: 3}
     offset: 0
+    offsetX: 1.5
   - sprite: {fileID: 21300000, guid: 60c6f4ac50c1e2e40a735cead5e1250b, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 7d61f553fff92324d8ce35c1c4d19f4a, type: 3}
     offset: 0
+    offsetX: 0
   Laser:
   - sprite: {fileID: 21300000, guid: 10a42876459d14148baee6e2e9010d00, type: 3}
     offset: -2.35
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: de9519ec6dddd6c40950794778e5ff03, type: 3}
     offset: 1.5
+    offsetX: 0
   Base:
   - sprite: {fileID: 21300000, guid: e1ed60fdd53e6594a811828f577f4696, type: 3}
     offset: 0
+    offsetX: 0
   UISprites:
   - {fileID: 21300000, guid: b183800589157e0488d1c25685702fe3, type: 3}
   - {fileID: 21300000, guid: 412c9c84cba334448bc04fad9c8cadcf, type: 3}
@@ -17063,50 +17083,70 @@ MonoBehaviour:
   Block:
   - sprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
     offset: 0
+    offsetX: 0
   Reflect:
   - sprite: {fileID: 21300000, guid: 102b6273ee2256c45bdd43e2f80957db, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 29b5fc8cac708b24b9c6ea826588952c, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 8eef596f7501b184faa7963eada894fe, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
     offset: 0
+    offsetX: 0
   Refract:
   - sprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
     offset: 0
+    offsetX: 0
   Redirect:
   - sprite: {fileID: 21300000, guid: 075c271c538371a4d831327f4d576ce2, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 075c271c538371a4d831327f4d576ce2, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
     offset: 0
+    offsetX: 0
   Resource:
   - sprite: {fileID: 21300000, guid: af2f8950b5c012b41a0992ebc8e19d94, type: 3}
     offset: 0
+    offsetX: -1.5
   - sprite: {fileID: 21300000, guid: 1117ad39f6e5839469deeed0980445ef, type: 3}
     offset: 0
+    offsetX: 1.5
   - sprite: {fileID: 21300000, guid: 3eafe0d8c25131447bdf968ca51a118b, type: 3}
     offset: 0
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 8327e9b0680f8ae4a81e581c2233d397, type: 3}
     offset: 0
+    offsetX: 0
   Laser:
   - sprite: {fileID: 21300000, guid: 576f41ecda5525643a45ea2c506296fa, type: 3}
     offset: -2.35
+    offsetX: 0
   - sprite: {fileID: 21300000, guid: 14a4e09eee318ab45af877117212eec5, type: 3}
     offset: 1.5
+    offsetX: 0
   Base:
   - sprite: {fileID: 21300000, guid: a37c63a641e9a024a8ac6237221d236d, type: 3}
     offset: 0
+    offsetX: 0
   UISprites:
   - {fileID: 21300000, guid: b183800589157e0488d1c25685702fe3, type: 3}
   - {fileID: 21300000, guid: 412c9c84cba334448bc04fad9c8cadcf, type: 3}

@@ -122,8 +122,13 @@ public class pauseMenu : MonoBehaviour
         Pause.interactable = false;
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         //Dont change it just works I know its stupid
-        Options.Select();
-        Resume.Select();
+        //Options.Select();
+		Pause.interactable = true;
+		Resume.interactable = true;
+		Options.interactable = true;
+		Instructions.interactable = true;
+		End.interactable = true;
+		Resume.Select();
     }
 
     public void resumeGame()
@@ -135,6 +140,16 @@ public class pauseMenu : MonoBehaviour
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         Pause.interactable = true;
         PauseMenu.SetActive(false);
+
+		OptionMenu.SetActive(false);
+		InstructMenu.SetActive(false);
+		StructureMenu.SetActive(false);
+		ControlsMenu.SetActive(false);
+		ResourceMenu.SetActive(false);
+		RefractMenu.SetActive(false);
+		ReflectMenu.SetActive(false);
+		RedirectMenu.SetActive(false);
+		BlockMenu.SetActive(false);
     }
 
     public void optionsMenu()

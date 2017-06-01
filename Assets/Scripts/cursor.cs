@@ -12,12 +12,14 @@ public class cursor : MonoBehaviour
     {
         public Sprite sprite;
         // Offsets is for z direction (y axis since sprites are rotated)
-        public float offset;
+		public float offset;
+		public float offsetX;
 
-        public SpriteWithOffsets(Sprite img, float off = 0f)
+		public SpriteWithOffsets(Sprite img, float off = 0f, float offX = 0f)
         {
             sprite = img;
-            offset = off;
+			offset = off;
+            offsetX = offX;
         }
     }
 
