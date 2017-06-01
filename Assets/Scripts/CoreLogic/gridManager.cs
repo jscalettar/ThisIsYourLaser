@@ -537,6 +537,13 @@ public struct Grid
             {
                 building.transform.localPosition = coordsToWorld(x, y - 0.135f);
             }
+            if(newBuilding == Building.Resource && building.GetComponent<buildingParameters>().direction == Direction.Left)
+            {
+                building.transform.localPosition = coordsToWorld(x - .5f, y);
+            }else if(newBuilding == Building.Resource && building.GetComponent<buildingParameters>().direction == Direction.Right)
+            {
+                building.transform.localPosition = coordsToWorld(x + .5f, y);
+            }
             // --------------------------------------------------------------------------------------------------------
 
             if (newBuilding == Building.Base && playerID == Player.PlayerOne)

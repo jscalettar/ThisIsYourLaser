@@ -486,7 +486,7 @@ public class inputController : MonoBehaviour {
                     case Building.Reflecting: buildingSprite = cursorObjP1.GetComponent<cursor>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .375f; break;
                     case Building.Refracting: buildingSprite = cursorObjP1.GetComponent<cursor>().Sprites[2][0]; scale = .2f; break;
                     case Building.Redirecting: buildingSprite = cursorObjP1.GetComponent<cursor>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .25f; break;
-                    case Building.Resource: buildingSprite = cursorObjP1.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .044f; break;
+                    case Building.Resource: buildingSprite = cursorObjP1.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
                 }
 
                 if (buildingSprite.sprite != null) {
@@ -506,7 +506,7 @@ public class inputController : MonoBehaviour {
                         case Building.Reflecting: buildingSprite = cursorObjP2.GetComponent<cursor>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .375f; break;
                         case Building.Refracting: buildingSprite = cursorObjP2.GetComponent<cursor>().Sprites[2][0]; scale = .2f; break;
                         case Building.Redirecting: buildingSprite = cursorObjP2.GetComponent<cursor>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .25f; break;
-                        case Building.Resource: buildingSprite = cursorObjP2.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
+                        case Building.Resource: buildingSprite = cursorObjP2.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
                     }
 
                     if (buildingSprite.sprite != null) {
