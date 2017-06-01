@@ -65,7 +65,7 @@ public class startMenu : MonoBehaviour {
         InstructMenu.SetActive(false);
         CreditMenu.SetActive(false);
         populateList();
-        if (tutorialToInstructionFlag.instance.flag) CreautureMenu();
+        if (tutorialToInstructionFlag.instance.flag) mainMenu();
     }
     void Update(){
 		setMaster (masterSlider.value);
