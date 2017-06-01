@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
-
+using UnityEngine.EventSystems;
 public class startMenu : MonoBehaviour {
     //Vars for screen options
     public bool isFull;
@@ -55,8 +55,14 @@ public class startMenu : MonoBehaviour {
     public Slider sfxSlider;
 	public Slider UISlider;
  
+    public Audios[] setUISounds;
+    public static Audios[] UISounds;
+    public Audios[] setMusicSounds;
+    public static Audios[] musicSounds;
     // Use this for initialization
     void Start () {
+        UISounds = setUISounds;
+        musicSounds = setMusicSounds;
         Screen.fullScreen = false;
 		backImage = GetComponent<Image> ();
 		backImage.sprite = davidImage;
@@ -66,15 +72,20 @@ public class startMenu : MonoBehaviour {
         CreditMenu.SetActive(false);
         populateList();
         if (tutorialToInstructionFlag.instance.flag) mainMenu();
+        SoundManager.PlayMusic(musicSounds[0].audioclip, .05f, true, true, 5f, 1.5f);
     }
     void Update(){
 		setMaster (masterSlider.value);
 		setMusic (musicSlider.value);
 		setSFX (sfxSlider.value);
 		setUISFX (UISlider.value);
+        if(EventSystem.current.IsPointerOverGameObject()){
+            SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
+        }
 	}
 	public void startGame()
     {
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         SceneManager.LoadScene("main");
         StartMenu.SetActive(false);
         OptionMenu.SetActive(false);
@@ -84,6 +95,7 @@ public class startMenu : MonoBehaviour {
     }
 
 	public void startTut(){
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
 		SceneManager.LoadScene("TutorialBoard");
         StartMenu.SetActive(false);
         OptionMenu.SetActive(false);
@@ -105,6 +117,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = davidImage;
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         tutorialButton.Select();
         
     }
@@ -123,7 +136,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         fullscreenToggle.Select();
     }
 
@@ -141,7 +154,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         creatureMenuButton.Select();
     }
 
@@ -159,7 +172,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         resourceInfoButton.Select();
     }
 
@@ -177,7 +190,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         controlBack.Select();
     }
 
@@ -196,6 +209,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         resourceBack.Select();
     }
 
@@ -214,7 +228,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         refractBack.Select();
     }
 
@@ -233,7 +247,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         reflectBack.Select();
     }
 
@@ -252,7 +266,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         blockBack.Select();
     }
 
@@ -271,7 +285,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(true);
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         redirectBack.Select();
     }
 
@@ -289,8 +303,7 @@ public class startMenu : MonoBehaviour {
         RedirectPage.SetActive(false);
         CreditMenu.SetActive(true);
         backImage.sprite = ocean;
-        //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
-        MonoBehaviour.print("PLAYED");
+        SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
         creditsBack.Select();
     }
 

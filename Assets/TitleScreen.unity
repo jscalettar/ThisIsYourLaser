@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.4964127, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1864,6 +1864,10 @@ MonoBehaviour:
   musicSlider: {fileID: 458668181}
   sfxSlider: {fileID: 548597340}
   UISlider: {fileID: 351843407}
+  setUISounds:
+  - audioclip: {fileID: 8300000, guid: 59f120f3833d2b14abf8d87acfa9669e, type: 3}
+  setMusicSounds:
+  - audioclip: {fileID: 8300000, guid: df2a13a433f648e469fc864c1290180b, type: 3}
 --- !u!114 &225087594
 MonoBehaviour:
   m_ObjectHideFlags: 0
