@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: 7785795f3c1c15d418dabd6e3a61a15a
+timeCreated: 1496306269
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: eelHurtf_P2_0
+    21300002: eelHurtf_P2_1
+    21300004: eelHurtf_P2_2
+    21300006: eelHurtf_P2_3
+    21300008: eelHurtf_P2_4
+    21300010: eelHurtf_P2_5
+    21300012: eelHurtf_P2_6
+    21300014: eelHurtf_P2_7
+    21300016: eelHurtf_P2_8
+    21300018: eelHurtf_P2_9
+    21300020: eelHurtf_P2_10
+    21300022: eelHurtf_P2_11
+    21300024: eelHurtf_P2_12
+    21300026: eelHurtf_P2_13
+    21300028: eelHurtf_P2_14
+    21300030: eelHurtf_P2_15
+    21300032: eelHurtf_P2_16
+    21300034: eelHurtf_P2_17
+    21300036: eelHurtf_P2_18
+    21300038: eelHurtf_P2_19
+    21300040: eelHurtf_P2_20
+    21300042: eelHurtf_P2_21
+    21300044: eelHurtf_P2_22
+    21300046: eelHurtf_P2_23
+    21300048: eelHurtf_P2_24
+    21300050: eelHurtf_P2_25
+    21300052: eelHurtf_P2_26
+    21300054: eelHurtf_P2_27
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: eelHurtf_P2_0
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 7455
+        width: 628
+        height: 595
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_1
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 7440
+        width: 690
+        height: 598
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_2
+      rect:
+        serializedVersion: 2
+        x: 2111
+        y: 7431
+        width: 723
+        height: 587
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_3
+      rect:
+        serializedVersion: 2
+        x: 3034
+        y: 7450
+        width: 747
+        height: 566
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_4
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 6687
+        width: 784
+        height: 550
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_5
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 6703
+        width: 782
+        height: 550
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_6
+      rect:
+        serializedVersion: 2
+        x: 2054
+        y: 6719
+        width: 752
+        height: 551
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_7
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 6719
+        width: 791
+        height: 577
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_8
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 5946
+        width: 792
+        height: 580
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_9
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 5967
+        width: 776
+        height: 577
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_10
+      rect:
+        serializedVersion: 2
+        x: 2090
+        y: 5978
+        width: 742
+        height: 572
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_11
+      rect:
+        serializedVersion: 2
+        x: 3106
+        y: 5910
+        width: 702
+        height: 620
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_12
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 5095
+        width: 652
+        height: 642
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_13
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 5094
+        width: 637
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_14
+      rect:
+        serializedVersion: 2
+        x: 2224
+        y: 5134
+        width: 640
+        height: 594
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_15
+      rect:
+        serializedVersion: 2
+        x: 3119
+        y: 5134
+        width: 690
+        height: 580
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_16
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 4346
+        width: 722
+        height: 582
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_17
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 4338
+        width: 744
+        height: 576
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_18
+      rect:
+        serializedVersion: 2
+        x: 2032
+        y: 4352
+        width: 786
+        height: 561
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_19
+      rect:
+        serializedVersion: 2
+        x: 2982
+        y: 4366
+        width: 776
+        height: 548
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_20
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 3610
+        width: 751
+        height: 547
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_21
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 3626
+        width: 784
+        height: 550
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_22
+      rect:
+        serializedVersion: 2
+        x: 2006
+        y: 3626
+        width: 796
+        height: 572
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_23
+      rect:
+        serializedVersion: 2
+        x: 2998
+        y: 3647
+        width: 779
+        height: 561
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_24
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 2880
+        width: 753
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_25
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 2814
+        width: 696
+        height: 642
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_26
+      rect:
+        serializedVersion: 2
+        x: 2210
+        y: 2774
+        width: 652
+        height: 660
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelHurtf_P2_27
+      rect:
+        serializedVersion: 2
+        x: 3194
+        y: 2770
+        width: 632
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

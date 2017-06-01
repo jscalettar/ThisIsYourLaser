@@ -480,7 +480,7 @@ public class inputController : MonoBehaviour {
 							cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = RedirectRight;
 						}
 						break;
-					case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .04f; break;
+					case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
 					}
 					cursorSpriteP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
 					cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
@@ -493,7 +493,7 @@ public class inputController : MonoBehaviour {
 					case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[1][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .375f; break;
 					case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[2][0]; scale = .2f; break;
 					case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .25f; break;
-					case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .3f; break;
+					case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP1.direction)]; scale = .15f; break;
 					}
 					cursorSpriteP1.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
 					cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
@@ -504,7 +504,7 @@ public class inputController : MonoBehaviour {
 					case Building.Reflecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ReflectSprite; scale = .375f; break;
 					case Building.Refracting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1RefractSprite; scale = .2f; break;
 					case Building.Redirecting: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1RedirectSprite; scale = .25f; break;
-					case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite; scale = .3f; break;
+					case Building.Resource: cursorSpriteP1.GetComponent<SpriteRenderer>().sprite = P1ResourceSprite; scale = .15f; break;
 					}
 					cursorSpriteP1.GetComponent<SpriteRenderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
 					cursorSpriteP1.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
@@ -546,7 +546,7 @@ public class inputController : MonoBehaviour {
 							cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = RedirectRight2;
 						}
 						scale = .25f; break;
-					case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
+					case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
 					}
 					cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(0.7f, 1f, 0.7f, .5f);
 					cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
@@ -561,7 +561,7 @@ public class inputController : MonoBehaviour {
 					case Building.Redirecting:
 						cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[3][gridManager.theGrid.directionToIndex(cursorP2.direction)];
 						scale = .25f; break;
-					case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .3f; break;
+					case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().Sprites[4][gridManager.theGrid.directionToIndex(cursorP2.direction)]; scale = .15f; break;
 					}
 					cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(1f, 0.7f, 0.7f, .5f);
 					cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);
@@ -572,7 +572,7 @@ public class inputController : MonoBehaviour {
 					case Building.Reflecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ReflectSprite; scale = .375f; break;
 					case Building.Refracting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2RefractSprite; scale = .2f; break;
 					case Building.Redirecting: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2RedirectSprite; scale = .25f; break;
-					case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ResourceSprite; scale = .3f; break;
+					case Building.Resource: cursorSpriteP2.GetComponent<SpriteRenderer>().sprite = P2ResourceSprite; scale = .15f; break;
 					}
 					cursorSpriteP2.GetComponent<Renderer>().material.color = new Vector4(0.7f, 1, 0.7f, .5f);
 					cursorSpriteP2.transform.localScale = new Vector3(scale * 3.4f, scale * 3.4f, scale * 3.4f);

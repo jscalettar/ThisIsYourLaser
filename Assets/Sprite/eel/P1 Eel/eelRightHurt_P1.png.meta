@@ -1,0 +1,496 @@
+fileFormatVersion: 2
+guid: ce935529f60532841a16c608426a9a62
+timeCreated: 1496305630
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: eelRightHurt_P1_0
+    21300002: eelRightHurt_P1_1
+    21300004: eelRightHurt_P1_2
+    21300006: eelRightHurt_P1_3
+    21300008: eelRightHurt_P1_4
+    21300010: eelRightHurt_P1_5
+    21300012: eelRightHurt_P1_6
+    21300014: eelRightHurt_P1_7
+    21300016: eelRightHurt_P1_8
+    21300018: eelRightHurt_P1_9
+    21300020: eelRightHurt_P1_10
+    21300022: eelRightHurt_P1_11
+    21300024: eelRightHurt_P1_12
+    21300026: eelRightHurt_P1_13
+    21300028: eelRightHurt_P1_14
+    21300030: eelRightHurt_P1_15
+    21300032: eelRightHurt_P1_16
+    21300034: eelRightHurt_P1_17
+    21300036: eelRightHurt_P1_18
+    21300038: eelRightHurt_P1_19
+    21300040: eelRightHurt_P1_20
+    21300042: eelRightHurt_P1_21
+    21300044: eelRightHurt_P1_22
+    21300046: eelRightHurt_P1_23
+    21300048: eelRightHurt_P1_24
+    21300050: eelRightHurt_P1_25
+    21300052: eelRightHurt_P1_26
+    21300054: eelRightHurt_P1_27
+    21300056: eelRightHurt_P1_28
+    21300058: eelRightHurt_P1_29
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: eelRightHurt_P1_0
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 7454
+        width: 784
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_1
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 7466
+        width: 740
+        height: 620
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_2
+      rect:
+        serializedVersion: 2
+        x: 1872
+        y: 7456
+        width: 762
+        height: 598
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 6720
+        width: 782
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_4
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 6730
+        width: 750
+        height: 604
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_5
+      rect:
+        serializedVersion: 2
+        x: 1882
+        y: 6730
+        width: 752
+        height: 599
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_6
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 5990
+        width: 772
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_7
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 5994
+        width: 756
+        height: 598
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_8
+      rect:
+        serializedVersion: 2
+        x: 1886
+        y: 5994
+        width: 748
+        height: 614
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_9
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 5248
+        width: 768
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_10
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 5258
+        width: 767
+        height: 568
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_11
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 5262
+        width: 752
+        height: 626
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_12
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 4522
+        width: 766
+        height: 572
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_13
+      rect:
+        serializedVersion: 2
+        x: 982
+        y: 4522
+        width: 776
+        height: 536
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_14
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 4527
+        width: 734
+        height: 635
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_15
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 3791
+        width: 754
+        height: 594
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_16
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 3776
+        width: 786
+        height: 510
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_17
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 3795
+        width: 752
+        height: 623
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_18
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 3058
+        width: 750
+        height: 606
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_19
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 3050
+        width: 784
+        height: 520
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_20
+      rect:
+        serializedVersion: 2
+        x: 1886
+        y: 3058
+        width: 748
+        height: 608
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_21
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 2319
+        width: 751
+        height: 615
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_22
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 2318
+        width: 782
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_23
+      rect:
+        serializedVersion: 2
+        x: 1871
+        y: 2319
+        width: 769
+        height: 595
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_24
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 1594
+        width: 740
+        height: 619
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_25
+      rect:
+        serializedVersion: 2
+        x: 986
+        y: 1583
+        width: 774
+        height: 561
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_26
+      rect:
+        serializedVersion: 2
+        x: 1870
+        y: 1586
+        width: 764
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_27
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 862
+        width: 735
+        height: 628
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_28
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 847
+        width: 767
+        height: 578
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: eelRightHurt_P1_29
+      rect:
+        serializedVersion: 2
+        x: 1855
+        y: 850
+        width: 779
+        height: 542
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
