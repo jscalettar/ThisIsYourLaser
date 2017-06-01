@@ -2599,7 +2599,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 2
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 468732000}
   m_PlaneDistance: 11
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -14429,7 +14429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23c1e5aa01ca6745961216269f4aaff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
+  canvas: {fileID: 274956458}
 --- !u!114 &1461189274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14460,8 +14460,8 @@ MonoBehaviour:
   indicatorP2: {fileID: 396718862}
   LaserArrowP1: {fileID: 792245181}
   LaserArrowP2: {fileID: 0}
-  selectorP1: {fileID: 0}
-  selectorP2: {fileID: 0}
+  selectorP1: {fileID: 1340156684}
+  selectorP2: {fileID: 1192579015}
   P1BaseSprite: {fileID: 21300000, guid: a37c63a641e9a024a8ac6237221d236d, type: 3}
   P1BlockSprite: {fileID: 21300000, guid: e2bfe8099d67635489783f7ac7202e71, type: 3}
   P1LaserSprite: {fileID: 21300000, guid: 576f41ecda5525643a45ea2c506296fa, type: 3}
@@ -14497,8 +14497,8 @@ MonoBehaviour:
   - audioclip: {fileID: 8300000, guid: 59f120f3833d2b14abf8d87acfa9669e, type: 3}
   setMusicSounds:
   - audioclip: {fileID: 0}
-  PauseMenu: {fileID: 0}
-  Win: {fileID: 0}
+  PauseMenu: {fileID: 1619813424}
+  Win: {fileID: 128295905}
 --- !u!114 &1461189276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14560,7 +14560,7 @@ MonoBehaviour:
   placementTimerObj: {fileID: 1212582469528822, guid: dd8945e57707bcd4590911d4ec55ea6e,
     type: 2}
   blockResourceScale: 1
-  canvasObject: {fileID: 0}
+  canvasObject: {fileID: 274956458}
 --- !u!4 &1461189278
 Transform:
   m_ObjectHideFlags: 0
@@ -20125,13 +20125,13 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: 40a3df0b9343a7549a63a297cb2a959f, type: 3}
     offset: 0
   Resource:
-  - sprite: {fileID: 21300000, guid: cddde56540a045a4399bed906b499299, type: 3}
+  - sprite: {fileID: 21300000, guid: af2f8950b5c012b41a0992ebc8e19d94, type: 3}
     offset: 0
-  - sprite: {fileID: 21300000, guid: 194174e44bc45624fbec095aed79b673, type: 3}
+  - sprite: {fileID: 21300000, guid: 1117ad39f6e5839469deeed0980445ef, type: 3}
     offset: 0
-  - sprite: {fileID: 21300000, guid: 47337f2de9831c54fac2c14fcf72e863, type: 3}
+  - sprite: {fileID: 21300000, guid: 3eafe0d8c25131447bdf968ca51a118b, type: 3}
     offset: 0
-  - sprite: {fileID: 21300000, guid: e1c162f5407761b4ea2e65e328c1ba12, type: 3}
+  - sprite: {fileID: 21300000, guid: 8327e9b0680f8ae4a81e581c2233d397, type: 3}
     offset: 0
   Laser:
   - sprite: {fileID: 21300000, guid: 576f41ecda5525643a45ea2c506296fa, type: 3}
