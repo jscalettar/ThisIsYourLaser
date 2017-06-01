@@ -8,6 +8,7 @@ public class TutorialFramework : MonoBehaviour {
 
     public static bool tutorialActive = false;
     public static bool skipFrame = false;       // used to skip input for a frame after a popup closes which prevents issues
+    public static bool initialized = false;
     public GameObject Popup;    // Generic game object for displaying popups
     public GameObject Board;    // Board with gridManager on it
 
@@ -259,14 +260,20 @@ public class TutorialFramework : MonoBehaviour {
         if (Time.timeScale == 0 && (Input.GetButtonDown("place_1"))) closePopup();
 
         // Check if initial popups exist, and if so display them
-        if (activeTutorial.initialPopup != null || activeTutorial.initialPopup2 != null || activeTutorial.initialPopup3 != null) displayInitialPopups();
+        if (initialized && (activeTutorial.initialPopup != null || activeTutorial.initialPopup2 != null || activeTutorial.initialPopup3 != null)) displayInitialPopups();
     }
 
     void Start ()
     {
+        Invoke("init", 0.1f);
+    }
+
+    public void init()
+    {
         spawnInitialCreatures();
         displayInitialPopups();
         createHighlightSquare();
+        initialized = true;
     }
 
     // Toggle Tutorial Game State
@@ -280,6 +287,7 @@ public class TutorialFramework : MonoBehaviour {
     void OnDisable()
     {
         tutorialActive = false;
+        initialized = false;
         if (Highlight != null) Destroy(Highlight);
     }
 }

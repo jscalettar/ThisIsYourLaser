@@ -7,6 +7,20 @@ public enum MoveDir { Up, Down, Left, Right }
 
 public class cursor : MonoBehaviour
 {
+    [System.Serializable]
+    public struct SpriteWithOffsets
+    {
+        public Sprite sprite;
+        // Offsets is for z direction (y axis since sprites are rotated)
+        public float offset;
+
+        public SpriteWithOffsets(Sprite img, float off = 0f)
+        {
+            sprite = img;
+            offset = off;
+        }
+    }
+
     public GameObject cost;
     public int player;
     //public vars
@@ -25,13 +39,14 @@ public class cursor : MonoBehaviour
     private int currentBuilding = (int)Building.Laser;
     private int numberOfTypes = System.Enum.GetValues(typeof(Building)).Length -1;
     //public GameObject PauseMenu;
-    public Sprite[] Block;
-    public Sprite[] Reflect;
-    public Sprite[] Refract;
-    public Sprite[] Redirect;
-    public Sprite[] Resource;
-    public Sprite[] Laser;
-    public Sprite[][] Sprites;
+    public SpriteWithOffsets[] Block;
+    public SpriteWithOffsets[] Reflect;
+    public SpriteWithOffsets[] Refract;
+    public SpriteWithOffsets[] Redirect;
+    public SpriteWithOffsets[] Resource;
+    public SpriteWithOffsets[] Laser;
+    public SpriteWithOffsets[] Base;
+    public SpriteWithOffsets[][] Sprites;
 
     public Sprite[] UISprites;
 
@@ -39,7 +54,7 @@ public class cursor : MonoBehaviour
 
     void Start()
     {
-        Sprites = new Sprite[][] { Block, Reflect, Refract, Redirect, Resource, Laser };
+        Sprites = new SpriteWithOffsets[][] { Block, Reflect, Refract, Redirect, Resource, Laser, Base };
         cost.GetComponent<TextMesh>().fontStyle = FontStyle.Bold;
     }
     private void Update()

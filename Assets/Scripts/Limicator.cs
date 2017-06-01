@@ -61,13 +61,16 @@ public class Limicator : MonoBehaviour
             for(int i = 0; i< 2; i++){
                 for (int j = 0; j< 10; j++)
                 {
-                    GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid squar
-                    limit.transform.localPosition = i == 0 ? new Vector3(-6.6f, 0f, -3.45f + j* (.75f)) : new Vector3(6.8f, 0f, -3.45f + j* (.75f));
-                    limit.transform.Rotate(90, 0, 0);
-                    limit.transform.localScale = new Vector3(scale, scale, scale);
-                    limit.GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, .5f);
-                    KeyValuePair<GameObject, int> pair = new KeyValuePair<GameObject, int>(limit, 0);
-                    stones[i, j] = pair;
+                    if (i >= 0 && j >= 0 && stones.GetLength(0) > i && stones.GetLength(1) > j) {
+
+                        GameObject limit = Instantiate(limicator);    //makes transparent planes on each grid squar
+                        limit.transform.localPosition = i == 0 ? new Vector3(-6.6f, 0f, -3.45f + j * (.75f)) : new Vector3(6.8f, 0f, -3.45f + j * (.75f));
+                        limit.transform.Rotate(90, 0, 0);
+                        limit.transform.localScale = new Vector3(scale, scale, scale);
+                        limit.GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, .5f);
+                        KeyValuePair<GameObject, int> pair = new KeyValuePair<GameObject, int>(limit, 0);
+                        stones[i, j] = pair;
+                    }
                 }
             }
             p1StonesPlaced = 0;
@@ -133,7 +136,7 @@ public class Limicator : MonoBehaviour
                 for(int i = stones.GetLength(1)-1; i >=0; i--) if(stones[s,i].Value == animal) order = i;
                 for (int i = order; i < stones.GetLength(1); i++)
                 {
-                    if (i >= 0 && s >= 0 && stones.GetLength(0) > s && stones.GetLength(1) > i) { // added error check, might cause issues ?
+                    if (i >= 0 && s >= 0 && stones.GetLength(0) > s && stones.GetLength(1) > i) {
                         GameObject go = stones[s, i].Key;
                         if (i == stones.GetLength(1) - 1) stones[s, i] = new KeyValuePair<GameObject, int>(go, 0);
                         else stones[s, i] = new KeyValuePair<GameObject, int>(go, stones[s, i + 1].Value);

@@ -519,10 +519,13 @@ public struct Grid
                 building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f);
                 float scale = building.GetComponent<buildingParameters>().scale;
                 building.transform.localScale = new Vector3(scale, scale, scale);
-            } else
-                building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f); // Used for debugging, not necessary with final art
+            } else {
+                //building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f); // Used for debugging, not necessary with final art
+            }
+
             building.transform.SetParent(buildingContainer.transform);
             building.transform.localPosition = coordsToWorld(x, y);
+
             if (newBuilding == Building.Laser && building.GetComponent<buildingParameters>().direction == Direction.Down)
             {
                 building.transform.localPosition = coordsToWorld(x, y - 0.7f);
