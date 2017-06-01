@@ -14429,6 +14429,7 @@ MonoBehaviour:
   - audioclip: {fileID: 8300000, guid: 72593b9a256f66f4fb8bf19971dff8e5, type: 3}
   setUISounds:
   - audioclip: {fileID: 8300000, guid: 18905e0693f4ef7429e396da0a4687af, type: 3}
+  - audioclip: {fileID: 8300000, guid: 59f120f3833d2b14abf8d87acfa9669e, type: 3}
   setMusicSounds:
   - audioclip: {fileID: 0}
   PauseMenu: {fileID: 933117532}
