@@ -124,7 +124,7 @@ public class startMenu : MonoBehaviour {
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
         //SoundManager.PlayUISound(inputController.Sounds[1].audioclip);
-        resDropdown.Select();
+        fullscreenToggle.Select();
     }
 
     public void InstructionsMenu()

@@ -7,6 +7,7 @@ public class pauseMenu : MonoBehaviour
 {
 
     public static bool skipFrame = false;
+
     // Game objects to set active and deactivate
     public GameObject PauseMenu;
     public GameObject OptionMenu;
@@ -148,7 +149,7 @@ public class pauseMenu : MonoBehaviour
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
-        resDrop.Select();
+        fullscreenToggle.Select();
 
         // Disable pause menu buttons when options are up
         Pause.interactable = false;
@@ -445,6 +446,6 @@ public class pauseMenu : MonoBehaviour
 
     public void populateList()
     {
-        resDrop.AddOptions(resos);
+        //resDrop.AddOptions(resos);
     }
 }
