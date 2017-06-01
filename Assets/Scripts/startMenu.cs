@@ -340,7 +340,7 @@ public class startMenu : MonoBehaviour {
     }
     public void populateList()
     {
-        resDrop.AddOptions(resos);
+        //resDrop.AddOptions(resos);
     }
     public void exitGame()
     {

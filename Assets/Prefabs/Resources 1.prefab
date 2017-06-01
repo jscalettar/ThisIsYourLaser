@@ -90,6 +90,7 @@ MonoBehaviour:
   currentHP: 0
   direction: 0
   buildingType: 8
+  takingDamage: 0
   health: 5
   cost: 4
   sprites:
