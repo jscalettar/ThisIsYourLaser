@@ -1867,7 +1867,7 @@ MonoBehaviour:
   setUISounds:
   - audioclip: {fileID: 8300000, guid: 59f120f3833d2b14abf8d87acfa9669e, type: 3}
   setMusicSounds:
-  - audioclip: {fileID: 8300000, guid: df2a13a433f648e469fc864c1290180b, type: 3}
+  - audioclip: {fileID: 8300000, guid: a8dc711cf9a315046b2648f23b1bb820, type: 3}
 --- !u!114 &225087594
 MonoBehaviour:
   m_ObjectHideFlags: 0
