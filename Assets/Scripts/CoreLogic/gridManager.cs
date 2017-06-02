@@ -534,8 +534,14 @@ public struct Grid
                 building.transform.localPosition = coordsToWorld(x, y + 0.45f);
             }
             if (newBuilding == Building.Reflecting)
-            {
-                building.transform.localPosition = coordsToWorld(x, y - 0.135f);
+            { 
+				if(building.GetComponent<buildingParameters>().direction == Direction.Left)
+				{
+					building.transform.localPosition = coordsToWorld(x-0.14869f, y - 0.135f);
+				}else if(building.GetComponent<buildingParameters>().direction == Direction.Right)
+				{
+					building.transform.localPosition = coordsToWorld(x+0.156f, y - 0.135f);
+				} else building.transform.localPosition = coordsToWorld(x, y - 0.135f);
             }
             if(newBuilding == Building.Resource && building.GetComponent<buildingParameters>().direction == Direction.Left)
             {
