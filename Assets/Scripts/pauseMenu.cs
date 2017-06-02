@@ -119,6 +119,7 @@ public class pauseMenu : MonoBehaviour
         Time.timeScale = 0F;
 		SoundManager.globalVolume/=8;
         PauseMenu.SetActive(true);
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         //Dont change it just works I know its stupid
@@ -140,7 +141,6 @@ public class pauseMenu : MonoBehaviour
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         Pause.interactable = true;
         PauseMenu.SetActive(false);
-
 		OptionMenu.SetActive(false);
 		InstructMenu.SetActive(false);
 		StructureMenu.SetActive(false);
@@ -167,6 +167,7 @@ public class pauseMenu : MonoBehaviour
         fullscreenToggle.Select();
 
         // Disable pause menu buttons when options are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -189,6 +190,7 @@ public class pauseMenu : MonoBehaviour
         creatureMenuButton.Select();
 
         // Disable pause menu buttons when instructions are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -210,7 +212,8 @@ public class pauseMenu : MonoBehaviour
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         resourceInfoButton.Select();
 
-    // Disable pause menu buttons when structures are up
+        // Disable pause menu buttons when structures are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -233,6 +236,7 @@ public class pauseMenu : MonoBehaviour
         controlBack.Select();
 
         // Disable pause menu buttons when structures are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -255,6 +259,7 @@ public class pauseMenu : MonoBehaviour
         resourceBack.Select();
 
         // Disable pause menu buttons when structures are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -277,6 +282,7 @@ public class pauseMenu : MonoBehaviour
         refractBack.Select();
 
         // Disable pause menu buttons when structures are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -299,6 +305,7 @@ public class pauseMenu : MonoBehaviour
         reflectBack.Select();
 
         // Disable pause menu buttons when structures are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -321,6 +328,7 @@ public class pauseMenu : MonoBehaviour
         redirectBack.Select();
 
         // Disable pause menu buttons when structures are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
@@ -343,6 +351,7 @@ public class pauseMenu : MonoBehaviour
         blockBack.Select();
 
         // Disable pause menu buttons when structures are up
+        Pause.gameObject.SetActive(false);
         Pause.interactable = false;
         Resume.interactable = false;
         Instructions.interactable = false;
