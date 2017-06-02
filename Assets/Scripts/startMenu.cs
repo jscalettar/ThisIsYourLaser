@@ -63,7 +63,7 @@ public class startMenu : MonoBehaviour {
     void Start () {
         UISounds = setUISounds;
         musicSounds = setMusicSounds;
-        Screen.fullScreen = false;
+        //Screen.fullScreen = false;
 		backImage = GetComponent<Image> ();
 		backImage.sprite = davidImage;
         StartMenu.SetActive(true);

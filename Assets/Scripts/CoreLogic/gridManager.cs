@@ -507,9 +507,8 @@ public struct Grid
             if (TutorialFramework.tutorialActive && newBuilding == Building.Base && playerID == Player.PlayerTwo) building.GetComponent<buildingParameters>().health = 3f;
             building.GetComponent<buildingParameters>().currentHP = building.GetComponent<buildingParameters>().health;
 
-            // Building position offsets etc --------------------------------------------------------------------------
             if (newBuilding != Building.Laser && newBuilding != Building.Base) {
-                building.AddComponent<SpriteRenderer>();
+                if (building.GetComponent<SpriteRenderer>() == null) building.AddComponent<SpriteRenderer>();
                 building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)];
                 building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f);
                 float scale = building.GetComponent<buildingParameters>().scale;
@@ -522,6 +521,8 @@ public struct Grid
             } else {
                 //building.GetComponent<Renderer>().material.color = playerID == Player.PlayerOne ? new Vector4(1f, 1f, 1f, .3f) : new Vector4(1f, 1, 1f, .3f); // Used for debugging, not necessary with final art
             }
+
+            // Building position offsets etc --------------------------------------------------------------------------
 
             building.transform.SetParent(buildingContainer.transform);
             building.transform.localPosition = coordsToWorld(x, y);
@@ -740,13 +741,41 @@ public struct Grid
                 building.GetComponent<buildingParameters>().x = xNew;
                 building.GetComponent<buildingParameters>().y = yNew;
                 building.GetComponent<buildingParameters>().direction = facing;
+
+                // Building position offsets etc --------------------------------------------------------------------------
+
+                building.transform.SetParent(buildingContainer.transform);
                 building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
+
+                Building buildingType = building.GetComponent<buildingParameters>().buildingType;
+
+                if (buildingType == Building.Laser && facing == Direction.Down) {
+                    building.transform.localPosition = coordsToWorld(xNew, yNew - 0.7f);
+                } else if (buildingType == Building.Laser && facing == Direction.Up) {
+                    building.transform.localPosition = coordsToWorld(xNew, yNew + 0.45f);
+                }
+                if (buildingType == Building.Reflecting) {
+                    if (facing == Direction.Left) {
+                        building.transform.localPosition = coordsToWorld(xNew - 0.14869f, yNew - 0.135f);
+                    } else if (facing == Direction.Right) {
+                        building.transform.localPosition = coordsToWorld(xNew + 0.156f, yNew - 0.135f);
+                    } else building.transform.localPosition = coordsToWorld(xNew, yNew - 0.135f);
+                }
+                if (buildingType == Building.Resource && facing == Direction.Left) {
+                    building.transform.localPosition = coordsToWorld(xNew - .5f, yNew);
+                } else if (buildingType == Building.Resource && facing == Direction.Right) {
+                    building.transform.localPosition = coordsToWorld(xNew + .5f, yNew);
+                }
+
+                // --------------------------------------------------------------------------------------------------------
+
                 prefabDictionary.Remove(new XY(x, y));
                 prefabDictionary.Add(new XY(xNew, yNew), building);
             }
             grid[yNew, xNew].direction = facing;
             // Rotate
-            if (canRotate(grid[yNew, xNew].building)) { building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)]; building.GetComponent<buildingParameters>().direction = facing; }
+            //if (canRotate(grid[yNew, xNew].building)) { building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)]; building.GetComponent<buildingParameters>().direction = facing; }
+            
             // Specify that the board was updated and that laserLogic needs to run a simulation
             needsUpdate = true;
             if (playerID == Player.PlayerOne)

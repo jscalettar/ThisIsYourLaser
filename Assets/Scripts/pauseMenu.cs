@@ -87,7 +87,7 @@ public class pauseMenu : MonoBehaviour
         End.interactable = true;
 
         // Other stuff
-        Screen.fullScreen = false;
+        //Screen.fullScreen = true;
         populateList();
 		masterSlider.value = SoundManager.globalVolume;
 		musicSlider.value = SoundManager.globalMusicVolume;
