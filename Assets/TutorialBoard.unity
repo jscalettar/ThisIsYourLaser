@@ -9884,8 +9884,8 @@ MonoBehaviour:
     player: 1
     direction: 7
   initialPopup: {fileID: 2800000, guid: f0b40b5989fd6b44cab56d82c509cc84, type: 3}
-  initialPopup2: {fileID: 2800000, guid: 533e337c620ef9e40b1fba5b5a84e8ec, type: 3}
-  initialPopup3: {fileID: 2800000, guid: 9fd6c6ce24210a040a1a2926860e0b44, type: 3}
+  initialPopup2: {fileID: 2800000, guid: d36881b5e3044ba40a370b08f07271c8, type: 3}
+  initialPopup3: {fileID: 2800000, guid: 18e2b603c1cb21a44a04988a0df708ad, type: 3}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 0}
@@ -9907,7 +9907,7 @@ MonoBehaviour:
       y: 4
     building: 6
     type: 0
-    popup: {fileID: 2800000, guid: 5f8fa259fffd80446b0ac5d60877cc7b, type: 3}
+    popup: {fileID: 2800000, guid: 8bb73e393cbacf1458c6f336e85481fb, type: 3}
     endTrigger: 1
   movedLeft: {fileID: 0}
   movedRight: {fileID: 0}
@@ -18881,7 +18881,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8aed0960fcb9263488e19e0f115e009a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 11866e6c31e4a2741b636f8392ea87ed, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
