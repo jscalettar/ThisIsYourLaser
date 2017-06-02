@@ -550,6 +550,9 @@ public struct Grid
             }else if(newBuilding == Building.Resource && building.GetComponent<buildingParameters>().direction == Direction.Right)
             {
                 building.transform.localPosition = coordsToWorld(x + .5f, y);
+            }else if(newBuilding == Building.Resource && building.GetComponent<buildingParameters>().direction == Direction.Down)
+            {
+                building.transform.localPosition = coordsToWorld(x, y-.15f);
             }
             // --------------------------------------------------------------------------------------------------------
 
