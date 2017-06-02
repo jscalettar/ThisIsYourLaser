@@ -316,7 +316,7 @@ public class inputController : MonoBehaviour {
                 } else {
                     // Cursor Rotation P1
                     bool selectionMade = false;
-                    if (cursorP1.selection == Building.Blocking || cursorP1.selection == Building.Refracting) cursorP1.direction = Direction.Down;
+					if ((cursorP1.selection == Building.Blocking || cursorP1.selection == Building.Refracting) && cursorP1.state != State.placingLaser) cursorP1.direction = Direction.Down;
                     else if (p1LeftAnalog != Vector2.zero) {
                         if (directionL1 == Direction.Right || directionL1 == Direction.Left) {
                             if (cursorP1.state != State.placingLaser) cursorP1.direction = directionL1;
@@ -393,7 +393,7 @@ public class inputController : MonoBehaviour {
                 } else {
                     // Cursor Rotation P2
                     bool selectionMade = false;
-                    if (cursorP2.selection == Building.Blocking || cursorP2.selection == Building.Refracting) cursorP2.direction = Direction.Down;
+					if ((cursorP2.selection == Building.Blocking || cursorP2.selection == Building.Refracting) && cursorP2.state != State.placingLaser) cursorP2.direction = Direction.Down;
                     else if(p2LeftAnalog != Vector2.zero) {
                         if (directionL2 == Direction.Right || directionL2 == Direction.Left) {
                             if (cursorP2.state != State.placingLaser) cursorP2.direction = directionL2;
@@ -429,7 +429,6 @@ public class inputController : MonoBehaviour {
                 else if (Input.GetButtonDown("cancel_1") && cursorP1.state != State.placeBase && cursorP1.state != State.placeLaser)
                 {
                     cursorP1.state = cursorP1.state == State.placingLaser ? State.placeLaser : State.idle;
-                    cursorP1.direction = cursorP1.state == State.placingLaser ? Direction.Right : Direction.Down;
                 }
 				// Cursor Functions P2
 				if (!TutorialFramework.tutorialActive) {
@@ -439,7 +438,6 @@ public class inputController : MonoBehaviour {
 					else if (Input.GetButtonDown("cancel_2") && cursorP2.state != State.placeBase && cursorP2.state != State.placeLaser)
                     {
                         cursorP2.state = cursorP2.state == State.placingLaser ? State.placeLaser : State.idle;
-                        cursorP2.direction = cursorP2.state == State.placingLaser ? Direction.Left : Direction.Down;
                     }
                 }
 
@@ -523,7 +521,7 @@ public class inputController : MonoBehaviour {
 					indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
 					indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().UISprites[0];
 				} else if (cursorP1.state == State.placingLaser) {
-					indicatorP1.GetComponent<SpriteRenderer>().enabled = false;
+					indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
 				} else if (cursorP1.state == State.placingMove || cursorP1.state == State.moving) {
 					indicatorP1.GetComponent<SpriteRenderer>().enabled = true;
 					indicatorP1.GetComponent<SpriteRenderer>().sprite = cursorObjP1.GetComponent<cursor>().UISprites[2];
@@ -537,7 +535,7 @@ public class inputController : MonoBehaviour {
 					indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
 					indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().UISprites[0];
 				} else if (cursorP2.state == State.placingLaser) {
-					indicatorP2.GetComponent<SpriteRenderer>().enabled = false;
+					indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
 				} else if (cursorP2.state == State.placingMove || cursorP2.state == State.moving) {
 					indicatorP2.GetComponent<SpriteRenderer>().enabled = true;
 					indicatorP2.GetComponent<SpriteRenderer>().sprite = cursorObjP2.GetComponent<cursor>().UISprites[2];

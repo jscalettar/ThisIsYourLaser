@@ -14315,7 +14315,6 @@ GameObject:
   - component: {fileID: 1461189277}
   - component: {fileID: 1461189276}
   - component: {fileID: 1461189275}
-  - component: {fileID: 1461189274}
   - component: {fileID: 1461189273}
   - component: {fileID: 1461189272}
   - component: {fileID: 1461189271}
@@ -14450,17 +14449,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 274956458}
---- !u!114 &1461189274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1461189267}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5233d01c9074b4ab79f5ed9f8efbc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1461189275
 MonoBehaviour:
   m_ObjectHideFlags: 0

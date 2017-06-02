@@ -87,7 +87,7 @@ public class laserLogic : MonoBehaviour
         public Direction getHeading() { return laserHeading; }
         public Direction getMarchDir() { return marchDirection; }
         public Player getOwner() { return owner; }
-        public bool onRedirect() { return gridManager.theGrid.getBuilding(X, Y) == Building.Redirecting; }
+        public bool onRedirect() { return gridManager.theGrid.getBuilding(X, Y, false) == Building.Redirecting; }
         // Set
         public void combineLasers(float str, Player laserOwner)
         {
@@ -429,7 +429,7 @@ public class laserLogic : MonoBehaviour
         float xOff = 0, yOff = 0;
 
         if (start) {
-            if (gridManager.theGrid.getBuilding(x, y) == Building.Redirecting) {
+			if (gridManager.theGrid.getBuilding(x, y, false) == Building.Redirecting) {
                 switch (heading) {
                     case Direction.NE: { if (direction == Direction.Right) { xOff = 0.5f; yOff = 0f; } else { xOff = 0f; yOff = 0.5f; } break; }
                     case Direction.NW: { if (direction == Direction.Left) { xOff = 0.5f; yOff = 0f; } else { xOff = 1f; yOff = 0.5f; } break; }
@@ -444,7 +444,7 @@ public class laserLogic : MonoBehaviour
                     case Direction.SW: { if (direction == Direction.Down) { xOff += 0.5f; yOff++; } else { xOff++; yOff += 0.5f; } break; }
                 }
         } else {
-            if (gridManager.theGrid.getBuilding(x, y) == Building.Redirecting) {
+			if (gridManager.theGrid.getBuilding(x, y, false) == Building.Redirecting) {
                 switch (heading) {
                     case Direction.NE: { if (direction == Direction.Right) { xOff = 0.5f; yOff = 1f; } else { xOff = 1f; yOff = 0.5f; } break; }
                     case Direction.NW: { if (direction == Direction.Left) { xOff = 0.5f; yOff = 1f; } else { xOff = 0f; yOff = 0.5f; } break; }
@@ -484,8 +484,8 @@ public class laserLogic : MonoBehaviour
         iterationCount = 0; laserIndex = -1;
         bool p1LaserFound = false, p2LaserFound = false;
         for (int i = 0; i < gridManager.theGrid.getDimY(); i++) {
-            if (gridManager.theGrid.getBuilding(0, i) == Building.Laser) { laserStartP1 = i; p1LaserFound = true; laserHeadingP1 = gridManager.theGrid.getDirection(0, i) == Direction.Up ? Direction.NE : Direction.SE; }
-            if (gridManager.theGrid.getBuilding(gridManager.theGrid.getDimX() - 1, i) == Building.Laser) { laserStartP2 = i; p2LaserFound = true; laserHeadingP2 = gridManager.theGrid.getDirection(gridManager.theGrid.getDimX() - 1, i) == Direction.Up ? Direction.NW : Direction.SW; }
+			if (gridManager.theGrid.getBuilding(0, i, false) == Building.Laser) { laserStartP1 = i; p1LaserFound = true; laserHeadingP1 = gridManager.theGrid.getDirection(0, i) == Direction.Up ? Direction.NE : Direction.SE; }
+			if (gridManager.theGrid.getBuilding(gridManager.theGrid.getDimX() - 1, i, false) == Building.Laser) { laserStartP2 = i; p2LaserFound = true; laserHeadingP2 = gridManager.theGrid.getDirection(gridManager.theGrid.getDimX() - 1, i) == Direction.Up ? Direction.NW : Direction.SW; }
         }
 
         // If a laser has been placed, set this variable to active and start incrementing the laserLifetime timer (in LateUpdate)
@@ -642,7 +642,7 @@ public class laserLogic : MonoBehaviour
     private void laserSolver(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx, int reflections)
     {
         if (x < 0 || y < 0 || x >= gridManager.theGrid.getDimX() || y >= gridManager.theGrid.getDimY()) return;
-        switch (gridManager.theGrid.getBuilding(x, y)) {
+		switch (gridManager.theGrid.getBuilding(x, y, false)) {
             case Building.Empty: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, reflections, false); break;
             case Building.Blocking: laserBlock(x, y, strength, heading, direction, player, indx, subIndx); break;
             case Building.Reflecting: laserReflect(x, y, strength, heading, direction, player, indx, subIndx, reflections); break;
@@ -715,10 +715,10 @@ public class laserLogic : MonoBehaviour
 
         switch (direction)
             {
-            case Direction.Down: if (gridManager.theGrid.getBuilding(x, y + 1) != Building.Redirecting) addLaserToQueue(x, y + 1, strength, heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, reflections, false, true); break;
-            case Direction.Up: if (gridManager.theGrid.getBuilding(x, y - 1) != Building.Redirecting) addLaserToQueue(x, y - 1, strength, heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, reflections, false, true); break;
-            case Direction.Left: if (gridManager.theGrid.getBuilding(x + 1, y) != Building.Redirecting) addLaserToQueue(x + 1, y, strength, heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, reflections, false, true); break;
-            case Direction.Right: if (gridManager.theGrid.getBuilding(x - 1, y) != Building.Redirecting) addLaserToQueue(x - 1, y, strength, heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, reflections, false, true); break;
+			case Direction.Down: if (gridManager.theGrid.getBuilding(x, y + 1, false) != Building.Redirecting) addLaserToQueue(x, y + 1, strength, heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, reflections, false, true); break;
+			case Direction.Up: if (gridManager.theGrid.getBuilding(x, y - 1, false) != Building.Redirecting) addLaserToQueue(x, y - 1, strength, heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, reflections, false, true); break;
+			case Direction.Left: if (gridManager.theGrid.getBuilding(x + 1, y, false) != Building.Redirecting) addLaserToQueue(x + 1, y, strength, heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, reflections, false, true); break;
+			case Direction.Right: if (gridManager.theGrid.getBuilding(x - 1, y, false) != Building.Redirecting) addLaserToQueue(x - 1, y, strength, heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, reflections, false, true); break;
         }
 
     }

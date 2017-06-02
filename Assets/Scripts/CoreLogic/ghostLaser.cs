@@ -50,11 +50,11 @@ public class ghostLaser : MonoBehaviour {
             laserSubIndex = subIndex;
         }
 
-        private Building getBuilding(int x, int y, Player player = Player.World)
+		private Building getBuilding(int x, int y, Player player = Player.World, bool flag = true)
         {
             if (player == Player.PlayerOne && inputController.cursorP1.x == x && inputController.cursorP1.y == y && validCursorBuilding(Player.PlayerOne)) return getCursorBuilding(Player.PlayerOne);
             if (player == Player.PlayerTwo && inputController.cursorP2.x == x && inputController.cursorP2.y == y && validCursorBuilding(Player.PlayerTwo)) return getCursorBuilding(Player.PlayerTwo);
-            return gridManager.theGrid.getBuilding(x, y);
+			return gridManager.theGrid.getBuilding(x, y, flag);
         }
 
         // Get
@@ -66,7 +66,7 @@ public class ghostLaser : MonoBehaviour {
         public Direction getHeading() { return laserHeading; }
         public Direction getMarchDir() { return marchDirection; }
         public Player getOwner() { return owner; }
-        public bool onRedirect(Player player) { return getBuilding(X, Y, player) == Building.Redirecting; }
+		public bool onRedirect(Player player) { return getBuilding(X, Y, player, false) == Building.Redirecting; }
         // Set
         public void combineLasers(float str, Player laserOwner)
         {
@@ -289,7 +289,7 @@ public class ghostLaser : MonoBehaviour {
         float xOff = 0, yOff = 0;
 
         if (start) {
-            if (getBuilding(x, y) == Building.Redirecting) {
+			if (getBuilding(x, y, Player.World, false) == Building.Redirecting) {
                 switch (heading) {
                     case Direction.NE: { if (direction == Direction.Right) { xOff = 0.5f; yOff = 0f; } else { xOff = 0f; yOff = 0.5f; } break; }
                     case Direction.NW: { if (direction == Direction.Left) { xOff = 0.5f; yOff = 0f; } else { xOff = 1f; yOff = 0.5f; } break; }
@@ -304,7 +304,7 @@ public class ghostLaser : MonoBehaviour {
                     case Direction.SW: { if (direction == Direction.Down) { xOff += 0.5f; yOff++; } else { xOff++; yOff += 0.5f; } break; }
                 }
         } else {
-            if (getBuilding(x, y) == Building.Redirecting) {
+			if (getBuilding(x, y, Player.World, false) == Building.Redirecting) {
                 switch (heading) {
                     case Direction.NE: { if (direction == Direction.Right) { xOff = 0.5f; yOff = 1f; } else { xOff = 1f; yOff = 0.5f; } break; }
                     case Direction.NW: { if (direction == Direction.Left) { xOff = 0.5f; yOff = 1f; } else { xOff = 0f; yOff = 0.5f; } break; }
@@ -351,13 +351,11 @@ public class ghostLaser : MonoBehaviour {
         refractHits.Clear();
 
         // Check p1 cursor if ghost laser simulation is necessary
-        if (validCursorBuilding(Player.PlayerOne) && inputController.validPlacement(inputController.cursorP1.x, inputController.cursorP1.y, inputController.cursorP1.direction, getCursorBuilding(Player.PlayerOne)) && laserLogic.laserData.grid.GetLength(0) > 0)
-            for (int i = 0; i < laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x].Count; i++) {
-                if (laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getSubIndex() > 0) {
-                    if (getCursorBuilding(Player.PlayerOne) == Building.Redirecting)
-                        laserRedirect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
-                    else laserReflect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
-                }
+		if (validCursorBuilding (Player.PlayerOne) && inputController.validPlacement (inputController.cursorP1.x, inputController.cursorP1.y, inputController.cursorP1.direction, getCursorBuilding (Player.PlayerOne)) && laserLogic.laserData.grid.GetLength (0) > 0)
+			for (int i = 0; i < laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x].Count; i++) {
+                if (getCursorBuilding(Player.PlayerOne) == Building.Redirecting)
+                    laserRedirect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
+                else laserReflect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
                 //laserQueue.Add(new laserNode(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.x, inputController.cursorP1.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.x, inputController.cursorP1.y][i].getMarchDir(), Player.PlayerOne, ++laserIndex, 0));
                 // Loop through the simulation
                 while (laserQueue.Count > 0) {
@@ -382,12 +380,10 @@ public class ghostLaser : MonoBehaviour {
         // Check p2 cursor if ghost laser simulation is necessary
         if (validCursorBuilding(Player.PlayerTwo) && inputController.validPlacement(inputController.cursorP2.x, inputController.cursorP2.y, inputController.cursorP2.direction, getCursorBuilding(Player.PlayerTwo)))
             for (int i = 0; i < laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x].Count; i++) {
-                if (laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getSubIndex() > 0) {
-                    if (getCursorBuilding(Player.PlayerTwo) == Building.Redirecting)
-                        laserRedirect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
-                    else laserReflect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
-                }
-                //laserQueue.Add(new laserNode(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getMarchDir(), Player.PlayerTwo, ++laserIndex, 0));
+                if (getCursorBuilding(Player.PlayerTwo) == Building.Redirecting)
+                    laserRedirect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
+                else laserReflect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
+           		//laserQueue.Add(new laserNode(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getMarchDir(), Player.PlayerTwo, ++laserIndex, 0));
                 // Loop through the simulation
                 while (laserQueue.Count > 0) {
                     laserStep(laserQueue[0]);
@@ -520,7 +516,7 @@ public class ghostLaser : MonoBehaviour {
     private void laserSolver(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
         if (x < 0 || y < 0 || x >= gridManager.theGrid.getDimX() || y >= gridManager.theGrid.getDimY()) return;
-        switch (getBuilding(x, y, player)) {
+		switch (getBuilding(x, y, player, false)) {
             case Building.Empty: addLaserToQueue(x, y, strength, heading, direction, player, indx, subIndx, false); break;
             case Building.Blocking: laserBlock(x, y, strength, heading, direction, player, indx, subIndx); break;
             case Building.Reflecting: laserReflect(x, y, strength, heading, direction, player, indx, subIndx); break;
@@ -572,10 +568,10 @@ public class ghostLaser : MonoBehaviour {
     private void laserReflect(int x, int y, float strength, Direction heading, Direction direction, Player player, int indx, int subIndx)
     {
         switch (direction) {
-            case Direction.Down: if (getBuilding(x, y + 1, player) != Building.Redirecting) addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
-            case Direction.Up: if (getBuilding(x, y - 1, player) != Building.Redirecting) addLaserToQueue(x, y - 1, strength + powerSolver(x, y), heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, true); break;
-            case Direction.Left: if (getBuilding(x + 1, y, player) != Building.Redirecting) addLaserToQueue(x + 1, y, strength + powerSolver(x, y), heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, true); break;
-            case Direction.Right: if (getBuilding(x - 1, y, player) != Building.Redirecting) addLaserToQueue(x - 1, y, strength + powerSolver(x, y), heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, true); break;
+			case Direction.Down: if (getBuilding(x, y + 1, player, false) != Building.Redirecting) addLaserToQueue(x, y + 1, strength + powerSolver(x, y), heading == Direction.SE ? Direction.NE : Direction.NW, Direction.Up, player, indx, subIndx, true); break;
+			case Direction.Up: if (getBuilding(x, y - 1, player, false) != Building.Redirecting) addLaserToQueue(x, y - 1, strength + powerSolver(x, y), heading == Direction.NE ? Direction.SE : Direction.SW, Direction.Down, player, indx, subIndx, true); break;
+			case Direction.Left: if (getBuilding(x + 1, y, player, false) != Building.Redirecting) addLaserToQueue(x + 1, y, strength + powerSolver(x, y), heading == Direction.SW ? Direction.SE : Direction.NE, Direction.Right, player, indx, subIndx, true); break;
+			case Direction.Right: if (getBuilding(x - 1, y, player, false) != Building.Redirecting) addLaserToQueue(x - 1, y, strength + powerSolver(x, y), heading == Direction.SE ? Direction.SW : Direction.NW, Direction.Left, player, indx, subIndx, true); break;
         }
     }
 
@@ -609,8 +605,8 @@ public class ghostLaser : MonoBehaviour {
         // damage hit if side hit
         bool damageHit = false;
         Direction dir = Direction.Up;
-        if (player == Player.PlayerOne && inputController.cursorP1.x == x && inputController.cursorP1.y == y && validCursorBuilding(Player.PlayerOne)) dir = inputController.cursorP1.state == State.idle ? Direction.Up : inputController.cursorP1.direction;
-        else if (player == Player.PlayerTwo && inputController.cursorP2.x == x && inputController.cursorP2.y == y && validCursorBuilding(Player.PlayerTwo)) dir = inputController.cursorP2.state == State.idle ? Direction.Up : inputController.cursorP2.direction;
+        if (player == Player.PlayerOne && inputController.cursorP1.x == x && inputController.cursorP1.y == y && validCursorBuilding(Player.PlayerOne)) dir = inputController.cursorP1.direction;
+        else if (player == Player.PlayerTwo && inputController.cursorP2.x == x && inputController.cursorP2.y == y && validCursorBuilding(Player.PlayerTwo)) dir = inputController.cursorP2.direction;
         else dir = gridManager.theGrid.getDirection(x, y);
         if (dir == Direction.Up || dir == Direction.Down) { if (direction == Direction.Right || direction == Direction.Left) damageHit = true; } else { if (direction == Direction.Up || direction == Direction.Down) damageHit = true; }
 
@@ -625,11 +621,11 @@ public class ghostLaser : MonoBehaviour {
     }
 
     // Returns ghost building or gridmanager building
-    private Building getBuilding(int x, int y, Player player = Player.World)
+	private Building getBuilding(int x, int y, Player player = Player.World, bool flag = true)
     {
         if (player == Player.PlayerOne && inputController.cursorP1.x == x && inputController.cursorP1.y == y && validCursorBuilding(Player.PlayerOne)) return getCursorBuilding(Player.PlayerOne);
         if (player == Player.PlayerTwo && inputController.cursorP2.x == x && inputController.cursorP2.y == y && validCursorBuilding(Player.PlayerTwo)) return getCursorBuilding(Player.PlayerTwo);
-        return gridManager.theGrid.getBuilding(x, y);
+        return gridManager.theGrid.getBuilding(x, y, flag);
     }
 
     // Check if current selected building is supported by the ghost laser

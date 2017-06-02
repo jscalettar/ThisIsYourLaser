@@ -347,7 +347,7 @@ public struct Grid
     }
 
     public GridItem getCellInfo(int x, int y) { return validateInput(x, y) ? grid[y, x] : new GridItem(true, Building.Empty, Player.World, Direction.None, 0); }
-    public Building getBuilding(int x, int y) { if (!validateInput(x, y)) return Building.Empty; if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return gridManager.theGrid.prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().buildingType; return grid[y, x].building; }
+	public Building getBuilding(int x, int y, bool prefabsAlso = true) { if (!validateInput(x, y)) return Building.Empty; if (prefabsAlso && gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return gridManager.theGrid.prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().buildingType; return grid[y, x].building; }
     public Player getOwner(int x, int y) { return validateInput(x, y) ? grid[y, x].owner : Player.World; }
     public Direction getDirection(int x, int y) { if (!validateInput(x, y)) return Direction.None; if (gridManager.theGrid.prefabDictionary.ContainsKey(new XY(x, y))) return gridManager.theGrid.prefabDictionary[new XY(x, y)].GetComponent<buildingParameters>().direction; return grid[y, x].direction; }
     public int getDimX() { return dimX; }
@@ -413,7 +413,7 @@ public struct Grid
 			if (structure != null) structure.GetComponent<buildingParameters>().takingDamage = true;
 
             if(timer < 0 ){
-                if(getBuilding(x,y) == Building.Base){
+                if(getBuilding(x,y,false) == Building.Base){
                     if(((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)) < laserCeiling){
 
                         SoundManager.PlaySound(inputController.Sounds[5].audioclip,((float)(Math.Exp( 1/(grid[y, x].health))-1)/(float)(Math.E-1)));
@@ -430,7 +430,7 @@ public struct Grid
             }
             if (!TutorialFramework.tutorialActive) {
                 if(hitTimer < 0 ){
-                    switch(getBuilding(x,y)){
+					switch(getBuilding(x,y,false)){
                         case Building.Base: 
                             SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f);
                             SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(8,10)].audioclip, .4f, true, .8f, 1.2f); 
@@ -470,8 +470,8 @@ public struct Grid
                 if (tutorialObject != null && TutorialFramework.tutorialActive) {
                     tutorialObject.GetComponent<TutorialFramework>().buildingDestructionEvent(new XY(x, y), grid[y, x].building);
                 } else {
-                    if (getBuilding(x, y) == Building.Base && baseHealthP2() <= 0f){  SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerOne); }
-                    else if (getBuilding(x, y) == Building.Base && baseHealthP1() <= 0f){ SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerTwo); }
+					if (getBuilding(x, y, false) == Building.Base && baseHealthP2() <= 0f){  SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerOne); }
+					else if (getBuilding(x, y, false) == Building.Base && baseHealthP1() <= 0f){ SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerTwo); }
                 }
                 destroyBuilding(x, y);
             }
@@ -683,6 +683,15 @@ public struct Grid
             // Limicator stuff
             Limicator.limicatorObj.changeStones(grid[y, x].owner == Player.PlayerOne ? 0 : 1, State.removing, grid[y, x].building);
 
+			switch(getBuilding(x, y)){
+				case Building.Reflecting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1.2f, 1.2f); break;
+				case Building.Refracting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 2f, 2f); break;
+				case Building.Redirecting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .7f, .7f); break;
+				case Building.Resource: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .6f, .6f); break;
+				case Building.Blocking: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .8f, .8f); break;
+				default: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1f, 1f); break;
+			}
+
             grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
@@ -692,14 +701,7 @@ public struct Grid
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
-            switch(getBuilding(x, y)){
-                case Building.Reflecting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1.2f, 1.2f); break;
-                case Building.Refracting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 2f, 2f); break;
-                case Building.Redirecting: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .7f, .7f); break;
-                case Building.Resource: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .6f, .6f); break;
-                case Building.Blocking: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, .8f, .8f); break;
-                default: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1f, 1f); break;
-            }
+
             CameraShake.shakeTimer = 0f;
             updateSquares();
         } else return false;
