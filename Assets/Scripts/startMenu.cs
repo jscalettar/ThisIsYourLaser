@@ -72,7 +72,7 @@ public class startMenu : MonoBehaviour {
         CreditMenu.SetActive(false);
         populateList();
         if (tutorialToInstructionFlag.instance.flag) mainMenu();
-        SoundManager.PlayMusic(musicSounds[0].audioclip, .05f, true, true, 5f, 1.5f);
+        SoundManager.PlayMusic(musicSounds[0].audioclip, .3f, true, true, 5f, 1.5f);
     }
     void Update(){
 		setMaster (masterSlider.value);
