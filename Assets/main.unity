@@ -2315,16 +2315,16 @@ MonoBehaviour:
     offsetX: 0
   Reflect:
   - sprite: {fileID: 21300000, guid: 865c5161b90546641823af71c50420c5, type: 3}
-    offset: 0
+    offset: -0.75
     offsetX: 0
   - sprite: {fileID: 21300000, guid: 3741c4e5faa520143a0f4da027bc4326, type: 3}
-    offset: 0
+    offset: -0.75
     offsetX: 0
   - sprite: {fileID: 21300000, guid: c39cf1bb27a430044a45eb092d49d277, type: 3}
-    offset: 0
+    offset: -0.75
     offsetX: 0
   - sprite: {fileID: 21300000, guid: 7a15a8bc2f5900a45ad291d7205fba06, type: 3}
-    offset: 0
+    offset: -0.5
     offsetX: 0
   Refract:
   - sprite: {fileID: 21300000, guid: ca53c2314b531fb48b67901d1cfbb6c4, type: 3}
@@ -17048,16 +17048,16 @@ MonoBehaviour:
     offsetX: 0
   Reflect:
   - sprite: {fileID: 21300000, guid: 102b6273ee2256c45bdd43e2f80957db, type: 3}
-    offset: 0
+    offset: -0.75
     offsetX: 0
   - sprite: {fileID: 21300000, guid: 29b5fc8cac708b24b9c6ea826588952c, type: 3}
-    offset: 0
+    offset: -0.75
     offsetX: 0
   - sprite: {fileID: 21300000, guid: 8eef596f7501b184faa7963eada894fe, type: 3}
-    offset: 0
+    offset: -0.75
     offsetX: 0
   - sprite: {fileID: 21300000, guid: 07af4d4cc03d8e244a4293a85997ee9a, type: 3}
-    offset: 0
+    offset: -0.5
     offsetX: 0
   Refract:
   - sprite: {fileID: 21300000, guid: e2226820a685bca498aa267a4013293f, type: 3}
