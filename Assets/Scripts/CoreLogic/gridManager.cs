@@ -661,7 +661,7 @@ public struct Grid
     {
 		
         if (!validateInput(x, y)) return false;
-        if (!grid[y, x].isEmpty) {
+		if (!grid[y, x].isEmpty && !grid[y,x].markedForDeath) {
             grid[y, x].markedForDeath = true;
             // Emit Destruction Particle
             if(grid[y, x].building == Building.Blocking)
@@ -702,11 +702,11 @@ public struct Grid
 				default: SoundManager.PlaySound(inputController.Sounds[1].audioclip, .6f, true, 1f, 1f); break;
 			}
 
-            grid[y, x].isEmpty = true;
+            /*grid[y, x].isEmpty = true;
             grid[y, x].building = Building.Empty;
             grid[y, x].owner = Player.World;
             grid[y, x].level = 0;
-            grid[y, x].health = 0;
+            grid[y, x].health = 0;*/
             if (grid[y, x].building != Building.Base && grid[y, x].building != Building.Laser)
             {
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
@@ -745,36 +745,42 @@ public struct Grid
                 building.GetComponent<buildingParameters>().y = yNew;
                 building.GetComponent<buildingParameters>().direction = facing;
 
-                // Building position offsets etc --------------------------------------------------------------------------
+				prefabDictionary.Remove(new XY(x, y));
+				prefabDictionary.Add(new XY(xNew, yNew), building);
+			}
+			grid[yNew, xNew].direction = facing;
+			// Rotate
+			if (canRotate(grid[yNew, xNew].building)) { building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)]; building.GetComponent<buildingParameters>().direction = facing; }
 
-                building.transform.SetParent(buildingContainer.transform);
-                building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
+			// Building position offsets etc --------------------------------------------------------------------------
+            building.transform.SetParent(buildingContainer.transform);
+            building.transform.localPosition = new Vector3((-dimX / 2) + xNew + 0.5f, 0, (-dimY / 2) + yNew + 0.5f);
 
-                Building buildingType = building.GetComponent<buildingParameters>().buildingType;
+            Building buildingType = building.GetComponent<buildingParameters>().buildingType;
 
-                if (buildingType == Building.Laser && facing == Direction.Down) {
-                    building.transform.localPosition = coordsToWorld(xNew, yNew - 0.7f);
-                } else if (buildingType == Building.Laser && facing == Direction.Up) {
-                    building.transform.localPosition = coordsToWorld(xNew, yNew + 0.45f);
-                }
-                if (buildingType == Building.Reflecting) {
-                    if (facing == Direction.Left) {
-                        building.transform.localPosition = coordsToWorld(xNew - 0.14869f, yNew - 0.135f);
-                    } else if (facing == Direction.Right) {
-                        building.transform.localPosition = coordsToWorld(xNew + 0.156f, yNew - 0.135f);
-                    } else building.transform.localPosition = coordsToWorld(xNew, yNew - 0.135f);
-                }
-                if (buildingType == Building.Resource && facing == Direction.Left) {
-                    building.transform.localPosition = coordsToWorld(xNew - .5f, yNew);
-                } else if (buildingType == Building.Resource && facing == Direction.Right) {
-                    building.transform.localPosition = coordsToWorld(xNew + .5f, yNew);
-                }
+            if (buildingType == Building.Laser && facing == Direction.Down) {
+                building.transform.localPosition = coordsToWorld(xNew, yNew - 0.7f);
+            } else if (buildingType == Building.Laser && facing == Direction.Up) {
+                building.transform.localPosition = coordsToWorld(xNew, yNew + 0.45f);
+            }
+            if (buildingType == Building.Reflecting) {
+                if (facing == Direction.Left) {
+                    building.transform.localPosition = coordsToWorld(xNew - 0.14869f, yNew - 0.135f);
+                } else if (facing == Direction.Right) {
+                    building.transform.localPosition = coordsToWorld(xNew + 0.156f, yNew - 0.135f);
+                } else building.transform.localPosition = coordsToWorld(xNew, yNew - 0.135f);
+            }
+            if (buildingType == Building.Resource && facing == Direction.Left) {
+                building.transform.localPosition = coordsToWorld(xNew - .5f, yNew);
+            } else if (buildingType == Building.Resource && facing == Direction.Right) {
+                building.transform.localPosition = coordsToWorld(xNew + .5f, yNew);
+            }
 
                 // --------------------------------------------------------------------------------------------------------
 
-                prefabDictionary.Remove(new XY(x, y));
-                prefabDictionary.Add(new XY(xNew, yNew), building);
-            }
+            prefabDictionary.Remove(new XY(x, y));
+            prefabDictionary.Add(new XY(xNew, yNew), building);
+        
             grid[yNew, xNew].direction = facing;
             // Rotate
             //if (canRotate(grid[yNew, xNew].building)) { building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)]; building.GetComponent<buildingParameters>().direction = facing; }
@@ -794,6 +800,7 @@ public struct Grid
         return true;
     }
 }
+
 
 public class gridManager : MonoBehaviour
 {
@@ -842,6 +849,7 @@ public class gridManager : MonoBehaviour
 
     void Awake()
     {
+			Time.timeScale = 1f;
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
         initGrid();
@@ -908,3 +916,4 @@ public class gridManager : MonoBehaviour
         }
     }
 }
+

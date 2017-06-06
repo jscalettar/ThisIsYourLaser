@@ -411,11 +411,11 @@ public class pauseMenu : MonoBehaviour
     {
         // Resets the time scale so the game doesn't freeze when restarted
         SceneManager.LoadScene("main", LoadSceneMode.Single);
-        Time.timeScale = 1F;
+        /*Time.timeScale = 1F;
         PauseMenu.SetActive(false);
         OptionMenu.SetActive(false);
         InstructMenu.SetActive(false);
-        Win.SetActive(false);
+        Win.SetActive(false);*/
     }
 
     // ------------------------------------------------------- //
