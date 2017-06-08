@@ -3531,12 +3531,10 @@ Transform:
   m_Children:
   - {fileID: 1999001546}
   - {fileID: 713375135}
-  - {fileID: 1854738378}
   - {fileID: 1792056343}
+  - {fileID: 610314348}
   - {fileID: 279050955}
   - {fileID: 1903941899}
-  - {fileID: 610314348}
-  - {fileID: 988190461}
   - {fileID: 1999940287}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -6644,7 +6642,7 @@ GameObject:
   - component: {fileID: 610314348}
   - component: {fileID: 610314349}
   m_Layer: 0
-  m_Name: Refract
+  m_Name: Refract + Resource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6661,7 +6659,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314660326}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &610314349
 MonoBehaviour:
@@ -6674,11 +6672,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 6
+  moduleOrderIndex: 3
   initialState: 2
   highlightPos:
-    x: 5
-    y: 7
+    x: 3
+    y: 5
   highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
   initialSelection: 4
   spawnList:
@@ -6698,12 +6696,12 @@ MonoBehaviour:
     player: 1
     direction: 7
   initialPopup: {fileID: 2800000, guid: 2a55b197e2e8d15419b08e7aeda1d0af, type: 3}
-  initialPopup2: {fileID: 0}
+  initialPopup2: {fileID: 2800000, guid: f0b40b5989fd6b44cab56d82c509cc84, type: 3}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
-  baseDestroyed: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
-  endOnBaseDestruction: 1
+  baseDestroyed: {fileID: 0}
+  endOnBaseDestruction: 0
   specificDestroyed: []
   firstPlacing: {fileID: 0}
   firstPlaced: {fileID: 0}
@@ -6715,7 +6713,21 @@ MonoBehaviour:
   firstRemoving: {fileID: 0}
   firstRemoved: {fileID: 0}
   endOnRemoved: 0
-  specificInteraction: []
+  specificInteraction:
+  - pos:
+      x: -1
+      y: -1
+    building: 6
+    type: 0
+    popup: {fileID: 2800000, guid: 8bb73e393cbacf1458c6f336e85481fb, type: 3}
+    endTrigger: 1
+  - pos:
+      x: 3
+      y: 5
+    building: 4
+    type: 0
+    popup: {fileID: 2800000, guid: 18e2b603c1cb21a44a04988a0df708ad, type: 3}
+    endTrigger: 0
   movedLeft: {fileID: 0}
   movedRight: {fileID: 0}
   movedUp: {fileID: 0}
@@ -7388,7 +7400,7 @@ GameObject:
   - component: {fileID: 713375135}
   - component: {fileID: 713375136}
   m_Layer: 0
-  m_Name: Base
+  m_Name: Base+Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7427,16 +7439,16 @@ MonoBehaviour:
   initialSelection: 0
   spawnList: []
   initialPopup: {fileID: 2800000, guid: f9f656078c200514f8d3e7696080dc34, type: 3}
-  initialPopup2: {fileID: 0}
+  initialPopup2: {fileID: 2800000, guid: 17908b9aa17290f46a7e0e403c5bbfd4, type: 3}
   initialPopup3: {fileID: 0}
-  firstDestroyed: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
+  firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 0}
   endOnBaseDestruction: 0
   specificDestroyed: []
   firstPlacing: {fileID: 0}
-  firstPlaced: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
-  endOnPlaced: 1
+  firstPlaced: {fileID: 0}
+  endOnPlaced: 0
   firstMoving: {fileID: 0}
   firstMovingPlacing: {fileID: 0}
   firstMoved: {fileID: 0}
@@ -7444,7 +7456,14 @@ MonoBehaviour:
   firstRemoving: {fileID: 0}
   firstRemoved: {fileID: 0}
   endOnRemoved: 0
-  specificInteraction: []
+  specificInteraction:
+  - pos:
+      x: -1
+      y: -1
+    building: 1
+    type: 0
+    popup: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
+    endTrigger: 1
   movedLeft: {fileID: 0}
   movedRight: {fileID: 0}
   movedUp: {fileID: 0}
@@ -9820,101 +9839,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 977652178}
---- !u!1 &988190460
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 988190461}
-  - component: {fileID: 988190462}
-  m_Layer: 0
-  m_Name: Resource
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &988190461
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 988190460}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 314660326}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &988190462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 988190460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moduleOrderIndex: 7
-  initialState: 2
-  highlightPos:
-    x: 4
-    y: 4
-  highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
-  initialSelection: 6
-  spawnList:
-  - x: 0
-    y: 3
-    building: 0
-    player: 1
-    direction: 8
-  - x: 0
-    y: 0
-    building: 1
-    player: 1
-    direction: 7
-  - x: 0
-    y: 4
-    building: 0
-    player: 1
-    direction: 7
-  initialPopup: {fileID: 2800000, guid: f0b40b5989fd6b44cab56d82c509cc84, type: 3}
-  initialPopup2: {fileID: 2800000, guid: d36881b5e3044ba40a370b08f07271c8, type: 3}
-  initialPopup3: {fileID: 2800000, guid: 18e2b603c1cb21a44a04988a0df708ad, type: 3}
-  firstDestroyed: {fileID: 0}
-  endOnFirstDestroyed: 0
-  baseDestroyed: {fileID: 0}
-  endOnBaseDestruction: 0
-  specificDestroyed: []
-  firstPlacing: {fileID: 0}
-  firstPlaced: {fileID: 0}
-  endOnPlaced: 0
-  firstMoving: {fileID: 0}
-  firstMovingPlacing: {fileID: 0}
-  firstMoved: {fileID: 0}
-  endOnMoved: 0
-  firstRemoving: {fileID: 0}
-  firstRemoved: {fileID: 0}
-  endOnRemoved: 0
-  specificInteraction:
-  - pos:
-      x: 4
-      y: 4
-    building: 6
-    type: 0
-    popup: {fileID: 2800000, guid: 8bb73e393cbacf1458c6f336e85481fb, type: 3}
-    endTrigger: 1
-  movedLeft: {fileID: 0}
-  movedRight: {fileID: 0}
-  movedUp: {fileID: 0}
-  movedDown: {fileID: 0}
-  endOnAllDirectionsMoved: 0
-  allDrectionsMovedPopup: {fileID: 0}
 --- !u!1 &990940177
 GameObject:
   m_ObjectHideFlags: 0
@@ -17552,7 +17476,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314660326}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1792056344
 MonoBehaviour:
@@ -17565,7 +17489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 3
+  moduleOrderIndex: 2
   initialState: 2
   highlightPos:
     x: 5
@@ -18476,91 +18400,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1849046097}
---- !u!1 &1854738377
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1854738378}
-  - component: {fileID: 1854738379}
-  m_Layer: 0
-  m_Name: Laser
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1854738378
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1854738377}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 314660326}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1854738379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1854738377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moduleOrderIndex: 2
-  initialState: 1
-  highlightPos:
-    x: 0
-    y: 2
-  highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
-  initialSelection: 1
-  spawnList:
-  - x: 0
-    y: 5
-    building: 0
-    player: 1
-    direction: 0
-  initialPopup: {fileID: 2800000, guid: 17908b9aa17290f46a7e0e403c5bbfd4, type: 3}
-  initialPopup2: {fileID: 0}
-  initialPopup3: {fileID: 0}
-  firstDestroyed: {fileID: 0}
-  endOnFirstDestroyed: 0
-  baseDestroyed: {fileID: 0}
-  endOnBaseDestruction: 0
-  specificDestroyed: []
-  firstPlacing: {fileID: 0}
-  firstPlaced: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
-  endOnPlaced: 1
-  firstMoving: {fileID: 0}
-  firstMovingPlacing: {fileID: 0}
-  firstMoved: {fileID: 0}
-  endOnMoved: 0
-  firstRemoving: {fileID: 0}
-  firstRemoved: {fileID: 0}
-  endOnRemoved: 0
-  specificInteraction:
-  - pos:
-      x: -1
-      y: -1
-    building: 1
-    type: 1
-    popup: {fileID: 2800000, guid: 253f019d764611a43b7dd41a19d50781, type: 3}
-    endTrigger: 0
-  movedLeft: {fileID: 0}
-  movedRight: {fileID: 0}
-  movedUp: {fileID: 0}
-  movedDown: {fileID: 0}
-  endOnAllDirectionsMoved: 0
-  allDrectionsMovedPopup: {fileID: 0}
 --- !u!1 &1858968537
 GameObject:
   m_ObjectHideFlags: 0
@@ -20056,7 +19895,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314660326}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1999940288
 MonoBehaviour:
@@ -20069,7 +19908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 8
+  moduleOrderIndex: 6
   initialState: 2
   highlightPos:
     x: 4
