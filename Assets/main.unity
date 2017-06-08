@@ -18952,6 +18952,7 @@ GameObject:
   - component: {fileID: 2040606554}
   - component: {fileID: 2040606555}
   - component: {fileID: 2040606556}
+  - component: {fileID: 2040606546}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -18959,6 +18960,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2040606546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040606545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7f707de9ae2c94e81326f106bf4b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p1DamageSprite: {fileID: 21300000, guid: 579adadc44afc4643906b8c4c6280c10, type: 3}
+  p2DamageSprite: {fileID: 21300000, guid: f119601f68262284b8eeecf075c611e1, type: 3}
+  colorP1: {r: 1, g: 0, b: 0, a: 1}
+  colorP2: {r: 1, g: 0, b: 0, a: 1}
+  alphaMax: 0.5
+  alphaMin: 0.05
+  pulseSpeed: 0.5
 --- !u!4 &2040606547
 Transform:
   m_ObjectHideFlags: 0

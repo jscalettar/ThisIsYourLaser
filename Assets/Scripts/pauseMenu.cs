@@ -402,9 +402,18 @@ public class pauseMenu : MonoBehaviour
         // Take the in winner value and display correct winner text
 		if (player == Player.PlayerOne) { winText.text = "Player 1 Wins!"; winText.color = Color.red; }
 		else if (player == Player.PlayerTwo) { winText.text = "Player 2 Wins!"; winText.color = Color.green; }
+        Restart.enabled = false;
+        MainMenu.enabled = false;
         Win.SetActive(true);
-		Restart.Select ();
-        print("testing");
+        StartCoroutine(winGameMenu());
+    }
+
+    private IEnumerator winGameMenu()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        Restart.enabled = true;
+        MainMenu.enabled = true;
+        Restart.Select();
     }
 
     // Function for the "Play Again" button

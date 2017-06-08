@@ -139,8 +139,8 @@ public struct Grid
     private float explosionNum;
     private bool needsUpdate;
     public GameObject tutorialObject;
-    private GameObject baseP1;
-    private GameObject baseP2;
+    public GameObject baseP1 { get; private set; }
+    public GameObject baseP2 { get; private set; }
     private GameObject placementTimer;
     public GameObject[,] gridSquares;
     public int blockScale;
@@ -470,8 +470,8 @@ public struct Grid
                 if (tutorialObject != null && TutorialFramework.tutorialActive) {
                     tutorialObject.GetComponent<TutorialFramework>().buildingDestructionEvent(new XY(x, y), grid[y, x].building);
                 } else {
-					if (getBuilding(x, y, false) == Building.Base && baseHealthP2() <= 0f && !canvasObject.GetComponent<pauseMenu>().Win.activeInHierarchy) {  SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerOne); }
-					else if (getBuilding(x, y, false) == Building.Base && baseHealthP1() <= 0f && !canvasObject.GetComponent<pauseMenu>().Win.activeInHierarchy) { SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerTwo); }
+					if (getBuilding(x, y, false) == Building.Base && baseHealthP2() <= 0f && Time.timeScale != 0f) {  SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerOne); }
+					else if (getBuilding(x, y, false) == Building.Base && baseHealthP1() <= 0f && Time.timeScale != 0f) { SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerTwo); }
                 }
                 destroyBuilding(x, y);
             }
@@ -663,15 +663,15 @@ public struct Grid
         if (!validateInput(x, y)) return false;
 		if (!grid[y, x].isEmpty && !grid[y,x].markedForDeath) {
             grid[y, x].markedForDeath = true;
+
             // Emit Destruction Particle
             if(grid[y, x].building == Building.Blocking)
-            {
                 emitParticles.genericParticle.emitParticle(x, y, particleType.squid_explode);
-            }
             else
-            {
                 emitParticles.genericParticle.emitParticle(x, y, particleType.destroy);
-            }
+
+            // Screen shake
+            if (grid[y, x].building != Building.Base) CameraShake.shakeTimer = 0f;
 
             destructionList.Add(new buildingRequest(new XY(x, y), buildingPrefabs[(int)grid[y, x].building].GetComponent<buildingParameters>().removalTime));
 			if (grid [y, x].owner == Player.PlayerOne) {
@@ -712,7 +712,6 @@ public struct Grid
                 prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, .7f, .7f, .3f) : new Vector4(.7f, 1f, .7f, .3f);
             }
 
-            CameraShake.shakeTimer = 0f;
             updateSquares();
         } else return false;
         return true;
