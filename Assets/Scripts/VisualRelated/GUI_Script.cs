@@ -50,7 +50,8 @@ public class GUI_Script : MonoBehaviour {
 		UI.SpriteP1.color = new Vector4 (1f,1f,1f,0.5f); //default cursor color
 		if (inputController.cursorP1.selection != Building.Laser && inputController.cursorP1.selection != Building.Base) {
 			//Can't afford
-			if (gridManager.theGrid.getCost (inputController.cursorP1.selection, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1 ()) {
+			if ((gridManager.theGrid.getCost (inputController.cursorP1.selection, inputController.cursorP1.x, Player.PlayerOne) > gridManager.theGrid.getResourcesP1 ()) ||
+                (!gridManager.theGrid.probeGrid(inputController.cursorP1.x, inputController.cursorP1.y, Direction.Up, Building.Blocking))) {
 				UI.SpriteP1.color = new Vector4 (0.3f, 0.3f, 0.3f, 0.5f); //cursor quad is grey
 			} else if (checkDanger(Player.PlayerOne)) {
 				UI.SpriteP1.color = new Vector4 (1f, 0.3f, 0.3f, 0.5f); //cursor quad is grey
@@ -62,7 +63,8 @@ public class GUI_Script : MonoBehaviour {
             UI.SpriteP2.color = new Vector4(1f, 1f, 1f, 0.5f); //default cursor color
 			if (inputController.cursorP2.selection != Building.Laser && inputController.cursorP2.selection != Building.Base) {
 				//Can't afford
-				if (gridManager.theGrid.getCost (inputController.cursorP2.selection, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2 ()) {
+				if ((gridManager.theGrid.getCost (inputController.cursorP2.selection, inputController.cursorP2.x, Player.PlayerTwo) > gridManager.theGrid.getResourcesP2 ()) ||
+                (!gridManager.theGrid.probeGrid(inputController.cursorP2.x, inputController.cursorP2.y, Direction.Up, Building.Blocking))) {
 					UI.SpriteP2.color = new Vector4 (0.3f, 0.3f, 0.3f, 0.5f); //cursor quad is grey
 				} else if (checkDanger(Player.PlayerTwo)) {
 					UI.SpriteP2.color = new Vector4 (1f, 0.3f, 0.3f, 0.5f); //cursor quad is grey
