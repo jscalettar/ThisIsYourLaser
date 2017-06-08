@@ -848,7 +848,7 @@ public class gridManager : MonoBehaviour
 
     void Awake()
     {
-			Time.timeScale = 1f;
+		Time.timeScale = 1f;
         buildingContainer = new GameObject("buildingContainer");
         buildingContainer.transform.SetParent(gameObject.transform);
         initGrid();
@@ -866,8 +866,9 @@ public class gridManager : MonoBehaviour
                 theGrid.grid[y, x].owner = theGrid.placementList[i].owner;
                 theGrid.grid[y, x].direction = theGrid.placementList[i].direction;
                 theGrid.grid[y, x].health = theGrid.placementList[i].health;
-				theGrid.prefabDictionary[new XY(x,y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, 1f, 1f, 1f) : new Vector4(1f, 1f, 1f, 1f);
-                
+                if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
+                    theGrid.prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, 1f, 1f, 1f) : new Vector4(1f, 1f, 1f, 1f);
+                }
                 theGrid.queueUpdate();
                 ghostLaser.ghostUpdateNeeded = true;
                 theGrid.placementList.RemoveAt(i--);
@@ -888,8 +889,9 @@ public class gridManager : MonoBehaviour
                 if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
                     DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
                     theGrid.prefabDictionary.Remove(new XY(x, y));
-                    theGrid.removalList.RemoveAt(i--);
+                    
                 }
+                theGrid.removalList.RemoveAt(i--);
                 theGrid.queueUpdate();
 
                 ghostLaser.ghostUpdateNeeded = true;
@@ -901,12 +903,18 @@ public class gridManager : MonoBehaviour
             if (theGrid.destructionList[i].updateTime(Time.deltaTime) <= 0f) {
                 int x = theGrid.destructionList[i].coords.x;
                 int y = theGrid.destructionList[i].coords.y;
+                theGrid.grid[y, x].isEmpty = true;
+                theGrid.grid[y, x].building = Building.Empty;
+                theGrid.grid[y, x].owner = Player.World;
+                theGrid.grid[y, x].level = 0;
+                theGrid.grid[y, x].health = 0;
                 theGrid.grid[y, x].markedForDeath = false;
                 if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
                     DestroyImmediate(theGrid.prefabDictionary[new XY(x, y)]);
                     theGrid.prefabDictionary.Remove(new XY(x, y));
-                    theGrid.destructionList.RemoveAt(i--);
+                    
                 }
+                theGrid.destructionList.RemoveAt(i--);
                 theGrid.queueUpdate();
 
                 ghostLaser.ghostUpdateNeeded = true;
