@@ -470,8 +470,8 @@ public struct Grid
                 if (tutorialObject != null && TutorialFramework.tutorialActive) {
                     tutorialObject.GetComponent<TutorialFramework>().buildingDestructionEvent(new XY(x, y), grid[y, x].building);
                 } else {
-					if (getBuilding(x, y, false) == Building.Base && baseHealthP2() <= 0f){  SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerOne); }
-					else if (getBuilding(x, y, false) == Building.Base && baseHealthP1() <= 0f){ SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerTwo); }
+					if (getBuilding(x, y, false) == Building.Base && baseHealthP2() <= 0f && !canvasObject.GetComponent<pauseMenu>().Win.activeInHierarchy) {  SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerOne); }
+					else if (getBuilding(x, y, false) == Building.Base && baseHealthP1() <= 0f && !canvasObject.GetComponent<pauseMenu>().Win.activeInHierarchy) { SoundManager.StopMusic(); canvasObject.GetComponent<pauseMenu>().winGame(Player.PlayerTwo); }
                 }
                 destroyBuilding(x, y);
             }

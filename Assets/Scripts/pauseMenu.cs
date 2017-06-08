@@ -404,6 +404,7 @@ public class pauseMenu : MonoBehaviour
 		else if (player == Player.PlayerTwo) { winText.text = "Player 2 Wins!"; winText.color = Color.green; }
         Win.SetActive(true);
 		Restart.Select ();
+        print("testing");
     }
 
     // Function for the "Play Again" button
