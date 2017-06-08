@@ -77,7 +77,7 @@ public class TutorialFramework : MonoBehaviour {
                 }
             }
         }
-        else if (activeTutorial.firstPlaced != null)
+        if (activeTutorial.firstPlaced != null)
         {
             displayPopup(activeTutorial.firstPlaced); activeTutorial.firstPlaced = null;
             if (activeTutorial.endOnPlaced) endFlag = true; return;
@@ -99,7 +99,7 @@ public class TutorialFramework : MonoBehaviour {
                 }
             }
         }
-        else if (activeTutorial.firstPlacing != null)
+        if (activeTutorial.firstPlacing != null)
         {
             displayPopup(activeTutorial.firstPlacing); activeTutorial.firstPlacing = null;
         }
@@ -116,7 +116,8 @@ public class TutorialFramework : MonoBehaviour {
                     return;
                 }
             }
-        } else if (activeTutorial.firstMoved != null) {
+        }
+        if (activeTutorial.firstMoved != null) {
             displayPopup(activeTutorial.firstMoved); activeTutorial.firstMoved = null;
         }
     }
@@ -142,7 +143,8 @@ public class TutorialFramework : MonoBehaviour {
                     return;
                 }
             }
-        } else if (activeTutorial.firstRemoved != null) {
+        }
+        if (activeTutorial.firstRemoved != null) {
             displayPopup(activeTutorial.firstRemoved); activeTutorial.firstRemoved = null;
         }
     }
