@@ -26,7 +26,7 @@ public class ghostLaser : MonoBehaviour {
 
     public static bool ghostUpdateNeeded = false;
     public static bool updateGhostLaser = false;
-
+	public static bool ghostLaserActive;
     private struct laserNode
     {
         private int X;
@@ -255,7 +255,7 @@ public class ghostLaser : MonoBehaviour {
 
     void Update()
     {
-        if (updateGhostLaser) simulateLasers(); // Update ghost laser if needed
+		if (updateGhostLaser) simulateLasers(); // Update ghost laser if needed
     }
 
     private void drawLaser(laserNode start, laserNode end)
@@ -336,8 +336,7 @@ public class ghostLaser : MonoBehaviour {
 
     private void simulateLasers()
     {
-        // Reset laser data grid, causes ocasional garbage collection spike
-        ghostLaserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
+        
 
         // Reset counters and check for placed lasers
         iterationCount = 0; laserIndex = -1;
@@ -349,76 +348,93 @@ public class ghostLaser : MonoBehaviour {
 
         // Clear laser hits, refract hits
         refractHits.Clear();
+		if (ghostLaserActive) {
+			// Reset laser data grid, causes ocasional garbage collection spike
+			ghostLaserData = new laserGrid (gridManager.theGrid.getDimX (), gridManager.theGrid.getDimY ());
+			// Check p1 cursor if ghost laser simulation is necessary
+			if (validCursorBuilding (Player.PlayerOne) && inputController.validPlacement (inputController.cursorP1.x, inputController.cursorP1.y, inputController.cursorP1.direction, getCursorBuilding (Player.PlayerOne)) && laserLogic.laserData.grid.GetLength (0) > 0)
+				for (int i = 0; i < laserLogic.laserData.grid [inputController.cursorP1.y, inputController.cursorP1.x].Count; i++) {
+					if (getCursorBuilding (Player.PlayerOne) == Building.Redirecting)
+						laserRedirect (inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid [inputController.cursorP1.y, inputController.cursorP1.x] [i].getHeading (), laserLogic.laserData.grid [inputController.cursorP1.y, inputController.cursorP1.x] [i].getMarchDir (), Player.PlayerOne, 0, 0);
+					else
+						laserReflect (inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid [inputController.cursorP1.y, inputController.cursorP1.x] [i].getHeading (), laserLogic.laserData.grid [inputController.cursorP1.y, inputController.cursorP1.x] [i].getMarchDir (), Player.PlayerOne, 0, 0);
+					//laserQueue.Add(new laserNode(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.x, inputController.cursorP1.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.x, inputController.cursorP1.y][i].getMarchDir(), Player.PlayerOne, ++laserIndex, 0));
+					// Loop through the simulation
+					while (laserQueue.Count > 0) {
+						laserStep (laserQueue [0]);
+						laserQueue.RemoveAt (0);
+					}
+				}
+			if (inputController.cursorP1.state == State.placeLaser || inputController.cursorP1.state == State.placingLaser) {
+				Direction dir = inputController.cursorP1.direction;
+				if (inputController.cursorP1.y < 2)
+					dir = Direction.Up;
+				else if (inputController.cursorP1.y > gridManager.theGrid.getDimY () - 3)
+					dir = Direction.Down;
+				if (dir == Direction.Up)
+					addLaserToQueue (1, inputController.cursorP1.y + 1, 1f, Direction.NE, Direction.Right, Player.PlayerOne, 0, 0, true);
+				else if (dir == Direction.Down)
+					addLaserToQueue (1, inputController.cursorP1.y - 1, 1f, Direction.SE, Direction.Right, Player.PlayerOne, 0, 0, true);
+				while (laserQueue.Count > 0) {
+					laserStep (laserQueue [0]);
+					laserQueue.RemoveAt (0);
+				}
+			}
 
-        // Check p1 cursor if ghost laser simulation is necessary
-		if (validCursorBuilding (Player.PlayerOne) && inputController.validPlacement (inputController.cursorP1.x, inputController.cursorP1.y, inputController.cursorP1.direction, getCursorBuilding (Player.PlayerOne)) && laserLogic.laserData.grid.GetLength (0) > 0)
-			for (int i = 0; i < laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x].Count; i++) {
-                if (getCursorBuilding(Player.PlayerOne) == Building.Redirecting)
-                    laserRedirect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
-                else laserReflect(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.y, inputController.cursorP1.x][i].getMarchDir(), Player.PlayerOne, 0, 0);
-                //laserQueue.Add(new laserNode(inputController.cursorP1.x, inputController.cursorP1.y, 1f, laserLogic.laserData.grid[inputController.cursorP1.x, inputController.cursorP1.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP1.x, inputController.cursorP1.y][i].getMarchDir(), Player.PlayerOne, ++laserIndex, 0));
-                // Loop through the simulation
-                while (laserQueue.Count > 0) {
-                    laserStep(laserQueue[0]);
-                    laserQueue.RemoveAt(0);
-                }
-            }
-        if (inputController.cursorP1.state == State.placeLaser || inputController.cursorP1.state == State.placingLaser) {
-            Direction dir = inputController.cursorP1.direction;
-            if (inputController.cursorP1.y < 2) dir = Direction.Up;
-            else if (inputController.cursorP1.y > gridManager.theGrid.getDimY() - 3) dir = Direction.Down;
-            if (dir == Direction.Up) addLaserToQueue(1, inputController.cursorP1.y + 1, 1f, Direction.NE, Direction.Right, Player.PlayerOne, 0, 0, true);
-            else if (dir == Direction.Down) addLaserToQueue(1, inputController.cursorP1.y - 1, 1f, Direction.SE, Direction.Right, Player.PlayerOne, 0, 0, true);
-            while (laserQueue.Count > 0) {
-                laserStep(laserQueue[0]);
-                laserQueue.RemoveAt(0);
-            }
-        }
+			ghostLaserData = new laserGrid (gridManager.theGrid.getDimX (), gridManager.theGrid.getDimY ());
 
-        ghostLaserData = new laserGrid(gridManager.theGrid.getDimX(), gridManager.theGrid.getDimY());
+			// Check p2 cursor if ghost laser simulation is necessary
+			if (validCursorBuilding (Player.PlayerTwo) && inputController.validPlacement (inputController.cursorP2.x, inputController.cursorP2.y, inputController.cursorP2.direction, getCursorBuilding (Player.PlayerTwo)))
+				for (int i = 0; i < laserLogic.laserData.grid [inputController.cursorP2.y, inputController.cursorP2.x].Count; i++) {
+					if (getCursorBuilding (Player.PlayerTwo) == Building.Redirecting)
+						laserRedirect (inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid [inputController.cursorP2.y, inputController.cursorP2.x] [i].getHeading (), laserLogic.laserData.grid [inputController.cursorP2.y, inputController.cursorP2.x] [i].getMarchDir (), Player.PlayerTwo, laserIndex, 0);
+					else
+						laserReflect (inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid [inputController.cursorP2.y, inputController.cursorP2.x] [i].getHeading (), laserLogic.laserData.grid [inputController.cursorP2.y, inputController.cursorP2.x] [i].getMarchDir (), Player.PlayerTwo, laserIndex, 0);
+					//laserQueue.Add(new laserNode(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getMarchDir(), Player.PlayerTwo, ++laserIndex, 0));
+					// Loop through the simulation
+					while (laserQueue.Count > 0) {
+						laserStep (laserQueue [0]);
+						laserQueue.RemoveAt (0);
+					}
+				}
+			if (inputController.cursorP2.state == State.placeLaser || inputController.cursorP2.state == State.placingLaser) {
+				Direction dir = inputController.cursorP2.direction;
+				if (inputController.cursorP2.y < 2)
+					dir = Direction.Up;
+				else if (inputController.cursorP2.y > gridManager.theGrid.getDimY () - 3)
+					dir = Direction.Down;
+				if (dir == Direction.Up)
+					addLaserToQueue (inputController.cursorP2.x - 1, inputController.cursorP2.y + 1, 1f, Direction.NW, Direction.Left, Player.PlayerTwo, 0, 0, true);
+				else if (dir == Direction.Down)
+					addLaserToQueue (inputController.cursorP2.x - 1, inputController.cursorP2.y - 1, 1f, Direction.SW, Direction.Left, Player.PlayerTwo, 0, 0, true);
+				while (laserQueue.Count > 0) {
+					laserStep (laserQueue [0]);
+					laserQueue.RemoveAt (0);
+				}
+			}
 
-        // Check p2 cursor if ghost laser simulation is necessary
-        if (validCursorBuilding(Player.PlayerTwo) && inputController.validPlacement(inputController.cursorP2.x, inputController.cursorP2.y, inputController.cursorP2.direction, getCursorBuilding(Player.PlayerTwo)))
-            for (int i = 0; i < laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x].Count; i++) {
-                if (getCursorBuilding(Player.PlayerTwo) == Building.Redirecting)
-                    laserRedirect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
-                else laserReflect(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.y, inputController.cursorP2.x][i].getMarchDir(), Player.PlayerTwo, laserIndex, 0);
-           		//laserQueue.Add(new laserNode(inputController.cursorP2.x, inputController.cursorP2.y, 1f, laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getHeading(), laserLogic.laserData.grid[inputController.cursorP2.x, inputController.cursorP2.y][i].getMarchDir(), Player.PlayerTwo, ++laserIndex, 0));
-                // Loop through the simulation
-                while (laserQueue.Count > 0) {
-                    laserStep(laserQueue[0]);
-                    laserQueue.RemoveAt(0);
-                }
-            }
-        if (inputController.cursorP2.state == State.placeLaser || inputController.cursorP2.state == State.placingLaser) {
-            Direction dir = inputController.cursorP2.direction;
-            if (inputController.cursorP2.y < 2) dir = Direction.Up;
-            else if (inputController.cursorP2.y > gridManager.theGrid.getDimY() - 3) dir = Direction.Down;
-            if (dir == Direction.Up) addLaserToQueue(inputController.cursorP2.x-1, inputController.cursorP2.y + 1, 1f, Direction.NW, Direction.Left, Player.PlayerTwo, 0, 0, true);
-            else if (dir == Direction.Down) addLaserToQueue(inputController.cursorP2.x - 1, inputController.cursorP2.y - 1, 1f, Direction.SW, Direction.Left, Player.PlayerTwo, 0, 0, true);
-            while (laserQueue.Count > 0) {
-                laserStep(laserQueue[0]);
-                laserQueue.RemoveAt(0);
-            }
-        }
+			// Trim down unused list elements
+			for (int i = lasers.Count - 1; i >= 0; i--) {
+				if (lasers [i].Count == 0)
+					lasers.RemoveAt (i);
+			}
 
-        // Trim down unused list elements
-        for (int i = lasers.Count - 1; i >= 0; i--) {
-            if (lasers[i].Count == 0) lasers.RemoveAt(i);
-        }
-
-        // Draw lasers
-        for (int i = 0; i < lasers.Count; i++) {
-            int last = lasers[i].Count - 1;
-            if (lasers[i][0].getOwner() != lasers[i][last].getOwner()) {
-                for (int j = last; j > 0; j--) {
-                    if (lasers[i][j].getOwner() != Player.Shared) { drawLaser(lasers[i][0], lasers[i][j]); drawLaser(lasers[i][j + 1], lasers[i][last]); break; }
-                }
-            } else {
-                drawLaser(lasers[i][0], lasers[i][last]);
-            }
-        }
-
+			// Draw lasers
+			for (int i = 0; i < lasers.Count; i++) {
+				int last = lasers [i].Count - 1;
+				if (lasers [i] [0].getOwner () != lasers [i] [last].getOwner ()) {
+					for (int j = last; j > 0; j--) {
+						if (lasers [i] [j].getOwner () != Player.Shared) {
+							drawLaser (lasers [i] [0], lasers [i] [j]);
+							drawLaser (lasers [i] [j + 1], lasers [i] [last]);
+							break;
+						}
+					}
+				} else {
+					drawLaser (lasers [i] [0], lasers [i] [last]);
+				}
+			}
+		}
         // Set needsUpdate to false
         updateGhostLaser = false;
     }

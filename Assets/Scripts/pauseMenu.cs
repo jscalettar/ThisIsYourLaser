@@ -47,7 +47,7 @@ public class pauseMenu : MonoBehaviour
 
     // Vars for other buttons
     public Button Back;
-    public Toggle fullscreenToggle;
+    public Toggle ghostLaserToggle;
     public Slider masterSlider;
     public Slider musicSlider;
     public Slider sfxSlider;
@@ -93,6 +93,7 @@ public class pauseMenu : MonoBehaviour
 		musicSlider.value = SoundManager.globalMusicVolume;
 		sfxSlider.value = SoundManager.globalSoundsVolume;
 		UISlider.value = SoundManager.globalUISoundsVolume;
+		ghostLaserToggle.isOn = ghostLaser.ghostLaserActive;
     }
 
     void Update()
@@ -108,6 +109,7 @@ public class pauseMenu : MonoBehaviour
 		musicSlider.onValueChanged.AddListener(setMusic);
 		sfxSlider.onValueChanged.AddListener(setSFX);
 		UISlider.onValueChanged.AddListener(setUISFX);
+		MonoBehaviour.print(ghostLaser.ghostLaserActive);
     }
 
     // -------------------------------------------------------- //
@@ -164,7 +166,7 @@ public class pauseMenu : MonoBehaviour
         RedirectMenu.SetActive(false);
         BlockMenu.SetActive(false);
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
-        fullscreenToggle.Select();
+		ghostLaserToggle.Select();
 
         // Disable pause menu buttons when options are up
         Pause.gameObject.SetActive(false);
@@ -454,9 +456,9 @@ public class pauseMenu : MonoBehaviour
 		//Need actual sound source to implement
 	}
 
-    public void toggleFullscreen()
+    public void toggleGhostLaser()
     {
-        isFull = Screen.fullScreen = !Screen.fullScreen;
+		ghostLaser.ghostLaserActive = ghostLaserToggle.isOn;
     }
 
     public void changeRes(int num)
