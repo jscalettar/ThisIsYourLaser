@@ -6715,26 +6715,19 @@ MonoBehaviour:
   endOnRemoved: 0
   specificInteraction:
   - pos:
+      x: 3
+      y: 5
+    building: 4
+    type: 0
+    popup: {fileID: 2800000, guid: 18e2b603c1cb21a44a04988a0df708ad, type: 3}
+    endTrigger: 0
+  - pos:
       x: -1
       y: -1
     building: 6
     type: 0
     popup: {fileID: 2800000, guid: 8bb73e393cbacf1458c6f336e85481fb, type: 3}
     endTrigger: 1
-  - pos:
-      x: 3
-      y: 5
-    building: 4
-    type: 0
-    popup: {fileID: 2800000, guid: 18e2b603c1cb21a44a04988a0df708ad, type: 3}
-    endTrigger: 0
-  - pos:
-      x: 3
-      y: 5
-    building: 4
-    type: 0
-    popup: {fileID: 2800000, guid: 18e2b603c1cb21a44a04988a0df708ad, type: 3}
-    endTrigger: 0
   movedLeft: {fileID: 0}
   movedRight: {fileID: 0}
   movedUp: {fileID: 0}
@@ -7446,15 +7439,15 @@ MonoBehaviour:
   initialSelection: 0
   spawnList: []
   initialPopup: {fileID: 2800000, guid: f9f656078c200514f8d3e7696080dc34, type: 3}
-  initialPopup2: {fileID: 2800000, guid: 17908b9aa17290f46a7e0e403c5bbfd4, type: 3}
+  initialPopup2: {fileID: 0}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 0}
   endOnBaseDestruction: 0
   specificDestroyed: []
-  firstPlacing: {fileID: 0}
-  firstPlaced: {fileID: 0}
+  firstPlacing: {fileID: 2800000, guid: 253f019d764611a43b7dd41a19d50781, type: 3}
+  firstPlaced: {fileID: 2800000, guid: 17908b9aa17290f46a7e0e403c5bbfd4, type: 3}
   endOnPlaced: 0
   firstMoving: {fileID: 0}
   firstMovingPlacing: {fileID: 0}

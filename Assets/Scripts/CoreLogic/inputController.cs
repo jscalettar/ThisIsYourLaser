@@ -677,7 +677,7 @@ public class inputController : MonoBehaviour {
 
 			if (player == Player.PlayerOne) {
 				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP1.state = State.idle;   }
-				else { if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, cursorP1.selection, Player.PlayerOne, cursorP1.direction)) { print("Placing failed."); } else { if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placedEvent(new XY(cursorP1.x, cursorP1.y), cursorP1.selection); }
+				else { if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, cursorP1.selection, Player.PlayerOne, cursorP1.direction)) { print("Placing failed."); } else { if (TutorialFramework.tutorialActive && cursorP1.selection != Building.Resource) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placedEvent(new XY(cursorP1.x, cursorP1.y), cursorP1.selection); }
 				cursorP1.state = State.idle;   }
 			} else {
 				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) != Building.Empty) { print("You can not place here, selection is no longer empty"); cursorP2.state = State.idle;   }
@@ -691,6 +691,7 @@ public class inputController : MonoBehaviour {
 					if (cursorP1.selection == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
 						Direction dir = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
                         if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, Building.Resource, Player.PlayerOne, dir)) print("Placing failed.");
+                        else if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().placedEvent(new XY(cursorP1.x, cursorP1.y), Building.Resource);
                         cursorP1.state = State.idle;
                     }
 				}
@@ -724,6 +725,7 @@ public class inputController : MonoBehaviour {
                     if (cursorP1.moveBuilding == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
                         Direction dir = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
                         if (!gridManager.theGrid.moveBuilding(cursorP1.moveOrigin.x, cursorP1.moveOrigin.y, cursorP1.x, cursorP1.y, Player.PlayerOne, dir)) print("Moving failed.");
+                        else if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().movedEvent(new XY(cursorP1.x, cursorP1.y), Building.Resource);
                         cursorP1.state = State.idle;
                     }
                     if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().movingPlacingEvent(new XY(cursorP1.x, cursorP1.y), cursorP1.moveBuilding);
