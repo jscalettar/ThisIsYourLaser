@@ -6697,7 +6697,7 @@ MonoBehaviour:
     direction: 7
   initialPopup: {fileID: 2800000, guid: 2a55b197e2e8d15419b08e7aeda1d0af, type: 3}
   initialPopup2: {fileID: 2800000, guid: f0b40b5989fd6b44cab56d82c509cc84, type: 3}
-  initialPopup3: {fileID: 0}
+  initialPopup3: {fileID: 2800000, guid: d3fe700ad17423e40b8dbe10124f15a5, type: 3}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 0}
@@ -6721,6 +6721,13 @@ MonoBehaviour:
     type: 0
     popup: {fileID: 2800000, guid: 8bb73e393cbacf1458c6f336e85481fb, type: 3}
     endTrigger: 1
+  - pos:
+      x: 3
+      y: 5
+    building: 4
+    type: 0
+    popup: {fileID: 2800000, guid: 18e2b603c1cb21a44a04988a0df708ad, type: 3}
+    endTrigger: 0
   - pos:
       x: 3
       y: 5
