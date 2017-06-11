@@ -17097,7 +17097,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Full Screen
+  m_Text: Enable ghost laser
 --- !u!222 &1738932386
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19559,7 +19559,7 @@ MonoBehaviour:
   MainMenu: {fileID: 1409918980}
   winText: {fileID: 1342515589}
   Back: {fileID: 1348637427}
-  fullscreenToggle: {fileID: 2123111465}
+  ghostLaserToggle: {fileID: 2123111465}
   masterSlider: {fileID: 841281325}
   musicSlider: {fileID: 1589447852}
   sfxSlider: {fileID: 916240536}
@@ -20522,7 +20522,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2061673248}
-        m_MethodName: toggleFullscreen
+        m_MethodName: toggleGhostLaser
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

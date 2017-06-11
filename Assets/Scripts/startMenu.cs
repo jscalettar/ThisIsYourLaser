@@ -15,6 +15,7 @@ public class startMenu : MonoBehaviour {
     public float masterVol;
     public float musicVol;
     public float sfxVol;
+
     //Hold game objects to show/hide as neccesary
 	Image backImage;
 	public Sprite davidImage;
@@ -34,7 +35,8 @@ public class startMenu : MonoBehaviour {
     //Vars for buttons/toggles/sliders
     public Button Play;
     public Button Exit;
-    public Toggle fullscreenToggle;
+    public Toggle ghostLaserToggle;
+
     //Vars for initially selected items
     public Button tutorialButton;
     public Button creatureMenuButton;
@@ -63,6 +65,7 @@ public class startMenu : MonoBehaviour {
     void Start () {
         UISounds = setUISounds;
         musicSounds = setMusicSounds;
+		ghostLaserToggle.isOn = true;
         //Screen.fullScreen = false;
 		backImage = GetComponent<Image> ();
 		backImage.sprite = davidImage;
@@ -71,17 +74,18 @@ public class startMenu : MonoBehaviour {
         InstructMenu.SetActive(false);
         CreditMenu.SetActive(false);
         populateList();
+		ghostLaserToggle.isOn = ghostLaser.ghostLaserActive;
         if (tutorialToInstructionFlag.instance.flag) mainMenu();
         SoundManager.PlayMusic(musicSounds[0].audioclip, .3f, true, true, 5f, 1.5f);
     }
     void Update(){
-		setMaster (masterSlider.value);
-		setMusic (musicSlider.value);
-		setSFX (sfxSlider.value);
-		setUISFX (UISlider.value);
-        if(EventSystem.current.IsPointerOverGameObject()){
-            SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
-        }
+		masterSlider.onValueChanged.AddListener(setMaster);
+		musicSlider.onValueChanged.AddListener(setMusic);
+		sfxSlider.onValueChanged.AddListener(setSFX);
+		UISlider.onValueChanged.AddListener(setUISFX);
+		//ghostLaserToggle.onValueChanged.AddListener (toggleGhostLaser);
+
+		MonoBehaviour.print(ghostLaser.ghostLaserActive);
 	}
 	public void startGame()
     {
@@ -137,7 +141,7 @@ public class startMenu : MonoBehaviour {
         CreditMenu.SetActive(false);
         backImage.sprite = ocean;
         SoundManager.PlayUISound(UISounds[0].audioclip, .3f);
-        fullscreenToggle.Select();
+		ghostLaserToggle.Select();
     }
 
     public void InstructionsMenu()
@@ -330,11 +334,10 @@ public class startMenu : MonoBehaviour {
 		SoundManager.globalUISoundsVolume = vol;
 	}
 
-    public void toggleFullscreen() 
+    public void toggleGhostLaser() 
     {
-        isFull = Screen.fullScreen = !Screen.fullScreen;
-
-
+		MonoBehaviour.print ("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		ghostLaser.ghostLaserActive = ghostLaserToggle.isOn;
     }
 
     public void changeRes(int num)

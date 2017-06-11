@@ -147,6 +147,7 @@ public struct Grid
     private int flag;
     private GameObject canvasObject;
 
+
     public Grid(int x, int y, GameObject container, GameObject basePrefab, GameObject basePrefab2, GameObject laserPrefab, GameObject laserPrefab2, GameObject blockPrefab, GameObject blockPrefab2,
         GameObject reflectPrefab, GameObject reflectPrefab2, GameObject refractPrefab, GameObject refractPrefab2, GameObject redirectPrefab, GameObject redirectPrefab2, GameObject resourcePrefab,
         GameObject resourcePrefab2, GameObject portalPrefab, GameObject portalPrefab2, float resources, float buildings, GameObject emptyHolder,
