@@ -460,9 +460,12 @@ public class inputController : MonoBehaviour {
                 Building buildingToDisplayP2 = Building.Blocking;
                 if (cursorP1.state == State.moving || cursorP1.state == State.placingMove) {
                     buildingToDisplayP1 = cursorP1.moveBuilding;
-                    buildingToDisplayP2 = cursorP2.moveBuilding;
                 } else {
                     buildingToDisplayP1 = cursorP1.selection;
+                }
+                if (cursorP2.state == State.moving || cursorP2.state == State.placingMove) {
+                    buildingToDisplayP2 = cursorP2.moveBuilding;
+                } else {
                     buildingToDisplayP2 = cursorP2.selection;
                 }
                 if (cursorP1.state == State.placeBase) buildingToDisplayP1 = Building.Base;
@@ -658,10 +661,10 @@ public class inputController : MonoBehaviour {
 				else if (gridManager.theGrid.getCost(cursorP1.selection, cursorP1.x, Player.PlayerOne) <= gridManager.theGrid.getResourcesP1()){
 					cursorP1.state = State.placing;
 					if (cursorP1.selection == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
-						cursorP1.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
-						place(Player.PlayerOne, cursorP1.state);
-
-					}
+						Direction dir = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
+                        if (!gridManager.theGrid.placeBuilding(cursorP1.x, cursorP1.y, Building.Resource, Player.PlayerOne, dir)) print("Placing failed.");
+                        cursorP1.state = State.idle;
+                    }
 				}
 				else {print("Not enough resources to place."); SoundManager.PlaySound(Sounds[4].audioclip, .4f, true, .95f, 1.05f);  }
 			} else {
@@ -669,10 +672,10 @@ public class inputController : MonoBehaviour {
 				else if (gridManager.theGrid.getCost(cursorP2.selection, cursorP2.x, Player.PlayerTwo) <= gridManager.theGrid.getResourcesP2()){
 					cursorP2.state = State.placing;
 					if (cursorP2.selection == Building.Resource && laserLogic.laserData.grid[cursorP2.y, cursorP2.x].Count > 0) {
-						cursorP2.direction = ghostLaser.opposite(laserLogic.laserData.grid[cursorP2.y, cursorP2.x][0].getMarchDir());
-						place(Player.PlayerTwo, cursorP2.state);
-
-					}
+                        Direction dir = ghostLaser.opposite(laserLogic.laserData.grid[cursorP2.y, cursorP2.x][0].getMarchDir());
+                        if (!gridManager.theGrid.placeBuilding(cursorP2.x, cursorP2.y, Building.Resource, Player.PlayerTwo, dir)) print("Placing failed.");
+                        cursorP2.state = State.idle;
+                    }
 				}
 				else{ print("Not enough resources to place.");   SoundManager.PlaySound(Sounds[4].audioclip, .4f, true, .95f, 1.05f);}
 			}
@@ -688,12 +691,25 @@ public class inputController : MonoBehaviour {
 
 			if (player == Player.PlayerOne) {
 				if (!validPlacement(cursorP1.x, cursorP1.y, Direction.None, cursorP1.moveBuilding, cursorP1.moveOrigin.x, cursorP1.moveOrigin.y) && !new XY(cursorP1.x, cursorP1.y).Equals(cursorP1.moveOrigin)){ print("You can not move to here, selection is not valid");  }
-				else if (gridManager.theGrid.getCost(cursorP1.moveBuilding, cursorP1.x, Player.PlayerOne, true) < gridManager.theGrid.getResourcesP1()) { cursorP1.state = State.placingMove; if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().movingPlacingEvent(new XY(cursorP1.x, cursorP1.y), cursorP1.moveBuilding); }
-				else print("Not enough resources to move.");
+				else if (gridManager.theGrid.getCost(cursorP1.moveBuilding, cursorP1.x, Player.PlayerOne, true) < gridManager.theGrid.getResourcesP1()) {
+                    cursorP1.state = State.placingMove;
+                    if (cursorP1.moveBuilding == Building.Resource && laserLogic.laserData.grid[cursorP1.y, cursorP1.x].Count > 0) {
+                        Direction dir = ghostLaser.opposite(laserLogic.laserData.grid[cursorP1.y, cursorP1.x][0].getMarchDir());
+                        if (!gridManager.theGrid.moveBuilding(cursorP1.moveOrigin.x, cursorP1.moveOrigin.y, cursorP1.x, cursorP1.y, Player.PlayerOne, dir)) print("Moving failed.");
+                        cursorP1.state = State.idle;
+                    }
+                    if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().movingPlacingEvent(new XY(cursorP1.x, cursorP1.y), cursorP1.moveBuilding);
+                } else print("Not enough resources to move.");
 			} else {
 				if (!validPlacement(cursorP2.x, cursorP2.y, Direction.None, cursorP2.moveBuilding, cursorP2.moveOrigin.x, cursorP2.moveOrigin.y) && !new XY(cursorP2.x, cursorP2.y).Equals(cursorP2.moveOrigin)){ print("You can not move to here, selection is not valid");   }
-				else if (gridManager.theGrid.getCost(cursorP2.moveBuilding, cursorP2.x, Player.PlayerTwo, true) < gridManager.theGrid.getResourcesP2()) cursorP2.state = State.placingMove;
-				else {print("Not enough resources to move.");   } 
+				else if (gridManager.theGrid.getCost(cursorP2.moveBuilding, cursorP2.x, Player.PlayerTwo, true) < gridManager.theGrid.getResourcesP2()) {
+                    cursorP2.state = State.placingMove;
+                    if (cursorP2.moveBuilding == Building.Resource && laserLogic.laserData.grid[cursorP2.y, cursorP2.x].Count > 0) {
+                        Direction dir = ghostLaser.opposite(laserLogic.laserData.grid[cursorP2.y, cursorP2.x][0].getMarchDir());
+                        if (!gridManager.theGrid.moveBuilding(cursorP1.moveOrigin.x, cursorP1.moveOrigin.y, cursorP2.x, cursorP2.y, Player.PlayerTwo, dir)) print("Moving failed.");
+                        cursorP2.state = State.idle;
+                    }
+                } else print("Not enough resources to move.");
 			}
 		} else if (currentState == State.placingMove) {
 			if (player == Player.PlayerOne) {

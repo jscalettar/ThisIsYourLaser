@@ -720,7 +720,7 @@ public struct Grid
     public bool moveBuilding(int x, int y, int xNew, int yNew, Player playerID, Direction facing = Direction.Up) // need to add rotation?
     {
         if (!validateInput(x, y) || !validateInput(xNew, yNew)) return false;
-        if (!grid[y, x].isEmpty && probeGrid(xNew, yNew, facing, grid[y, x].building, x, y) && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
+        if (!grid[y, x].isEmpty && !grid[y, x].markedForDeath && probeGrid(xNew, yNew, facing, grid[y, x].building, x, y) && (grid[yNew, xNew].isEmpty || (x == xNew && y == yNew)) && playerID == grid[y, x].owner) {
             // Subtract some resources for move
             GridItem temp = grid[y, x];
             if (playerID == Player.PlayerOne) resourcesP1 -= getCost(grid[y, x].building, xNew, playerID, true);
@@ -742,14 +742,11 @@ public struct Grid
                 // Move Building Prefab
                 building.GetComponent<buildingParameters>().x = xNew;
                 building.GetComponent<buildingParameters>().y = yNew;
-                building.GetComponent<buildingParameters>().direction = facing;
+            }
 
-				prefabDictionary.Remove(new XY(x, y));
-				prefabDictionary.Add(new XY(xNew, yNew), building);
-			}
-			grid[yNew, xNew].direction = facing;
-			// Rotate
-			if (canRotate(grid[yNew, xNew].building)) { building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)]; building.GetComponent<buildingParameters>().direction = facing; }
+            // Rotate
+            grid[yNew, xNew].direction = facing;
+            if (canRotate(grid[yNew, xNew].building)) {building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)]; building.GetComponent<buildingParameters>().direction = facing; }
 
 			// Building position offsets etc --------------------------------------------------------------------------
             building.transform.SetParent(buildingContainer.transform);
@@ -775,7 +772,7 @@ public struct Grid
                 building.transform.localPosition = coordsToWorld(xNew + .5f, yNew);
             }
 
-                // --------------------------------------------------------------------------------------------------------
+            // --------------------------------------------------------------------------------------------------------
 
             prefabDictionary.Remove(new XY(x, y));
             prefabDictionary.Add(new XY(xNew, yNew), building);
@@ -867,7 +864,7 @@ public class gridManager : MonoBehaviour
                 theGrid.grid[y, x].direction = theGrid.placementList[i].direction;
                 theGrid.grid[y, x].health = theGrid.placementList[i].health;
                 if (theGrid.prefabDictionary.ContainsKey(new XY(x, y))) {
-                    theGrid.prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = theGrid.grid[y, x].owner == Player.PlayerOne ? new Vector4(1f, 1f, 1f, 1f) : new Vector4(1f, 1f, 1f, 1f);
+                    theGrid.prefabDictionary[new XY(x, y)].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, 1f);
                 }
                 theGrid.queueUpdate();
                 ghostLaser.ghostUpdateNeeded = true;
