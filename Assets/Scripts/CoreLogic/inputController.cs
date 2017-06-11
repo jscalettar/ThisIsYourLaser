@@ -713,7 +713,7 @@ public class inputController : MonoBehaviour {
 			} else {
 				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Empty || gridManager.theGrid.getCellInfo(cursorP2.x, cursorP2.y).owner != Player.PlayerTwo){ print("Invalid move target.");  }
 				else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser) {print("Cannot move this building.");  }
-				else { cursorP2.moveOrigin = new XY(cursorP2.x, cursorP2.y); cursorP2.moveBuilding = gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y); cursorP2.state = State.moving; gridManager.theGrid.prefabDictionary[new XY(cursorP1.x, cursorP1.y)].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, .5f); }
+				else { cursorP2.moveOrigin = new XY(cursorP2.x, cursorP2.y); cursorP2.moveBuilding = gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y); cursorP2.state = State.moving; gridManager.theGrid.prefabDictionary[new XY(cursorP2.x, cursorP2.y)].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, .5f); }
 			}
 		} else {
 			print("Can not move, busy with some other action.");  
