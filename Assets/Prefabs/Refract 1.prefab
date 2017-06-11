@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4269108675777206}
   - component: {fileID: 114325509885723468}
   - component: {fileID: 82076532028706688}
-  - component: {fileID: 198725885183812184}
-  - component: {fileID: 199107485358047654}
   - component: {fileID: 212953435743227676}
+  - component: {fileID: 199107485358047654}
+  - component: {fileID: 198725885183812184}
   - component: {fileID: 95588928837057144}
   m_Layer: 0
   m_Name: Refract 1
@@ -159,6 +159,7 @@ MonoBehaviour:
   currentHP: 0
   direction: 0
   buildingType: 8
+  takingDamage: 0
   health: 5
   cost: 4
   sprites:

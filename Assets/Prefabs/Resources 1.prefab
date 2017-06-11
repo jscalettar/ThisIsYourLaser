@@ -37,10 +37,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4949122907998946}
   - component: {fileID: 114391393522187838}
-  - component: {fileID: 198985536574777322}
-  - component: {fileID: 199816859346958308}
-  - component: {fileID: 95638658666336986}
   - component: {fileID: 212266836029915752}
+  - component: {fileID: 199816859346958308}
+  - component: {fileID: 198985536574777322}
+  - component: {fileID: 95638658666336986}
   m_Layer: 0
   m_Name: Resources 1
   m_TagString: Untagged

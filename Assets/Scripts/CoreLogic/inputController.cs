@@ -77,6 +77,7 @@ public class inputController : MonoBehaviour {
         public Direction direction;
         public State state;
         public bool moving;
+        public bool colored;
         public float moveDelay;
 
         public Cursor(int X, int Y, Direction dir, Building selected, State current)
@@ -89,6 +90,7 @@ public class inputController : MonoBehaviour {
             moveOrigin = new XY(-1, -1);
             moveBuilding = Building.Empty;
             moving = false;
+            colored = false;
             moveDelay = 0f;
         }
 
@@ -566,6 +568,32 @@ public class inputController : MonoBehaviour {
 				else if (!cursorP2.Equals(cursorP2Last)) { ghostLaser.ghostUpdateNeeded = true; }
                 cursorP1Last = new Cursor(cursorP1.x, cursorP1.y, cursorP1.direction, cursorP1.selection, cursorP1.state);
                 cursorP2Last = new Cursor(cursorP2.x, cursorP2.y, cursorP2.direction, cursorP2.selection, cursorP2.state);
+
+                // Move building color
+                //P1
+                if (cursorP1.state == State.moving || cursorP1.state == State.placingMove) {
+                    if (!cursorP1.colored && gridManager.theGrid.prefabDictionary.ContainsKey(cursorP1.moveOrigin)) {
+                        cursorP1.colored = true;
+                        gridManager.theGrid.prefabDictionary[cursorP1.moveOrigin].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 0.5f, 1f);
+                    }
+                } else {
+                    if (cursorP1.colored && gridManager.theGrid.prefabDictionary.ContainsKey(cursorP1.moveOrigin)) {
+                        gridManager.theGrid.prefabDictionary[cursorP1.moveOrigin].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, 1f);
+                    }
+                    cursorP1.colored = false;
+                }
+                //P2
+                if (cursorP2.state == State.moving || cursorP2.state == State.placingMove) {
+                    if (!cursorP2.colored && gridManager.theGrid.prefabDictionary.ContainsKey(cursorP2.moveOrigin)) {
+                        cursorP2.colored = true;
+                        gridManager.theGrid.prefabDictionary[cursorP2.moveOrigin].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 0.5f, 1f);
+                    }
+                } else {
+                    if (cursorP2.colored && gridManager.theGrid.prefabDictionary.ContainsKey(cursorP2.moveOrigin)) {
+                        gridManager.theGrid.prefabDictionary[cursorP2.moveOrigin].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, 1f);
+                    }
+                    cursorP2.colored = false;
+                }
             }
 		}
         if (TutorialFramework.skipFrame) TutorialFramework.skipFrame = false;
@@ -725,11 +753,19 @@ public class inputController : MonoBehaviour {
 			if (player == Player.PlayerOne) {
 				if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Empty || gridManager.theGrid.getCellInfo(cursorP1.x, cursorP1.y).owner != Player.PlayerOne) {print("Invalid move target.");  }
 				else if (gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y) == Building.Laser) {print("Cannot move this building.");  }
-				else { cursorP1.moveOrigin = new XY(cursorP1.x, cursorP1.y); cursorP1.moveBuilding = gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y); cursorP1.state = State.moving; gridManager.theGrid.prefabDictionary[new XY(cursorP1.x, cursorP1.y)].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, .5f); if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().movingEvent(new XY(cursorP1.x, cursorP1.y), cursorP1.moveBuilding); }
+				else {
+                    cursorP1.moveOrigin = new XY(cursorP1.x, cursorP1.y);
+                    cursorP1.moveBuilding = gridManager.theGrid.getBuilding(cursorP1.x, cursorP1.y);
+                    cursorP1.state = State.moving;
+                    if (TutorialFramework.tutorialActive) gridManager.theGrid.tutorialObject.GetComponent<TutorialFramework>().movingEvent(new XY(cursorP1.x, cursorP1.y), cursorP1.moveBuilding); }
 			} else {
 				if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Empty || gridManager.theGrid.getCellInfo(cursorP2.x, cursorP2.y).owner != Player.PlayerTwo){ print("Invalid move target.");  }
 				else if (gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Base || gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y) == Building.Laser) {print("Cannot move this building.");  }
-				else { cursorP2.moveOrigin = new XY(cursorP2.x, cursorP2.y); cursorP2.moveBuilding = gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y); cursorP2.state = State.moving; gridManager.theGrid.prefabDictionary[new XY(cursorP2.x, cursorP2.y)].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, .5f); }
+				else {
+                    cursorP2.moveOrigin = new XY(cursorP2.x, cursorP2.y);
+                    cursorP2.moveBuilding = gridManager.theGrid.getBuilding(cursorP2.x, cursorP2.y);
+                    cursorP2.state = State.moving;
+                }
 			}
 		} else {
 			print("Can not move, busy with some other action.");  

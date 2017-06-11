@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4996823768602092}
   - component: {fileID: 114588008945558078}
-  - component: {fileID: 198554366963526966}
-  - component: {fileID: 199082308912515012}
-  - component: {fileID: 95096322413615268}
   - component: {fileID: 212007427955305590}
+  - component: {fileID: 199082308912515012}
+  - component: {fileID: 198554366963526966}
+  - component: {fileID: 95096322413615268}
   m_Layer: 0
   m_Name: Reflect 1
   m_TagString: Untagged

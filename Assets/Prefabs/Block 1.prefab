@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4776821365205802}
   - component: {fileID: 114226901065983362}
-  - component: {fileID: 198190487927189642}
-  - component: {fileID: 199695831197382134}
-  - component: {fileID: 95157589874755820}
   - component: {fileID: 212526978649918992}
+  - component: {fileID: 199695831197382134}
+  - component: {fileID: 198190487927189642}
+  - component: {fileID: 95157589874755820}
   m_Layer: 0
   m_Name: Block 1
   m_TagString: Untagged
@@ -78,6 +78,7 @@ MonoBehaviour:
   currentHP: 0
   direction: 0
   buildingType: 8
+  takingDamage: 0
   health: 20
   cost: 8
   sprites:

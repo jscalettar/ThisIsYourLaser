@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4778814111483642}
   - component: {fileID: 114319344229646838}
-  - component: {fileID: 198737218201324714}
-  - component: {fileID: 199233337908721500}
   - component: {fileID: 212241330585870068}
+  - component: {fileID: 199233337908721500}
+  - component: {fileID: 198737218201324714}
   - component: {fileID: 95520107561169422}
   m_Layer: 0
   m_Name: Resources
