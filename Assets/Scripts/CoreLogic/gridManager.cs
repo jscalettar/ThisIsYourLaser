@@ -775,8 +775,9 @@ public struct Grid
                 building.transform.localPosition = coordsToWorld(xNew + .5f, yNew);
             }
 
-                // --------------------------------------------------------------------------------------------------------
+            // --------------------------------------------------------------------------------------------------------
 
+            building.GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, 1f);
             prefabDictionary.Remove(new XY(x, y));
             prefabDictionary.Add(new XY(xNew, yNew), building);
         
