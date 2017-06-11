@@ -17519,15 +17519,15 @@ MonoBehaviour:
     building: 0
     player: 1
     direction: 8
-  initialPopup: {fileID: 2800000, guid: f151a50fac0616e43b7e3a77c3e43839, type: 3}
-  initialPopup2: {fileID: 2800000, guid: 6a9a970717d16f94ca666504c7c872f4, type: 3}
+  initialPopup: {fileID: 2800000, guid: c52da9f416e54e542a13717254da53e5, type: 3}
+  initialPopup2: {fileID: 2800000, guid: ede8f69ecb2ebef4a9afe72f4241193f, type: 3}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 2800000, guid: 94a614a5f3d11b14daa77357c06a3d44, type: 3}
   endOnBaseDestruction: 1
   specificDestroyed: []
-  firstPlacing: {fileID: 2800000, guid: 8095aafb24e3d084683643a3393aa416, type: 3}
+  firstPlacing: {fileID: 2800000, guid: a9acdcc3f79155140a440ca729b0ea0c, type: 3}
   firstPlaced: {fileID: 0}
   endOnPlaced: 0
   firstMoving: {fileID: 0}
@@ -19843,7 +19843,7 @@ MonoBehaviour:
   highlightTexture: {fileID: 2800000, guid: affe588bb2bc1094ca3627df7e7049c3, type: 3}
   initialSelection: 2
   spawnList: []
-  initialPopup: {fileID: 2800000, guid: bfca2e70feefb9b4ba4605377604159a, type: 3}
+  initialPopup: {fileID: 2800000, guid: 745087c683d17f34ab64dc1b90775e92, type: 3}
   initialPopup2: {fileID: 2800000, guid: a709e3fc25f172d4fa84cf4f0a0b3909, type: 3}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
