@@ -774,6 +774,7 @@ public struct Grid
 
             // --------------------------------------------------------------------------------------------------------
 
+            building.GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 1f, 1f);
             prefabDictionary.Remove(new XY(x, y));
             prefabDictionary.Add(new XY(xNew, yNew), building);
         
