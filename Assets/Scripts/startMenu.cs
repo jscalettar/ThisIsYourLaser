@@ -83,9 +83,6 @@ public class startMenu : MonoBehaviour {
 		musicSlider.onValueChanged.AddListener(setMusic);
 		sfxSlider.onValueChanged.AddListener(setSFX);
 		UISlider.onValueChanged.AddListener(setUISFX);
-		//ghostLaserToggle.onValueChanged.AddListener (toggleGhostLaser);
-
-		MonoBehaviour.print(ghostLaser.ghostLaserActive);
 	}
 	public void startGame()
     {
@@ -336,7 +333,6 @@ public class startMenu : MonoBehaviour {
 
     public void toggleGhostLaser() 
     {
-		MonoBehaviour.print ("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		ghostLaser.ghostLaserActive = ghostLaserToggle.isOn;
     }
 
