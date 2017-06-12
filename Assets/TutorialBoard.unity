@@ -2562,7 +2562,7 @@ MonoBehaviour:
   MainMenu: {fileID: 2060491649}
   winText: {fileID: 1194685591}
   Back: {fileID: 421383625}
-  fullscreenToggle: {fileID: 471089978}
+  ghostLaserToggle: {fileID: 0}
   masterSlider: {fileID: 310890889}
   musicSlider: {fileID: 2106227401}
   sfxSlider: {fileID: 927579187}
@@ -2790,19 +2790,19 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &279050955
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 279050954}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 314660326}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &279050956
 MonoBehaviour:
@@ -2815,7 +2815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 4
+  moduleOrderIndex: -4
   initialState: 2
   highlightPos:
     x: 5
@@ -3534,8 +3534,6 @@ Transform:
   - {fileID: 713375135}
   - {fileID: 1792056343}
   - {fileID: 610314348}
-  - {fileID: 279050955}
-  - {fileID: 1903941899}
   - {fileID: 1999940287}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -7441,7 +7439,7 @@ MonoBehaviour:
   highlightTexture: {fileID: 0}
   initialSelection: 0
   spawnList: []
-  initialPopup: {fileID: 2800000, guid: f9f656078c200514f8d3e7696080dc34, type: 3}
+  initialPopup: {fileID: 2800000, guid: 0a7d9a798bd9dba4693b68f9a36db231, type: 3}
   initialPopup2: {fileID: 0}
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
@@ -7450,7 +7448,7 @@ MonoBehaviour:
   endOnBaseDestruction: 0
   specificDestroyed: []
   firstPlacing: {fileID: 2800000, guid: 253f019d764611a43b7dd41a19d50781, type: 3}
-  firstPlaced: {fileID: 2800000, guid: 17908b9aa17290f46a7e0e403c5bbfd4, type: 3}
+  firstPlaced: {fileID: 2800000, guid: c24d4d3bd2089c4429423444ec6e35b4, type: 3}
   endOnPlaced: 0
   firstMoving: {fileID: 0}
   firstMovingPlacing: {fileID: 0}
@@ -7465,7 +7463,7 @@ MonoBehaviour:
       y: -1
     building: 1
     type: 0
-    popup: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
+    popup: {fileID: 2800000, guid: 4c7b58bfa78d6414a9b6208100442a4c, type: 3}
     endTrigger: 1
   movedLeft: {fileID: 0}
   movedRight: {fileID: 0}
@@ -17589,7 +17587,7 @@ MonoBehaviour:
   initialPopup3: {fileID: 0}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
-  baseDestroyed: {fileID: 2800000, guid: 94a614a5f3d11b14daa77357c06a3d44, type: 3}
+  baseDestroyed: {fileID: 2800000, guid: 4c7b58bfa78d6414a9b6208100442a4c, type: 3}
   endOnBaseDestruction: 1
   specificDestroyed: []
   firstPlacing: {fileID: 2800000, guid: a9acdcc3f79155140a440ca729b0ea0c, type: 3}
@@ -19086,19 +19084,19 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1903941899
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1903941898}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 314660326}
-  m_RootOrder: 5
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1903941900
 MonoBehaviour:
@@ -19111,7 +19109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 5
+  moduleOrderIndex: -5
   initialState: 2
   highlightPos:
     x: -1
@@ -19911,8 +19909,8 @@ MonoBehaviour:
   initialSelection: 2
   spawnList: []
   initialPopup: {fileID: 2800000, guid: 745087c683d17f34ab64dc1b90775e92, type: 3}
-  initialPopup2: {fileID: 2800000, guid: a709e3fc25f172d4fa84cf4f0a0b3909, type: 3}
-  initialPopup3: {fileID: 0}
+  initialPopup2: {fileID: 2800000, guid: 8e45bb2af5d918c429d498bdd15681d9, type: 3}
+  initialPopup3: {fileID: 2800000, guid: 9421d21cf6dc78149a4c18211c62046e, type: 3}
   firstDestroyed: {fileID: 0}
   endOnFirstDestroyed: 0
   baseDestroyed: {fileID: 0}
@@ -19934,10 +19932,10 @@ MonoBehaviour:
       y: 3
     building: 9
     type: 0
-    popup: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
+    popup: {fileID: 2800000, guid: 4c7b58bfa78d6414a9b6208100442a4c, type: 3}
     endTrigger: 1
   movedLeft: {fileID: 0}
-  movedRight: {fileID: 2800000, guid: cf5524725aa4b5649aa65ad6f353f58b, type: 3}
+  movedRight: {fileID: 2800000, guid: 89c8a1275c3a2204dbf37e113df46695, type: 3}
   movedUp: {fileID: 0}
   movedDown: {fileID: 0}
   endOnAllDirectionsMoved: 0
@@ -19970,7 +19968,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314660326}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1999940288
 MonoBehaviour:
@@ -19983,7 +19981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e41bd1cca37bb4082669f92549fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleOrderIndex: 6
+  moduleOrderIndex: 4
   initialState: 2
   highlightPos:
     x: 4
@@ -20030,7 +20028,7 @@ MonoBehaviour:
       y: 5
     building: 5
     type: 0
-    popup: {fileID: 2800000, guid: 2cb081f58b2b6274ebe1038ea5fb6eb7, type: 3}
+    popup: {fileID: 2800000, guid: 4c7b58bfa78d6414a9b6208100442a4c, type: 3}
     endTrigger: 1
   movedLeft: {fileID: 0}
   movedRight: {fileID: 0}
