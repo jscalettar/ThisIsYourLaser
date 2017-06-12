@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Full Screen
+  m_Text: Enable ghost laser
 --- !u!222 &62538746
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1848,7 +1848,7 @@ MonoBehaviour:
   LoadingLogo: {fileID: 1913418268}
   Play: {fileID: 2056461814}
   Exit: {fileID: 886622181}
-  fullscreenToggle: {fileID: 671763498}
+  ghostLaserToggle: {fileID: 671763498}
   tutorialButton: {fileID: 2036378454}
   creatureMenuButton: {fileID: 2138815032}
   resDropdown: {fileID: 0}
@@ -3308,8 +3308,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: toggleFullscreen
+      - m_Target: {fileID: 225087593}
+        m_MethodName: toggleGhostLaser
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3317,7 +3317,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -3568,7 +3568,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8364d86ea4075fd479e35d79dfe6d50b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1729514645a6ce4ab88183b6ab86a45, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
