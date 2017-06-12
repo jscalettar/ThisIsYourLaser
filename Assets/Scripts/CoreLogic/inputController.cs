@@ -574,7 +574,7 @@ public class inputController : MonoBehaviour {
                 if (cursorP1.state == State.moving || cursorP1.state == State.placingMove) {
                     if (!cursorP1.colored && gridManager.theGrid.prefabDictionary.ContainsKey(cursorP1.moveOrigin)) {
                         cursorP1.colored = true;
-                        gridManager.theGrid.prefabDictionary[cursorP1.moveOrigin].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 0.5f, 1f);
+                        gridManager.theGrid.prefabDictionary[cursorP1.moveOrigin].GetComponent<Renderer>().material.color = new Vector4(0f, 1f, 1f, 1f);
                     }
                 } else {
                     if (cursorP1.colored && gridManager.theGrid.prefabDictionary.ContainsKey(cursorP1.moveOrigin)) {
@@ -586,7 +586,7 @@ public class inputController : MonoBehaviour {
                 if (cursorP2.state == State.moving || cursorP2.state == State.placingMove) {
                     if (!cursorP2.colored && gridManager.theGrid.prefabDictionary.ContainsKey(cursorP2.moveOrigin)) {
                         cursorP2.colored = true;
-                        gridManager.theGrid.prefabDictionary[cursorP2.moveOrigin].GetComponent<Renderer>().material.color = new Vector4(1f, 1f, 0.5f, 1f);
+                        gridManager.theGrid.prefabDictionary[cursorP2.moveOrigin].GetComponent<Renderer>().material.color = new Vector4(0f, 1f, 1f, 1f);
                     }
                 } else {
                     if (cursorP2.colored && gridManager.theGrid.prefabDictionary.ContainsKey(cursorP2.moveOrigin)) {

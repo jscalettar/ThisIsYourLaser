@@ -14,6 +14,7 @@ public class TutorialFramework : MonoBehaviour {
 
     private TutorialModule activeTutorial;
     private GameObject Highlight;
+    public GameObject BottomImage;
     private bool endFlag = false;
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -196,7 +197,7 @@ public class TutorialFramework : MonoBehaviour {
         gridManager.theGrid.queueUpdate();
         if (Highlight != null) { DestroyImmediate(Highlight); }
         createHighlightSquare();
-        //Invoke("createHighlightSquare", 0.1f);
+        drawBottomImage();
         Limicator.limicatorObj.reset();
     }
 
@@ -247,12 +248,25 @@ public class TutorialFramework : MonoBehaviour {
         if (Highlight.GetComponent<SpriteRenderer>() == null) Highlight.AddComponent<SpriteRenderer>();
         Highlight.transform.position = gridManager.theGrid.coordsToWorld(x, y);
         Highlight.transform.eulerAngles = new Vector3(90f, 0f, 0f);
-        Vector3 v1 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(0, 0));
-        Vector3 v2 = Camera.main.WorldToScreenPoint(gridManager.theGrid.coordsToWorld(1, 0));
         Sprite sprite = Sprite.Create(activeTutorial.highlightTexture, new Rect(0.0f, 0.0f, 256, 256), new Vector2(0.5f, 0.5f), 210f);
         Highlight.GetComponent<SpriteRenderer>().sprite = sprite;
         Highlight.GetComponent<SpriteRenderer>().enabled = true;
         Highlight.GetComponent<SpriteRenderer>().sortingOrder = -1;
+    }
+
+    private void drawBottomImage()
+    {
+        if (activeTutorial.bottomImage == null) {
+            if (BottomImage != null && BottomImage.GetComponent<MeshRenderer>() != null) {
+                BottomImage.GetComponent<MeshRenderer>().enabled = false;
+            }
+            return;
+        }
+
+        if (BottomImage != null && BottomImage.GetComponent<MeshRenderer>() != null) {
+            BottomImage.GetComponent<MeshRenderer>().enabled = true;
+            BottomImage.GetComponent<MeshRenderer>().material.mainTexture = activeTutorial.bottomImage;
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -275,6 +289,7 @@ public class TutorialFramework : MonoBehaviour {
         spawnInitialCreatures();
         displayInitialPopups();
         createHighlightSquare();
+        drawBottomImage();
         initialized = true;
     }
 

@@ -49,6 +49,8 @@ public class TutorialModule : MonoBehaviour {
     public Texture2D movedDown;
     public bool endOnAllDirectionsMoved;
     public Texture2D allDrectionsMovedPopup;
+    [Header("Bottom Screen Image")]
+    public Texture2D bottomImage;
 
     [Serializable]
     public class SpawnItem
