@@ -780,6 +780,7 @@ public struct Grid
             prefabDictionary.Add(new XY(xNew, yNew), building);
         
             grid[yNew, xNew].direction = facing;
+
             // Rotate
             //if (canRotate(grid[yNew, xNew].building)) { building.GetComponent<SpriteRenderer>().sprite = building.GetComponent<buildingParameters>().sprites[directionToIndex(facing)]; building.GetComponent<buildingParameters>().direction = facing; }
             

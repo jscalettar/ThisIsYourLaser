@@ -736,7 +736,7 @@ public class inputController : MonoBehaviour {
                     cursorP2.state = State.placingMove;
                     if (cursorP2.moveBuilding == Building.Resource && laserLogic.laserData.grid[cursorP2.y, cursorP2.x].Count > 0) {
                         Direction dir = ghostLaser.opposite(laserLogic.laserData.grid[cursorP2.y, cursorP2.x][0].getMarchDir());
-                        if (!gridManager.theGrid.moveBuilding(cursorP1.moveOrigin.x, cursorP1.moveOrigin.y, cursorP2.x, cursorP2.y, Player.PlayerTwo, dir)) print("Moving failed.");
+                        if (!gridManager.theGrid.moveBuilding(cursorP2.moveOrigin.x, cursorP2.moveOrigin.y, cursorP2.x, cursorP2.y, Player.PlayerTwo, dir)) print("Moving failed.");
                         cursorP2.state = State.idle;
                     }
                 } else print("Not enough resources to move.");

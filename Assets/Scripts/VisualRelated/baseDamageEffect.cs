@@ -28,7 +28,8 @@ public class baseDamageEffect : MonoBehaviour {
             p1DamageIndicator = new GameObject("p1DamageIndicator");
             p1DamageIndicator.transform.parent = gameObject.transform;
             p1DamageIndicator.transform.localPosition = new Vector3(0f, 2f, 0f);
-            p1DamageIndicator.transform.localScale = Vector3.one * 11f;
+            //p1DamageIndicator.transform.localScale = Vector3.one * 11f;
+            p1DamageIndicator.transform.localScale = new Vector3(12f,11f,11f);
             p1DamageIndicator.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
             p1DamageIndicator.AddComponent<SpriteRenderer>();
             p1DamageIndicator.GetComponent<SpriteRenderer>().sprite = p1DamageSprite;
@@ -40,7 +41,8 @@ public class baseDamageEffect : MonoBehaviour {
             p2DamageIndicator = new GameObject("p1DamageIndicator");
             p2DamageIndicator.transform.parent = gameObject.transform;
             p2DamageIndicator.transform.localPosition = new Vector3(0f, 2f, 0f);
-            p2DamageIndicator.transform.localScale = Vector3.one * 11f;
+            //p2DamageIndicator.transform.localScale = Vector3.one * 11f;
+            p2DamageIndicator.transform.localScale = new Vector3(12f,11f,11f);
             p2DamageIndicator.transform.localEulerAngles = new Vector3(90f, 0f, 0f);
             p2DamageIndicator.AddComponent<SpriteRenderer>();
             p2DamageIndicator.GetComponent<SpriteRenderer>().sprite = p2DamageSprite;
