@@ -109,6 +109,7 @@ public class pauseMenu : MonoBehaviour
 		musicSlider.onValueChanged.AddListener(setMusic);
 		sfxSlider.onValueChanged.AddListener(setSFX);
 		UISlider.onValueChanged.AddListener(setUISFX);
+        MonoBehaviour.print(SoundManager.globalVolume);
     }
 
     // -------------------------------------------------------- //
@@ -118,7 +119,8 @@ public class pauseMenu : MonoBehaviour
     {
         // Stops Update functions, essentially pausing the game
         Time.timeScale = 0F;
-		SoundManager.globalVolume/=8;
+        if(SoundManager.globalVolume == 1)
+		    SoundManager.globalVolume/=8;
         PauseMenu.SetActive(true);
         Pause.gameObject.SetActive(false);
         Pause.interactable = false;
@@ -137,7 +139,7 @@ public class pauseMenu : MonoBehaviour
     {
         // Sets the game time to realtime
         Time.timeScale = 1F;
-		SoundManager.globalVolume*=8;
+		SoundManager.globalVolume = 1;
         skipFrame = true;
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         Pause.interactable = true;
