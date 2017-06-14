@@ -76,6 +76,9 @@ public class startMenu : MonoBehaviour {
         populateList();
 		ghostLaserToggle.isOn = ghostLaser.ghostLaserActive;
         if (tutorialToInstructionFlag.instance.flag) mainMenu();
+        //if(SoundManager.GetMusicAudio() != 0)
+        try{SoundManager.StopAllMusic(-2f);}
+        catch{}
         SoundManager.PlayMusic(musicSounds[0].audioclip, .3f, true, true, 5f, 1.5f);
     }
     void Update(){

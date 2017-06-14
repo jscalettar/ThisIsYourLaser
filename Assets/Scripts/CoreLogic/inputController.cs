@@ -180,7 +180,9 @@ public class inputController : MonoBehaviour {
 		initCursors();
         gridManager.theGrid.updateSquares();
         gridManager.theGrid.updateLaser();
-        SoundManager.PlayMusic(musicSounds[0].audioclip, .2f, true, true, 5f, 1.5f);
+        try{SoundManager.StopAllMusic(-2f);}
+        catch{}
+        SoundManager.PlayMusic(musicSounds[0].audioclip, .2f, true, true, .95f, 1.05f);
         indicatorP1.transform.localScale = new Vector3(2f, 2f, 2f);
         indicatorP2.transform.localScale = new Vector3(2f, 2f, 2f);
     }

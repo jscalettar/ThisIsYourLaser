@@ -109,7 +109,6 @@ public class pauseMenu : MonoBehaviour
 		musicSlider.onValueChanged.AddListener(setMusic);
 		sfxSlider.onValueChanged.AddListener(setSFX);
 		UISlider.onValueChanged.AddListener(setUISFX);
-        MonoBehaviour.print(SoundManager.globalVolume);
     }
 
     // -------------------------------------------------------- //
