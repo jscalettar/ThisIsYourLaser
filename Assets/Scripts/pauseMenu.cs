@@ -61,6 +61,7 @@ public class pauseMenu : MonoBehaviour
     public float masterVol;
     public float musicVol;
     public float sfxVol;
+    public float uisfxVol;
 
     // Use this for initialization
     void Start()
@@ -89,10 +90,16 @@ public class pauseMenu : MonoBehaviour
         // Other stuff
         //Screen.fullScreen = true;
         populateList();
+        //set slider value
 		masterSlider.value = SoundManager.globalVolume;
 		musicSlider.value = SoundManager.globalMusicVolume;
 		sfxSlider.value = SoundManager.globalSoundsVolume;
 		UISlider.value = SoundManager.globalUISoundsVolume;
+        //keep values so that pausing while in fade cannot override volume
+        masterVol = SoundManager.globalVolume;
+        musicVol = SoundManager.globalMusicVolume;
+        sfxVol = SoundManager.globalSoundsVolume;
+        uisfxVol = SoundManager.globalUISoundsVolume;
 		ghostLaserToggle.isOn = ghostLaser.ghostLaserActive;
     }
 
@@ -138,7 +145,10 @@ public class pauseMenu : MonoBehaviour
     {
         // Sets the game time to realtime
         Time.timeScale = 1F;
-		SoundManager.globalVolume = 1;
+        SoundManager.globalVolume = masterVol;
+        SoundManager.globalMusicVolume = musicVol;
+        SoundManager.globalSoundsVolume = sfxVol;
+        SoundManager.globalUISoundsVolume = uisfxVol; 
         skipFrame = true;
         SoundManager.PlayUISound(inputController.UISounds[1].audioclip, .3f);
         Pause.interactable = true;
@@ -436,23 +446,27 @@ public class pauseMenu : MonoBehaviour
     public void setMaster(float vol)
     {
         SoundManager.globalVolume = vol;
+        masterVol = vol;
         //Need actual sound source to implement
     }
 
     public void setMusic(float vol)
     {
         SoundManager.globalMusicVolume = vol;
+        musicVol = vol;
         //Need actual sound source to implement
     }
 
     public void setSFX(float vol)
     {
         SoundManager.globalSoundsVolume = vol;
+        sfxVol = vol;
         //Need actual sound source to implement
     }
 	public void setUISFX(float vol)
 	{
 		SoundManager.globalUISoundsVolume = vol;
+        uisfxVol = vol;
 		//Need actual sound source to implement
 	}
 

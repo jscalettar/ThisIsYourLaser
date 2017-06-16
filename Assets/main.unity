@@ -3071,7 +3071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -370, y: -210}
+  m_AnchoredPosition: {x: -370, y: -201}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &258535686
@@ -19707,6 +19707,7 @@ MonoBehaviour:
   masterVol: 0
   musicVol: 0
   sfxVol: 0
+  uisfxVol: 0
 --- !u!225 &2061673249
 CanvasGroup:
   m_ObjectHideFlags: 0

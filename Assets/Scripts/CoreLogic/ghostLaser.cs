@@ -26,7 +26,7 @@ public class ghostLaser : MonoBehaviour {
 
     public static bool ghostUpdateNeeded = false;
     public static bool updateGhostLaser = false;
-	public static bool ghostLaserActive;
+	public static bool ghostLaserActive = true;
     private struct laserNode
     {
         private int X;
