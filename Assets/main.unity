@@ -19286,6 +19286,8 @@ MonoBehaviour:
   - audioclip: {fileID: 8300000, guid: 29c35a70c6ca6294e8c9f6f11b3bc16f, type: 3}
   - audioclip: {fileID: 8300000, guid: 561d9412d65223e4b88c7ecf00867e88, type: 3}
   - audioclip: {fileID: 8300000, guid: 561d9412d65223e4b88c7ecf00867e88, type: 3}
+  - audioclip: {fileID: 8300000, guid: c34f3b20f18721843865dc6e3fce2564, type: 3}
+  - audioclip: {fileID: 8300000, guid: d8a07d02fa8a0f247b6cf96c182ab45c, type: 3}
   setUISounds:
   - audioclip: {fileID: 8300000, guid: 18905e0693f4ef7429e396da0a4687af, type: 3}
   - audioclip: {fileID: 8300000, guid: 59f120f3833d2b14abf8d87acfa9669e, type: 3}

@@ -450,12 +450,17 @@ public struct Grid
                             break;
 						case Building.Refracting: 
 							SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
-							SoundManager.PlaySound (inputController.Sounds [18].audioclip, .1f, true, 1.5f, 1.8f);
+							SoundManager.PlaySound (inputController.Sounds [18].audioclip, .6f, true, 1.5f, 1.8f);
                             hitTimer = 4.5f; 
                             break;
                         case Building.Blocking: 
                             SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
                             SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(16,17)].audioclip, .6f, true, .4f, .6f);  
+                            hitTimer = 4.5f; 
+                            break;
+                        case Building.Redirecting: 
+                            SoundManager.PlaySound(inputController.Sounds [6].audioclip, .4f, true, .8f, 1.2f); 
+                            SoundManager.PlaySound (inputController.Sounds [UnityEngine.Random.Range(22,23)].audioclip, .6f, true, .9f, 1.3f);  
                             hitTimer = 4.5f; 
                             break;
                         default: SoundManager.PlaySound (inputController.Sounds [6].audioclip, .4f); hitTimer = 4.5f; break;
